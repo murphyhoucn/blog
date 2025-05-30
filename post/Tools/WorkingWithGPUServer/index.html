@@ -22,7 +22,7 @@
     <meta name="description" content="记录一下在实验室的GPU服务器上做了些什么吧！">
 <meta property="og:type" content="article">
 <meta property="og:title" content="瞧瞧我对服务器干了些什么！">
-<meta property="og:url" content="https://cosmicdusty.cc/blog/post/Tools/WorkingWithGPUServer/index.html">
+<meta property="og:url" content="https://blog.cosmicdusty.cc/post/Tools/WorkingWithGPUServer/index.html">
 <meta property="og:site_name" content="MurphyHou">
 <meta property="og:description" content="记录一下在实验室的GPU服务器上做了些什么吧！">
 <meta property="og:locale" content="zh_CN">
@@ -66,12 +66,12 @@
 <link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_lbnruvf0jn.css">
 
 
-<link  rel="stylesheet" href="/blog/css/main.css" />
+<link  rel="stylesheet" href="/css/main.css" />
 
 
-  <link id="highlight-css" rel="stylesheet" href="/blog/css/highlight.css" />
+  <link id="highlight-css" rel="stylesheet" href="/css/highlight.css" />
   
-    <link id="highlight-css-dark" rel="stylesheet" href="/blog/css/highlight-dark.css" />
+    <link id="highlight-css-dark" rel="stylesheet" href="/css/highlight-dark.css" />
   
 
 
@@ -80,15 +80,15 @@
   <script id="fluid-configs">
     var Fluid = window.Fluid || {};
     Fluid.ctx = Object.assign({}, Fluid.ctx)
-    var CONFIG = {"hostname":"cosmicdusty.cc","root":"/blog/","version":"1.9.8","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false,"scope":[]},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"left","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"code_language":{"enable":true,"default":"TEXT"},"copy_btn":true,"image_caption":{"enable":true},"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"placement":"right","headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"https://murhyimgur.oss-cn-beijing.aliyuncs.com/website/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":true,"follow_dnt":true,"baidu":"16d93d5abbd7ea15ec53daed5459ebf7","google":null,"tencent":{"sid":null,"cid":null},"leancloud":{"app_id":"JijHNKemeVNog4wF7g9I5TR3","app_key":"FvsKdxHOP2aG5rHrHby5aV0b","server_url":null,"path":"window.location.pathname","ignore_local":false},"umami":{"src":null,"website_id":null,"domains":null,"start_time":"2024-01-01T00:00:00.000Z","token":null,"api_server":null},"gtag":null,"woyaola":null,"cnzz":null},"search_path":"/blog/local-search.xml","include_content_in_search":true};
+    var CONFIG = {"hostname":"blog.cosmicdusty.cc","root":"/","version":"1.9.8","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false,"scope":[]},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"left","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"code_language":{"enable":true,"default":"TEXT"},"copy_btn":true,"image_caption":{"enable":true},"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"placement":"right","headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"https://murhyimgur.oss-cn-beijing.aliyuncs.com/website/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":true,"follow_dnt":true,"baidu":"16d93d5abbd7ea15ec53daed5459ebf7","google":null,"tencent":{"sid":null,"cid":null},"leancloud":{"app_id":"JijHNKemeVNog4wF7g9I5TR3","app_key":"FvsKdxHOP2aG5rHrHby5aV0b","server_url":null,"path":"window.location.pathname","ignore_local":false},"umami":{"src":null,"website_id":null,"domains":null,"start_time":"2024-01-01T00:00:00.000Z","token":null,"api_server":null},"gtag":null,"woyaola":null,"cnzz":null},"search_path":"/local-search.xml","include_content_in_search":true};
 
     if (CONFIG.web_analytics.follow_dnt) {
       var dntVal = navigator.doNotTrack || window.doNotTrack || navigator.msDoNotTrack;
       Fluid.ctx.dnt = dntVal && (dntVal.startsWith('1') || dntVal.startsWith('yes') || dntVal.startsWith('on'));
     }
   </script>
-  <script  src="/blog/js/utils.js" ></script>
-  <script  src="/blog/js/color-schema.js" ></script>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
   
 
   
@@ -131,7 +131,7 @@
 <div class="header-inner" style="height: 70vh;">
   <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
   <div class="container">
-    <a class="navbar-brand" href="/blog/">
+    <a class="navbar-brand" href="/">
       <strong>CosmicDusty</strong>
     </a>
 
@@ -150,7 +150,7 @@
           
           
             <li class="nav-item">
-              <a class="nav-link" href="/blog/" target="_self">
+              <a class="nav-link" href="/" target="_self">
                 <i class="iconfont icon-home-fill"></i>
                 <span>首页</span>
               </a>
@@ -162,7 +162,7 @@
           
           
             <li class="nav-item">
-              <a class="nav-link" href="/blog/archives/" target="_self">
+              <a class="nav-link" href="/archives/" target="_self">
                 <i class="iconfont icon-archive-fill"></i>
                 <span>归档</span>
               </a>
@@ -174,7 +174,7 @@
           
           
             <li class="nav-item">
-              <a class="nav-link" href="/blog/categories/" target="_self">
+              <a class="nav-link" href="/categories/" target="_self">
                 <i class="iconfont icon-category-fill"></i>
                 <span>分类</span>
               </a>
@@ -186,7 +186,7 @@
           
           
             <li class="nav-item">
-              <a class="nav-link" href="/blog/tags/" target="_self">
+              <a class="nav-link" href="/tags/" target="_self">
                 <i class="iconfont icon-tags-fill"></i>
                 <span>标签</span>
               </a>
@@ -198,7 +198,7 @@
           
           
             <li class="nav-item">
-              <a class="nav-link" href="/blog/about/" target="_self">
+              <a class="nav-link" href="/about/" target="_self">
                 <i class="iconfont icon-user-fill"></i>
                 <span>关于</span>
               </a>
@@ -210,7 +210,7 @@
           
           
             <li class="nav-item">
-              <a class="nav-link" href="/blog/links/" target="_self">
+              <a class="nav-link" href="/links/" target="_self">
                 <i class="iconfont icon-link-fill"></i>
                 <span>友链</span>
               </a>
@@ -672,7 +672,7 @@
 <li><a target="_blank" rel="noopener" href="https://www.coderjia.cn/archives/dba3f94c-a021-468a-8ac6-e840f85867ea">目前国内可用Docker镜像源汇总（截至2024年12月） - CoderJia</a></li>
 </ul>
 </blockquote>
-<p>上网代理，参考<a href="https://cosmicdusty.cc/post/Tools/WorkingWithGPUServer/#Clash-for-Linux">瞧瞧我对服务器干了些什么！ - MurphyHou (cosmicdusty.cc)</a></p>
+<p>上网代理，参考<a target="_blank" rel="noopener" href="https://cosmicdusty.cc/post/Tools/WorkingWithGPUServer/#Clash-for-Linux">瞧瞧我对服务器干了些什么！ - MurphyHou (cosmicdusty.cc)</a></p>
 <p>一、配置镜像服务器（很多镜像服务器已经不能用了）</p>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><code class="hljs bash">vim /etc/docker/daemon.json<br><br><span class="hljs-comment"># 在json配置文件中，输入以下配置</span><br>&#123;<br>  <span class="hljs-string">&quot;registry-mirrors&quot;</span>: [<br>    <span class="hljs-string">&quot;https://hub-mirror.c.163.com&quot;</span>,<br>    <span class="hljs-string">&quot;https://mirror.baidubce.com&quot;</span><br>  ]<br>&#125;<br><br><span class="hljs-comment"># 然后重启docker服务</span><br><span class="hljs-built_in">sudo</span> systemctl daemon-reload<br><span class="hljs-built_in">sudo</span> systemctl restart docker<br></code></pre></td></tr></table></figure>
 
@@ -728,7 +728,7 @@
     
       <span class="category-chain">
         
-  <a href="/blog/categories/%E9%AB%98%E6%95%88%E5%B7%A5%E5%85%B7/" class="category-chain-item">高效工具</a>
+  <a href="/categories/%E9%AB%98%E6%95%88%E5%B7%A5%E5%85%B7/" class="category-chain-item">高效工具</a>
   
   
 
@@ -743,15 +743,15 @@
     <div class="post-meta">
       <i class="iconfont icon-tags"></i>
       
-        <a href="/blog/tags/Linux/" class="print-no-link">#Linux</a>
+        <a href="/tags/Linux/" class="print-no-link">#Linux</a>
       
-        <a href="/blog/tags/Server/" class="print-no-link">#Server</a>
+        <a href="/tags/Server/" class="print-no-link">#Server</a>
       
-        <a href="/blog/tags/GPU/" class="print-no-link">#GPU</a>
+        <a href="/tags/GPU/" class="print-no-link">#GPU</a>
       
-        <a href="/blog/tags/DeepLearning/" class="print-no-link">#DeepLearning</a>
+        <a href="/tags/DeepLearning/" class="print-no-link">#DeepLearning</a>
       
-        <a href="/blog/tags/CV/" class="print-no-link">#CV</a>
+        <a href="/tags/CV/" class="print-no-link">#CV</a>
       
     </div>
   
@@ -764,7 +764,7 @@
   <div class="license-box my-3">
     <div class="license-title">
       <div>瞧瞧我对服务器干了些什么！</div>
-      <div>https://cosmicdusty.cc/blog/post/Tools/WorkingWithGPUServer/</div>
+      <div>https://blog.cosmicdusty.cc/post/Tools/WorkingWithGPUServer/</div>
     </div>
     <div class="license-meta">
       
@@ -808,7 +808,7 @@
                   <article class="post-prev col-6">
                     
                     
-                      <a href="/blog/post/Knowledge/ChernoCPP_1/" title="ChernoCPP-1">
+                      <a href="/post/Knowledge/ChernoCPP_1/" title="ChernoCPP-1">
                         <i class="iconfont icon-arrowleft"></i>
                         <span class="hidden-mobile">ChernoCPP-1</span>
                         <span class="visible-mobile">上一篇</span>
@@ -818,7 +818,7 @@
                   <article class="post-next col-6">
                     
                     
-                      <a href="/blog/post/MyLife/Hi-HowAreYou/" title="Hi, How Are You?🤗">
+                      <a href="/post/MyLife/Hi-HowAreYou/" title="Hi, How Are You?🤗">
                         <span class="hidden-mobile">Hi, How Are You?🤗</span>
                         <span class="visible-mobile">下一篇</span>
                         <i class="iconfont icon-arrowright"></i>
@@ -1004,8 +1004,8 @@
 
 <script  src="https://lib.baomitu.com/jquery/3.6.0/jquery.min.js" ></script>
 <script  src="https://lib.baomitu.com/twitter-bootstrap/4.6.1/js/bootstrap.min.js" ></script>
-<script  src="/blog/js/events.js" ></script>
-<script  src="/blog/js/plugins.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
 
 
   <script  src="https://lib.baomitu.com/typed.js/2.0.12/typed.min.js" ></script>
@@ -1027,7 +1027,7 @@
 
 
   
-    <script  src="/blog/js/img-lazyload.js" ></script>
+    <script  src="/js/img-lazyload.js" ></script>
   
 
 
@@ -1126,9 +1126,9 @@
 
   <script>Fluid.plugins.imageCaption();</script>
 
-  <script defer src="/blog/js/leancloud.js" ></script>
+  <script defer src="/js/leancloud.js" ></script>
 
-  <script  src="/blog/js/local-search.js" ></script>
+  <script  src="/js/local-search.js" ></script>
 
   <script defer src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js" ></script>
 
@@ -1138,7 +1138,7 @@
 
 <!-- 主题的启动项，将它保持在最底部 -->
 <!-- the boot of the theme, keep it at the bottom -->
-<script  src="/blog/js/boot.js" ></script>
+<script  src="/js/boot.js" ></script>
 
 
   
