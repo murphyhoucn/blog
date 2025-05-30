@@ -2169,7 +2169,7 @@
 
 
 
-<p><img src="/blog/HighlevelLanguageProgramming.assets/image-20221003120708294.png" srcset="https://murhyimgur.oss-cn-beijing.aliyuncs.com/website/loading.gif" lazyload alt="image-20221003120708294"></p>
+<p><img src="/HighlevelLanguageProgramming.assets/image-20221003120708294.png" srcset="https://murhyimgur.oss-cn-beijing.aliyuncs.com/website/loading.gif" lazyload alt="image-20221003120708294"></p>
 <h3 id="gcc-g"><a href="#gcc-g" class="headerlink" title="gcc&#x2F;g++"></a>gcc&#x2F;g++</h3><blockquote>
 <p>gcc发展到今天已经不单单可以编译C语言了，还可以编译C++、Java、Object-C等多种其他语言<br>有一种说法是GCC的全名是GNU Compiler Collection(GUN 编译器集合)，而gcc是GCC中用于编译c语言的编译器<br>事实上，gcc看起来并不像是一个编译器，而像一个调度器，针对于不同的文件调用不同编程语言的编译器<br>对于后缀为*.c的文件，gcc把它当作是C语言程序源代码，而g++当作是C++程序源代码<br>对于后缀为*.cpp的文件，gcc和g++都会当作是C++程序源代码<br>使用g++编译文件时，g++会自动链接标准库STL，而gcc不会自动链接STL，所以再使用gcc编译C++程序是有时会报错<br>在用gcc编译C++文件时，为了能够使用STL，需要加参数 –lstdc++ ，但这并不代表 gcc –lstdc++ 和 g++等价<br>据说g++会调用gcc，对于C++代码，因为gcc命令不能自动和C++程序使用的库联接，所以通常用g++来完成链接<br>需要注意的是，虽说g++会调用gcc，对于*.c文件来说，编译出来的可执行文件也不一样，因为gcc会当成C语言程序编译，而g++调用的gcc会把它当做C++语言程序来编译，这或许就能解释为什么用g++就可以编译所有C&#x2F;C++的程序，还要有gcc的存在（就我测试来看，同样的C语言代码，g++编译出来的程序体积要大一些）</p>
 </blockquote>
