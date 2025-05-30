@@ -1,0 +1,1150 @@
+
+
+<!DOCTYPE html>
+<html lang="zh-CN" data-default-color-scheme=auto>
+
+
+
+<head>
+  <meta charset="UTF-8">
+
+  <link rel="apple-touch-icon" sizes="76x76" href="https://murhyimgur.oss-cn-beijing.aliyuncs.com/website/星星.png">
+  <link rel="icon" href="https://murhyimgur.oss-cn-beijing.aliyuncs.com/website/星星.png">
+  
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="author" content="Murphy">
+  <meta name="keywords" content="Murphy,CosmicDusty,murphy,cosmicdusty,cn">
+  
+    <meta name="description" content="记录一下在实验室的GPU服务器上做了些什么吧！">
+<meta property="og:type" content="article">
+<meta property="og:title" content="瞧瞧我对服务器干了些什么！">
+<meta property="og:url" content="https://cosmicdusty.cc/post/Tools/WorkingWithGPUServer/index.html">
+<meta property="og:site_name" content="MurphyHou">
+<meta property="og:description" content="记录一下在实验室的GPU服务器上做了些什么吧！">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://murhyimgur.oss-cn-beijing.aliyuncs.com/img/cyberspace-2784907_1280.jpg">
+<meta property="article:published_time" content="2023-11-01T02:28:51.000Z">
+<meta property="article:modified_time" content="2024-12-19T12:56:13.000Z">
+<meta property="article:author" content="Murphy">
+<meta property="article:tag" content="Linux">
+<meta property="article:tag" content="Server">
+<meta property="article:tag" content="GPU">
+<meta property="article:tag" content="DeepLearning">
+<meta property="article:tag" content="CV">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="https://murhyimgur.oss-cn-beijing.aliyuncs.com/img/cyberspace-2784907_1280.jpg">
+  
+  
+    <meta name="referrer" content="no-referrer-when-downgrade">
+  
+  
+  <title>瞧瞧我对服务器干了些什么！ - MurphyHou</title>
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
+
+
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/github-markdown-css/4.0.0/github-markdown.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/hint.css/2.7.0/hint.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.css" />
+
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+<!-- Do not modify the link that theme dependent icons -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/c/font_1749284_5i9bdhy70f8.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_lbnruvf0jn.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+
+  <link id="highlight-css" rel="stylesheet" href="/css/highlight.css" />
+  
+    <link id="highlight-css-dark" rel="stylesheet" href="/css/highlight-dark.css" />
+  
+
+
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    Fluid.ctx = Object.assign({}, Fluid.ctx)
+    var CONFIG = {"hostname":"cosmicdusty.cc","root":"/","version":"1.9.8","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false,"scope":[]},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"left","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"code_language":{"enable":true,"default":"TEXT"},"copy_btn":true,"image_caption":{"enable":true},"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"placement":"right","headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"https://murhyimgur.oss-cn-beijing.aliyuncs.com/website/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":true,"follow_dnt":true,"baidu":"16d93d5abbd7ea15ec53daed5459ebf7","google":null,"tencent":{"sid":null,"cid":null},"leancloud":{"app_id":"JijHNKemeVNog4wF7g9I5TR3","app_key":"FvsKdxHOP2aG5rHrHby5aV0b","server_url":null,"path":"window.location.pathname","ignore_local":false},"umami":{"src":null,"website_id":null,"domains":null,"start_time":"2024-01-01T00:00:00.000Z","token":null,"api_server":null},"gtag":null,"woyaola":null,"cnzz":null},"search_path":"/local-search.xml","include_content_in_search":true};
+
+    if (CONFIG.web_analytics.follow_dnt) {
+      var dntVal = navigator.doNotTrack || window.doNotTrack || navigator.msDoNotTrack;
+      Fluid.ctx.dnt = dntVal && (dntVal.startsWith('1') || dntVal.startsWith('yes') || dntVal.startsWith('on'));
+    }
+  </script>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+  
+
+  
+    <!-- Baidu Analytics -->
+    <script async>
+      if (!Fluid.ctx.dnt) {
+        var _hmt = _hmt || [];
+        (function() {
+          var hm = document.createElement("script");
+          hm.src = "https://hm.baidu.com/hm.js?16d93d5abbd7ea15ec53daed5459ebf7";
+          var s = document.getElementsByTagName("script")[0];
+          s.parentNode.insertBefore(hm, s);
+        })();
+      }
+    </script>
+  
+
+  
+
+  
+
+  
+
+  
+    
+  
+
+
+
+  
+<meta name="generator" content="Hexo 7.3.0"></head>
+
+
+<body>
+  
+
+  <header>
+    
+
+<div class="header-inner" style="height: 70vh;">
+  <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand" href="/">
+      <strong>CosmicDusty</strong>
+    </a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/" target="_self">
+                <i class="iconfont icon-home-fill"></i>
+                <span>首页</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/" target="_self">
+                <i class="iconfont icon-archive-fill"></i>
+                <span>归档</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/" target="_self">
+                <i class="iconfont icon-category-fill"></i>
+                <span>分类</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/" target="_self">
+                <i class="iconfont icon-tags-fill"></i>
+                <span>标签</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/" target="_self">
+                <i class="iconfont icon-user-fill"></i>
+                <span>关于</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/links/" target="_self">
+                <i class="iconfont icon-link-fill"></i>
+                <span>友链</span>
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" target="_self" href="javascript:;" data-toggle="modal" data-target="#modalSearch" aria-label="Search">
+              <i class="iconfont icon-search"></i>
+            </a>
+          </li>
+          
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" target="_self" href="javascript:;" aria-label="Color Toggle">
+              <i class="iconfont icon-dark" id="color-toggle-icon"></i>
+            </a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+  
+
+<div id="banner" class="banner" parallax=true
+     style="background: url('https://murhyimgur.oss-cn-beijing.aliyuncs.com/img/cyberspace-2784907_1280.jpg') no-repeat center center; background-size: cover;">
+  <div class="full-bg-img">
+    <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+      <div class="banner-text text-center fade-in-up">
+        <div class="h2">
+          
+            <span id="subtitle" data-typed-text="瞧瞧我对服务器干了些什么！"></span>
+          
+        </div>
+
+        
+          
+  <div class="mt-3">
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-author" aria-hidden="true"></i>
+        Murphy
+      </span>
+    
+    
+      <span class="post-meta">
+        <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+        <time datetime="2023-11-01 10:28" pubdate>
+          2023年11月1日 上午
+        </time>
+      </span>
+    
+  </div>
+
+  <div class="mt-1">
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-chart"></i>
+        
+          6.3k 字
+        
+      </span>
+    
+
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-clock-fill"></i>
+        
+        
+        
+          53 分钟
+        
+      </span>
+    
+
+    
+    
+  </div>
+
+
+        
+      </div>
+
+      
+    </div>
+  </div>
+</div>
+
+</div>
+
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+
+    </div>
+
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div id="board">
+          <article class="post-content mx-auto">
+            <h1 id="seo-header">瞧瞧我对服务器干了些什么！</h1>
+            
+            
+              <div class="markdown-body">
+                
+                <h1 id="Git与Github"><a href="#Git与Github" class="headerlink" title="Git与Github"></a>Git与Github</h1><ul>
+<li>在Linux的Ubuntu发行版上一般都会默认安装了Git，所以不需要自己手动安装，拿来即用即可。</li>
+</ul>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs ba">git config --global user.name &quot;SSH keys Name&quot;<br>git config --global user.email &quot;SSH keys Email&quot;<br></code></pre></td></tr></table></figure>
+
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">ssh-keygen -t rsa -C <span class="hljs-string">&quot;Email of Github Account&quot;</span><br></code></pre></td></tr></table></figure>
+
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><code class="hljs bash">(base) houjinliang@3080server:~/userdoc/d2cv$ git config --global user.name <span class="hljs-string">&#x27;hjl_3080server&#x27;</span><br>(base) houjinliang@3080server:~/userdoc/d2cv$ git config --global user.email <span class="hljs-string">&#x27;cosmicdustycn@outlook.com&#x27;</span><br>(base) houjinliang@3080server:~/userdoc/d2cv$ ssh-keygen -t rsa -C <span class="hljs-string">&quot;cosmicdustycn@outlook.com&quot;</span><br>Generating public/private rsa key pair.<br>Enter file <span class="hljs-keyword">in</span> <span class="hljs-built_in">which</span> to save the key (/mnt/houjinliang/.ssh/id_rsa): <br>Created directory <span class="hljs-string">&#x27;/mnt/houjinliang/.ssh&#x27;</span>.<br>Enter passphrase (empty <span class="hljs-keyword">for</span> no passphrase): <br>Enter same passphrase again: <br>Your identification has been saved <span class="hljs-keyword">in</span> /mnt/houjinliang/.ssh/id_rsa.<br>Your public key has been saved <span class="hljs-keyword">in</span> /mnt/houjinliang/.ssh/id_rsa.pub.<br></code></pre></td></tr></table></figure>
+
+<ul>
+<li>不需要担心Git的用户配置会对本服务器上的其他用户会产生影响。<code>ssh-keygen</code>生产的的用户密钥会保存在个人账号的目录下。</li>
+</ul>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><code class="hljs bash">(dlpy310pth113) houjinliang@3080server:~/.ssh$ <span class="hljs-built_in">pwd</span><br>/mnt/houjinliang/.ssh<br>(dlpy310pth113) houjinliang@3080server:~/.ssh$ ll<br>总用量 20<br>drwx------  2 houjinliang houjinliang 4096 11月  1 10:19 ./<br>drwxr-xr-x 12 houjinliang houjinliang 4096 11月  1 10:17 ../<br>-rw-------  1 houjinliang houjinliang 1675 11月  1 10:17 id_rsa<br>-rw-r--r--  1 houjinliang houjinliang  407 11月  1 10:17 id_rsa.pub<br>-rw-r--r--  1 houjinliang houjinliang  444 11月  1 10:19 known_hosts<br></code></pre></td></tr></table></figure>
+
+<ul>
+<li>复制<code>id_rsa.pub</code>文件下的内容，到Github的Setting中设置SSH Keys。如下。</li>
+</ul>
+<p><img src="https://murhyimgur.oss-cn-beijing.aliyuncs.com/img/image-20231101105539214.png" srcset="https://murhyimgur.oss-cn-beijing.aliyuncs.com/website/loading.gif" lazyload alt="image-20231101105539214"></p>
+<p><img src="https://murhyimgur.oss-cn-beijing.aliyuncs.com/img/image-20231102171332923.png" srcset="https://murhyimgur.oss-cn-beijing.aliyuncs.com/website/loading.gif" lazyload alt="image-20231102171332923"></p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs bash">ssh -T git@github.com<br>Hi murphyhoucn! You<span class="hljs-string">&#x27;ve successfully authenticated, but GitHub does not provide shell access.</span><br></code></pre></td></tr></table></figure>
+
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs bash">(base) houjinliang@3080server:~/userdoc$ git <span class="hljs-built_in">clone</span> git@github.com:murphyhoucn/DeepLearningforCV.git<br>(base) houjinliang@3080server:~/userdoc/DeepLearningforCV$ git status<br>(base) houjinliang@3080server:~/userdoc/DeepLearningforCV$ git add .<br>(base) houjinliang@3080server:~/userdoc/DeepLearningforCV$ git commit -m <span class="hljs-string">&quot;add new file&quot;</span><br>(base) houjinliang@3080server:~/userdoc/DeepLearningforCV$ git push<br></code></pre></td></tr></table></figure>
+
+
+
+<h1 id="查看GPU占用情况"><a href="#查看GPU占用情况" class="headerlink" title="查看GPU占用情况"></a>查看GPU占用情况</h1><h2 id="nvidia-smi"><a href="#nvidia-smi" class="headerlink" title="nvidia-smi"></a>nvidia-smi</h2><p><img src="https://murhyimgur.oss-cn-beijing.aliyuncs.com/img/image-20231101110320173.png" srcset="https://murhyimgur.oss-cn-beijing.aliyuncs.com/website/loading.gif" lazyload alt="image-20231101110320173"></p>
+<h2 id="gpustat"><a href="#gpustat" class="headerlink" title="gpustat"></a>gpustat</h2><blockquote>
+<p><a target="_blank" rel="noopener" href="https://github.com/wookayin/gpustat">GitHub - wookayin&#x2F;gpustat: 📊 A simple command-line utility for querying and monitoring GPU status</a></p>
+</blockquote>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs bash">(dlpy310pth113) houjinliang@3080server:~/userdoc$ pip install gpustat<br>(dlpy310pth113) houjinliang@3080server:~/userdoc$ gpustat<br></code></pre></td></tr></table></figure>
+
+<p><img src="https://murhyimgur.oss-cn-beijing.aliyuncs.com/img/image-20231101110430041.png" srcset="https://murhyimgur.oss-cn-beijing.aliyuncs.com/website/loading.gif" lazyload alt="image-20231101110430041"></p>
+<h2 id="nvitop"><a href="#nvitop" class="headerlink" title="nvitop"></a>nvitop</h2><blockquote>
+<p> <a target="_blank" rel="noopener" href="https://github.com/XuehaiPan/nvitop">GitHub - XuehaiPan&#x2F;nvitop: An interactive NVIDIA-GPU process viewer and beyond, the one-stop solution for GPU process management.</a></p>
+<p><a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/614024375">nvitop: 史上最强GPU性能实时监测工具 - 知乎 (zhihu.com)</a></p>
+</blockquote>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><code class="hljs bash">(dlpy310pth113) houjinliang@3080server:~$ pip install nvitop<br>Requirement already satisfied: nvitop <span class="hljs-keyword">in</span> ./miniconda3/envs/dlpy310pth113/lib/python3.10/site-packages (1.3.0)<br>Requirement already satisfied: nvidia-ml-py&lt;12.536.0a0,&gt;=11.450.51 <span class="hljs-keyword">in</span> ./miniconda3/envs/dlpy310pth113/lib/python3.10/site-packages (from nvitop) (12.535.108)<br>Requirement already satisfied: psutil&gt;=5.6.6 <span class="hljs-keyword">in</span> ./miniconda3/envs/dlpy310pth113/lib/python3.10/site-packages (from nvitop) (5.9.5)<br>Requirement already satisfied: cachetools&gt;=1.0.1 <span class="hljs-keyword">in</span> ./miniconda3/envs/dlpy310pth113/lib/python3.10/site-packages (from nvitop) (5.3.1)<br>Requirement already satisfied: termcolor&gt;=1.0.0 <span class="hljs-keyword">in</span> ./miniconda3/envs/dlpy310pth113/lib/python3.10/site-packages (from nvitop) (2.3.0)<br></code></pre></td></tr></table></figure>
+
+<p><img src="https://murhyimgur.oss-cn-beijing.aliyuncs.com/img/image-20231101110731169.png" srcset="https://murhyimgur.oss-cn-beijing.aliyuncs.com/website/loading.gif" lazyload alt="image-20231101110731169"></p>
+<h1 id="Clash-for-Linux"><a href="#Clash-for-Linux" class="headerlink" title="Clash for Linux"></a>Clash for Linux</h1><blockquote>
+<p><a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/662552814">Ubuntu配置 命令行Clash 教程 - 知乎 (zhihu.com)</a></p>
+<p><a target="_blank" rel="noopener" href="https://weilining.github.io/294.html">终端使用代理加速的正确方式（Clash） | Ln’s Blog (weilining.github.io)</a></p>
+</blockquote>
+<h2 id="2024-01-10"><a href="#2024-01-10" class="headerlink" title="2024.01.10"></a>2024.01.10</h2><ul>
+<li>Download: <a target="_blank" rel="noopener" href="https://pub-eac3eb5670f44f09984dee5c57939316.r2.dev/clash-linux-amd64-v1.18.0.gz">clash-linux-amd64-v1.18.0.gz</a></li>
+</ul>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs bash">gunzip clash-linux-amd64-v1.18.0.gz<br><span class="hljs-built_in">mv</span> clash-linux-amd64-v1.18.0 clash<br><span class="hljs-built_in">chmod</span> u+x clash<br>./clash<br></code></pre></td></tr></table></figure>
+
+<figure class="highlight markdown"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs markdown">在 ~/.config/clash/config.yaml 写入订阅的内容<br></code></pre></td></tr></table></figure>
+
+<p><img src="https://murhyimgur.oss-cn-beijing.aliyuncs.com/img/image-20240110153702123-170513523115811.png" srcset="https://murhyimgur.oss-cn-beijing.aliyuncs.com/website/loading.gif" lazyload alt="image-20240110153702123"></p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><code class="hljs bash">`~/.bashrc`<br><br><span class="hljs-keyword">function</span> <span class="hljs-function"><span class="hljs-title">proxy</span></span>() &#123;<br><span class="hljs-built_in">export</span> http_proxy=http://127.0.0.1:7890<br><span class="hljs-built_in">export</span> https_proxy=<span class="hljs-variable">$http_proxy</span><br><span class="hljs-built_in">echo</span> -e <span class="hljs-string">&quot;proxy on!&quot;</span><br>&#125;<br><span class="hljs-keyword">function</span> <span class="hljs-function"><span class="hljs-title">unproxy</span></span>()&#123;<br><span class="hljs-built_in">unset</span> http_proxy https_proxy<br><span class="hljs-built_in">echo</span> -e <span class="hljs-string">&quot;proxy off&quot;</span><br>&#125;<br></code></pre></td></tr></table></figure>
+
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs bash">(base) houjinliang@3080server:~/userdoc$ <span class="hljs-built_in">source</span> ~/.bashrc<br>(base) houjinliang@3080server:~/userdoc$ proxy<br>proxy on!<br>(base) houjinliang@3080server:~/userdoc$ unproxy<br>proxy off<br></code></pre></td></tr></table></figure>
+
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><code class="hljs bash">(base) houjinliang@3080server:~/userdoc$ wget www.zhihu.com<br>URL transformed to HTTPS due to an HSTS policy<br>--2024-01-10 15:33:59--  https://www.zhihu.com/<br>正在连接 127.0.0.1:7890... 已连接。<br>已发出 Proxy 请求，正在等待回应... 302 Found<br>位置：//www.zhihu.com/signin?next=%2F [跟随至新的 URL]<br>URL transformed to HTTPS due to an HSTS policy<br>--2024-01-10 15:33:59--  https://www.zhihu.com/signin?next=%2F<br>再次使用存在的到 www.zhihu.com:443 的连接。<br>已发出 Proxy 请求，正在等待回应... 200 OK<br>长度： 39879 (39K) [text/html]<br>正在保存至: “index.html”<br><br>index.html                                           100%[===================================================================================================================&gt;]  38.94K  --.-KB/s    用时 0.04s<br><br><br><br>2024-01-10 15:33:59 (944 KB/s) - 已保存 “index.html” [39879/39879])<br><br>(base) houjinliang@3080server:~/userdoc$ wget www.google.com<br>--2024-01-10 15:34:14--  http://www.google.com/<br>正在连接 127.0.0.1:7890... 已连接。<br>已发出 Proxy 请求，正在等待回应... 200 OK<br>长度： 未指定 [text/html]<br>正在保存至: “index.html.1”<br><br>index.html.1                                             [ &lt;=&gt;                                                                                                                ]  18.72K  --.-KB/s    用时 0.07s<br><br>2024-01-10 15:34:16 (257 KB/s) - “index.html.1” 已保存 [19169]<br></code></pre></td></tr></table></figure>
+
+
+
+<h1 id="3080Server-MMDetection"><a href="#3080Server-MMDetection" class="headerlink" title="3080Server - MMDetection"></a>3080Server - MMDetection</h1><ul>
+<li>Ubuntu 18.04.6 LTS</li>
+<li>gcc version 7.5.0</li>
+<li>CUDA 11.3</li>
+<li>cuDNN 8.9.5</li>
+</ul>
+<h2 id="MMDetection"><a href="#MMDetection" class="headerlink" title="MMDetection"></a>MMDetection</h2><blockquote>
+<p>版本选择参考镜像：</p>
+<p><a target="_blank" rel="noopener" href="https://www.codewithgpu.com/i/open-mmlab/mmdetection3d/mmdetection3d-1.1">open-mmlab&#x2F;mmdetection3d&#x2F;mmdetection3d-1.1: mmdetection3d-1.1版本 - CG (codewithgpu.com)</a></p>
+<p><img src="https://murhyimgur.oss-cn-beijing.aliyuncs.com/img/image-20240105160510106-170513523460914.png" srcset="https://murhyimgur.oss-cn-beijing.aliyuncs.com/website/loading.gif" lazyload alt="image-20240105160510106"></p>
+</blockquote>
+<h2 id="CUDA-11-3-1-CUDNN-8-9-5"><a href="#CUDA-11-3-1-CUDNN-8-9-5" class="headerlink" title="CUDA 11.3.1 &amp; CUDNN 8.9.5"></a>CUDA 11.3.1 &amp; CUDNN 8.9.5</h2><p>&emsp;&emsp;之前安装的是CUDA 11.6，后面感觉这个版本有点儿高了，在看到一些实例之后，决定退回到CUDA 11.3版本。首先第一步是要卸载掉CUDA 11.6，在搜索了之后，发现并没有找到能用的方法，于是决定直接<code>rm -rf cuda-11.6</code>，这样吧CUDA的文件删掉之后再重装。</p>
+<p><a target="_blank" rel="noopener" href="https://developer.nvidia.com/cuda-11-3-1-download-archive?target_os=Linux&target_arch=x86_64&Distribution=Ubuntu&target_version=18.04&target_type=runfile_local">CUDA Toolkit 11.3 Update 1 Downloads | NVIDIA Developer</a></p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs bash">wget https://developer.download.nvidia.com/compute/cuda/11.3.1/local_installers/cuda_11.3.1_465.19.01_linux.run<br><span class="hljs-built_in">sudo</span> sh cuda_11.3.1_465.19.01_linux.run<br></code></pre></td></tr></table></figure>
+
+<p><a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/198161777">非root用户安装cuda与cudnn - 知乎 (zhihu.com)</a></p>
+<div class="group-image-container"><div class="group-image-row"><div class="group-image-wrap"><img src="https://murhyimgur.oss-cn-beijing.aliyuncs.com/img/image-20240105154958922.png" srcset="https://murhyimgur.oss-cn-beijing.aliyuncs.com/website/loading.gif" lazyload alt="image-20240105154958922"></div><div class="group-image-wrap"><img src="https://murhyimgur.oss-cn-beijing.aliyuncs.com/img/image-20240105154857088.png" srcset="https://murhyimgur.oss-cn-beijing.aliyuncs.com/website/loading.gif" lazyload alt="image-20240105154857088"></div><div class="group-image-wrap"><img src="https://murhyimgur.oss-cn-beijing.aliyuncs.com/img/image-20240105155054178.png" srcset="https://murhyimgur.oss-cn-beijing.aliyuncs.com/website/loading.gif" lazyload alt="image-20240105155054178"></div><div class="group-image-wrap"><img src="https://murhyimgur.oss-cn-beijing.aliyuncs.com/img/image-20240105154820598.png" srcset="https://murhyimgur.oss-cn-beijing.aliyuncs.com/website/loading.gif" lazyload alt="image-20240105154820598"></div><div class="group-image-wrap"><img src="https://murhyimgur.oss-cn-beijing.aliyuncs.com/img/image-20240105154838934.png" srcset="https://murhyimgur.oss-cn-beijing.aliyuncs.com/website/loading.gif" lazyload alt="image-20240105154838934"></div><div class="group-image-wrap"><img src="https://murhyimgur.oss-cn-beijing.aliyuncs.com/img/image-20240105154907733-17193723323271.png" srcset="https://murhyimgur.oss-cn-beijing.aliyuncs.com/website/loading.gif" lazyload alt="image-20240105154907733-17193723323271"></div><div class="group-image-wrap"><img src="https://murhyimgur.oss-cn-beijing.aliyuncs.com/img/image-20240105155142558.png" srcset="https://murhyimgur.oss-cn-beijing.aliyuncs.com/website/loading.gif" lazyload alt="image-20240105155142558"></div></div></div>
+
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><code class="hljs bash">(base) houjinliang@3080server:~/userdoc/cuda_and_cudnn$ sh ./cuda_11.3.1_465.19.01_linux.run<br><br>= Summary =<br>Driver: Not Selected Toolkit: Installed <span class="hljs-keyword">in</span> /mnt/houjinliang/cuda-11.3/ Samples: Not Selected<br>Please make sure that<br>PATH includes /mnt/houjinliang/cuda-11.3/bin<br>LD_LIBRARY_PATH includes /mnt/houjinliang/cuda-11.3/lib64, or, add /mnt/houjinliang/cuda-11.3/lib64 to /etc/ld.so.conf and run ldconfig as root<br>To uninstall the CUDA Toolkit, run cuda-uninstaller <span class="hljs-keyword">in</span> /mnt/houjinliang/cuda-11.3/bin ***WARNING: Incomplete installation! This installation did not install the CUDA Driver. A driver of version at least 465.00 is required <span class="hljs-keyword">for</span> CUDA 11.3 functionality to work. To install the driver using this installer, run the following <span class="hljs-built_in">command</span>, replacing &lt;CudaInstaller&gt; with the name of this run file: <span class="hljs-built_in">sudo</span> &lt;CudaInstaller&gt;.run --silent --driver<br>Logfile is /tmp/cuda-installer.log<br></code></pre></td></tr></table></figure>
+
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><code class="hljs bash">vim ~/.bashrc<br><br>```<br><span class="hljs-comment"># cuda environment variables</span><br><span class="hljs-comment"># murpy insert</span><br><span class="hljs-built_in">export</span> CUDA_HOME=<span class="hljs-variable">$CUDA_HOME</span>:/mnt/houjinliang/cuda-11.3<br><span class="hljs-built_in">export</span> PATH=<span class="hljs-variable">$PATH</span>:/mnt/houjinliang/cuda-11.3/bin<br><span class="hljs-built_in">export</span> LD_LIBRARY_PATH=<span class="hljs-variable">$LD_LIBRARY_PATH</span>:/mnt/houjinliang/cuda-11.3/lib64<br>```<br></code></pre></td></tr></table></figure>
+
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><code class="hljs bash">(base) houjinliang@3080server:~$ <span class="hljs-built_in">source</span> ~/.bashrc<br><br>(base) houjinliang@3080server:~$ nvcc -V<br>nvcc: NVIDIA (R) Cuda compiler driver<br>Copyright (c) 2005-2021 NVIDIA Corporation<br>Built on Mon_May__3_19:15:13_PDT_2021<br>Cuda compilation tools, release 11.3, V11.3.109<br>Build cuda_11.3.r11.3/compiler.29920130_0<br></code></pre></td></tr></table></figure>
+
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><code class="hljs bash">(base) houjinliang@3080server:~/userdoc/cuda_and_cudnn$ tar xvJf cudnn-linux-x86_64-8.9.5.29_cuda11-archive.tar.xz<br><br><br>(py38mmdetection) houjinliang@3080server:~/userdoc/cuda_and_cudnn/cudnn-linux-x86_64-8.9.5.29_cuda11-archive$ ll<br>总用量 48<br>drwxr-xr-x 4 houjinliang houjinliang  4096 8月   3  2022 ./<br>drwxrwxr-x 3 houjinliang houjinliang  4096 1月   5 16:32 ../<br>drwxr-xr-x 2 houjinliang houjinliang  4096 8月   3  2022 include/<br>drwxr-xr-x 2 houjinliang houjinliang  4096 8月   3  2022 lib/<br>-rw-r--r-- 1 houjinliang houjinliang 28994 8月   3  2022 LICENSE<br><br><br>(py38mmdetection) houjinliang@3080server:~/userdoc/cuda_and_cudnn/cudnn-linux-x86_64-8.9.5.29_cuda11-archive$ <span class="hljs-built_in">cp</span> lib/* ~/cuda-11.3/lib64/<br>(py38mmdetection) houjinliang@3080server:~/userdoc/cuda_and_cudnn/cudnn-linux-x86_64-8.9.5.29_cuda11-archive$ <span class="hljs-built_in">cp</span> include/* ~/cuda-11.3/include<br><br><span class="hljs-built_in">chmod</span> +x ~/cuda-11.3/include/cudnn.h<br><span class="hljs-built_in">chmod</span> +x ~/cuda-11.3/lib64/libcudnn*<br><br>(base) houjinliang@3080server:~$ <span class="hljs-built_in">cat</span> ~/cuda-11.3/include/cudnn_version.h | grep CUDNN_MAJOR -A 2<br><span class="hljs-comment">#define CUDNN_MAJOR 8</span><br><span class="hljs-comment">#define CUDNN_MINOR 9</span><br><span class="hljs-comment">#define CUDNN_PATCHLEVEL 5</span><br>--<br><span class="hljs-comment">#define CUDNN_VERSION (CUDNN_MAJOR * 1000 + CUDNN_MINOR * 100 + CUDNN_PATCHLEVEL)</span><br><br>/* cannot use constexpr here since this is a C-only file */<br></code></pre></td></tr></table></figure>
+
+
+
+<h2 id="PyTorch-1-11"><a href="#PyTorch-1-11" class="headerlink" title="PyTorch 1.11"></a>PyTorch 1.11</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><code class="hljs bash">(base) houjinliang@3080server:~$ conda create -n py38mmdetection python=3.8 -y<br>(base) houjinliang@3080server:~$ conda activate py38mmdetection<br>(py38mmdetection) houjinliang@3080server:~$ conda install pytorch==1.11.0 torchvision==0.12.0 torchaudio==0.11.0 cudatoolkit=11.3 -c pytorch<br><br>(py38mmdetection) houjinliang@3080server:~$ python<br>Python 3.8.18 (default, Sep 11 2023, 13:40:15)<br>[GCC 11.2.0] :: Anaconda, Inc. on linux<br>Type <span class="hljs-string">&quot;help&quot;</span>, <span class="hljs-string">&quot;copyright&quot;</span>, <span class="hljs-string">&quot;credits&quot;</span> or <span class="hljs-string">&quot;license&quot;</span> <span class="hljs-keyword">for</span> more information.<br>&gt;&gt;&gt; import torch<br>&gt;&gt;&gt; <span class="hljs-built_in">print</span>(torch.cuda.is_available())<br>True<br></code></pre></td></tr></table></figure>
+
+<h2 id="阿里云源"><a href="#阿里云源" class="headerlink" title="阿里云源"></a>阿里云源</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">pip config <span class="hljs-built_in">set</span> global.index-url https://mirrors.aliyun.com/pypi/simple<br></code></pre></td></tr></table></figure>
+
+
+<h2 id="mmdet-installation"><a href="#mmdet-installation" class="headerlink" title="mmdet installation"></a>mmdet installation</h2><p><a target="_blank" rel="noopener" href="https://mmdetection.readthedocs.io/zh-cn/latest/get_started.html">开始你的第一步 — MMDetection 3.3.0 文档</a></p>
+<h1 id="3080Server-MMYOLO"><a href="#3080Server-MMYOLO" class="headerlink" title="3080Server - MMYOLO"></a>3080Server - MMYOLO</h1><p><a target="_blank" rel="noopener" href="https://mmyolo.readthedocs.io/en/latest/get_started/overview.html">Overview — MMYOLO 0.6.0 documentation</a></p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><code class="hljs bash">(base) houjinliang@3080server:~$ conda create -n py38mmyolo python=3.8<br><br>(base) houjinliang@3080server:~$ conda activate py38mmyolo<br>(py38mmyolo) houjinliang@3080server:~$ pip config list<br>global.index-url=<span class="hljs-string">&#x27;https://mirrors.aliyun.com/pypi/simple&#x27;</span><br><br>(py38mmyolo) houjinliang@3080server:~$ conda install pytorch==1.11.0 torchvision==0.12.0 torchaudio==0.11.0 cudatoolkit=11.3 -c pytorch<br><br>(py38mmyolo) houjinliang@3080server:~$ python -c <span class="hljs-string">&quot;import torch; print(torch.__version__); print(torch.cuda.is_available())&quot;</span><br>1.11.0<br>True<br></code></pre></td></tr></table></figure>
+
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs bash">pip install -U openmim<br>mim install <span class="hljs-string">&quot;mmengine&gt;=0.6.0&quot;</span><br>mim install <span class="hljs-string">&quot;mmcv&gt;=2.0.0rc4,&lt;2.1.0&quot;</span><br>mim install <span class="hljs-string">&quot;mmdet&gt;=3.0.0,&lt;4.0.0&quot;</span><br></code></pre></td></tr></table></figure>
+
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">mim install <span class="hljs-string">&quot;mmyolo&quot;</span><br></code></pre></td></tr></table></figure>
+
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><code class="hljs bash">git <span class="hljs-built_in">clone</span> https://github.com/open-mmlab/mmyolo.git<br><span class="hljs-built_in">cd</span> mmyolo<br><span class="hljs-comment"># Install albumentations</span><br>pip install -r requirements/albu.txt<br><span class="hljs-comment"># Install MMYOLO</span><br>mim install -v -e .<br><span class="hljs-comment"># &quot;-v&quot; means verbose, or more output</span><br><span class="hljs-comment"># &quot;-e&quot; means installing a project in editable mode,</span><br><span class="hljs-comment"># thus any local modifications made to the code will take effect without reinstallation.</span><br></code></pre></td></tr></table></figure>
+
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><code class="hljs bash">(base) houjinliang@3080server:~/userdoc/offlinefile$ wget  http://images.cocodataset.org/zips/val2017.zip<br>--2024-01-10 16:17:46--  http://images.cocodataset.org/zips/val2017.zip<br>正在解析主机 images.cocodataset.org (images.cocodataset.org)... 3.5.7.141, 52.216.215.25, 52.216.185.83, ...<br>正在连接 images.cocodataset.org (images.cocodataset.org)|3.5.7.141|:80... 已连接。<br>已发出 HTTP 请求，正在等待回应... 200 OK<br>长度： 815585330 (778M) [application/zip]<br>正在保存至: “val2017.zip”<br><br>val2017.zip                                          100%[===================================================================================================================&gt;] 777.80M  3.89MB/s    用时 2m 22ss<br>2024-01-10 16:20:08 (5.48 MB/s) - 已保存 “val2017.zip” [815585330/815585330])<br></code></pre></td></tr></table></figure>
+
+
+
+<h1 id="目录占用空间大小查询"><a href="#目录占用空间大小查询" class="headerlink" title="目录占用空间大小查询"></a>目录占用空间大小查询</h1><ul>
+<li>查看文件以及文件夹大小</li>
+</ul>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br></pre></td><td class="code"><pre><code class="hljs bash">(py38mmyolo) houjinliang@3080server:~/userdoc/offlinefile$ ll<br>总用量 26251480<br>drwxrwxr-x 6 houjinliang houjinliang        4096 1月  10 21:36 ./<br>drwxrwxr-x 9 houjinliang houjinliang        4096 1月  10 15:59 ../<br>-rw-rw-r-- 1 houjinliang houjinliang     3996930 1月  10 14:43 clash-linux-amd64-v1.18.0.gz<br>drwxr-xr-x 5 houjinliang houjinliang        4096 8月  26  2022 coco/<br>-rw-rw-r-- 1 houjinliang houjinliang     6983030 1月  10 17:00 coco128.zip<br>-rw-rw-r-- 1 houjinliang houjinliang    48639045 1月  10 16:21 coco2017labels.zip<br>-rw-rw-r-- 1 houjinliang houjinliang     4372979 1月  10 14:48 curl-8.5.0.tar.gz<br>-rw-rw-r-- 1 houjinliang houjinliang    12353723 1月   5 16:32 pandas-2.0.3-cp38-cp38-manylinux_2_17_x86_64.manylinux2014_x86_64.whl<br>drwxrwxr-x 2 houjinliang houjinliang     1429504 8月  31  2017 test2017/<br>-rw-rw-r-- 1 houjinliang houjinliang  6646970404 1月  10 17:47 test2017.zip<br>drwxrwxr-x 2 houjinliang houjinliang     4112384 8月  31  2017 train2017/<br>-rw-rw-r-- 1 houjinliang houjinliang 19336861798 1月  10 21:35 train2017.zip<br>drwxrwxr-x 2 houjinliang houjinliang      167936 8月  31  2017 val2017/<br>-rw-rw-r-- 1 houjinliang houjinliang   815585330 7月  11  2018 val2017.zip<br><br>(py38mmyolo) houjinliang@3080server:~/userdoc/offlinefile$ ll -hl<br>总用量 26G<br>drwxrwxr-x 6 houjinliang houjinliang 4.0K 1月  10 21:36 ./<br>drwxrwxr-x 9 houjinliang houjinliang 4.0K 1月  10 15:59 ../<br>-rw-rw-r-- 1 houjinliang houjinliang 3.9M 1月  10 14:43 clash-linux-amd64-v1.18.0.gz<br>drwxr-xr-x 5 houjinliang houjinliang 4.0K 8月  26  2022 coco/<br>-rw-rw-r-- 1 houjinliang houjinliang 6.7M 1月  10 17:00 coco128.zip<br>-rw-rw-r-- 1 houjinliang houjinliang  47M 1月  10 16:21 coco2017labels.zip<br>-rw-rw-r-- 1 houjinliang houjinliang 4.2M 1月  10 14:48 curl-8.5.0.tar.gz<br>-rw-rw-r-- 1 houjinliang houjinliang  12M 1月   5 16:32 pandas-2.0.3-cp38-cp38-manylinux_2_17_x86_64.manylinux2014_x86_64.whl<br>drwxrwxr-x 2 houjinliang houjinliang 1.4M 8月  31  2017 test2017/<br>-rw-rw-r-- 1 houjinliang houjinliang 6.2G 1月  10 17:47 test2017.zip<br>drwxrwxr-x 2 houjinliang houjinliang 4.0M 8月  31  2017 train2017/<br>-rw-rw-r-- 1 houjinliang houjinliang  19G 1月  10 21:35 train2017.zip<br>drwxrwxr-x 2 houjinliang houjinliang 164K 8月  31  2017 val2017/<br>-rw-rw-r-- 1 houjinliang houjinliang 778M 7月  11  2018 val2017.zip<br></code></pre></td></tr></table></figure>
+
+<ul>
+<li>如要查看当前目录已经使用总大小及当前目录下一级文件或文件夹各自使用的总空间大小</li>
+</ul>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><code class="hljs bash">(py38mmyolo) houjinliang@3080server:~$ <span class="hljs-built_in">du</span> -h --max-depth=1<br>6.5M    ./.config<br>8.0K    ./.conda<br>1.1G    ./.vscode-server<br>12G     ./cuda-11.3<br>86G     ./userdoc<br>8.0K    ./.gnupg<br>16K     ./.ssh<br>8.0K    ./.nv<br>2.7G    ./.cache<br>24G     ./miniconda3<br>125G    .<br></code></pre></td></tr></table></figure>
+
+<h1 id="3090Server"><a href="#3090Server" class="headerlink" title="3090Server"></a>3090Server</h1><ul>
+<li>Ubuntu 18.04.6 LTS</li>
+<li>gcc version 7.5.0</li>
+<li>CUDA 11.3</li>
+<li>cuDNN 8.9.5</li>
+</ul>
+<h2 id="系统详细"><a href="#系统详细" class="headerlink" title="系统详细"></a>系统详细</h2><figure class="highlight markdown"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs markdown">Welcome to Ubuntu 18.04.6 LTS (GNU/Linux 5.4.0-150-generic x86<span class="hljs-emphasis">_64)</span><br><span class="hljs-emphasis">Model name:          Intel(R) Xeon(R) CPU E5-2699C v4 @ 2.20GHz</span><br><span class="hljs-emphasis">NVIDIA Corporation GA102 [GeForce RTX 3090] (rev a1)</span><br></code></pre></td></tr></table></figure>
+
+<h2 id="NV-Driver"><a href="#NV-Driver" class="headerlink" title="NV Driver"></a>NV Driver</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs bash">(base) houjinliang@3090server:~$ <span class="hljs-built_in">cat</span> /proc/driver/nvidia/version<br>NVRM version: NVIDIA UNIX x86_64 Kernel Module  515.65.01  Wed Jul 20 14:00:58 UTC 2022<br>GCC version:  gcc version 7.5.0 (Ubuntu 7.5.0-3ubuntu1~18.04)<br></code></pre></td></tr></table></figure>
+
+
+
+<h2 id="个人目录"><a href="#个人目录" class="headerlink" title="个人目录"></a>个人目录</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><code class="hljs bash">houjinliang@3090server:~$ ll<br>total 40<br>drwxr-xr-x  4 houjinliang houjinliang 4096 6月  26 10:18 ./<br>drwxrwxrwx 21 super       super       4096 6月  26 10:17 ../<br>-rw-r--r--  1 houjinliang houjinliang  220 4月   5  2018 .bash_logout<br>-rw-r--r--  1 houjinliang houjinliang 3771 4月   5  2018 .bashrc<br>drwx------  2 houjinliang houjinliang 4096 6月  26 10:18 .cache/<br>-rw-r--r--  1 houjinliang houjinliang 8980 4月  16  2018 examples.desktop<br>drwx------  3 houjinliang houjinliang 4096 6月  26 10:18 .gnupg/<br>-rw-r--r--  1 houjinliang houjinliang  807 4月   5  2018 .profile<br></code></pre></td></tr></table></figure>
+
+<h2 id="Miniconda"><a href="#Miniconda" class="headerlink" title="Miniconda"></a>Miniconda</h2><p>下载Miniconda的sh脚本文件,增加文件可执行的权限,然后执行下载脚本.</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs bash">houjinliang@3090server:~/MyDownloadFiles$ wget -c https://repo.anaconda.com/miniconda/Miniconda3-latest-Linux-x86_64.sh<br>houjinliang@3090server:~/MyDownloadFiles$ <span class="hljs-built_in">chmod</span> +x Miniconda3-latest-Linux-x86_64.sh<br>houjinliang@3090server:~/MyDownloadFiles$ ./Miniconda3-latest-Linux-x86_64.sh<br></code></pre></td></tr></table></figure>
+<p>安装过程中会有选择安装路径的选择,直接选择默认路径.</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><code class="hljs bash"><span class="hljs-comment"># 默认安装路径</span><br>Miniconda3 will now be installed into this location:<br>/mnt/houjinliang/miniconda3<br><br>  - Press ENTER to confirm the location<br>  - Press CTRL-C to abort the installation<br>  - Or specify a different location below<br><br>[/mnt/houjinliang/miniconda3] &gt;&gt;&gt;<br></code></pre></td></tr></table></figure>
+
+<p><img src="https://murhyimgur.oss-cn-beijing.aliyuncs.com/img/image-20241023134128208.png" srcset="https://murhyimgur.oss-cn-beijing.aliyuncs.com/website/loading.gif" lazyload alt="image-20241023134128208"></p>
+<p>这里选择输入<code>yes</code>,然后会自动配置<code> ~/.bashrc</code>，关闭Terminal然后再重启一个，就能看到命令行前面的<code>base</code>了;</p>
+<p>如果是输入<code>no</code>的话，手动输入下面的内容到<code> ~/.bashrc</code>中。</p>
+<p>安装完成之后conda命令在终端是识别不到的,需要配置环境变量.</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><code class="hljs bash"><span class="hljs-comment"># 配置miniconda的环境变量（根据实际情况更改）</span><br>(base) houjinliang@3090server:~$ vim ~/.bashrc<br><br><span class="hljs-comment"># 这里vim用的不熟练就使用vscode打开这个‘~/.bashrc’文件，然后再末尾增加moniconda的配置文件</span><br><br><br><span class="hljs-comment"># &gt;&gt;&gt; conda initialize &gt;&gt;&gt;</span><br><span class="hljs-comment"># !! Contents within this block are managed by &#x27;conda init&#x27; !!</span><br>__conda_setup=<span class="hljs-string">&quot;<span class="hljs-subst">$(&#x27;/mnt/houjinliang/miniconda3/bin/conda&#x27; &#x27;shell.bash&#x27; &#x27;hook&#x27; 2&gt; /dev/null)</span>&quot;</span><br><span class="hljs-keyword">if</span> [ $? -eq 0 ]; <span class="hljs-keyword">then</span><br>    <span class="hljs-built_in">eval</span> <span class="hljs-string">&quot;<span class="hljs-variable">$__conda_setup</span>&quot;</span><br><span class="hljs-keyword">else</span><br>    <span class="hljs-keyword">if</span> [ -f <span class="hljs-string">&quot;/mnt/houjinliang/miniconda3/etc/profile.d/conda.sh&quot;</span> ]; <span class="hljs-keyword">then</span><br>        . <span class="hljs-string">&quot;/mnt/houjinliang/miniconda3/etc/profile.d/conda.sh&quot;</span><br>    <span class="hljs-keyword">else</span><br>        <span class="hljs-built_in">export</span> PATH=<span class="hljs-string">&quot;/mnt/houjinliang/miniconda3/bin:<span class="hljs-variable">$PATH</span>&quot;</span><br>    <span class="hljs-keyword">fi</span><br><span class="hljs-keyword">fi</span><br><span class="hljs-built_in">unset</span> __conda_setup<br><span class="hljs-comment"># &lt;&lt;&lt; conda initialize &lt;&lt;&lt;</span><br><br><br>houjinliang@3090server:~$ <span class="hljs-built_in">source</span> ~/.bashrc<br>(base) houjinliang@3090server:~$<br></code></pre></td></tr></table></figure>
+
+<p>检查一下Minconda的基本信息.</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br></pre></td><td class="code"><pre><code class="hljs bash"><span class="hljs-comment"># 查看一下miniconda的基本信息</span><br>(base) houjinliang@3090server:~$ conda info<br><br>     active environment : base<br>    active <span class="hljs-built_in">env</span> location : /mnt/houjinliang/miniconda3<br>            shell level : 1<br>       user config file : /mnt/houjinliang/.condarc<br> populated config files :<br>          conda version : 24.4.0<br>    conda-build version : not installed<br>         python version : 3.12.3.final.0<br>                 solver : libmamba (default)<br>       virtual packages : __archspec=1=broadwell<br>                          __conda=24.4.0=0<br>                          __cuda=11.7=0<br>                          __glibc=2.27=0<br>                          __linux=5.4.0=0<br>                          __unix=0=0<br>       base environment : /mnt/houjinliang/miniconda3  (writable)<br>      conda av data <span class="hljs-built_in">dir</span> : /mnt/houjinliang/miniconda3/etc/conda<br>  conda av metadata url : None<br>           channel URLs : https://repo.anaconda.com/pkgs/main/linux-64<br>                          https://repo.anaconda.com/pkgs/main/noarch<br>                          https://repo.anaconda.com/pkgs/r/linux-64<br>                          https://repo.anaconda.com/pkgs/r/noarch<br>          package cache : /mnt/houjinliang/miniconda3/pkgs<br>                          /mnt/houjinliang/.conda/pkgs<br>       envs directories : /mnt/houjinliang/miniconda3/envs<br>                          /mnt/houjinliang/.conda/envs<br>               platform : linux-64<br>             user-agent : conda/24.4.0 requests/2.31.0 CPython/3.12.3 Linux/5.4.0-150-generic ubuntu/18.04.6 glibc/2.27 solver/libmamba conda-libmamba-solver/24.1.0 libmambapy/1.5.8 aau/0.4.4 c/. s/. e/.<br>                UID:GID : 1035:1035<br>             netrc file : None<br>           offline mode : False<br></code></pre></td></tr></table></figure>
+
+<p>conda换源,换成阿里云源</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs bash"><span class="hljs-comment"># 我这里没换</span><br><br>参考: https://developer.aliyun.com/article/1291651<br></code></pre></td></tr></table></figure>
+
+<p>pip换源,换成阿里云源</p>
+<p>直接用命令的方式,如下.</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs bash">(base) houjinliang@3090server:~$ pip config <span class="hljs-built_in">set</span> global.index-url https://mirrors.aliyun.com/pypi/simple/<br>Writing to /mnt/houjinliang/.config/pip/pip.conf<br></code></pre></td></tr></table></figure>
+
+<p>或者是修改 ~&#x2F;.config&#x2F;pip&#x2F;pip.conf (没有就创建一个)， 内容如下：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs bash">(base) houjinliang@3090server:~$ <span class="hljs-built_in">cat</span> ~/.config/pip/pip.conf<br>[global]<br>index-url = https://mirrors.aliyun.com/pypi/simple/<br></code></pre></td></tr></table></figure>
+
+<h2 id="NV-Driver-1"><a href="#NV-Driver-1" class="headerlink" title="NV Driver"></a>NV Driver</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs bash">(base) houjinliang@3080server:~$ <span class="hljs-built_in">cat</span> /proc/driver/nvidia/version<br>NVRM version: NVIDIA UNIX x86_64 Kernel Module  525.60.11  Wed Nov 23 23:04:03 UTC 2022<br>GCC version:  gcc version 7.5.0 (Ubuntu 7.5.0-3ubuntu1~18.04)<br></code></pre></td></tr></table></figure>
+
+
+
+<h2 id="CUDA-11-3-1-CUDNN-8-9-5-1"><a href="#CUDA-11-3-1-CUDNN-8-9-5-1" class="headerlink" title="CUDA 11.3.1 &amp; CUDNN 8.9.5"></a>CUDA 11.3.1 &amp; CUDNN 8.9.5</h2><p>跟之前的服务器CUDA版本一样,这里还是参照上面的进行安装.</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><code class="hljs bash">(base) houjinliang@3090server:~/MyDownloadFiles$ wget https://developer.download.nvidia.com/compute/cuda/11.3.1/local_installers/cuda_11.3.1_465.19.01_linux.run<br><br><br>(base) houjinliang@3090server:~/MyDownloadFiles$ ll<br>total 3224920<br>drwxrwxr-x  2 houjinliang houjinliang       4096 6月  26 11:10 ./<br>drwxr-xr-x 10 houjinliang houjinliang       4096 6月  26 11:04 ../<br>-rw-rw-r--  1 houjinliang houjinliang 3158494112 5月  14  2021 cuda_11.3.1_465.19.01_linux.run<br>-rwxrwxr-x  1 houjinliang houjinliang  143808873 5月  21 02:15 Miniconda3-latest-Linux-x86_64.sh*<br><br><span class="hljs-comment"># &quot;cuda_11.3.1_465.19.01_linux.run&quot;文件没有&quot;x&quot;的权限,加一个权限</span><br>(base) houjinliang@3090server:~/MyDownloadFiles$ <span class="hljs-built_in">chmod</span> +x cuda_11.3.1_465.19.01_linux.run<br>(base) houjinliang@3090server:~/MyDownloadFiles$ ll<br>total 3224920<br>drwxrwxr-x  2 houjinliang houjinliang       4096 6月  26 11:10 ./<br>drwxr-xr-x 10 houjinliang houjinliang       4096 6月  26 11:04 ../<br>-rwxrwxr-x  1 houjinliang houjinliang 3158494112 5月  14  2021 cuda_11.3.1_465.19.01_linux.run*<br>-rwxrwxr-x  1 houjinliang houjinliang  143808873 5月  21 02:15 Miniconda3-latest-Linux-x86_64.sh*<br><br><span class="hljs-comment"># 执行安装</span><br>(base) houjinliang@3090server:~/MyDownloadFiles$ ./cuda_11.3.1_465.19.01_linux.run<br><span class="hljs-comment"># 还是跟上面的安装步骤的图片有一样</span><br></code></pre></td></tr></table></figure>
+
+<p><img src="https://murhyimgur.oss-cn-beijing.aliyuncs.com/img/image-20241023134348370.png" srcset="https://murhyimgur.oss-cn-beijing.aliyuncs.com/website/loading.gif" lazyload alt="image-20241023134348370"></p>
+<p>出现这样的不要害怕，直接<code>Continue</code>就好了，然后按照下面的步骤。</p>
+<div class="group-image-container"><div class="group-image-row"><div class="group-image-wrap"><img src="https://murhyimgur.oss-cn-beijing.aliyuncs.com/img/NPU_2024-06-26_11-29-59.png" srcset="https://murhyimgur.oss-cn-beijing.aliyuncs.com/website/loading.gif" lazyload alt="NPU_2024-06-26_11-29-59"></div><div class="group-image-wrap"><img src="https://murhyimgur.oss-cn-beijing.aliyuncs.com/img/NPU_2024-06-26_11-31-04.png" srcset="https://murhyimgur.oss-cn-beijing.aliyuncs.com/website/loading.gif" lazyload alt="NPU_2024-06-26_11-31-04"></div><div class="group-image-wrap"><img src="https://murhyimgur.oss-cn-beijing.aliyuncs.com/img/NPU_2024-06-26_11-31-37.png" srcset="https://murhyimgur.oss-cn-beijing.aliyuncs.com/website/loading.gif" lazyload alt="NPU_2024-06-26_11-31-37"></div><div class="group-image-wrap"><img src="https://murhyimgur.oss-cn-beijing.aliyuncs.com/img/NPU_2024-06-26_11-32-40.png" srcset="https://murhyimgur.oss-cn-beijing.aliyuncs.com/website/loading.gif" lazyload alt="NPU_2024-06-26_11-32-40"></div><div class="group-image-wrap"><img src="https://murhyimgur.oss-cn-beijing.aliyuncs.com/img/NPU_2024-06-26_11-34-55.png" srcset="https://murhyimgur.oss-cn-beijing.aliyuncs.com/website/loading.gif" lazyload alt="NPU_2024-06-26_11-34-55"></div><div class="group-image-wrap"><img src="https://murhyimgur.oss-cn-beijing.aliyuncs.com/img/NPU_2024-06-26_11-35-29.png" srcset="https://murhyimgur.oss-cn-beijing.aliyuncs.com/website/loading.gif" lazyload alt="NPU_2024-06-26_11-35-29"></div><div class="group-image-wrap"><img src="https://murhyimgur.oss-cn-beijing.aliyuncs.com/img/image-20240626114348562.png" srcset="https://murhyimgur.oss-cn-beijing.aliyuncs.com/website/loading.gif" lazyload alt="image-20240626114348562"></div><div class="group-image-wrap"><img src="https://murhyimgur.oss-cn-beijing.aliyuncs.com/img/NPU_2024-06-26_11-36-37.png" srcset="https://murhyimgur.oss-cn-beijing.aliyuncs.com/website/loading.gif" lazyload alt="NPU_2024-06-26_11-36-37"></div><div class="group-image-wrap"><img src="https://murhyimgur.oss-cn-beijing.aliyuncs.com/img/NPU_2024-06-26_11-37-23.png" srcset="https://murhyimgur.oss-cn-beijing.aliyuncs.com/website/loading.gif" lazyload alt="NPU_2024-06-26_11-37-23"></div></div></div>
+
+<p>安装完成</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><code class="hljs bash">(base) houjinliang@3090server:~/MyDownloadFiles$ ./cuda_11.3.1_465.19.01_linux.run<br>===========<br>= Summary =<br>===========<br><br>Driver:   Not Selected<br>Toolkit:  Installed <span class="hljs-keyword">in</span> /mnt/houjinliang/cuda-11.3/<br>Samples:  Not Selected<br><br>Please make sure that<br> -   PATH includes /mnt/houjinliang/cuda-11.3/bin<br> -   LD_LIBRARY_PATH includes /mnt/houjinliang/cuda-11.3/lib64, or, add /mnt/houjinliang/cuda-11.3/lib64 to /etc/ld.so.conf and run ldconfig as root<br><br>To uninstall the CUDA Toolkit, run cuda-uninstaller <span class="hljs-keyword">in</span> /mnt/houjinliang/cuda-11.3/bin<br>***WARNING: Incomplete installation! This installation did not install the CUDA Driver. A driver of version at least 465.00 is required <span class="hljs-keyword">for</span> CUDA 11.3 functionality to work.<br>To install the driver using this installer, run the following <span class="hljs-built_in">command</span>, replacing &lt;CudaInstaller&gt; with the name of this run file:<br>    <span class="hljs-built_in">sudo</span> &lt;CudaInstaller&gt;.run --silent --driver<br><br>Logfile is /tmp/cuda-installer.log<br></code></pre></td></tr></table></figure>
+
+<p><img src="https://murhyimgur.oss-cn-beijing.aliyuncs.com/img/image-20240626114642588.png" srcset="https://murhyimgur.oss-cn-beijing.aliyuncs.com/website/loading.gif" lazyload alt="image-20240626114642588"></p>
+<p>安装完成之后，最好把这个<code>/tmp/cuda-installer.log</code>文件删除了，如果不删的话，后面的用户再安装就会有影响。为了不妨碍他人，最好把这个删掉。</p>
+<p>配置CUDA Toolkit 的环境变量，使用vim或vscode</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><code class="hljs bash">(base) houjinliang@3090server:~$ vim ~/.bashrc<br><br><br><span class="hljs-comment"># &gt;&gt;&gt; cuda environment variables &gt;&gt;&gt;</span><br><span class="hljs-comment"># murpy insert</span><br><span class="hljs-built_in">export</span> CUDA_HOME=<span class="hljs-variable">$CUDA_HOME</span>:/mnt/houjinliang/cuda-11.3<br><span class="hljs-built_in">export</span> PATH=<span class="hljs-variable">$PATH</span>:/mnt/houjinliang/cuda-11.3/bin<br><span class="hljs-built_in">export</span> LD_LIBRARY_PATH=<span class="hljs-variable">$LD_LIBRARY_PATH</span>:/mnt/houjinliang/cuda-11.3/lib64<br><span class="hljs-comment"># &lt;&lt;&lt; cuda environment variables &lt;&lt;&lt;</span><br><br>(base) houjinliang@3090server:~$ <span class="hljs-built_in">source</span> ~/.bashrc<br><br><span class="hljs-comment"># CUDA安装和配置完成</span><br>(base) houjinliang@3090server:~$ nvcc -V<br>nvcc: NVIDIA (R) Cuda compiler driver<br>Copyright (c) 2005-2021 NVIDIA Corporation<br>Built on Mon_May__3_19:15:13_PDT_2021<br>Cuda compilation tools, release 11.3, V11.3.109<br>Build cuda_11.3.r11.3/compiler.29920130_0<br></code></pre></td></tr></table></figure>
+
+<p>cudann安装。cudnn的下载需要到nVidia的网站，登录账号才行，这里我就直接用之前安装的时候已经下载好的了。</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br></pre></td><td class="code"><pre><code class="hljs bash">(base) houjinliang@3090server:~/MyDownloadFiles$ ll<br>total 4062292<br>drwxrwxr-x  2 houjinliang houjinliang       4096 6月  26 11:56 ./<br>drwxr-xr-x 11 houjinliang houjinliang       4096 6月  26 11:48 ../<br>-rwxrwxr-x  1 houjinliang houjinliang 3158494112 5月  14  2021 cuda_11.3.1_465.19.01_linux.run*<br>-rw-rw-r--  1 houjinliang houjinliang  857460936 6月  26 11:57 cudnn-linux-x86_64-8.9.5.29_cuda11-archive.tar.xz<br>-rwxrwxr-x  1 houjinliang houjinliang  143808873 5月  21 02:15 Miniconda3-latest-Linux-x86_64.sh*<br><br><span class="hljs-comment"># cudnn 压缩包解压缩</span><br>(base) houjinliang@3090server:~/MyDownloadFiles$ tar xvJf cudnn-linux-x86_64-8.9.5.29_cuda11-archive.tar.xz<br>cudnn-linux-x86_64-8.9.5.29_cuda11-archive/<br>cudnn-linux-x86_64-8.9.5.29_cuda11-archive/lib/<br>cudnn-linux-x86_64-8.9.5.29_cuda11-archive/lib/libcudnn_adv_infer_static.a<br>cudnn-linux-x86_64-8.9.5.29_cuda11-archive/lib/libcudnn_adv_infer_static_v8.a<br>cudnn-linux-x86_64-8.9.5.29_cuda11-archive/lib/libcudnn_adv_train_static.a<br>cudnn-linux-x86_64-8.9.5.29_cuda11-archive/lib/libcudnn_adv_train_static_v8.a<br>cudnn-linux-x86_64-8.9.5.29_cuda11-archive/lib/libcudnn_cnn_infer_static.a<br>cudnn-linux-x86_64-8.9.5.29_cuda11-archive/lib/libcudnn_cnn_infer_static_v8.a<br>cudnn-linux-x86_64-8.9.5.29_cuda11-archive/lib/libcudnn_cnn_train_static.a<br>cudnn-linux-x86_64-8.9.5.29_cuda11-archive/lib/libcudnn_cnn_train_static_v8.a<br>cudnn-linux-x86_64-8.9.5.29_cuda11-archive/lib/libcudnn_ops_infer_static.a<br>cudnn-linux-x86_64-8.9.5.29_cuda11-archive/lib/libcudnn_ops_infer_static_v8.a<br>cudnn-linux-x86_64-8.9.5.29_cuda11-archive/lib/libcudnn_ops_train_static.a<br>cudnn-linux-x86_64-8.9.5.29_cuda11-archive/lib/libcudnn_ops_train_static_v8.a<br>cudnn-linux-x86_64-8.9.5.29_cuda11-archive/lib/libcudnn.so.8<br>cudnn-linux-x86_64-8.9.5.29_cuda11-archive/lib/libcudnn.so<br>cudnn-linux-x86_64-8.9.5.29_cuda11-archive/lib/libcudnn.so.8.9.5<br>cudnn-linux-x86_64-8.9.5.29_cuda11-archive/lib/libcudnn_adv_infer.so<br>cudnn-linux-x86_64-8.9.5.29_cuda11-archive/lib/libcudnn_adv_infer.so.8.9.5<br>cudnn-linux-x86_64-8.9.5.29_cuda11-archive/lib/libcudnn_adv_infer.so.8<br>cudnn-linux-x86_64-8.9.5.29_cuda11-archive/lib/libcudnn_adv_train.so.8.9.5<br>cudnn-linux-x86_64-8.9.5.29_cuda11-archive/lib/libcudnn_adv_train.so.8<br>cudnn-linux-x86_64-8.9.5.29_cuda11-archive/lib/libcudnn_adv_train.so<br>cudnn-linux-x86_64-8.9.5.29_cuda11-archive/lib/libcudnn_cnn_infer.so.8<br>cudnn-linux-x86_64-8.9.5.29_cuda11-archive/lib/libcudnn_cnn_infer.so<br>cudnn-linux-x86_64-8.9.5.29_cuda11-archive/lib/libcudnn_cnn_infer.so.8.9.5<br>cudnn-linux-x86_64-8.9.5.29_cuda11-archive/lib/libcudnn_cnn_train.so.8.9.5<br>cudnn-linux-x86_64-8.9.5.29_cuda11-archive/lib/libcudnn_cnn_train.so.8<br>cudnn-linux-x86_64-8.9.5.29_cuda11-archive/lib/libcudnn_cnn_train.so<br>cudnn-linux-x86_64-8.9.5.29_cuda11-archive/lib/libcudnn_ops_infer.so<br>cudnn-linux-x86_64-8.9.5.29_cuda11-archive/lib/libcudnn_ops_infer.so.8<br>cudnn-linux-x86_64-8.9.5.29_cuda11-archive/lib/libcudnn_ops_infer.so.8.9.5<br>cudnn-linux-x86_64-8.9.5.29_cuda11-archive/lib/libcudnn_ops_train.so<br>cudnn-linux-x86_64-8.9.5.29_cuda11-archive/lib/libcudnn_ops_train.so.8<br>cudnn-linux-x86_64-8.9.5.29_cuda11-archive/lib/libcudnn_ops_train.so.8.9.5<br>cudnn-linux-x86_64-8.9.5.29_cuda11-archive/include/<br>cudnn-linux-x86_64-8.9.5.29_cuda11-archive/include/cudnn_v8.h<br>cudnn-linux-x86_64-8.9.5.29_cuda11-archive/include/cudnn_adv_infer_v8.h<br>cudnn-linux-x86_64-8.9.5.29_cuda11-archive/include/cudnn_adv_train_v8.h<br>cudnn-linux-x86_64-8.9.5.29_cuda11-archive/include/cudnn_backend_v8.h<br>cudnn-linux-x86_64-8.9.5.29_cuda11-archive/include/cudnn_cnn_infer_v8.h<br>cudnn-linux-x86_64-8.9.5.29_cuda11-archive/include/cudnn_cnn_train_v8.h<br>cudnn-linux-x86_64-8.9.5.29_cuda11-archive/include/cudnn_ops_infer_v8.h<br>cudnn-linux-x86_64-8.9.5.29_cuda11-archive/include/cudnn_ops_train_v8.h<br>cudnn-linux-x86_64-8.9.5.29_cuda11-archive/include/cudnn_version_v8.h<br>cudnn-linux-x86_64-8.9.5.29_cuda11-archive/include/cudnn.h<br>cudnn-linux-x86_64-8.9.5.29_cuda11-archive/include/cudnn_adv_infer.h<br>cudnn-linux-x86_64-8.9.5.29_cuda11-archive/include/cudnn_adv_train.h<br>cudnn-linux-x86_64-8.9.5.29_cuda11-archive/include/cudnn_backend.h<br>cudnn-linux-x86_64-8.9.5.29_cuda11-archive/include/cudnn_cnn_infer.h<br>cudnn-linux-x86_64-8.9.5.29_cuda11-archive/include/cudnn_cnn_train.h<br>cudnn-linux-x86_64-8.9.5.29_cuda11-archive/include/cudnn_ops_infer.h<br>cudnn-linux-x86_64-8.9.5.29_cuda11-archive/include/cudnn_ops_train.h<br>cudnn-linux-x86_64-8.9.5.29_cuda11-archive/include/cudnn_version.h<br>cudnn-linux-x86_64-8.9.5.29_cuda11-archive/LICENSE<br><br><span class="hljs-comment"># 查看cudnn的解压缩文件</span><br>(base) houjinliang@3090server:~/MyDownloadFiles$ <span class="hljs-built_in">cd</span> cudnn-linux-x86_64-8.9.5.29_cuda11-archive/<br>(base) houjinliang@3090server:~/MyDownloadFiles/cudnn-linux-x86_64-8.9.5.29_cuda11-archive$ ll<br>total 48<br>drwxr-xr-x 4 houjinliang houjinliang  4096 9月   7  2023 ./<br>drwxrwxr-x 3 houjinliang houjinliang  4096 6月  26 11:58 ../<br>drwxr-xr-x 2 houjinliang houjinliang  4096 9月   7  2023 include/<br>drwxr-xr-x 2 houjinliang houjinliang  4096 9月   7  2023 lib/<br>-rw-r--r-- 1 houjinliang houjinliang 29662 9月   7  2023 LICENSE<br><br><span class="hljs-comment"># 把cudnn的文件copy到cuda目录下</span><br>(base) houjinliang@3090server:~/MyDownloadFiles/cudnn-linux-x86_64-8.9.5.29_cuda11-archive$ <span class="hljs-built_in">cp</span> lib/* ~/cuda-11.3/lib64/<br>(base) houjinliang@3090server:~/MyDownloadFiles/cudnn-linux-x86_64-8.9.5.29_cuda11-archive$ <span class="hljs-built_in">cp</span> include/* ~/cuda-11.3/include<br>(base) houjinliang@3090server:~/MyDownloadFiles/cudnn-linux-x86_64-8.9.5.29_cuda11-archive$ <span class="hljs-built_in">chmod</span> +x ~/cuda-11.3/include/cudnn.h<br>(base) houjinliang@3090server:~/MyDownloadFiles/cudnn-linux-x86_64-8.9.5.29_cuda11-archive$ <span class="hljs-built_in">chmod</span> +x ~/cuda-11.3/lib64/libcudnn*<br><br><span class="hljs-comment"># 检查cudnn版本和验证cudnncopy是否成功</span><br>(base) houjinliang@3090server:~/MyDownloadFiles/cudnn-linux-x86_64-8.9.5.29_cuda11-archive$ <span class="hljs-built_in">cat</span> ~/cuda-11.3/include/cudnn_version.h | grep CUDNN_MAJOR -A 2<br><span class="hljs-comment">#define CUDNN_MAJOR 8</span><br><span class="hljs-comment">#define CUDNN_MINOR 9</span><br><span class="hljs-comment">#define CUDNN_PATCHLEVEL 5</span><br>--<br><span class="hljs-comment">#define CUDNN_VERSION (CUDNN_MAJOR * 1000 + CUDNN_MINOR * 100 + CUDNN_PATCHLEVEL)</span><br><br>/* cannot use constexpr here since this is a C-only file */<br></code></pre></td></tr></table></figure>
+
+<h2 id="Git-Github"><a href="#Git-Github" class="headerlink" title="Git &amp; Github"></a>Git &amp; Github</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><code class="hljs bash">(base) houjinliang@3090server:~$ git config --global user.name <span class="hljs-string">&#x27;hjl_3090server&#x27;</span><br>(base) houjinliang@3090server:~$ git config --global user.email <span class="hljs-string">&#x27;cosmicdustycn@outlook.com&#x27;</span><br>(base) houjinliang@3090server:~$ ssh-keygen -t rsa -C <span class="hljs-string">&quot;cosmicdustycn@outlook.com&quot;</span><br>Generating public/private rsa key pair.<br>Enter file <span class="hljs-keyword">in</span> <span class="hljs-built_in">which</span> to save the key (/mnt/houjinliang/.ssh/id_rsa):<br>Created directory <span class="hljs-string">&#x27;/mnt/houjinliang/.ssh&#x27;</span>.<br>Enter passphrase (empty <span class="hljs-keyword">for</span> no passphrase):<br>Enter same passphrase again:<br>Your identification has been saved <span class="hljs-keyword">in</span> /mnt/houjinliang/.ssh/id_rsa.<br>Your public key has been saved <span class="hljs-keyword">in</span> /mnt/houjinliang/.ssh/id_rsa.pub.<br></code></pre></td></tr></table></figure>
+
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><code class="hljs bash">(base) houjinliang@3090server:~/.ssh$ <span class="hljs-built_in">pwd</span><br>/mnt/houjinliang/.ssh<br>(base) houjinliang@3090server:~/.ssh$ ll<br>total 16<br>drwx------  2 houjinliang houjinliang 4096 6月  26 12:11 ./<br>drwxr-xr-x 12 houjinliang houjinliang 4096 6月  26 12:11 ../<br>-rw-------  1 houjinliang houjinliang 1679 6月  26 12:11 id_rsa<br>-rw-r--r--  1 houjinliang houjinliang  407 6月  26 12:11 id_rsa.pub<br></code></pre></td></tr></table></figure>
+
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><code class="hljs bash">(base) houjinliang@3090server:~$ git config user.name<br>hjl_3090server<br>(base) houjinliang@3090server:~$ git config user.email<br>cosmicdustycn@outlook.com<br>(base) houjinliang@3090server:~$ ssh -T git@github.com<br>The authenticity of host <span class="hljs-string">&#x27;github.com (20.205.243.166)&#x27;</span> can<span class="hljs-string">&#x27;t be established.</span><br><span class="hljs-string">ECDSA key fingerprint is xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx</span><br><span class="hljs-string">Are you sure you want to continue connecting (yes/no)? yes</span><br><span class="hljs-string">Warning: Permanently added &#x27;</span>github.com,20.205.243.166<span class="hljs-string">&#x27; (ECDSA) to the list of known hosts.</span><br><span class="hljs-string">Hi murphyhoucn! You&#x27;</span>ve successfully authenticated, but GitHub does not provide shell access.<br></code></pre></td></tr></table></figure>
+
+
+
+<h1 id="3090Server2"><a href="#3090Server2" class="headerlink" title="3090Server2"></a>3090Server2</h1><ul>
+<li>Ubuntu 20.04.5 LTS</li>
+<li>gcc version 9.4.0</li>
+<li>CUDA 11.3</li>
+<li>cuDNN 8.9.5</li>
+</ul>
+<h2 id="NV-Driver-2"><a href="#NV-Driver-2" class="headerlink" title="NV Driver"></a>NV Driver</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs bash">(base) houjinliang@3090server2:~$ <span class="hljs-built_in">cat</span> /proc/driver/nvidia/version<br>NVRM version: NVIDIA UNIX x86_64 Kernel Module  535.183.01  Sun May 12 19:39:15 UTC 2024<br>GCC version:  gcc version 9.4.0 (Ubuntu 9.4.0-1ubuntu1~20.04.2)<br></code></pre></td></tr></table></figure>
+
+
+
+<h1 id="4090Server"><a href="#4090Server" class="headerlink" title="4090Server"></a>4090Server</h1><ul>
+<li>Ubuntu 22.04.2 LTS</li>
+<li>gcc 11.4.0</li>
+<li>CUDA11.6 :       cuda_11.6.2_510.47.03_linux.run</li>
+<li>cuDNN 8.9.5:    cudnn-linux-x86_64-8.9.5.29_cuda11-archive.tar.xz</li>
+</ul>
+<h2 id="NV-Driver-3"><a href="#NV-Driver-3" class="headerlink" title="NV Driver"></a>NV Driver</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs bash">(sr_benchmark) houjinliang@4090server:~$ <span class="hljs-built_in">cat</span> /proc/driver/nvidia/version<br>NVRM version: NVIDIA UNIX x86_64 Kernel Module  535.183.06  Wed Jun 26 06:46:07 UTC 2024<br>GCC version:  gcc version 11.4.0 (Ubuntu 11.4.0-1ubuntu1~22.04)<br></code></pre></td></tr></table></figure>
+
+<h2 id="CUDA-11-6-cuDNN-8-9-5"><a href="#CUDA-11-6-cuDNN-8-9-5" class="headerlink" title="CUDA 11.6 &amp; cuDNN 8.9.5"></a>CUDA 11.6 &amp; cuDNN 8.9.5</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs bash">(base) houjinliang@4090server:~/MyDownloadFiles$ ./cuda_11.6.2_510.47.03_linux.run<br>(base) houjinliang@3090server:~/MyDownloadFiles$ <span class="hljs-built_in">cd</span> cudnn-linux-x86_64-8.9.5.29_cuda11-archive/<br><br><span class="hljs-comment"># CUDA版本是11.6.2</span><br><span class="hljs-comment"># CUDNN版本还是用的之前的</span><br></code></pre></td></tr></table></figure>
+
+<p>安装过程跟上面的一样，记得把11.3都换成11.6</p>
+<p><img src="https://murhyimgur.oss-cn-beijing.aliyuncs.com/img/image-20241023150732692.png" srcset="https://murhyimgur.oss-cn-beijing.aliyuncs.com/website/loading.gif" lazyload alt="image-20241023150732692"></p>
+<p>之后再配置Git。</p>
+<p>至于conda env，我把之前服务器上的环境使用conda-pack打包，然后使用scp传过来，然后解压到对应文件夹下。虽然之前cuda113，torch也是113版本的，但是在cuda116的服务器上也能用（那就先用着？！</p>
+<h2 id="问题：Failed-to-initialize-NVML-Driver-library-version-mismatch"><a href="#问题：Failed-to-initialize-NVML-Driver-library-version-mismatch" class="headerlink" title="问题：Failed to initialize NVML: Driver&#x2F;library version mismatch"></a>问题：Failed to initialize NVML: Driver&#x2F;library version mismatch</h2><p>环境正常运行了很长一段时间，但是突然有一天，在运行程序的时候出现了这样一个报错！</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">ERROR: cuda is not available, try running on CPU<br></code></pre></td></tr></table></figure>
+<p>这个error是我自己的程序里写得报错提示，系统的cuda不可用了？！这是咋回事？！</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br></pre></td><td class="code"><pre><code class="hljs bash">(base) houjinliang@4090server:~$ nvidia-smi<br>Failed to initialize NVML: Driver/library version mismatch<br>NVML library version: 535.216<br><br>(base) houjinliang@4090server:~$ nvitop<br>NVML ERROR: RM has detected an NVML/RM version mismatch.<br><br>(base) houjinliang@4090server:~$ gpustat<br>Error on querying NVIDIA devices. Use --debug flag to see more details.<br>RM has detected an NVML/RM version mismatch.<br><br>(base) houjinliang@4090server:~$ gpustat --debug<br>Error on querying NVIDIA devices. Use --debug flag to see more details.<br>RM has detected an NVML/RM version mismatch.<br><br>Traceback (most recent call last):<br>  File <span class="hljs-string">&quot;/mnt/houjinliang/miniconda3/lib/python3.12/site-packages/gpustat/cli.py&quot;</span>, line 58, <span class="hljs-keyword">in</span> print_gpustat<br>    gpu_stats = GPUStatCollection.new_query(debug=debug, <span class="hljs-built_in">id</span>=<span class="hljs-built_in">id</span>)<br>                ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^<br>  File <span class="hljs-string">&quot;/mnt/houjinliang/miniconda3/lib/python3.12/site-packages/gpustat/core.py&quot;</span>, line 402, <span class="hljs-keyword">in</span> new_query<br>    N.nvmlInit()<br>  File <span class="hljs-string">&quot;/mnt/houjinliang/miniconda3/lib/python3.12/site-packages/pynvml.py&quot;</span>, line 1947, <span class="hljs-keyword">in</span> nvmlInit<br>    nvmlInitWithFlags(0)<br>  File <span class="hljs-string">&quot;/mnt/houjinliang/miniconda3/lib/python3.12/site-packages/pynvml.py&quot;</span>, line 1937, <span class="hljs-keyword">in</span> nvmlInitWithFlags<br>    _nvmlCheckReturn(ret)<br>  File <span class="hljs-string">&quot;/mnt/houjinliang/miniconda3/lib/python3.12/site-packages/pynvml.py&quot;</span>, line 899, <span class="hljs-keyword">in</span> _nvmlCheckReturn<br>    raise NVMLError(ret)<br>pynvml.NVMLError_LibRmVersionMismatch: RM has detected an NVML/RM version mismatch.<br><br><br>(sr_benchmark) houjinliang@4090server:~$ python<br>Python 3.8.19 (default, Mar 20 2024, 19:58:24)<br>[GCC 11.2.0] :: Anaconda, Inc. on linux<br>Type <span class="hljs-string">&quot;help&quot;</span>, <span class="hljs-string">&quot;copyright&quot;</span>, <span class="hljs-string">&quot;credits&quot;</span> or <span class="hljs-string">&quot;license&quot;</span> <span class="hljs-keyword">for</span> more information.<br>&gt;&gt;&gt; import torch<br>&gt;&gt;&gt; <span class="hljs-built_in">print</span>(torch.cuda.is_available())<br>/mnt/houjinliang/miniconda3/envs/sr_benchmark/lib/python3.8/site-packages/torch/cuda/__init__.py:80: UserWarning: CUDA initialization: Unexpected error from cudaGetDeviceCount(). Did you run some cuda <span class="hljs-built_in">functions</span> before calling NumCudaDevices() that might have already <span class="hljs-built_in">set</span> an error? Error 804: forward compatibility was attempted on non supported HW (Triggered internally at  ../c10/cuda/CUDAFunctions.cpp:112.)<br>  <span class="hljs-built_in">return</span> torch._C._cuda_getDeviceCount() &gt; 0<br>False<br></code></pre></td></tr></table></figure>
+
+<p><a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/643343668">Failed to initialize NVML: Driver&#x2F;library version mismatch 的解决方法 - 知乎</a></p>
+<h1 id="4090Server2"><a href="#4090Server2" class="headerlink" title="4090Server2"></a>4090Server2</h1><ul>
+<li>Ubuntu 22.04.3 LTS</li>
+<li>gcc version 12.3.0</li>
+</ul>
+<h2 id="NV-Driver-4"><a href="#NV-Driver-4" class="headerlink" title="NV Driver"></a>NV Driver</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs bash">(base) houjinliang@4090server2:~$ <span class="hljs-built_in">cat</span> /proc/driver/nvidia/version<br>NVRM version: NVIDIA UNIX x86_64 Kernel Module  550.107.02  Wed Jul 24 23:53:00 UTC 2024<br>GCC version:  gcc version 12.3.0 (Ubuntu 12.3.0-1ubuntu1~22.04)<br></code></pre></td></tr></table></figure>
+
+
+
+<h2 id="CUDA-12-4-1-cuDNN-8-9-7"><a href="#CUDA-12-4-1-cuDNN-8-9-7" class="headerlink" title="CUDA 12.4.1 &amp; cuDNN 8.9.7"></a>CUDA 12.4.1 &amp; cuDNN 8.9.7</h2><p>CUDA 12.4.1 : <a target="_blank" rel="noopener" href="https://developer.nvidia.com/cuda-12-4-1-download-archive?target_os=Linux&target_arch=x86_64&Distribution=Ubuntu&target_version=22.04&target_type=runfile_local">CUDA Toolkit 12.4 Update 1 Downloads | NVIDIA Developer</a></p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">(base) houjinliang@4090server2:~/MyDownloadFiles$ wget https://developer.download.nvidia.com/compute/cuda/12.4.1/local_installers/cuda_12.4.1_550.54.15_linux.run<br></code></pre></td></tr></table></figure>
+
+<div class="group-image-container"><div class="group-image-row"><div class="group-image-wrap"><img src="https://murhyimgur.oss-cn-beijing.aliyuncs.com/img/image-20241024224047453.png" srcset="https://murhyimgur.oss-cn-beijing.aliyuncs.com/website/loading.gif" lazyload alt="image-20241024224047453"></div><div class="group-image-wrap"><img src="https://murhyimgur.oss-cn-beijing.aliyuncs.com/img/image-20241024224102744.png" srcset="https://murhyimgur.oss-cn-beijing.aliyuncs.com/website/loading.gif" lazyload alt="image-20241024224102744"></div><div class="group-image-wrap"><img src="https://murhyimgur.oss-cn-beijing.aliyuncs.com/img/image-20241024224157698.png" srcset="https://murhyimgur.oss-cn-beijing.aliyuncs.com/website/loading.gif" lazyload alt="image-20241024224157698"></div><div class="group-image-wrap"><img src="https://murhyimgur.oss-cn-beijing.aliyuncs.com/img/image-20241024224232933.png" srcset="https://murhyimgur.oss-cn-beijing.aliyuncs.com/website/loading.gif" lazyload alt="image-20241024224232933"></div><div class="group-image-wrap"><img src="https://murhyimgur.oss-cn-beijing.aliyuncs.com/img/image-20241024224310577.png" srcset="https://murhyimgur.oss-cn-beijing.aliyuncs.com/website/loading.gif" lazyload alt="image-20241024224310577"></div><div class="group-image-wrap"><img src="https://murhyimgur.oss-cn-beijing.aliyuncs.com/img/image-20241024224318258.png" srcset="https://murhyimgur.oss-cn-beijing.aliyuncs.com/website/loading.gif" lazyload alt="image-20241024224318258"></div><div class="group-image-wrap"><img src="https://murhyimgur.oss-cn-beijing.aliyuncs.com/img/image-20241024224333861.png" srcset="https://murhyimgur.oss-cn-beijing.aliyuncs.com/website/loading.gif" lazyload alt="image-20241024224333861"></div></div></div>
+
+<p><img src="https://murhyimgur.oss-cn-beijing.aliyuncs.com/img/image-20241024224612237.png" srcset="https://murhyimgur.oss-cn-beijing.aliyuncs.com/website/loading.gif" lazyload alt="image-20241024224612237"></p>
+<p>记得把这个log文件删掉！</p>
+<p>配置CUDA的环境变量</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">(base) houjinliang@4090server2:~/MyDownloadFiles$ vim ~/.bashrc<br></code></pre></td></tr></table></figure>
+
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><code class="hljs .bashrc"># &gt;&gt;&gt; cuda environment variables &gt;&gt;&gt;<br># murpy insert<br>export CUDA_HOME=$CUDA_HOME:/data/houjinliang/cuda-12.4<br>export PATH=$PATH:/data/houjinliang/cuda-12.4/bin<br>export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:/data/houjinliang/cuda-12.4/lib64<br># &lt;&lt;&lt; cuda environment variables &lt;&lt;&lt;<br></code></pre></td></tr></table></figure>
+
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><code class="hljs bash">(base) houjinliang@4090server2:~/MyDownloadFiles$ <span class="hljs-built_in">source</span> ~/.bashrc<br>(base) houjinliang@4090server2:~/MyDownloadFiles$ nvcc -V<br>nvcc: NVIDIA (R) Cuda compiler driver<br>Copyright (c) 2005-2024 NVIDIA Corporation<br>Built on Thu_Mar_28_02:18:24_PDT_2024<br>Cuda compilation tools, release 12.4, V12.4.131<br>Build cuda_12.4.r12.4/compiler.34097967_0<br></code></pre></td></tr></table></figure>
+
+<p>CUDNN : cudnn-linux-x86_64-8.9.7.29_cuda12-archive.tar</p>
+<blockquote>
+<p><a target="_blank" rel="noopener" href="https://developer.nvidia.com/downloads/compute/cudnn/secure/8.9.7/local_installers/12.x/cudnn-linux-x86_64-8.9.7.29_cuda12-archive.tar.xz/">https://developer.nvidia.com/downloads/compute/cudnn/secure/8.9.7/local_installers/12.x/cudnn-linux-x86_64-8.9.7.29_cuda12-archive.tar.xz/</a></p>
+</blockquote>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><code class="hljs bash">(base) houjinliang@4090server2:~/MyDownloadFiles$ tar xvJf cudnn-linux-x86_64-8.9.7.29_cuda12-archive.tar.xz<br><br>(base) houjinliang@4090server2:~/MyDownloadFiles$ <span class="hljs-built_in">cd</span> cudnn-linux-x86_64-8.9.7.29_cuda12-archive/<br>(base) houjinliang@4090server2:~/MyDownloadFiles/cudnn-linux-x86_64-8.9.7.29_cuda12-archive$ ll<br>total 48<br>drwxr-xr-x 4 houjinliang houjinliang  4096 11月 30  2023 ./<br>drwxrwxr-x 3 houjinliang houjinliang  4096 10月 24 22:53 ../<br>drwxr-xr-x 2 houjinliang houjinliang  4096 11月 30  2023 include/<br>drwxr-xr-x 2 houjinliang houjinliang  4096 11月 30  2023 lib/<br>-rw-r--r-- 1 houjinliang houjinliang 29662 11月 30  2023 LICENSE<br><br>(base) houjinliang@4090server2:~/MyDownloadFiles/cudnn-linux-x86_64-8.9.7.29_cuda12-archive$ <span class="hljs-built_in">cp</span> lib/* ~/cuda-12.4/lib64/<br>(base) houjinliang@4090server2:~/MyDownloadFiles/cudnn-linux-x86_64-8.9.7.29_cuda12-archive$ <span class="hljs-built_in">cp</span> include/* ~/cuda-12.4/include<br>(base) houjinliang@4090server2:~/MyDownloadFiles/cudnn-linux-x86_64-8.9.7.29_cuda12-archive$ <span class="hljs-built_in">chmod</span> +x ~/cuda-12.4/include/cudnn.h<br>(base) houjinliang@4090server2:~/MyDownloadFiles/cudnn-linux-x86_64-8.9.7.29_cuda12-archive$ <span class="hljs-built_in">chmod</span> +x ~/cuda-12.4/lib64/libcudnn*<br><br>(base) houjinliang@4090server2:~/MyDownloadFiles/cudnn-linux-x86_64-8.9.7.29_cuda12-archive$ <span class="hljs-built_in">cat</span> ~/cuda-12.4/include/cudnn_version.h | grep CUDNN_MAJOR -A 2<br><span class="hljs-comment">#define CUDNN_MAJOR 8</span><br><span class="hljs-comment">#define CUDNN_MINOR 9</span><br><span class="hljs-comment">#define CUDNN_PATCHLEVEL 7</span><br>--<br><span class="hljs-comment">#define CUDNN_VERSION (CUDNN_MAJOR * 1000 + CUDNN_MINOR * 100 + CUDNN_PATCHLEVEL)</span><br><br>/* cannot use constexpr here since this is a C-only file */<br><br></code></pre></td></tr></table></figure>
+
+<h2 id="git-install"><a href="#git-install" class="headerlink" title="git install"></a>git install</h2><p>这台服务器上没有git，使用deb包安装一个</p>
+<blockquote>
+<ul>
+<li>deb包：<a target="_blank" rel="noopener" href="https://ubuntu.pkgs.org/22.04/ubuntu-updates-main-amd64/git_2.34.1-1ubuntu1.11_amd64.deb.html">https://ubuntu.pkgs.org/22.04/ubuntu-updates-main-amd64/git_2.34.1-1ubuntu1.11_amd64.deb.html</a></li>
+<li>教程参考：<a target="_blank" rel="noopener" href="https://www.ohyee.cc/post/note_install_git_without_root">https://www.ohyee.cc/post/note_install_git_without_root</a></li>
+</ul>
+</blockquote>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">(base) houjinliang@4090server2:~/MyDownloadFiles$ wget http://archive.ubuntu.com/ubuntu/pool/main/g/git/git_2.34.1-1ubuntu1.11_amd64.deb<br></code></pre></td></tr></table></figure>
+
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><code class="hljs bash">(base) houjinliang@4090server2:~/MyDownloadFiles$ <span class="hljs-built_in">cd</span> ~<br><br><span class="hljs-comment"># 先创建文件夹，把git安装到这里</span><br>(base) houjinliang@4090server2:~$ <span class="hljs-built_in">mkdir</span> git<br>(base) houjinliang@4090server2:~$ dpkg -x ./MyDownloadFiles/git_2.34.1-1ubuntu1.11_amd64.deb ./git<br><br>(base) houjinliang@4090server2:~$ <span class="hljs-built_in">cd</span> git/<br>(base) houjinliang@4090server2:~/git$ ll<br>total 20<br>drwxr-xr-x  5 houjinliang houjinliang 4096  5月 20 20:14 ./<br>drwxr-x--- 14 houjinliang houjinliang 4096 10月 24 23:22 ../<br>drwxr-xr-x  3 houjinliang houjinliang 4096  5月 20 20:14 etc/<br>drwxr-xr-x  5 houjinliang houjinliang 4096  5月 20 20:14 usr/<br>drwxr-xr-x  3 houjinliang houjinliang 4096  5月 20 20:14 var/<br></code></pre></td></tr></table></figure>
+
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">(base) houjinliang@4090server2:~$ vim ~/.bashrc<br></code></pre></td></tr></table></figure>
+
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs bash"><span class="hljs-comment"># &gt;&gt;&gt; git environment variables &gt;&gt;&gt;</span><br><span class="hljs-comment"># murpy insert</span><br><span class="hljs-built_in">export</span> PATH=<span class="hljs-variable">$PATH</span>:~/git/usr/bin<br><span class="hljs-built_in">export</span> GIT_EXEC_PATH=~/git/usr/lib/git-core<br><span class="hljs-comment"># &lt;&lt;&lt; git environment variables &lt;&lt;&lt;</span><br></code></pre></td></tr></table></figure>
+
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">(base) houjinliang@4090server2:~$ <span class="hljs-built_in">source</span> ~/.bashrc<br></code></pre></td></tr></table></figure>
+
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs bash">(base) houjinliang@4090server2:~$ git --version<br>git version 2.34.1<br></code></pre></td></tr></table></figure>
+
+
+
+<h2 id="git-配置"><a href="#git-配置" class="headerlink" title="git 配置"></a>git 配置</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><code class="hljs bash">(base) houjinliang@4090server2:~$ git config --global user.name <span class="hljs-string">&#x27;hjl_4090server2&#x27;</span><br>(base) houjinliang@4090server2:~$ git config --global user.email <span class="hljs-string">&#x27;cosmicdustycn@outlook.com&#x27;</span><br>(base) houjinliang@4090server2:~$ ssh-keygen -t rsa -C <span class="hljs-string">&quot;cosmicdustycn@outlook.com&quot;</span><br>Generating public/private rsa key pair.<br>Enter file <span class="hljs-keyword">in</span> <span class="hljs-built_in">which</span> to save the key (/data/houjinliang/.ssh/id_rsa):<br>Created directory <span class="hljs-string">&#x27;/data/houjinliang/.ssh&#x27;</span>.<br>Enter passphrase (empty <span class="hljs-keyword">for</span> no passphrase):<br>Enter same passphrase again:<br>Your identification has been saved <span class="hljs-keyword">in</span> /data/houjinliang/.ssh/id_rsa<br>Your public key has been saved <span class="hljs-keyword">in</span> /data/houjinliang/.ssh/id_rsa.pub<br>(base) houjinliang@4090server2:~$ <span class="hljs-built_in">cat</span> ~/.ssh/id_rsa.pub<br></code></pre></td></tr></table></figure>
+
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><code class="hljs bash">(base) houjinliang@4090server2:~$ git config user.name<br>hjl_4090server2<br>(base) houjinliang@4090server2:~$ git config user.email<br>cosmicdustycn@outlook.com<br>(base) houjinliang@4090server2:~$ ssh -T git@github.com<br>The authenticity of host <span class="hljs-string">&#x27;github.com (20.205.243.166)&#x27;</span> can<span class="hljs-string">&#x27;t be established.</span><br><span class="hljs-string">ED25519 key fingerprint is SHA256:+DiY3wvvV6TuJJhbpZisF/zLDA0zPMSvHdkr4UvCOqU.</span><br><span class="hljs-string">This key is not known by any other names</span><br><span class="hljs-string">Are you sure you want to continue connecting (yes/no/[fingerprint])? yes</span><br><span class="hljs-string">Warning: Permanently added &#x27;</span>github.com<span class="hljs-string">&#x27; (ED25519) to the list of known hosts.</span><br><span class="hljs-string">Hi murphyhoucn! You&#x27;</span>ve successfully authenticated, but GitHub does not provide shell access.<br></code></pre></td></tr></table></figure>
+
+<h2 id="conda-env"><a href="#conda-env" class="headerlink" title="conda env"></a>conda env</h2><p>虽然4090server2上面的CUDA环境是12.4，但这里还是用了在3080上配置的sr_benchmark的环境。</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><code class="hljs bash">(base) houjinliang@4090server2:~$ <span class="hljs-built_in">mkdir</span> ~/miniconda3/envs/sr_benchmark<br>(base) houjinliang@4090server2:~$ tar -xzvf ./MyDownloadFiles/sr_benchmark.tar.gz -C ~/miniconda3/envs/sr_benchmark<br>(base) houjinliang@4090server2:~$ conda <span class="hljs-built_in">env</span> list<br><span class="hljs-comment"># conda environments:</span><br><span class="hljs-comment">#</span><br>base                  *  /data/houjinliang/miniconda3<br>sr_benchmark             /data/houjinliang/miniconda3/envs/sr_benchmark<br><br>(base) houjinliang@4090server2:~$<br>(base) houjinliang@4090server2:~$ conda activate sr_benchmark<br>(sr_benchmark) houjinliang@4090server2:~$ python<br>Python 3.8.19 (default, Mar 20 2024, 19:58:24)<br>[GCC 11.2.0] :: Anaconda, Inc. on linux<br>Type <span class="hljs-string">&quot;help&quot;</span>, <span class="hljs-string">&quot;copyright&quot;</span>, <span class="hljs-string">&quot;credits&quot;</span> or <span class="hljs-string">&quot;license&quot;</span> <span class="hljs-keyword">for</span> more information.<br>&gt;&gt;&gt; import torch<br>&gt;&gt;&gt; <span class="hljs-built_in">print</span>(torch.cuda.is_available())<br>True<br>&gt;&gt;&gt;<br><br><span class="hljs-comment"># torch版本还是之前的</span><br>torch                   1.10.1+cu113<br>torchvision             0.11.2+cu113<br></code></pre></td></tr></table></figure>
+
+
+
+
+
+
+
+<h1 id="参考链接"><a href="#参考链接" class="headerlink" title="参考链接"></a>参考链接</h1><h2 id="CUDA-Toolkit-and-Corresponding-Driver-Versions"><a href="#CUDA-Toolkit-and-Corresponding-Driver-Versions" class="headerlink" title="CUDA Toolkit and Corresponding Driver Versions"></a>CUDA Toolkit and Corresponding Driver Versions</h2><p><a target="_blank" rel="noopener" href="https://docs.nvidia.com/cuda/cuda-toolkit-release-notes/index.html#id5">CUDA 12.6 Update 2 Release Notes</a></p>
+<div class="group-image-container"><div class="group-image-row"><div class="group-image-wrap"><img src="https://murhyimgur.oss-cn-beijing.aliyuncs.com/img/image-20241030165027775.png" srcset="https://murhyimgur.oss-cn-beijing.aliyuncs.com/website/loading.gif" lazyload alt="image-20241030165027775"></div><div class="group-image-wrap"><img src="https://murhyimgur.oss-cn-beijing.aliyuncs.com/img/image-20241030165047346.png" srcset="https://murhyimgur.oss-cn-beijing.aliyuncs.com/website/loading.gif" lazyload alt="image-20241030165047346"></div></div></div>
+
+
+
+
+<h2 id="GCC与CUDA版本对应"><a href="#GCC与CUDA版本对应" class="headerlink" title="GCC与CUDA版本对应"></a>GCC与CUDA版本对应</h2><p><img src="https://murhyimgur.oss-cn-beijing.aliyuncs.com/img/image-20241023135851280.png" srcset="https://murhyimgur.oss-cn-beijing.aliyuncs.com/website/loading.gif" lazyload alt="image-20241023135851280"></p>
+<ul>
+<li>3080Server - gcc 7.5.0   （Ubuntu 18.04.6 LTS）-&gt; CUDA 11.3</li>
+<li>3090Server - gcc 7.5.0   （Ubuntu 18.04.6 LTS）-&gt; CUDA 11.3</li>
+<li>3090Server2 - gcc 9.4.0 （Ubuntu  20.04.5 LTS）-&gt; CUDA 11.3</li>
+<li>4090Server - gcc 11.4.0  （Ubuntu 22.04.2 LTS）-&gt; CUDA 11.6</li>
+<li>4090Server - gcc 12.3.0  （Ubuntu 22.04.3 LTS）-&gt; CUDA 12.4</li>
+</ul>
+<p><img src="https://murhyimgur.oss-cn-beijing.aliyuncs.com/img/image-20241023142730502.png" srcset="https://murhyimgur.oss-cn-beijing.aliyuncs.com/website/loading.gif" lazyload alt="image-20241023142730502"></p>
+<blockquote>
+<p><a target="_blank" rel="noopener" href="https://docs.nvidia.com/cuda/cuda-installation-guide-linux/index.html">https://docs.nvidia.com/cuda/cuda-installation-guide-linux/index.html</a></p>
+</blockquote>
+<h2 id="cuDNN-docs"><a href="#cuDNN-docs" class="headerlink" title="cuDNN docs"></a>cuDNN docs</h2><p><img src="https://murhyimgur.oss-cn-beijing.aliyuncs.com/img/image-20241023145233186.png" srcset="https://murhyimgur.oss-cn-beijing.aliyuncs.com/website/loading.gif" lazyload alt="image-20241023145233186"></p>
+<blockquote>
+<ul>
+<li><p><a target="_blank" rel="noopener" href="https://docs.nvidia.com/deeplearning/cudnn/latest/reference/support-matrix.html">Support Matrix — NVIDIA cuDNN v9.5.0 documentation</a></p>
+</li>
+<li><p><a target="_blank" rel="noopener" href="https://docs.nvidia.com/deeplearning/cudnn/archives/index.html">Documentation Archives :: NVIDIA cuDNN Documentation</a></p>
+</li>
+</ul>
+</blockquote>
+<h2 id="CUDA-Toolkit-Archive"><a href="#CUDA-Toolkit-Archive" class="headerlink" title="CUDA Toolkit Archive"></a>CUDA Toolkit Archive</h2><p><img src="https://murhyimgur.oss-cn-beijing.aliyuncs.com/img/image-20241023145423648.png" srcset="https://murhyimgur.oss-cn-beijing.aliyuncs.com/website/loading.gif" lazyload alt="image-20241023145423648"></p>
+<blockquote>
+<p> <a target="_blank" rel="noopener" href="https://developer.nvidia.com/cuda-toolkit-archive">CUDA Toolkit Archive | NVIDIA Developer</a></p>
+</blockquote>
+<h2 id="cuDNN-Archive"><a href="#cuDNN-Archive" class="headerlink" title="cuDNN Archive"></a>cuDNN Archive</h2><blockquote>
+<ul>
+<li><a target="_blank" rel="noopener" href="https://developer.nvidia.com/rdp/cudnn-archive">cuDNN Archive | NVIDIA Developer</a></li>
+</ul>
+</blockquote>
+<p><img src="https://murhyimgur.oss-cn-beijing.aliyuncs.com/img/image-20241024223544376.png" srcset="https://murhyimgur.oss-cn-beijing.aliyuncs.com/website/loading.gif" lazyload alt="image-20241024223544376"></p>
+<p><img src="https://murhyimgur.oss-cn-beijing.aliyuncs.com/img/image-20241024223923702.png" srcset="https://murhyimgur.oss-cn-beijing.aliyuncs.com/website/loading.gif" lazyload alt="image-20241024223923702"></p>
+<h1 id="Docker"><a href="#Docker" class="headerlink" title="Docker"></a>Docker</h1><blockquote>
+<ul>
+<li>这个中文文档很不错：<a target="_blank" rel="noopener" href="https://yeasy.gitbook.io/docker_practice/install/ubuntu">Ubuntu | Docker — 从入门到实践 (gitbook.io)</a></li>
+</ul>
+</blockquote>
+<h2 id="Docker-Install"><a href="#Docker-Install" class="headerlink" title="Docker Install"></a>Docker Install</h2><blockquote>
+<p><em>需要管理员用户！</em></p>
+<ul>
+<li><a target="_blank" rel="noopener" href="https://yeasy.gitbook.io/docker_practice/install/ubuntu">Ubuntu | Docker — 从入门到实践 (gitbook.io)</a></li>
+<li><a target="_blank" rel="noopener" href="https://blog.csdn.net/weixin_43844521/article/details/132737354">Linux 查看属于某个组（例如docker组）的所有用户_getent group docker-CSDN博客</a></li>
+</ul>
+</blockquote>
+<ul>
+<li>使用APT安装（具体步骤参考网上教程）</li>
+</ul>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><code class="hljs bash"><span class="hljs-comment"># Step 1</span><br><span class="hljs-built_in">sudo</span> apt update<br><span class="hljs-built_in">sudo</span> apt install \<br>    apt-transport-https \<br>    ca-certificates \<br>    curl \<br>    gnupg \<br>    lsb-release<br><br><span class="hljs-comment"># Step 2</span><br>curl -fsSL https://mirrors.aliyun.com/docker-ce/linux/ubuntu/gpg | <span class="hljs-built_in">sudo</span> gpg --dearmor -o /usr/share/keyrings/docker-archive-keyring.gpg<br><br><span class="hljs-comment"># Step 3</span><br><span class="hljs-built_in">echo</span> \<br>  <span class="hljs-string">&quot;deb [arch=amd64 signed-by=/usr/share/keyrings/docker-archive-keyring.gpg] https://mirrors.aliyun.com/docker-ce/linux/ubuntu \</span><br><span class="hljs-string">  <span class="hljs-subst">$(lsb_release -cs)</span> stable&quot;</span> | <span class="hljs-built_in">sudo</span> <span class="hljs-built_in">tee</span> /etc/apt/sources.list.d/docker.list &gt; /dev/null<br><br><span class="hljs-comment"># Step 4</span><br><span class="hljs-built_in">sudo</span> apt update<br><span class="hljs-built_in">sudo</span> apt install docker-ce docker-ce-cli containerd.io<br><br><span class="hljs-comment"># Step 5</span><br><span class="hljs-built_in">sudo</span> systemctl <span class="hljs-built_in">enable</span> docker<br><span class="hljs-built_in">sudo</span> systemctl start docker<br></code></pre></td></tr></table></figure>
+
+<ul>
+<li>为了让非管理员用户也能使用docker，需要建立用户组，赋予用户组内的用户权限</li>
+</ul>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><code class="hljs bash"><span class="hljs-comment"># 建立 docker 组</span><br><span class="hljs-built_in">sudo</span> groupadd docker<br><br><span class="hljs-comment"># 将当前用户加入 docker 组</span><br><span class="hljs-built_in">sudo</span> usermod -aG docker <span class="hljs-variable">$USER</span><br><span class="hljs-comment"># 将xxx用户加入 docker 组</span><br><span class="hljs-built_in">sudo</span> usermod -aG docker xxxxxxxx<br><br><span class="hljs-comment"># 查看docker用户组用户 - 方法1</span><br>getent group docker<br><span class="hljs-comment"># 查看docker用户组用户 - 方法2</span><br>grep <span class="hljs-string">&#x27;^docker:&#x27;</span> /etc/group<br></code></pre></td></tr></table></figure>
+
+<h2 id="配置docker代理"><a href="#配置docker代理" class="headerlink" title="配置docker代理"></a>配置docker代理</h2><blockquote>
+<p>docker 代理配置需要<em>管理员用户</em>！</p>
+<ul>
+<li><a target="_blank" rel="noopener" href="https://isedu.top/index.php/archives/146/">Docker的网络代理配置 - 清~幽殇 (isedu.top)</a></li>
+<li><a target="_blank" rel="noopener" href="https://blog.csdn.net/vic_qxz/article/details/130061661">配置docker pull代理_docker pull 代理-CSDN博客</a></li>
+<li><a target="_blank" rel="noopener" href="https://yeasy.gitbook.io/docker_practice/install/mirror">镜像加速器 | Docker — 从入门到实践 (gitbook.io)</a></li>
+<li><a target="_blank" rel="noopener" href="https://www.coderjia.cn/archives/dba3f94c-a021-468a-8ac6-e840f85867ea">目前国内可用Docker镜像源汇总（截至2024年12月） - CoderJia</a></li>
+</ul>
+</blockquote>
+<p>上网代理，参考<a href="https://cosmicdusty.cc/post/Tools/WorkingWithGPUServer/#Clash-for-Linux">瞧瞧我对服务器干了些什么！ - MurphyHou (cosmicdusty.cc)</a></p>
+<p>一、配置镜像服务器（很多镜像服务器已经不能用了）</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><code class="hljs bash">vim /etc/docker/daemon.json<br><br><span class="hljs-comment"># 在json配置文件中，输入以下配置</span><br>&#123;<br>  <span class="hljs-string">&quot;registry-mirrors&quot;</span>: [<br>    <span class="hljs-string">&quot;https://hub-mirror.c.163.com&quot;</span>,<br>    <span class="hljs-string">&quot;https://mirror.baidubce.com&quot;</span><br>  ]<br>&#125;<br><br><span class="hljs-comment"># 然后重启docker服务</span><br><span class="hljs-built_in">sudo</span> systemctl daemon-reload<br><span class="hljs-built_in">sudo</span> systemctl restart docker<br></code></pre></td></tr></table></figure>
+
+<p>二、docker pull代理</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><code class="hljs bash"><span class="hljs-built_in">sudo</span> <span class="hljs-built_in">mkdir</span> -p /etc/systemd/system/docker.service.d<br><span class="hljs-built_in">sudo</span> <span class="hljs-built_in">touch</span> /etc/systemd/system/docker.service.d/proxy.conf<br><br><span class="hljs-comment"># 在json配置文件中，输入以下配置 -&gt; (7890端口号是因为clash是代理的这个端口)</span><br>[Service]<br>Environment=<span class="hljs-string">&quot;HTTP_PROXY=http://127.0.0.1:7890/&quot;</span><br>Environment=<span class="hljs-string">&quot;HTTPS_PROXY=http://127.0.0.1:7890/&quot;</span><br>Environment=<span class="hljs-string">&quot;NO_PROXY=localhost,127.0.0.1,.example.com&quot;</span><br><br><span class="hljs-comment"># 然后重启docker服务</span><br><span class="hljs-built_in">sudo</span> systemctl daemon-reload<br><span class="hljs-built_in">sudo</span> systemctl restart docker<br></code></pre></td></tr></table></figure>
+
+<p>三、Container代理</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><code class="hljs bash"><span class="hljs-comment"># 1、用户级代理(这个就不需要管理员用户了，使用自己的用户登录)</span><br>vim ~/.docker/config.json<br><br><span class="hljs-comment"># 在json配置文件中，输入以下配置 -&gt; (7890端口号是因为clash是代理的这个端口)</span><br>&#123;<br> <span class="hljs-string">&quot;proxies&quot;</span>:<br> &#123;<br>   <span class="hljs-string">&quot;default&quot;</span>:<br>   &#123;<br>     <span class="hljs-string">&quot;httpProxy&quot;</span>: <span class="hljs-string">&quot;http://127.0.0.1:7890&quot;</span>,<br>     <span class="hljs-string">&quot;httpsProxy&quot;</span>: <span class="hljs-string">&quot;http://127.0.0.1:7890&quot;</span>,<br>     <span class="hljs-string">&quot;noProxy&quot;</span>: <span class="hljs-string">&quot;localhost,127.0.0.1,.example.com&quot;</span><br>   &#125;<br> &#125;<br>&#125;<br></code></pre></td></tr></table></figure>
+
+
+
+<h2 id="测试Docker配置是否成功"><a href="#测试Docker配置是否成功" class="headerlink" title="测试Docker配置是否成功"></a>测试Docker配置是否成功</h2><blockquote>
+<p><a target="_blank" rel="noopener" href="https://yeasy.gitbook.io/docker_practice/install/ubuntu">Ubuntu | Docker — 从入门到实践 (gitbook.io)</a></p>
+</blockquote>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">docker run --<span class="hljs-built_in">rm</span> hello-world<br></code></pre></td></tr></table></figure>
+
+<p><img src="https://murhyimgur.oss-cn-beijing.aliyuncs.com/img/image-20241205160737158.png" srcset="https://murhyimgur.oss-cn-beijing.aliyuncs.com/website/loading.gif" lazyload alt="image-20241205160737158"></p>
+<h2 id="配置overleaf"><a href="#配置overleaf" class="headerlink" title="配置overleaf"></a>配置overleaf</h2><blockquote>
+<p><em>上述的docker环境配置好之后，可以配置一下overleaf. 特别是得配置好网络环境，要不然Docker Image拉取不下来</em></p>
+<ul>
+<li><a target="_blank" rel="noopener" href="https://ziuch.com/article/self-hosted-overleaf">自建OverLeaf——妈妈再也不用担心我的论文编译超时 | Ziuch の Blog</a></li>
+<li><a target="_blank" rel="noopener" href="https://yangzhang.site/Note/NAS/self-hosted-overleaf/">自建Overleaf - yangzhang’s Site</a></li>
+<li><a target="_blank" rel="noopener" href="https://www.tnnidm.com/build-and-use-overleaf-server/index.html">搭建和使用overleaf服务器 | Tnnidm-Blog</a></li>
+</ul>
+</blockquote>
+<h3 id="配置"><a href="#配置" class="headerlink" title="配置"></a>配置</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><code class="hljs bash"><span class="hljs-comment"># Step 1：下载源码</span><br>git <span class="hljs-built_in">clone</span> https://github.com/overleaf/toolkit.git ./overleaf-toolkit &amp;&amp; <span class="hljs-built_in">cd</span> overleaf-toolkit<br><br><span class="hljs-comment"># Step 2：初始化配置</span><br>bin/init<br><br><span class="hljs-comment"># Step 3：建立服务</span><br>bin/up<br></code></pre></td></tr></table></figure>
+
+<p><img src="https://murhyimgur.oss-cn-beijing.aliyuncs.com/img/image-20241205161651945.png" srcset="https://murhyimgur.oss-cn-beijing.aliyuncs.com/website/loading.gif" lazyload alt="image-20241205161651945"></p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs bash"><span class="hljs-comment"># 启动服务</span><br>bin/start<br><br><span class="hljs-comment"># 结束服务</span><br>bin/stop<br></code></pre></td></tr></table></figure>
+
+<h3 id="远程访问"><a href="#远程访问" class="headerlink" title="远程访问"></a>远程访问</h3><p>因为服务是在远程服务器上，为了在本地能直接方法，需要修改端口和外网访问</p>
+<p>在<code>./config/overleaf.rc</code>中，需要修改以下字段：</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs shell">OVERLEAF_LISTEN_IP=xx.xx.xx.xx # 远程服务器IP<br>OVERLEAF_PORT=80 # 默认是80<br></code></pre></td></tr></table></figure>
+
+<p>Overleaf 容器启动之后，可以打开 <a href="http://xx.xx.xx.xx:xx/launchpad">http://xx.xx.xx.xx:xx/launchpad</a> 注册管理员帐户。之后我们就可以用这个帐户登录 Overleaf 平台。</p>
+<p>网上教程中还给出了一些复杂的配置，后面根据需要再配置吧。</p>
+<h3 id="后记"><a href="#后记" class="headerlink" title="后记"></a>后记</h3><p>因为Overleaf官网对于免费用户，只有20s的编译时间，超过时间限制则无法编译。对于这种情况，只能付费解决。如果面对我遇到这样的情况的话，我可能也会选择付费的方式。但在网上看到了可以在服务器上搭建自己的Overleaf，所以想跟着教程自己试一下。按照教程一步步走下来，最后也配置成功了。也许最后并不会使用自己配置的这个，但折腾永不停息，万一用到了呢？！</p>
+
+                
+              </div>
+            
+            <hr/>
+            <div>
+              <div class="post-metas my-3">
+  
+    <div class="post-meta mr-3 d-flex align-items-center">
+      <i class="iconfont icon-category"></i>
+      
+
+<span class="category-chains">
+  
+  
+    
+      <span class="category-chain">
+        
+  <a href="/categories/%E9%AB%98%E6%95%88%E5%B7%A5%E5%85%B7/" class="category-chain-item">高效工具</a>
+  
+  
+
+      </span>
+    
+  
+</span>
+
+    </div>
+  
+  
+    <div class="post-meta">
+      <i class="iconfont icon-tags"></i>
+      
+        <a href="/tags/Linux/" class="print-no-link">#Linux</a>
+      
+        <a href="/tags/Server/" class="print-no-link">#Server</a>
+      
+        <a href="/tags/GPU/" class="print-no-link">#GPU</a>
+      
+        <a href="/tags/DeepLearning/" class="print-no-link">#DeepLearning</a>
+      
+        <a href="/tags/CV/" class="print-no-link">#CV</a>
+      
+    </div>
+  
+</div>
+
+
+              
+  
+
+  <div class="license-box my-3">
+    <div class="license-title">
+      <div>瞧瞧我对服务器干了些什么！</div>
+      <div>https://cosmicdusty.cc/post/Tools/WorkingWithGPUServer/</div>
+    </div>
+    <div class="license-meta">
+      
+        <div class="license-meta-item">
+          <div>作者</div>
+          <div>Murphy</div>
+        </div>
+      
+      
+        <div class="license-meta-item license-meta-date">
+          <div>发布于</div>
+          <div>2023年11月1日</div>
+        </div>
+      
+      
+      
+        <div class="license-meta-item">
+          <div>许可协议</div>
+          <div>
+            
+              
+              
+                <a class="print-no-link" target="_blank" href="https://creativecommons.org/licenses/by/4.0/">
+                  <span class="hint--top hint--rounded" aria-label="BY - 署名">
+                    <i class="iconfont icon-cc-by"></i>
+                  </span>
+                </a>
+              
+            
+          </div>
+        </div>
+      
+    </div>
+    <div class="license-icon iconfont"></div>
+  </div>
+
+
+
+              
+                <div class="post-prevnext my-3">
+                  <article class="post-prev col-6">
+                    
+                    
+                      <a href="/post/Knowledge/ChernoCPP_1/" title="ChernoCPP-1">
+                        <i class="iconfont icon-arrowleft"></i>
+                        <span class="hidden-mobile">ChernoCPP-1</span>
+                        <span class="visible-mobile">上一篇</span>
+                      </a>
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/post/MyLife/Hi-HowAreYou/" title="Hi, How Are You?🤗">
+                        <span class="hidden-mobile">Hi, How Are You?🤗</span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+  
+  
+    <article id="comments" lazyload>
+      
+  <div id="valine"></div>
+  <script type="text/javascript">
+    Fluid.utils.loadComments('#valine', function() {
+      Fluid.utils.createScript('https://lib.baomitu.com/valine/1.5.1/Valine.min.js', function() {
+        var options = Object.assign(
+          {"appId":"JijHNKemeVNog4wF7g9I5TR3-gzGzoHsz","appKey":"FvsKdxHOP2aG5rHrHby5aV0b","path":"window.location.pathname","placeholder":null,"avatar":"retro","meta":["nick","mail","link"],"requiredFields":[],"pageSize":10,"lang":"zh-CN","highlight":false,"recordIP":false,"serverURLs":"","emojiCDN":null,"emojiMaps":null,"enableQQ":false},
+          {
+            el: "#valine",
+            path: window.location.pathname
+          }
+        )
+        new Valine(options);
+        Fluid.utils.waitElementVisible('#valine .vcontent', () => {
+          var imgSelector = '#valine .vcontent img:not(.vemoji)';
+          Fluid.plugins.imageCaption(imgSelector);
+          Fluid.plugins.fancyBox(imgSelector);
+        })
+      });
+    });
+  </script>
+  <noscript>Please enable JavaScript to view the comments</noscript>
+
+
+    </article>
+  
+
+
+          </article>
+        </div>
+      </div>
+    </div>
+
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+  <aside class="sidebar" style="margin-left: -1rem">
+    <div id="toc">
+  <p class="toc-header">
+    <i class="iconfont icon-list"></i>
+    <span>目录</span>
+  </p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+
+
+  </aside>
+
+
+    </div>
+  </div>
+</div>
+
+
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+
+
+
+
+    
+
+    
+      <a id="scroll-top-button" aria-label="TOP" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v" for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+    
+
+    
+  </main>
+
+  <footer>
+    <div class="footer-inner">
+  
+    <div class="footer-content">
+       <a rel="nofollow noopener"><span>Powered by</span></a> <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span><b>Hexo</b></span></a> <i class="iconfont icon-love"></i> <a rel="nofollow noopener"><span>Themed by</span></a> <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"><span><b>Fluid</b></span></a> 
+    </div>
+  
+  
+    <div class="statistics">
+  
+  
+
+  
+    
+      <span id="busuanzi_container_site_pv" style="display: none">
+        总访问量
+        <span id="busuanzi_value_site_pv"></span>
+        次
+      </span>
+    
+    
+      <span id="busuanzi_container_site_uv" style="display: none">
+        总访客数
+        <span id="busuanzi_value_site_uv"></span>
+        人
+      </span>
+    
+    
+
+  
+
+</div>
+
+  
+  
+</div>
+
+  </footer>
+
+  <!-- Scripts -->
+  
+  <script  src="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://lib.baomitu.com/jquery/3.6.0/jquery.min.js" ></script>
+<script  src="https://lib.baomitu.com/twitter-bootstrap/4.6.1/js/bootstrap.min.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
+
+
+  <script  src="https://lib.baomitu.com/typed.js/2.0.12/typed.min.js" ></script>
+  <script>
+    (function (window, document) {
+      var typing = Fluid.plugins.typing;
+      var subtitle = document.getElementById('subtitle');
+      if (!subtitle || !typing) {
+        return;
+      }
+      var text = subtitle.getAttribute('data-typed-text');
+      
+        typing(text);
+      
+    })(window, document);
+  </script>
+
+
+
+
+  
+    <script  src="/js/img-lazyload.js" ></script>
+  
+
+
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/tocbot/4.18.2/tocbot.min.js', function() {
+    var toc = jQuery('#toc');
+    if (toc.length === 0 || !window.tocbot) { return; }
+    var boardCtn = jQuery('#board-ctn');
+    var boardTop = boardCtn.offset().top;
+
+    window.tocbot.init(Object.assign({
+      tocSelector     : '#toc-body',
+      contentSelector : '.markdown-body',
+      linkClass       : 'tocbot-link',
+      activeLinkClass : 'tocbot-active-link',
+      listClass       : 'tocbot-list',
+      isCollapsedClass: 'tocbot-is-collapsed',
+      collapsibleClass: 'tocbot-is-collapsible',
+      scrollSmooth    : true,
+      includeTitleTags: true,
+      headingsOffset  : -boardTop,
+    }, CONFIG.toc));
+    if (toc.find('.toc-list-item').length > 0) {
+      toc.css('visibility', 'visible');
+    }
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('tocbot' in window) {
+        tocbot.refresh();
+        var toc = jQuery('#toc');
+        if (toc.length === 0 || !tocbot) {
+          return;
+        }
+        if (toc.find('.toc-list-item').length > 0) {
+          toc.css('visibility', 'visible');
+        }
+      }
+    });
+  });
+</script>
+
+
+  <script src=https://lib.baomitu.com/clipboard.js/2.0.11/clipboard.min.js></script>
+
+  <script>Fluid.plugins.codeWidget();</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/anchor-js/4.3.1/anchor.min.js', function() {
+    window.anchors.options = {
+      placement: CONFIG.anchorjs.placement,
+      visible  : CONFIG.anchorjs.visible
+    };
+    if (CONFIG.anchorjs.icon) {
+      window.anchors.options.icon = CONFIG.anchorjs.icon;
+    }
+    var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+    var res = [];
+    for (var item of el) {
+      res.push('.markdown-body > ' + item.trim());
+    }
+    if (CONFIG.anchorjs.placement === 'left') {
+      window.anchors.options.class = 'anchorjs-link-left';
+    }
+    window.anchors.add(res.join(', '));
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('anchors' in window) {
+        anchors.removeAll();
+        var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+        var res = [];
+        for (var item of el) {
+          res.push('.markdown-body > ' + item.trim());
+        }
+        if (CONFIG.anchorjs.placement === 'left') {
+          anchors.options.class = 'anchorjs-link-left';
+        }
+        anchors.add(res.join(', '));
+      }
+    });
+  });
+</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.js', function() {
+    Fluid.plugins.fancyBox();
+  });
+</script>
+
+
+  <script>Fluid.plugins.imageCaption();</script>
+
+  <script defer src="/js/leancloud.js" ></script>
+
+  <script  src="/js/local-search.js" ></script>
+
+  <script defer src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js" ></script>
+
+
+
+
+
+<!-- 主题的启动项，将它保持在最底部 -->
+<!-- the boot of the theme, keep it at the bottom -->
+<script  src="/js/boot.js" ></script>
+
+
+  
+
+  <noscript>
+    <div class="noscript-warning">博客在允许 JavaScript 运行的环境下浏览效果更佳</div>
+  </noscript>
+</body>
+</html>
