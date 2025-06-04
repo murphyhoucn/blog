@@ -1,0 +1,1205 @@
+
+
+<!DOCTYPE html>
+<html lang="zh-CN" data-default-color-scheme=auto>
+
+
+
+<head>
+  <meta charset="UTF-8">
+
+  <link rel="apple-touch-icon" sizes="76x76" href="https://murphyimg.oss-cn-beijing.aliyuncs.com/img/202505301726222.png">
+  <link rel="icon" href="https://murphyimg.oss-cn-beijing.aliyuncs.com/img/202505301728148.png">
+  
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="author" content="Murphy">
+  <meta name="keywords" content="Murphy,CosmicDusty,murphy,cosmicdusty,cn">
+  
+    <meta name="description" content="深度语义分割方法在遥感场景下的性能进行系统评估">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Deep Segmentation Architectures for Remote Sensing">
+<meta property="og:url" content="https://blog.cosmicdusty.cc/post/CV/SegmentationForRS/index.html">
+<meta property="og:site_name" content="CosmicDusty-Blog">
+<meta property="og:description" content="深度语义分割方法在遥感场景下的性能进行系统评估">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://murphyimg.oss-cn-beijing.aliyuncs.com/img/202506041802401.jpg">
+<meta property="article:published_time" content="2021-12-04T01:36:50.000Z">
+<meta property="article:modified_time" content="2025-06-04T10:35:41.196Z">
+<meta property="article:author" content="Murphy">
+<meta property="article:tag" content="DeepLearning">
+<meta property="article:tag" content="PyTorch">
+<meta property="article:tag" content="OpenMMLab">
+<meta property="article:tag" content="MMSegmentation">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="https://murphyimg.oss-cn-beijing.aliyuncs.com/img/202506041802401.jpg">
+  
+  
+    <meta name="referrer" content="no-referrer-when-downgrade">
+  
+  
+  <title>Deep Segmentation Architectures for Remote Sensing - CosmicDusty-Blog</title>
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
+
+
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/github-markdown-css/4.0.0/github-markdown.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/hint.css/2.7.0/hint.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.css" />
+
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+<!-- Do not modify the link that theme dependent icons -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/c/font_1749284_5i9bdhy70f8.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_lbnruvf0jn.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+
+  <link id="highlight-css" rel="stylesheet" href="/css/highlight.css" />
+  
+    <link id="highlight-css-dark" rel="stylesheet" href="/css/highlight-dark.css" />
+  
+
+
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    Fluid.ctx = Object.assign({}, Fluid.ctx)
+    var CONFIG = {"hostname":"blog.cosmicdusty.cc","root":"/","version":"1.9.8","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false,"scope":[]},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"left","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"code_language":{"enable":true,"default":"TEXT"},"copy_btn":true,"image_caption":{"enable":true},"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"placement":"right","headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"https://murhyimgur.oss-cn-beijing.aliyuncs.com/website/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":true,"follow_dnt":true,"baidu":"16d93d5abbd7ea15ec53daed5459ebf7","google":null,"tencent":{"sid":null,"cid":null},"leancloud":{"app_id":"JijHNKemeVNog4wF7g9I5TR3","app_key":"FvsKdxHOP2aG5rHrHby5aV0b","server_url":null,"path":"window.location.pathname","ignore_local":false},"umami":{"src":null,"website_id":null,"domains":null,"start_time":"2024-01-01T00:00:00.000Z","token":null,"api_server":null},"gtag":null,"woyaola":null,"cnzz":null},"search_path":"/local-search.xml","include_content_in_search":true};
+
+    if (CONFIG.web_analytics.follow_dnt) {
+      var dntVal = navigator.doNotTrack || window.doNotTrack || navigator.msDoNotTrack;
+      Fluid.ctx.dnt = dntVal && (dntVal.startsWith('1') || dntVal.startsWith('yes') || dntVal.startsWith('on'));
+    }
+  </script>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+  
+
+  
+    <!-- Baidu Analytics -->
+    <script async>
+      if (!Fluid.ctx.dnt) {
+        var _hmt = _hmt || [];
+        (function() {
+          var hm = document.createElement("script");
+          hm.src = "https://hm.baidu.com/hm.js?16d93d5abbd7ea15ec53daed5459ebf7";
+          var s = document.getElementsByTagName("script")[0];
+          s.parentNode.insertBefore(hm, s);
+        })();
+      }
+    </script>
+  
+
+  
+
+  
+
+  
+
+  
+    
+  
+
+
+
+  
+<meta name="generator" content="Hexo 7.3.0"></head>
+
+
+<body>
+  
+
+  <header>
+    
+
+<div class="header-inner" style="height: 70vh;">
+  <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand" href="/">
+      <strong>CosmicDusty</strong>
+    </a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/" target="_self">
+                <i class="iconfont icon-home-fill"></i>
+                <span>首页</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/" target="_self">
+                <i class="iconfont icon-archive-fill"></i>
+                <span>归档</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/" target="_self">
+                <i class="iconfont icon-category-fill"></i>
+                <span>分类</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/" target="_self">
+                <i class="iconfont icon-tags-fill"></i>
+                <span>标签</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/" target="_self">
+                <i class="iconfont icon-user-fill"></i>
+                <span>关于</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/links/" target="_self">
+                <i class="iconfont icon-link-fill"></i>
+                <span>友链</span>
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" target="_self" href="javascript:;" data-toggle="modal" data-target="#modalSearch" aria-label="Search">
+              <i class="iconfont icon-search"></i>
+            </a>
+          </li>
+          
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" target="_self" href="javascript:;" aria-label="Color Toggle">
+              <i class="iconfont icon-dark" id="color-toggle-icon"></i>
+            </a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+  
+
+<div id="banner" class="banner" parallax=true
+     style="background: url('https://murphyimg.oss-cn-beijing.aliyuncs.com/img/202506041802401.jpg') no-repeat center center; background-size: cover;">
+  <div class="full-bg-img">
+    <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+      <div class="banner-text text-center fade-in-up">
+        <div class="h2">
+          
+            <span id="subtitle" data-typed-text="Deep Segmentation Architectures for Remote Sensing"></span>
+          
+        </div>
+
+        
+          
+  <div class="mt-3">
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-author" aria-hidden="true"></i>
+        Murphy
+      </span>
+    
+    
+      <span class="post-meta">
+        <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+        <time datetime="2021-12-04 09:36" pubdate>
+          2021年12月4日 上午
+        </time>
+      </span>
+    
+  </div>
+
+  <div class="mt-1">
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-chart"></i>
+        
+          770 字
+        
+      </span>
+    
+
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-clock-fill"></i>
+        
+        
+        
+          7 分钟
+        
+      </span>
+    
+
+    
+    
+  </div>
+
+
+        
+      </div>
+
+      
+    </div>
+  </div>
+</div>
+
+</div>
+
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+
+    </div>
+
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div id="board">
+          <article class="post-content mx-auto">
+            <h1 id="seo-header">Deep Segmentation Architectures for Remote Sensing</h1>
+            
+            
+              <div class="markdown-body">
+                
+                <p>本项目旨在对典型深度语义分割方法在遥感场景下的性能进行系统评估，为后续实验室在海洋遥感图像分割任务中的模型迁移与微调提供方法论支持与基准选择。通过对比当前主流语义分割框架——HRNet（CVPR 2019）、DeepLabV3+（CVPR 2018）与PSPNet（CVPR 2017）在多个遥感数据集上的表现，全面分析不同分割结构在空间分辨率保持、边界识别、类间差异建模等方面的优劣。</p>
+<p>在实验设置中，分别采用ResNet-18、ResNet-50、ResNet-101作为DeepLabV3+与PSPNet的主干网络，HRNet部分选用HRNet-18、HRNet-18s与HRNet-48三种配置。实验覆盖LoveDA、Potsdam和Vaihingen三个典型遥感语义分割数据集，共完成27组模型训练与评估。</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs bash"><span class="hljs-built_in">export</span> CUDA_VISIBLE_DEVICES=1<br><br>CUDA_VISIBLE_DEVICES=-1 python tools/train.py <span class="hljs-variable">$&#123;CONFIG_FILE&#125;</span> [ARGS]<br></code></pre></td></tr></table></figure>
+
+<h1 id="Running"><a href="#Running" class="headerlink" title="Running"></a>Running</h1><p>python tools&#x2F;train.py .&#x2F;configs&#x2F;hrnet&#x2F;fcn_hr18_4xb4-80k_loveda-512x512.py </p>
+<p>python tools&#x2F;train.py .&#x2F;configs&#x2F;hrnet&#x2F;fcn_hr18_4xb4-80k_potsdam-512x512.py </p>
+<p>python tools&#x2F;train.py .&#x2F;configs&#x2F;hrnet&#x2F;fcn_hr18_4xb4-80k_vaihingen-512x512.py </p>
+<p>python tools&#x2F;train.py .&#x2F;configs&#x2F;hrnet&#x2F;fcn_hr48_4xb4-80k_loveda-512x512.py </p>
+<p>python tools&#x2F;train.py .&#x2F;configs&#x2F;hrnet&#x2F;fcn_hr48_4xb4-80k_potsdam-512x512.py </p>
+<p>python tools&#x2F;train.py .&#x2F;configs&#x2F;hrnet&#x2F;fcn_hr48_4xb4-80k_vaihingen-512x512.py </p>
+<p>python tools&#x2F;train.py .&#x2F;configs&#x2F;deeplabv3plus&#x2F;deeplabv3plus_r50-d8_4xb4-80k_loveda-512x512.py </p>
+<p>python tools&#x2F;train.py .&#x2F;configs&#x2F;deeplabv3plus&#x2F;deeplabv3plus_r50-d8_4xb4-80k_potsdam-512x512.py </p>
+<p>python tools&#x2F;train.py .&#x2F;configs&#x2F;deeplabv3plus&#x2F;deeplabv3plus_r50-d8_4xb4-80k_vaihingen-512x512.py </p>
+<p>python tools&#x2F;train.py .&#x2F;configs&#x2F;deeplabv3plus&#x2F;deeplabv3plus_r101-d8_4xb4-80k_loveda-512x512.py </p>
+<p>python tools&#x2F;train.py .&#x2F;configs&#x2F;deeplabv3plus&#x2F;deeplabv3plus_r101-d8_4xb4-80k_potsdam-512x512.py </p>
+<p>python tools&#x2F;train.py .&#x2F;configs&#x2F;deeplabv3plus&#x2F;deeplabv3plus_r101-d8_4xb4-80k_vaihingen-512x512.py </p>
+<h1 id="HRNet-CVPR-2019"><a href="#HRNet-CVPR-2019" class="headerlink" title="HRNet (CVPR 2019)"></a>HRNet (CVPR 2019)</h1><p><img src="https://murphyimg.oss-cn-beijing.aliyuncs.com/img/202506041828556.png" srcset="https://murhyimgur.oss-cn-beijing.aliyuncs.com/website/loading.gif" lazyload alt="HRNet (CVPR 2019)"></p>
+<blockquote>
+<ul>
+<li><a target="_blank" rel="noopener" href="https://openaccess.thecvf.com/content_CVPR_2019/html/Sun_Deep_High-Resolution_Representation_Learning_for_Human_Pose_Estimation_CVPR_2019_paper.html">CVPR 2019 Open Access Repository</a></li>
+<li>USTC, MSRA</li>
+<li><a target="_blank" rel="noopener" href="https://github.com/HRNet/HRNet-Semantic-Segmentation">HRNet&#x2F;HRNet-Semantic-Segmentation: The OCR approach is rephrased as Segmentation Transformer: https://arxiv.org/abs/1909.11065. This is an official implementation of semantic segmentation for HRNet. https://arxiv.org/abs/1908.07919</a></li>
+<li><a target="_blank" rel="noopener" href="https://github.com/open-mmlab/mmsegmentation/blob/v0.17.0/mmseg/models/backbones/hrnet.py#L218">mmsegmentation&#x2F;mmseg&#x2F;models&#x2F;backbones&#x2F;hrnet.py at v0.17.0 · open-mmlab&#x2F;mmsegmentation</a></li>
+</ul>
+</blockquote>
+<p><img src="https://murphyimg.oss-cn-beijing.aliyuncs.com/img/202506041828334.png" srcset="https://murhyimgur.oss-cn-beijing.aliyuncs.com/website/loading.gif" lazyload alt="img"></p>
+<p><img src="https://murphyimg.oss-cn-beijing.aliyuncs.com/img/202506041828244.png" srcset="https://murhyimgur.oss-cn-beijing.aliyuncs.com/website/loading.gif" lazyload alt="Architecture"></p>
+<p><img src="https://murphyimg.oss-cn-beijing.aliyuncs.com/img/202506041828559.png" srcset="https://murhyimgur.oss-cn-beijing.aliyuncs.com/website/loading.gif" lazyload alt="high to low and low to high"></p>
+<p><img src="https://murphyimg.oss-cn-beijing.aliyuncs.com/img/202506041833598.png" srcset="https://murhyimgur.oss-cn-beijing.aliyuncs.com/website/loading.gif" lazyload alt="[mmsegmentation/configs/hrnet/README.md at main · open-mmlab/mmsegmentation]"></p>
+<h2 id="LoveDA"><a href="#LoveDA" class="headerlink" title="LoveDA"></a>LoveDA</h2><table>
+<thead>
+<tr>
+<th align="center">Method</th>
+<th align="center">Backbone</th>
+<th align="center">Crop Size</th>
+<th align="center">Device</th>
+<th align="center">aAcc</th>
+<th align="center">mIoU</th>
+<th align="center">mAcc</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center">FCN</td>
+<td align="center">HRNetV2p-W18-Small</td>
+<td align="center">512x512</td>
+<td align="center">RTX 3090</td>
+<td align="center">67.57</td>
+<td align="center">48.95</td>
+<td align="center">61.89</td>
+</tr>
+<tr>
+<td align="center">FCN</td>
+<td align="center">HRNetV2p-W18</td>
+<td align="center">512x512</td>
+<td align="center">RTX 3090</td>
+<td align="center"></td>
+<td align="center"></td>
+<td align="center"></td>
+</tr>
+<tr>
+<td align="center">FCN</td>
+<td align="center">HRNetV2p-W48</td>
+<td align="center">512x512</td>
+<td align="center">RTX 3090</td>
+<td align="center"></td>
+<td align="center"></td>
+<td align="center"></td>
+</tr>
+</tbody></table>
+<h2 id="Potsdam"><a href="#Potsdam" class="headerlink" title="Potsdam"></a>Potsdam</h2><table>
+<thead>
+<tr>
+<th align="center">Method</th>
+<th align="center">Backbone</th>
+<th align="center">Crop Size</th>
+<th align="center">Device</th>
+<th align="center">aAcc</th>
+<th align="center">mIoU</th>
+<th align="center">mAcc</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center">FCN</td>
+<td align="center">HRNetV2p-W18-Small</td>
+<td align="center">512x512</td>
+<td align="center">RTX 3090</td>
+<td align="center">90.08</td>
+<td align="center">77.11</td>
+<td align="center">84.45</td>
+</tr>
+<tr>
+<td align="center">FCN</td>
+<td align="center">HRNetV2p-W18</td>
+<td align="center">512x512</td>
+<td align="center">RTX 3090</td>
+<td align="center"></td>
+<td align="center"></td>
+<td align="center"></td>
+</tr>
+<tr>
+<td align="center">FCN</td>
+<td align="center">HRNetV2p-W48</td>
+<td align="center">512x512</td>
+<td align="center">RTX 3090</td>
+<td align="center"></td>
+<td align="center"></td>
+<td align="center"></td>
+</tr>
+</tbody></table>
+<h2 id="Vaihingen"><a href="#Vaihingen" class="headerlink" title="Vaihingen"></a>Vaihingen</h2><table>
+<thead>
+<tr>
+<th align="center">Method</th>
+<th align="center">Backbone</th>
+<th align="center">Crop Size</th>
+<th align="center">Device</th>
+<th align="center">aAcc</th>
+<th align="center">mIoU</th>
+<th align="center">mAcc</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center">FCN</td>
+<td align="center">HRNetV2p-W18-Small</td>
+<td align="center">512x512</td>
+<td align="center">RTX 3090</td>
+<td align="center">89.76</td>
+<td align="center">72.54</td>
+<td align="center">80.31</td>
+</tr>
+<tr>
+<td align="center">FCN</td>
+<td align="center">HRNetV2p-W18</td>
+<td align="center">512x512</td>
+<td align="center">RTX 3090</td>
+<td align="center"></td>
+<td align="center"></td>
+<td align="center"></td>
+</tr>
+<tr>
+<td align="center">FCN</td>
+<td align="center">HRNetV2p-W48</td>
+<td align="center">512x512</td>
+<td align="center">RTX 3090</td>
+<td align="center"></td>
+<td align="center"></td>
+<td align="center"></td>
+</tr>
+</tbody></table>
+<h1 id="DeepLab-V3-ECCV-2018"><a href="#DeepLab-V3-ECCV-2018" class="headerlink" title="DeepLab V3+ (ECCV 2018)"></a>DeepLab V3+ (ECCV 2018)</h1><p><img src="https://murphyimg.oss-cn-beijing.aliyuncs.com/img/202506041828855.png" srcset="https://murhyimgur.oss-cn-beijing.aliyuncs.com/website/loading.gif" lazyload alt="DeepLab V3+ (ECCV 2018)"></p>
+<blockquote>
+<ul>
+<li><a target="_blank" rel="noopener" href="https://github.com/tensorflow/models/tree/master/research/deeplab">models&#x2F;research&#x2F;deeplab at master · tensorflow&#x2F;models</a></li>
+<li><a target="_blank" rel="noopener" href="https://github.com/open-mmlab/mmsegmentation/blob/v0.17.0/mmseg/models/decode_heads/sep_aspp_head.py#L30">mmsegmentation&#x2F;mmseg&#x2F;models&#x2F;decode_heads&#x2F;sep_aspp_head.py at v0.17.0 · open-mmlab&#x2F;mmsegmentation</a></li>
+<li>Google</li>
+</ul>
+</blockquote>
+<p><img src="https://murphyimg.oss-cn-beijing.aliyuncs.com/img/202506041829998.png" srcset="https://murhyimgur.oss-cn-beijing.aliyuncs.com/website/loading.gif" lazyload alt="Encoder-Decoder"></p>
+<p><img src="https://murphyimg.oss-cn-beijing.aliyuncs.com/img/202506041829754.png" srcset="https://murhyimgur.oss-cn-beijing.aliyuncs.com/website/loading.gif" lazyload alt="DeepLab v3+"></p>
+<p><img src="https://murphyimg.oss-cn-beijing.aliyuncs.com/img/202506041829233.png" srcset="https://murhyimgur.oss-cn-beijing.aliyuncs.com/website/loading.gif" lazyload alt="Atrous DwConv"></p>
+<p><img src="https://murphyimg.oss-cn-beijing.aliyuncs.com/img/202506041833351.png" srcset="https://murhyimgur.oss-cn-beijing.aliyuncs.com/website/loading.gif" lazyload alt="[mmsegmentation/configs/deeplabv3plus/README.md at main · open-mmlab/mmsegmentation]"></p>
+<h2 id="LoveDA-1"><a href="#LoveDA-1" class="headerlink" title="LoveDA"></a>LoveDA</h2><table>
+<thead>
+<tr>
+<th align="center">Method</th>
+<th align="center">Backbone</th>
+<th align="center">Crop Size</th>
+<th align="center">Device</th>
+<th align="center">aAcc</th>
+<th align="center">mIoU</th>
+<th align="center">mAcc</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center">DeepLabV3+</td>
+<td align="center">R-18-D8</td>
+<td align="center">512x512</td>
+<td align="center">RTX 3090</td>
+<td align="center">62.44</td>
+<td align="center">44.66</td>
+<td align="center">58.22</td>
+</tr>
+<tr>
+<td align="center">DeepLabV3+</td>
+<td align="center">R-50-D8</td>
+<td align="center">512x512</td>
+<td align="center">RTX 3090</td>
+<td align="center"></td>
+<td align="center"></td>
+<td align="center"></td>
+</tr>
+<tr>
+<td align="center">DeepLabV3+</td>
+<td align="center">R-101-D8</td>
+<td align="center">512x512</td>
+<td align="center">RTX 3090</td>
+<td align="center"></td>
+<td align="center"></td>
+<td align="center"></td>
+</tr>
+</tbody></table>
+<h2 id="Potsdam-1"><a href="#Potsdam-1" class="headerlink" title="Potsdam"></a>Potsdam</h2><table>
+<thead>
+<tr>
+<th align="center">Method</th>
+<th align="center">Backbone</th>
+<th align="center">Crop Size</th>
+<th align="center">Device</th>
+<th align="center">aAcc</th>
+<th align="center">mIoU</th>
+<th align="center">mAcc</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center">DeepLabV3+</td>
+<td align="center">R-18-D8</td>
+<td align="center">512x512</td>
+<td align="center">RTX 3090</td>
+<td align="center">90.16</td>
+<td align="center">77.29</td>
+<td align="center">84.77</td>
+</tr>
+<tr>
+<td align="center">DeepLabV3+</td>
+<td align="center">R-50-D8</td>
+<td align="center">512x512</td>
+<td align="center">RTX 3090</td>
+<td align="center"></td>
+<td align="center"></td>
+<td align="center"></td>
+</tr>
+<tr>
+<td align="center">DeepLabV3+</td>
+<td align="center">R-101-D8</td>
+<td align="center">512x512</td>
+<td align="center">RTX 3090</td>
+<td align="center"></td>
+<td align="center"></td>
+<td align="center"></td>
+</tr>
+</tbody></table>
+<h2 id="Vaihingen-1"><a href="#Vaihingen-1" class="headerlink" title="Vaihingen"></a>Vaihingen</h2><table>
+<thead>
+<tr>
+<th align="center">Method</th>
+<th align="center">Backbone</th>
+<th align="center">Crop Size</th>
+<th align="center">Device</th>
+<th align="center">aAcc</th>
+<th align="center">mIoU</th>
+<th align="center">mAcc</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center">DeepLabV3+</td>
+<td align="center">R-18-D8</td>
+<td align="center">512x512</td>
+<td align="center">RTX 3090</td>
+<td align="center">89.58</td>
+<td align="center">72.35</td>
+<td align="center">80.44</td>
+</tr>
+<tr>
+<td align="center">DeepLabV3+</td>
+<td align="center">R-50-D8</td>
+<td align="center">512x512</td>
+<td align="center">RTX 3090</td>
+<td align="center"></td>
+<td align="center"></td>
+<td align="center"></td>
+</tr>
+<tr>
+<td align="center">DeepLabV3+</td>
+<td align="center">R-101-D8</td>
+<td align="center">512x512</td>
+<td align="center">RTX 3090</td>
+<td align="center"></td>
+<td align="center"></td>
+<td align="center"></td>
+</tr>
+</tbody></table>
+<h1 id="PSPNet-CVPR-2017"><a href="#PSPNet-CVPR-2017" class="headerlink" title="PSPNet (CVPR 2017)"></a>PSPNet (CVPR 2017)</h1><p><img src="https://murphyimg.oss-cn-beijing.aliyuncs.com/img/202506041829774.png" srcset="https://murhyimgur.oss-cn-beijing.aliyuncs.com/website/loading.gif" lazyload alt="PSPNet (CVPR 2017)"></p>
+<blockquote>
+<ul>
+<li>CVPR 2017</li>
+<li>CUHK, SenseTime</li>
+</ul>
+</blockquote>
+<p><img src="https://murphyimg.oss-cn-beijing.aliyuncs.com/img/202506041829384.png" srcset="https://murhyimgur.oss-cn-beijing.aliyuncs.com/website/loading.gif" lazyload alt="PSPNet"></p>
+<p><img src="https://murphyimg.oss-cn-beijing.aliyuncs.com/img/202506041830007.png" srcset="https://murhyimgur.oss-cn-beijing.aliyuncs.com/website/loading.gif" lazyload alt="PSPNet"></p>
+<p><img src="https://murphyimg.oss-cn-beijing.aliyuncs.com/img/202506041832442.png" srcset="https://murhyimgur.oss-cn-beijing.aliyuncs.com/website/loading.gif" lazyload alt="[mmsegmentation/configs/pspnet/README.md at main · open-mmlab/mmsegmentation]"></p>
+<h2 id="LoveDA-2"><a href="#LoveDA-2" class="headerlink" title="LoveDA"></a>LoveDA</h2><table>
+<thead>
+<tr>
+<th align="center">Method</th>
+<th align="center">Backbone</th>
+<th align="center">Crop Size</th>
+<th align="center">Device</th>
+<th align="center">aAcc</th>
+<th align="center">mIoU</th>
+<th align="center">mAcc</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center">PSPNet</td>
+<td align="center">R-18-D8</td>
+<td align="center">512x512</td>
+<td align="center">RTX 3090</td>
+<td align="center">66.42</td>
+<td align="center">45.82</td>
+<td align="center">56.44</td>
+</tr>
+<tr>
+<td align="center">PSPNet</td>
+<td align="center">R-50-D8</td>
+<td align="center">512x512</td>
+<td align="center">RTX 3090</td>
+<td align="center">68.07</td>
+<td align="center">49.38</td>
+<td align="center">60.60</td>
+</tr>
+<tr>
+<td align="center">PSPNet</td>
+<td align="center">R-101-D8</td>
+<td align="center">512x512</td>
+<td align="center">RTX 3090</td>
+<td align="center">68.22</td>
+<td align="center">49.01</td>
+<td align="center">59.71</td>
+</tr>
+</tbody></table>
+<h2 id="Potsdam-2"><a href="#Potsdam-2" class="headerlink" title="Potsdam"></a>Potsdam</h2><table>
+<thead>
+<tr>
+<th align="center">Method</th>
+<th align="center">Backbone</th>
+<th align="center">Crop Size</th>
+<th align="center">Device</th>
+<th align="center">aAcc</th>
+<th align="center">mIoU</th>
+<th align="center">mAcc</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center">PSPNet</td>
+<td align="center">R-18-D8</td>
+<td align="center">512x512</td>
+<td align="center">RTX 3090</td>
+<td align="center">90.09</td>
+<td align="center">77.43</td>
+<td align="center">85.23</td>
+</tr>
+<tr>
+<td align="center">PSPNet</td>
+<td align="center">R-50-D8</td>
+<td align="center">512x512</td>
+<td align="center">RTX 3090</td>
+<td align="center">90.71</td>
+<td align="center">78.62</td>
+<td align="center">85.82</td>
+</tr>
+<tr>
+<td align="center">PSPNet</td>
+<td align="center">R-101-D8</td>
+<td align="center">512x512</td>
+<td align="center">RTX 3090</td>
+<td align="center">68.22</td>
+<td align="center">49.01</td>
+<td align="center">59.71</td>
+</tr>
+</tbody></table>
+<h2 id="Vaihingen-2"><a href="#Vaihingen-2" class="headerlink" title="Vaihingen"></a>Vaihingen</h2><table>
+<thead>
+<tr>
+<th align="center">Method</th>
+<th align="center">Backbone</th>
+<th align="center">Crop Size</th>
+<th align="center">Device</th>
+<th align="center">aAcc</th>
+<th align="center">mIoU</th>
+<th align="center">mAcc</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center">PSPNet</td>
+<td align="center">R-18-D8</td>
+<td align="center">512x512</td>
+<td align="center">RTX 3090</td>
+<td align="center">89.54</td>
+<td align="center">72.53</td>
+<td align="center">79.78</td>
+</tr>
+<tr>
+<td align="center">PSPNet</td>
+<td align="center">R-50-D8</td>
+<td align="center">512x512</td>
+<td align="center">RTX 3090</td>
+<td align="center">90.01</td>
+<td align="center">73.33</td>
+<td align="center">80.63</td>
+</tr>
+<tr>
+<td align="center">PSPNet</td>
+<td align="center">R-101-D8</td>
+<td align="center">512x512</td>
+<td align="center">RTX 3090</td>
+<td align="center">90.07</td>
+<td align="center">71.71</td>
+<td align="center">78.68</td>
+</tr>
+</tbody></table>
+<h1 id="Exp"><a href="#Exp" class="headerlink" title="Exp"></a>Exp</h1><h2 id="HRNet"><a href="#HRNet" class="headerlink" title="HRNet"></a>HRNet</h2><h3 id="R18s"><a href="#R18s" class="headerlink" title="R18s"></a>R18s</h3><p>python tools&#x2F;train.py .&#x2F;configs&#x2F;hrnet&#x2F;fcn_hr18s_4xb4-80k_loveda-512x512.py （fcn_hr18s_4xb4-80k_loveda-512x512_20250604_101019）</p>
+<p><img src="https://murphyimg.oss-cn-beijing.aliyuncs.com/img/202506041830926.png" srcset="https://murhyimgur.oss-cn-beijing.aliyuncs.com/website/loading.gif" lazyload alt="fcn_hr18s_4xb4-80k_loveda-512x512.py"></p>
+<p>python tools&#x2F;train.py .&#x2F;configs&#x2F;hrnet&#x2F;fcn_hr18s_4xb4-80k_potsdam-512x512.py（fcn_hr18s_4xb4-80k_potsdam-512x512_20250604_101224）</p>
+<p><img src="https://murphyimg.oss-cn-beijing.aliyuncs.com/img/202506041830231.png" srcset="https://murhyimgur.oss-cn-beijing.aliyuncs.com/website/loading.gif" lazyload alt="fcn_hr18s_4xb4-80k_potsdam-512x512.py"></p>
+<p>python tools&#x2F;train.py .&#x2F;configs&#x2F;hrnet&#x2F;fcn_hr18s_4xb4-80k_vaihingen-512x512.py （fcn_hr18s_4xb4-80k_vaihingen-512x512_20250604_101158）</p>
+<p><img src="https://murphyimg.oss-cn-beijing.aliyuncs.com/img/202506041830215.png" srcset="https://murhyimgur.oss-cn-beijing.aliyuncs.com/website/loading.gif" lazyload alt="fcn_hr18s_4xb4-80k_vaihingen-512x512.py"></p>
+<h3 id="R18"><a href="#R18" class="headerlink" title="R18"></a>R18</h3><h3 id="R48"><a href="#R48" class="headerlink" title="R48"></a>R48</h3><h2 id="DeepLab-V3"><a href="#DeepLab-V3" class="headerlink" title="DeepLab V3+"></a>DeepLab V3+</h2><h3 id="R18-1"><a href="#R18-1" class="headerlink" title="R18"></a>R18</h3><p>python tools&#x2F;train.py .&#x2F;configs&#x2F;deeplabv3plus&#x2F;deeplabv3plus_r18-d8_4xb4-80k_loveda-512x512.py (deeplabv3plus_r18-d8_4xb4-80k_loveda-512x512_20250604_100604)</p>
+<p><img src="https://murphyimg.oss-cn-beijing.aliyuncs.com/img/202506041830338.png" srcset="https://murhyimgur.oss-cn-beijing.aliyuncs.com/website/loading.gif" lazyload alt="deeplabv3plus_r18-d8_4xb4-80k_loveda-512x512.py"></p>
+<p>python tools&#x2F;train.py .&#x2F;configs&#x2F;deeplabv3plus&#x2F;deeplabv3plus_r18-d8_4xb4-80k_potsdam-512x512.py (deeplabv3plus_r18-d8_4xb4-80k_potsdam-512x512_20250604_100639)</p>
+<p><img src="https://murphyimg.oss-cn-beijing.aliyuncs.com/img/202506041830293.png" srcset="https://murhyimgur.oss-cn-beijing.aliyuncs.com/website/loading.gif" lazyload alt="deeplabv3plus_r18-d8_4xb4-80k_potsdam-512x512.py"></p>
+<p>python tools&#x2F;train.py .&#x2F;configs&#x2F;deeplabv3plus&#x2F;deeplabv3plus_r18-d8_4xb4-80k_vaihingen-512x512.py （deeplabv3plus_r18-d8_4xb4-80k_vaihingen-512x512_20250604_100705）</p>
+<p><img src="https://murphyimg.oss-cn-beijing.aliyuncs.com/img/202506041830913.png" srcset="https://murhyimgur.oss-cn-beijing.aliyuncs.com/website/loading.gif" lazyload alt="deeplabv3plus_r18-d8_4xb4-80k_vaihingen-512x512.py"></p>
+<h3 id="R50"><a href="#R50" class="headerlink" title="R50"></a>R50</h3><h3 id="R101"><a href="#R101" class="headerlink" title="R101"></a>R101</h3><h2 id="PSPNet"><a href="#PSPNet" class="headerlink" title="PSPNet"></a>PSPNet</h2><h3 id="R18-2"><a href="#R18-2" class="headerlink" title="R18"></a>R18</h3><p>python tools&#x2F;train.py .&#x2F;configs&#x2F;pspnet&#x2F;pspnet_r18-d8_4xb4-80k_loveda-512x512.py （pspnet_r18-d8_4xb4-80k_loveda-512x512_20250604_094150）</p>
+<p><img src="https://murphyimg.oss-cn-beijing.aliyuncs.com/img/202506041830890.png" srcset="https://murhyimgur.oss-cn-beijing.aliyuncs.com/website/loading.gif" lazyload alt="pspnet_r18-d8_4xb4-80k_loveda-512x512.py"></p>
+<p>python tools&#x2F;train.py configs&#x2F;pspnet&#x2F;pspnet_r18-d8_4xb4-80k_potsdam-512x512.py （pspnet_r18-d8_4xb4-80k_potsdam-512x512_20250604_094350）</p>
+<p><img src="https://murphyimg.oss-cn-beijing.aliyuncs.com/img/202506041830762.png" srcset="https://murhyimgur.oss-cn-beijing.aliyuncs.com/website/loading.gif" lazyload alt="pspnet_r18-d8_4xb4-80k_potsdam-512x512.py"></p>
+<p>python tools&#x2F;train.py configs&#x2F;pspnet&#x2F;pspnet_r18-d8_4xb4-80k_vaihingen-512x512.py （pspnet_r18-d8_4xb4-80k_vaihingen-512x512_20250604_094520）</p>
+<p><img src="https://murphyimg.oss-cn-beijing.aliyuncs.com/img/202506041830433.png" srcset="https://murhyimgur.oss-cn-beijing.aliyuncs.com/website/loading.gif" lazyload alt="pspnet_r18-d8_4xb4-80k_vaihingen-512x512.py"></p>
+<h3 id="R50-1"><a href="#R50-1" class="headerlink" title="R50"></a>R50</h3><p>python tools&#x2F;train.py .&#x2F;configs&#x2F;pspnet&#x2F;pspnet_r50-d8_4xb4-80k_loveda-512x512.py(pspnet_r50-d8_4xb4-80k_loveda-512x512_20250604_094757)</p>
+<p><img src="https://murphyimg.oss-cn-beijing.aliyuncs.com/img/202506041830606.png" srcset="https://murhyimgur.oss-cn-beijing.aliyuncs.com/website/loading.gif" lazyload alt="pspnet_r50-d8_4xb4-80k_loveda-512x512.py"></p>
+<p>python tools&#x2F;train.py configs&#x2F;pspnet&#x2F;pspnet_r50-d8_4xb4-80k_potsdam-512x512.py (pspnet_r50-d8_4xb4-80k_potsdam-512x512_20250604_094853)</p>
+<p><img src="https://murphyimg.oss-cn-beijing.aliyuncs.com/img/202506041830685.png" srcset="https://murhyimgur.oss-cn-beijing.aliyuncs.com/website/loading.gif" lazyload alt="pspnet_r50-d8_4xb4-80k_potsdam-512x512.py"></p>
+<p>python tools&#x2F;train.py configs&#x2F;pspnet&#x2F;pspnet_r50-d8_4xb4-80k_vaihingen-512x512.py (pspnet_r50-d8_4xb4-80k_vaihingen-512x512_20250604_094948)</p>
+<p><img src="https://murphyimg.oss-cn-beijing.aliyuncs.com/img/202506041830597.png" srcset="https://murhyimgur.oss-cn-beijing.aliyuncs.com/website/loading.gif" lazyload alt="pspnet_r50-d8_4xb4-80k_vaihingen-512x512.py"></p>
+<h3 id="R101-1"><a href="#R101-1" class="headerlink" title="R101"></a>R101</h3><p>python tools&#x2F;train.py configs&#x2F;pspnet&#x2F;pspnet_r101-d8_4xb4-80k_loveda-512x512.py </p>
+<p><img src="https://murphyimg.oss-cn-beijing.aliyuncs.com/img/202506041830777.png" srcset="https://murhyimgur.oss-cn-beijing.aliyuncs.com/website/loading.gif" lazyload alt="pspnet_r101-d8_4xb4-80k_loveda-512x512.py "></p>
+<p>python tools&#x2F;train.py configs&#x2F;pspnet&#x2F;pspnet_r101-d8_4xb4-80k_potsdam-512x512.py</p>
+<p><img src="https://murphyimg.oss-cn-beijing.aliyuncs.com/img/202506041830809.png" srcset="https://murhyimgur.oss-cn-beijing.aliyuncs.com/website/loading.gif" lazyload alt="pspnet_r101-d8_4xb4-80k_potsdam-512x512.py"></p>
+<p>python tools&#x2F;train.py .&#x2F;configs&#x2F;pspnet&#x2F;pspnet_r101-d8_4xb4-80k_vaihingen-512x512.py </p>
+<p><img src="https://murphyimg.oss-cn-beijing.aliyuncs.com/img/202506041830250.png" srcset="https://murhyimgur.oss-cn-beijing.aliyuncs.com/website/loading.gif" lazyload alt="pspnet_r101-d8_4xb4-80k_vaihingen-512x512.py "></p>
+
+                
+              </div>
+            
+            <hr/>
+            <div>
+              <div class="post-metas my-3">
+  
+    <div class="post-meta mr-3 d-flex align-items-center">
+      <i class="iconfont icon-category"></i>
+      
+
+<span class="category-chains">
+  
+  
+    
+      <span class="category-chain">
+        
+  <a href="/categories/CV/" class="category-chain-item">CV</a>
+  
+  
+
+      </span>
+    
+  
+</span>
+
+    </div>
+  
+  
+    <div class="post-meta">
+      <i class="iconfont icon-tags"></i>
+      
+        <a href="/tags/DeepLearning/" class="print-no-link">#DeepLearning</a>
+      
+        <a href="/tags/PyTorch/" class="print-no-link">#PyTorch</a>
+      
+        <a href="/tags/OpenMMLab/" class="print-no-link">#OpenMMLab</a>
+      
+        <a href="/tags/MMSegmentation/" class="print-no-link">#MMSegmentation</a>
+      
+    </div>
+  
+</div>
+
+
+              
+  
+
+  <div class="license-box my-3">
+    <div class="license-title">
+      <div>Deep Segmentation Architectures for Remote Sensing</div>
+      <div>https://blog.cosmicdusty.cc/post/CV/SegmentationForRS/</div>
+    </div>
+    <div class="license-meta">
+      
+        <div class="license-meta-item">
+          <div>作者</div>
+          <div>Murphy</div>
+        </div>
+      
+      
+        <div class="license-meta-item license-meta-date">
+          <div>发布于</div>
+          <div>2021年12月4日</div>
+        </div>
+      
+      
+      
+        <div class="license-meta-item">
+          <div>许可协议</div>
+          <div>
+            
+              
+              
+                <a class="print-no-link" target="_blank" href="https://creativecommons.org/licenses/by/4.0/">
+                  <span class="hint--top hint--rounded" aria-label="BY - 署名">
+                    <i class="iconfont icon-cc-by"></i>
+                  </span>
+                </a>
+              
+            
+          </div>
+        </div>
+      
+    </div>
+    <div class="license-icon iconfont"></div>
+  </div>
+
+
+
+              
+                <div class="post-prevnext my-3">
+                  <article class="post-prev col-6">
+                    
+                    
+                      <a href="/post/Astronomy/LearnAstronomy_1/" title="天文学合集笔记（一）">
+                        <i class="iconfont icon-arrowleft"></i>
+                        <span class="hidden-mobile">天文学合集笔记（一）</span>
+                        <span class="visible-mobile">上一篇</span>
+                      </a>
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/post/CV/SemSeg/" title="基于SemSeg的马里亚纳海沟遥感图像场景解析">
+                        <span class="hidden-mobile">基于SemSeg的马里亚纳海沟遥感图像场景解析</span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+  
+  
+    <article id="comments" lazyload>
+      
+  <div id="valine"></div>
+  <script type="text/javascript">
+    Fluid.utils.loadComments('#valine', function() {
+      Fluid.utils.createScript('https://lib.baomitu.com/valine/1.5.1/Valine.min.js', function() {
+        var options = Object.assign(
+          {"appId":"JijHNKemeVNog4wF7g9I5TR3-gzGzoHsz","appKey":"FvsKdxHOP2aG5rHrHby5aV0b","path":"window.location.pathname","placeholder":null,"avatar":"retro","meta":["nick","mail","link"],"requiredFields":[],"pageSize":10,"lang":"zh-CN","highlight":false,"recordIP":false,"serverURLs":"","emojiCDN":null,"emojiMaps":null,"enableQQ":false},
+          {
+            el: "#valine",
+            path: window.location.pathname
+          }
+        )
+        new Valine(options);
+        Fluid.utils.waitElementVisible('#valine .vcontent', () => {
+          var imgSelector = '#valine .vcontent img:not(.vemoji)';
+          Fluid.plugins.imageCaption(imgSelector);
+          Fluid.plugins.fancyBox(imgSelector);
+        })
+      });
+    });
+  </script>
+  <noscript>Please enable JavaScript to view the comments</noscript>
+
+
+    </article>
+  
+
+
+          </article>
+        </div>
+      </div>
+    </div>
+
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+  <aside class="sidebar" style="margin-left: -1rem">
+    <div id="toc">
+  <p class="toc-header">
+    <i class="iconfont icon-list"></i>
+    <span>目录</span>
+  </p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+
+
+  </aside>
+
+
+    </div>
+  </div>
+</div>
+
+
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+
+
+
+
+    
+
+    
+      <a id="scroll-top-button" aria-label="TOP" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v" for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+    
+
+    
+  </main>
+
+  <footer>
+    <div class="footer-inner">
+  
+    <div class="footer-content">
+       <a rel="nofollow noopener"><span>Powered by</span></a> <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span><b>Hexo</b></span></a> <i class="iconfont icon-love"></i> <a rel="nofollow noopener"><span>Themed by</span></a> <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"><span><b>Fluid</b></span></a> 
+    </div>
+  
+  
+    <div class="statistics">
+  
+  
+
+  
+    
+      <span id="busuanzi_container_site_pv" style="display: none">
+        总访问量
+        <span id="busuanzi_value_site_pv"></span>
+        次
+      </span>
+    
+    
+      <span id="busuanzi_container_site_uv" style="display: none">
+        总访客数
+        <span id="busuanzi_value_site_uv"></span>
+        人
+      </span>
+    
+    
+
+  
+
+</div>
+
+  
+  
+</div>
+
+  </footer>
+
+  <!-- Scripts -->
+  
+  <script  src="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://lib.baomitu.com/jquery/3.6.0/jquery.min.js" ></script>
+<script  src="https://lib.baomitu.com/twitter-bootstrap/4.6.1/js/bootstrap.min.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
+
+
+  <script  src="https://lib.baomitu.com/typed.js/2.0.12/typed.min.js" ></script>
+  <script>
+    (function (window, document) {
+      var typing = Fluid.plugins.typing;
+      var subtitle = document.getElementById('subtitle');
+      if (!subtitle || !typing) {
+        return;
+      }
+      var text = subtitle.getAttribute('data-typed-text');
+      
+        typing(text);
+      
+    })(window, document);
+  </script>
+
+
+
+
+  
+    <script  src="/js/img-lazyload.js" ></script>
+  
+
+
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/tocbot/4.18.2/tocbot.min.js', function() {
+    var toc = jQuery('#toc');
+    if (toc.length === 0 || !window.tocbot) { return; }
+    var boardCtn = jQuery('#board-ctn');
+    var boardTop = boardCtn.offset().top;
+
+    window.tocbot.init(Object.assign({
+      tocSelector     : '#toc-body',
+      contentSelector : '.markdown-body',
+      linkClass       : 'tocbot-link',
+      activeLinkClass : 'tocbot-active-link',
+      listClass       : 'tocbot-list',
+      isCollapsedClass: 'tocbot-is-collapsed',
+      collapsibleClass: 'tocbot-is-collapsible',
+      scrollSmooth    : true,
+      includeTitleTags: true,
+      headingsOffset  : -boardTop,
+    }, CONFIG.toc));
+    if (toc.find('.toc-list-item').length > 0) {
+      toc.css('visibility', 'visible');
+    }
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('tocbot' in window) {
+        tocbot.refresh();
+        var toc = jQuery('#toc');
+        if (toc.length === 0 || !tocbot) {
+          return;
+        }
+        if (toc.find('.toc-list-item').length > 0) {
+          toc.css('visibility', 'visible');
+        }
+      }
+    });
+  });
+</script>
+
+
+  <script src=https://lib.baomitu.com/clipboard.js/2.0.11/clipboard.min.js></script>
+
+  <script>Fluid.plugins.codeWidget();</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/anchor-js/4.3.1/anchor.min.js', function() {
+    window.anchors.options = {
+      placement: CONFIG.anchorjs.placement,
+      visible  : CONFIG.anchorjs.visible
+    };
+    if (CONFIG.anchorjs.icon) {
+      window.anchors.options.icon = CONFIG.anchorjs.icon;
+    }
+    var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+    var res = [];
+    for (var item of el) {
+      res.push('.markdown-body > ' + item.trim());
+    }
+    if (CONFIG.anchorjs.placement === 'left') {
+      window.anchors.options.class = 'anchorjs-link-left';
+    }
+    window.anchors.add(res.join(', '));
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('anchors' in window) {
+        anchors.removeAll();
+        var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+        var res = [];
+        for (var item of el) {
+          res.push('.markdown-body > ' + item.trim());
+        }
+        if (CONFIG.anchorjs.placement === 'left') {
+          anchors.options.class = 'anchorjs-link-left';
+        }
+        anchors.add(res.join(', '));
+      }
+    });
+  });
+</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.js', function() {
+    Fluid.plugins.fancyBox();
+  });
+</script>
+
+
+  <script>Fluid.plugins.imageCaption();</script>
+
+  <script defer src="/js/leancloud.js" ></script>
+
+  <script  src="/js/local-search.js" ></script>
+
+  <script defer src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js" ></script>
+
+
+
+
+
+<!-- 主题的启动项，将它保持在最底部 -->
+<!-- the boot of the theme, keep it at the bottom -->
+<script  src="/js/boot.js" ></script>
+
+
+  
+
+  <noscript>
+    <div class="noscript-warning">博客在允许 JavaScript 运行的环境下浏览效果更佳</div>
+  </noscript>
+</body>
+</html>

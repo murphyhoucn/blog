@@ -28,10 +28,10 @@
 <meta property="og:locale" content="zh_CN">
 <meta property="og:image" content="https://murhyimgur.oss-cn-beijing.aliyuncs.com/img/background-7024520_1920.jpg">
 <meta property="article:published_time" content="2022-04-08T11:59:16.000Z">
-<meta property="article:modified_time" content="2025-05-31T04:37:51.884Z">
+<meta property="article:modified_time" content="2025-06-03T11:37:02.590Z">
 <meta property="article:author" content="Murphy">
-<meta property="article:tag" content="Datasets">
 <meta property="article:tag" content="DeepLearning">
+<meta property="article:tag" content="Datasets">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:image" content="https://murhyimgur.oss-cn-beijing.aliyuncs.com/img/background-7024520_1920.jpg">
   
@@ -271,7 +271,7 @@
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          1.5k 字
+          1.6k 字
         
       </span>
     
@@ -282,7 +282,7 @@
         
         
         
-          13 分钟
+          14 分钟
         
       </span>
     
@@ -332,6 +332,21 @@
 <p><a target="_blank" rel="noopener" href="http://www.cs.toronto.edu/~kriz/cifar.html">CIFAR-10 and CIFAR-100 datasets (toronto.edu)</a><br><a target="_blank" rel="noopener" href="https://blog.csdn.net/qq_41185868/article/details/82793025">Dataset之CIFAR-10：CIFAR-10数据集简介、下载、使用方法之详细攻略_一个处女座的程序猿的博客-CSDN博客_cifar-10</a><br><a target="_blank" rel="noopener" href="https://www.jianshu.com/p/90ce85b2faeb">CIFAR10数据集手动下载和导入 - 简书 (jianshu.com)</a><br><a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/129081723">CIFAR10数据集的下载及使用 - 知乎 (zhihu.com)</a></p>
 <h1 id="PASCAL-VOC"><a href="#PASCAL-VOC" class="headerlink" title="PASCAL VOC"></a>PASCAL VOC</h1><p>在早期的计算机视觉社区，PASCALViSualObjectClasses（VOC）挑战赛（从2005年到2012）是最重要的竞赛之一。在PASCALVOC中是多任务的，包括图像分类，目标检测，语义分割和行为检测。VOC数据集是目标检测经常用的一个数据集，自2005年起每年举办一次比赛，最开始只有4类，到2007年扩充为20个类，共有两个常用的版本：2007和2012。学术界常用5k的train&#x2F;val 2007和16k的train&#x2F;val 2012作为训练集，test 2007作为测试集，用10k的train&#x2F;val 2007+test 2007和16k的train&#x2F;val 2012作为训练集，test2012作为测试集，分别汇报结果。</p>
 <p><a target="_blank" rel="noopener" href="http://host.robots.ox.ac.uk/pascal/VOC/voc2012/">The PASCAL Visual Object Classes Challenge 2012 (VOC2012) (ox.ac.uk)</a></p>
+<h2 id="VOC数据集下载和使用-2025-06-03"><a href="#VOC数据集下载和使用-2025-06-03" class="headerlink" title="VOC数据集下载和使用 2025.06.03"></a>VOC数据集下载和使用 2025.06.03</h2><blockquote>
+<p><a target="_blank" rel="noopener" href="https://blog.csdn.net/qq_37541097/article/details/115787033">https://blog.csdn.net/qq_37541097/article/details/115787033</a></p>
+</blockquote>
+<p>VOC 2012数据集下载地址：<a target="_blank" rel="noopener" href="http://host.robots.ox.ac.uk/pascal/VOC/voc2012/index.html">http://host.robots.ox.ac.uk/pascal/VOC/voc2012/index.html</a></p>
+<p><img src="https://murphyimg.oss-cn-beijing.aliyuncs.com/img/202506031919337.png" srcset="https://murhyimgur.oss-cn-beijing.aliyuncs.com/website/loading.gif" lazyload alt="image-20250603191926221"></p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><code class="hljs bash">(base) PS E:\Dataset\Seg\PASCAL VOC\VOCtrainval_11-May-2012\VOCdevkit\VOC2012&gt; <span class="hljs-built_in">pwd</span><br><br>Path<br>----<br>E:\Dataset\Seg\PASCAL VOC\VOCtrainval_11-May-2012\VOCdevkit\VOC2012<br><br><br>(base) PS E:\Dataset\Seg\PASCAL VOC\VOCtrainval_11-May-2012\VOCdevkit\VOC2012&gt; <span class="hljs-built_in">dir</span><br><br><br>    目录: E:\Dataset\Seg\PASCAL VOC\VOCtrainval_11-May-2012\VOCdevkit\VOC2012<br><br><br>Mode                 LastWriteTime         Length Name<br>----                 -------------         ------ ----<br>d-----         2012/5/11     23:03                Annotations<br>d-----         2012/5/11     22:55                ImageSets<br>d-----         2012/5/11     23:03                JPEGImages<br>d-----         2012/5/11     23:03                SegmentationClass<br>d-----         2012/5/11     23:03                SegmentationObject<br><br><br>(base) PS E:\Dataset\Seg\PASCAL VOC\VOCtrainval_11-May-2012\VOCdevkit\VOC2012&gt;<br><br></code></pre></td></tr></table></figure>
+
+
+
+
+
+
+
+
+
 <h1 id="ImageNet"><a href="#ImageNet" class="headerlink" title="ImageNet"></a>ImageNet</h1><p>ImageNet Large Scale Visual Recognition Challenge(ILSVRC)已经将一般的目标检测向前推进了一大步。ILSVRC从2010到2017年每年被组织比赛，其中就包含了用ImageNet图像进行检测。ILSVRC中包含了200类视觉目标，图像和目标实例的数量比VOC大两个数量级。例如，ILSVRC-14就包含了517K张图像和534k被标注的目标</p>
 <p><a target="_blank" rel="noopener" href="https://en.wikipedia.org/wiki/ImageNet">ImageNet - Wikipedia</a><br><a target="_blank" rel="noopener" href="https://image-net.org/index">ImageNet (image-net.org)</a><br><a target="_blank" rel="noopener" href="https://zh.wikipedia.org/wiki/ImageNet">ImageNet - 维基百科，自由的百科全书 (wikipedia.org)</a><br><a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/28142670">ImageNet这八年：李飞飞和她改变的AI世界 - 知乎 (zhihu.com)</a></p>
 <h1 id="MS-COCO"><a href="#MS-COCO" class="headerlink" title="MS COCO"></a>MS COCO</h1><p>MS-COCO是目前最具有挑战性的目标检测，从2015年开始，每年都会举办基于MS-COCO数据集的竞赛，其包含的目标种类要少于ILSVRC，但其有更多的目标实例。例如，MS-COCO-17中包含了164k张图像和897K个被标注来自80个类别的目标。相比于VOC和ILSVRC，MS-COCO最大的进步，除了boundingbox的标注，还有单个实例分割的标注，帮助更准确的定位。另外，MS-COCO包含了更多小目标（其面积小于图像的1%）和更加密集的定位目标比VOC和ILSVRC。MS-COCO的这些特征让其目标分布更接近于真实的世界。MS-COCO已经在目标检测社区变为了实际的标杆。</p>
@@ -529,9 +544,9 @@
     <div class="post-meta">
       <i class="iconfont icon-tags"></i>
       
-        <a href="/tags/Datasets/" class="print-no-link">#Datasets</a>
-      
         <a href="/tags/DeepLearning/" class="print-no-link">#DeepLearning</a>
+      
+        <a href="/tags/Datasets/" class="print-no-link">#Datasets</a>
       
     </div>
   
