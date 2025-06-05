@@ -28,7 +28,7 @@
 <meta property="og:locale" content="zh_CN">
 <meta property="og:image" content="https://murphyimg.oss-cn-beijing.aliyuncs.com/img/202506041802401.jpg">
 <meta property="article:published_time" content="2021-12-04T01:36:50.000Z">
-<meta property="article:modified_time" content="2025-06-04T10:35:41.196Z">
+<meta property="article:modified_time" content="2025-06-05T05:36:05.439Z">
 <meta property="article:author" content="Murphy">
 <meta property="article:tag" content="DeepLearning">
 <meta property="article:tag" content="PyTorch">
@@ -273,7 +273,7 @@
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          770 字
+          851 字
         
       </span>
     
@@ -284,7 +284,7 @@
         
         
         
-          7 分钟
+          8 分钟
         
       </span>
     
@@ -330,18 +330,11 @@
 <p>在实验设置中，分别采用ResNet-18、ResNet-50、ResNet-101作为DeepLabV3+与PSPNet的主干网络，HRNet部分选用HRNet-18、HRNet-18s与HRNet-48三种配置。实验覆盖LoveDA、Potsdam和Vaihingen三个典型遥感语义分割数据集，共完成27组模型训练与评估。</p>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs bash"><span class="hljs-built_in">export</span> CUDA_VISIBLE_DEVICES=1<br><br>CUDA_VISIBLE_DEVICES=-1 python tools/train.py <span class="hljs-variable">$&#123;CONFIG_FILE&#125;</span> [ARGS]<br></code></pre></td></tr></table></figure>
 
-<h1 id="Running"><a href="#Running" class="headerlink" title="Running"></a>Running</h1><p>python tools&#x2F;train.py .&#x2F;configs&#x2F;hrnet&#x2F;fcn_hr18_4xb4-80k_loveda-512x512.py </p>
-<p>python tools&#x2F;train.py .&#x2F;configs&#x2F;hrnet&#x2F;fcn_hr18_4xb4-80k_potsdam-512x512.py </p>
-<p>python tools&#x2F;train.py .&#x2F;configs&#x2F;hrnet&#x2F;fcn_hr18_4xb4-80k_vaihingen-512x512.py </p>
-<p>python tools&#x2F;train.py .&#x2F;configs&#x2F;hrnet&#x2F;fcn_hr48_4xb4-80k_loveda-512x512.py </p>
-<p>python tools&#x2F;train.py .&#x2F;configs&#x2F;hrnet&#x2F;fcn_hr48_4xb4-80k_potsdam-512x512.py </p>
-<p>python tools&#x2F;train.py .&#x2F;configs&#x2F;hrnet&#x2F;fcn_hr48_4xb4-80k_vaihingen-512x512.py </p>
-<p>python tools&#x2F;train.py .&#x2F;configs&#x2F;deeplabv3plus&#x2F;deeplabv3plus_r50-d8_4xb4-80k_loveda-512x512.py </p>
-<p>python tools&#x2F;train.py .&#x2F;configs&#x2F;deeplabv3plus&#x2F;deeplabv3plus_r50-d8_4xb4-80k_potsdam-512x512.py </p>
-<p>python tools&#x2F;train.py .&#x2F;configs&#x2F;deeplabv3plus&#x2F;deeplabv3plus_r50-d8_4xb4-80k_vaihingen-512x512.py </p>
-<p>python tools&#x2F;train.py .&#x2F;configs&#x2F;deeplabv3plus&#x2F;deeplabv3plus_r101-d8_4xb4-80k_loveda-512x512.py </p>
-<p>python tools&#x2F;train.py .&#x2F;configs&#x2F;deeplabv3plus&#x2F;deeplabv3plus_r101-d8_4xb4-80k_potsdam-512x512.py </p>
-<p>python tools&#x2F;train.py .&#x2F;configs&#x2F;deeplabv3plus&#x2F;deeplabv3plus_r101-d8_4xb4-80k_vaihingen-512x512.py </p>
+
+
+
+
+
 <h1 id="HRNet-CVPR-2019"><a href="#HRNet-CVPR-2019" class="headerlink" title="HRNet (CVPR 2019)"></a>HRNet (CVPR 2019)</h1><p><img src="https://murphyimg.oss-cn-beijing.aliyuncs.com/img/202506041828556.png" srcset="https://murhyimgur.oss-cn-beijing.aliyuncs.com/website/loading.gif" lazyload alt="HRNet (CVPR 2019)"></p>
 <blockquote>
 <ul>
@@ -351,7 +344,7 @@
 <li><a target="_blank" rel="noopener" href="https://github.com/open-mmlab/mmsegmentation/blob/v0.17.0/mmseg/models/backbones/hrnet.py#L218">mmsegmentation&#x2F;mmseg&#x2F;models&#x2F;backbones&#x2F;hrnet.py at v0.17.0 · open-mmlab&#x2F;mmsegmentation</a></li>
 </ul>
 </blockquote>
-<p><img src="https://murphyimg.oss-cn-beijing.aliyuncs.com/img/202506041828334.png" srcset="https://murhyimgur.oss-cn-beijing.aliyuncs.com/website/loading.gif" lazyload alt="img"></p>
+<p><img src="https://murphyimg.oss-cn-beijing.aliyuncs.com/img/202506041828334.png" srcset="https://murhyimgur.oss-cn-beijing.aliyuncs.com/website/loading.gif" lazyload alt="architecture"></p>
 <p><img src="https://murphyimg.oss-cn-beijing.aliyuncs.com/img/202506041828244.png" srcset="https://murhyimgur.oss-cn-beijing.aliyuncs.com/website/loading.gif" lazyload alt="Architecture"></p>
 <p><img src="https://murphyimg.oss-cn-beijing.aliyuncs.com/img/202506041828559.png" srcset="https://murhyimgur.oss-cn-beijing.aliyuncs.com/website/loading.gif" lazyload alt="high to low and low to high"></p>
 <p><img src="https://murphyimg.oss-cn-beijing.aliyuncs.com/img/202506041833598.png" srcset="https://murhyimgur.oss-cn-beijing.aliyuncs.com/website/loading.gif" lazyload alt="[mmsegmentation/configs/hrnet/README.md at main · open-mmlab/mmsegmentation]"></p>
@@ -381,18 +374,18 @@
 <td align="center">HRNetV2p-W18</td>
 <td align="center">512x512</td>
 <td align="center">RTX 3090</td>
-<td align="center"></td>
-<td align="center"></td>
-<td align="center"></td>
+<td align="center">68.23</td>
+<td align="center">51.02</td>
+<td align="center">53.83</td>
 </tr>
 <tr>
 <td align="center">FCN</td>
 <td align="center">HRNetV2p-W48</td>
 <td align="center">512x512</td>
 <td align="center">RTX 3090</td>
-<td align="center"></td>
-<td align="center"></td>
-<td align="center"></td>
+<td align="center">69.12</td>
+<td align="center">50.80</td>
+<td align="center">63.13</td>
 </tr>
 </tbody></table>
 <h2 id="Potsdam"><a href="#Potsdam" class="headerlink" title="Potsdam"></a>Potsdam</h2><table>
@@ -421,18 +414,18 @@
 <td align="center">HRNetV2p-W18</td>
 <td align="center">512x512</td>
 <td align="center">RTX 3090</td>
-<td align="center"></td>
-<td align="center"></td>
-<td align="center"></td>
+<td align="center">90.38</td>
+<td align="center">77.12</td>
+<td align="center">84.19</td>
 </tr>
 <tr>
 <td align="center">FCN</td>
 <td align="center">HRNetV2p-W48</td>
 <td align="center">512x512</td>
 <td align="center">RTX 3090</td>
-<td align="center"></td>
-<td align="center"></td>
-<td align="center"></td>
+<td align="center">90.51</td>
+<td align="center">77.79</td>
+<td align="center">85.02</td>
 </tr>
 </tbody></table>
 <h2 id="Vaihingen"><a href="#Vaihingen" class="headerlink" title="Vaihingen"></a>Vaihingen</h2><table>
@@ -461,18 +454,18 @@
 <td align="center">HRNetV2p-W18</td>
 <td align="center">512x512</td>
 <td align="center">RTX 3090</td>
-<td align="center"></td>
-<td align="center"></td>
-<td align="center"></td>
+<td align="center">90.10</td>
+<td align="center">73.37</td>
+<td align="center">80.52</td>
 </tr>
 <tr>
 <td align="center">FCN</td>
 <td align="center">HRNetV2p-W48</td>
 <td align="center">512x512</td>
 <td align="center">RTX 3090</td>
-<td align="center"></td>
-<td align="center"></td>
-<td align="center"></td>
+<td align="center">90.12</td>
+<td align="center">73.68</td>
+<td align="center">8076</td>
 </tr>
 </tbody></table>
 <h1 id="DeepLab-V3-ECCV-2018"><a href="#DeepLab-V3-ECCV-2018" class="headerlink" title="DeepLab V3+ (ECCV 2018)"></a>DeepLab V3+ (ECCV 2018)</h1><p><img src="https://murphyimg.oss-cn-beijing.aliyuncs.com/img/202506041828855.png" srcset="https://murhyimgur.oss-cn-beijing.aliyuncs.com/website/loading.gif" lazyload alt="DeepLab V3+ (ECCV 2018)"></p>
@@ -513,18 +506,18 @@
 <td align="center">R-50-D8</td>
 <td align="center">512x512</td>
 <td align="center">RTX 3090</td>
-<td align="center"></td>
-<td align="center"></td>
-<td align="center"></td>
+<td align="center">67.26</td>
+<td align="center">48.76</td>
+<td align="center">60.03</td>
 </tr>
 <tr>
 <td align="center">DeepLabV3+</td>
 <td align="center">R-101-D8</td>
 <td align="center">512x512</td>
 <td align="center">RTX 3090</td>
-<td align="center"></td>
-<td align="center"></td>
-<td align="center"></td>
+<td align="center">68.27</td>
+<td align="center">49.99</td>
+<td align="center">61.64</td>
 </tr>
 </tbody></table>
 <h2 id="Potsdam-1"><a href="#Potsdam-1" class="headerlink" title="Potsdam"></a>Potsdam</h2><table>
@@ -553,18 +546,18 @@
 <td align="center">R-50-D8</td>
 <td align="center">512x512</td>
 <td align="center">RTX 3090</td>
-<td align="center"></td>
-<td align="center"></td>
-<td align="center"></td>
+<td align="center">90.33</td>
+<td align="center">77.99</td>
+<td align="center">85.39</td>
 </tr>
 <tr>
 <td align="center">DeepLabV3+</td>
 <td align="center">R-101-D8</td>
 <td align="center">512x512</td>
 <td align="center">RTX 3090</td>
-<td align="center"></td>
-<td align="center"></td>
-<td align="center"></td>
+<td align="center">90.59</td>
+<td align="center">78.16</td>
+<td align="center">84.17</td>
 </tr>
 </tbody></table>
 <h2 id="Vaihingen-1"><a href="#Vaihingen-1" class="headerlink" title="Vaihingen"></a>Vaihingen</h2><table>
@@ -593,9 +586,9 @@
 <td align="center">R-50-D8</td>
 <td align="center">512x512</td>
 <td align="center">RTX 3090</td>
-<td align="center"></td>
-<td align="center"></td>
-<td align="center"></td>
+<td align="center">89.96</td>
+<td align="center">74.16</td>
+<td align="center">81.18</td>
 </tr>
 <tr>
 <td align="center">DeepLabV3+</td>
@@ -743,13 +736,36 @@
 <p><img src="https://murphyimg.oss-cn-beijing.aliyuncs.com/img/202506041830231.png" srcset="https://murhyimgur.oss-cn-beijing.aliyuncs.com/website/loading.gif" lazyload alt="fcn_hr18s_4xb4-80k_potsdam-512x512.py"></p>
 <p>python tools&#x2F;train.py .&#x2F;configs&#x2F;hrnet&#x2F;fcn_hr18s_4xb4-80k_vaihingen-512x512.py （fcn_hr18s_4xb4-80k_vaihingen-512x512_20250604_101158）</p>
 <p><img src="https://murphyimg.oss-cn-beijing.aliyuncs.com/img/202506041830215.png" srcset="https://murhyimgur.oss-cn-beijing.aliyuncs.com/website/loading.gif" lazyload alt="fcn_hr18s_4xb4-80k_vaihingen-512x512.py"></p>
-<h3 id="R18"><a href="#R18" class="headerlink" title="R18"></a>R18</h3><h3 id="R48"><a href="#R48" class="headerlink" title="R48"></a>R48</h3><h2 id="DeepLab-V3"><a href="#DeepLab-V3" class="headerlink" title="DeepLab V3+"></a>DeepLab V3+</h2><h3 id="R18-1"><a href="#R18-1" class="headerlink" title="R18"></a>R18</h3><p>python tools&#x2F;train.py .&#x2F;configs&#x2F;deeplabv3plus&#x2F;deeplabv3plus_r18-d8_4xb4-80k_loveda-512x512.py (deeplabv3plus_r18-d8_4xb4-80k_loveda-512x512_20250604_100604)</p>
+<h3 id="R18"><a href="#R18" class="headerlink" title="R18"></a>R18</h3><p>python tools&#x2F;train.py .&#x2F;configs&#x2F;hrnet&#x2F;fcn_hr18_4xb4-80k_loveda-512x512.py (fcn_hr18_4xb4-80k_loveda-512x512_20250604_100135)</p>
+<p><img src="https://murphyimg.oss-cn-beijing.aliyuncs.com/img/202506051334538.png" srcset="https://murhyimgur.oss-cn-beijing.aliyuncs.com/website/loading.gif" lazyload alt="fcn_hr18_4xb4-80k_loveda-512x512_20250604_100135"></p>
+<p>python tools&#x2F;train.py .&#x2F;configs&#x2F;hrnet&#x2F;fcn_hr18_4xb4-80k_potsdam-512x512.py （fcn_hr18_4xb4-80k_potsdam-512x512_20250604_100329）</p>
+<p><img src="https://murphyimg.oss-cn-beijing.aliyuncs.com/img/202506051334642.png" srcset="https://murhyimgur.oss-cn-beijing.aliyuncs.com/website/loading.gif" lazyload alt="fcn_hr18_4xb4-80k_potsdam-512x512_20250604_100329"></p>
+<p>python tools&#x2F;train.py .&#x2F;configs&#x2F;hrnet&#x2F;fcn_hr18_4xb4-80k_vaihingen-512x512.py （ fcn_hr18_4xb4-80k_vaihingen-512x512_20250604_100356）</p>
+<p><img src="https://murphyimg.oss-cn-beijing.aliyuncs.com/img/202506051334418.png" srcset="https://murhyimgur.oss-cn-beijing.aliyuncs.com/website/loading.gif" lazyload alt=" fcn_hr18_4xb4-80k_vaihingen-512x512_20250604_100356"></p>
+<h3 id="R48"><a href="#R48" class="headerlink" title="R48"></a>R48</h3><p>python tools&#x2F;train.py .&#x2F;configs&#x2F;hrnet&#x2F;fcn_hr48_4xb4-80k_loveda-512x512.py （ fcn_hr48_4xb4-80k_loveda-512x512_20250604_101327）</p>
+<p><img src="https://murphyimg.oss-cn-beijing.aliyuncs.com/img/202506051334204.png" srcset="https://murhyimgur.oss-cn-beijing.aliyuncs.com/website/loading.gif" lazyload alt=" fcn_hr48_4xb4-80k_loveda-512x512_20250604_101327"></p>
+<p>python tools&#x2F;train.py .&#x2F;configs&#x2F;hrnet&#x2F;fcn_hr48_4xb4-80k_potsdam-512x512.py （fcn_hr48_4xb4-80k_potsdam-512x512_20250604_101611）</p>
+<p><img src="https://murphyimg.oss-cn-beijing.aliyuncs.com/img/202506051334981.png" srcset="https://murhyimgur.oss-cn-beijing.aliyuncs.com/website/loading.gif" lazyload alt="fcn_hr48_4xb4-80k_potsdam-512x512_20250604_101611"></p>
+<p>python tools&#x2F;train.py .&#x2F;configs&#x2F;hrnet&#x2F;fcn_hr48_4xb4-80k_vaihingen-512x512.py （fcn_hr48_4xb4-80k_vaihingen-512x512_20250604_101506）</p>
+<p><img src="https://murphyimg.oss-cn-beijing.aliyuncs.com/img/202506051334697.png" srcset="https://murhyimgur.oss-cn-beijing.aliyuncs.com/website/loading.gif" lazyload alt="fcn_hr48_4xb4-80k_vaihingen-512x512_20250604_101506"></p>
+<h2 id="DeepLab-V3"><a href="#DeepLab-V3" class="headerlink" title="DeepLab V3+"></a>DeepLab V3+</h2><h3 id="R18-1"><a href="#R18-1" class="headerlink" title="R18"></a>R18</h3><p>python tools&#x2F;train.py .&#x2F;configs&#x2F;deeplabv3plus&#x2F;deeplabv3plus_r18-d8_4xb4-80k_loveda-512x512.py (deeplabv3plus_r18-d8_4xb4-80k_loveda-512x512_20250604_100604)</p>
 <p><img src="https://murphyimg.oss-cn-beijing.aliyuncs.com/img/202506041830338.png" srcset="https://murhyimgur.oss-cn-beijing.aliyuncs.com/website/loading.gif" lazyload alt="deeplabv3plus_r18-d8_4xb4-80k_loveda-512x512.py"></p>
 <p>python tools&#x2F;train.py .&#x2F;configs&#x2F;deeplabv3plus&#x2F;deeplabv3plus_r18-d8_4xb4-80k_potsdam-512x512.py (deeplabv3plus_r18-d8_4xb4-80k_potsdam-512x512_20250604_100639)</p>
 <p><img src="https://murphyimg.oss-cn-beijing.aliyuncs.com/img/202506041830293.png" srcset="https://murhyimgur.oss-cn-beijing.aliyuncs.com/website/loading.gif" lazyload alt="deeplabv3plus_r18-d8_4xb4-80k_potsdam-512x512.py"></p>
 <p>python tools&#x2F;train.py .&#x2F;configs&#x2F;deeplabv3plus&#x2F;deeplabv3plus_r18-d8_4xb4-80k_vaihingen-512x512.py （deeplabv3plus_r18-d8_4xb4-80k_vaihingen-512x512_20250604_100705）</p>
 <p><img src="https://murphyimg.oss-cn-beijing.aliyuncs.com/img/202506041830913.png" srcset="https://murhyimgur.oss-cn-beijing.aliyuncs.com/website/loading.gif" lazyload alt="deeplabv3plus_r18-d8_4xb4-80k_vaihingen-512x512.py"></p>
-<h3 id="R50"><a href="#R50" class="headerlink" title="R50"></a>R50</h3><h3 id="R101"><a href="#R101" class="headerlink" title="R101"></a>R101</h3><h2 id="PSPNet"><a href="#PSPNet" class="headerlink" title="PSPNet"></a>PSPNet</h2><h3 id="R18-2"><a href="#R18-2" class="headerlink" title="R18"></a>R18</h3><p>python tools&#x2F;train.py .&#x2F;configs&#x2F;pspnet&#x2F;pspnet_r18-d8_4xb4-80k_loveda-512x512.py （pspnet_r18-d8_4xb4-80k_loveda-512x512_20250604_094150）</p>
+<h3 id="R50"><a href="#R50" class="headerlink" title="R50"></a>R50</h3><p>python tools&#x2F;train.py .&#x2F;configs&#x2F;deeplabv3plus&#x2F;deeplabv3plus_r50-d8_4xb4-80k_loveda-512x512.py （deeplabv3plus_r50-d8_4xb4-80k_loveda-512x512_20250604_145221）</p>
+<p><img src="https://murphyimg.oss-cn-beijing.aliyuncs.com/img/202506051334967.png" srcset="https://murhyimgur.oss-cn-beijing.aliyuncs.com/website/loading.gif" lazyload alt="deeplabv3plus_r50-d8_4xb4-80k_loveda-512x512_20250604_145221"></p>
+<p>python tools&#x2F;train.py .&#x2F;configs&#x2F;deeplabv3plus&#x2F;deeplabv3plus_r50-d8_4xb4-80k_potsdam-512x512.py （deeplabv3plus_r50-d8_4xb4-80k_potsdam-512x512_20250604_145319）</p>
+<p><img src="https://murphyimg.oss-cn-beijing.aliyuncs.com/img/202506051334340.png" srcset="https://murhyimgur.oss-cn-beijing.aliyuncs.com/website/loading.gif" lazyload alt="deeplabv3plus_r50-d8_4xb4-80k_potsdam-512x512_20250604_145319"></p>
+<p>python tools&#x2F;train.py .&#x2F;configs&#x2F;deeplabv3plus&#x2F;deeplabv3plus_r50-d8_4xb4-80k_vaihingen-512x512.py （deeplabv3plus_r50-d8_4xb4-80k_vaihingen-512x512_20250604_165100）</p>
+<p><img src="https://murphyimg.oss-cn-beijing.aliyuncs.com/img/202506051334465.png" srcset="https://murhyimgur.oss-cn-beijing.aliyuncs.com/website/loading.gif" lazyload alt="deeplabv3plus_r50-d8_4xb4-80k_vaihingen-512x512_20250604_165100"></p>
+<h3 id="R101"><a href="#R101" class="headerlink" title="R101"></a>R101</h3><p>python tools&#x2F;train.py .&#x2F;configs&#x2F;deeplabv3plus&#x2F;deeplabv3plus_r101-d8_4xb4-80k_loveda-512x512.py （deeplabv3plus_r101-d8_4xb4-80k_loveda-512x512_20250604_164955）</p>
+<p><img src="https://murphyimg.oss-cn-beijing.aliyuncs.com/img/202506051334934.png" srcset="https://murhyimgur.oss-cn-beijing.aliyuncs.com/website/loading.gif" lazyload alt="deeplabv3plus_r101-d8_4xb4-80k_loveda-512x512_20250604_164955"></p>
+<p>python tools&#x2F;train.py .&#x2F;configs&#x2F;deeplabv3plus&#x2F;deeplabv3plus_r101-d8_4xb4-80k_potsdam-512x512.py （deeplabv3plus_r101-d8_4xb4-80k_potsdam-512x512_20250604_165024）</p>
+<p><img src="https://murphyimg.oss-cn-beijing.aliyuncs.com/img/202506051334317.png" srcset="https://murhyimgur.oss-cn-beijing.aliyuncs.com/website/loading.gif" lazyload alt="deeplabv3plus_r101-d8_4xb4-80k_potsdam-512x512_20250604_165024"></p>
+<p>python tools&#x2F;train.py .&#x2F;configs&#x2F;deeplabv3plus&#x2F;deeplabv3plus_r101-d8_4xb4-80k_vaihingen-512x512.py </p>
+<h2 id="PSPNet"><a href="#PSPNet" class="headerlink" title="PSPNet"></a>PSPNet</h2><h3 id="R18-2"><a href="#R18-2" class="headerlink" title="R18"></a>R18</h3><p>python tools&#x2F;train.py .&#x2F;configs&#x2F;pspnet&#x2F;pspnet_r18-d8_4xb4-80k_loveda-512x512.py （pspnet_r18-d8_4xb4-80k_loveda-512x512_20250604_094150）</p>
 <p><img src="https://murphyimg.oss-cn-beijing.aliyuncs.com/img/202506041830890.png" srcset="https://murhyimgur.oss-cn-beijing.aliyuncs.com/website/loading.gif" lazyload alt="pspnet_r18-d8_4xb4-80k_loveda-512x512.py"></p>
 <p>python tools&#x2F;train.py configs&#x2F;pspnet&#x2F;pspnet_r18-d8_4xb4-80k_potsdam-512x512.py （pspnet_r18-d8_4xb4-80k_potsdam-512x512_20250604_094350）</p>
 <p><img src="https://murphyimg.oss-cn-beijing.aliyuncs.com/img/202506041830762.png" srcset="https://murhyimgur.oss-cn-beijing.aliyuncs.com/website/loading.gif" lazyload alt="pspnet_r18-d8_4xb4-80k_potsdam-512x512.py"></p>
