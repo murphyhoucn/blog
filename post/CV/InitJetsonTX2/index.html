@@ -28,7 +28,7 @@
 <meta property="og:locale" content="zh_CN">
 <meta property="og:image" content="https://murphyimg.oss-cn-beijing.aliyuncs.com/img/202505311244390.webp">
 <meta property="article:published_time" content="2024-04-23T04:23:15.000Z">
-<meta property="article:modified_time" content="2025-06-05T08:42:06.303Z">
+<meta property="article:modified_time" content="2025-06-06T08:06:10.097Z">
 <meta property="article:author" content="Murphy">
 <meta property="article:tag" content="OpenMMLab">
 <meta property="article:tag" content="EdgeComputing">
@@ -274,7 +274,7 @@
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          2.8k 字
+          4.5k 字
         
       </span>
     
@@ -285,7 +285,7 @@
         
         
         
-          24 分钟
+          38 分钟
         
       </span>
     
@@ -354,9 +354,13 @@
 
 <p><img src="https://murphyimg.oss-cn-beijing.aliyuncs.com/img/202506051118383.png" srcset="https://murhyimgur.oss-cn-beijing.aliyuncs.com/website/loading.gif" lazyload alt="image-20250604132727339"></p>
 <p><img src="https://murphyimg.oss-cn-beijing.aliyuncs.com/img/202506051118055.png" srcset="https://murhyimgur.oss-cn-beijing.aliyuncs.com/website/loading.gif" lazyload alt="image-20250604132735391"></p>
-<h1 id="拼音输入法（没搞好）"><a href="#拼音输入法（没搞好）" class="headerlink" title="拼音输入法（没搞好）"></a>拼音输入法（没搞好）</h1><blockquote>
-<p><a target="_blank" rel="noopener" href="https://juejin.cn/post/7022845968219389959">https://juejin.cn/post/7022845968219389959</a></p>
+<h1 id="拼音输入法"><a href="#拼音输入法" class="headerlink" title="拼音输入法"></a>拼音输入法</h1><blockquote>
+<ul>
+<li><a target="_blank" rel="noopener" href="https://juejin.cn/post/7022845968219389959">https://juejin.cn/post/7022845968219389959</a></li>
+</ul>
 </blockquote>
+<p>教程有效！</p>
+<p>输入法切换快捷键：ctrl+space</p>
 <h1 id="Windows-host连接-TX2"><a href="#Windows-host连接-TX2" class="headerlink" title="Windows host连接 TX2"></a>Windows host连接 TX2</h1><blockquote>
 <p><a target="_blank" rel="noopener" href="https://blog.csdn.net/zhang_zeng/article/details/77945317">Jetson TX2使用系列（2）-远程连接TX2_jestontx2 ssh-CSDN博客</a></p>
 </blockquote>
@@ -369,7 +373,7 @@
 <h1 id="设置TX2不休眠"><a href="#设置TX2不休眠" class="headerlink" title="设置TX2不休眠"></a>设置TX2不休眠</h1><blockquote>
 <p><a target="_blank" rel="noopener" href="https://blog.csdn.net/ZHOUYONGXYZ/article/details/111947659">Jetson TX2 Nano NX 系列设备设置不休眠_tx2 nx怎么设置待机时间-CSDN博客</a></p>
 </blockquote>
-<p>等待看看有没有效果。</p>
+<p>有效！</p>
 <h1 id="代理-SS-SSR"><a href="#代理-SS-SSR" class="headerlink" title="代理 SS&#x2F;SSR"></a>代理 SS&#x2F;SSR</h1><blockquote>
 <ul>
 <li><a target="_blank" rel="noopener" href="https://githubwyb.github.io/blogs/2021-03-05-shadowsocks/">linux下shadowsocks代理配置（服务端+客户端） | 技术的路上奔跑</a></li>
@@ -451,19 +455,20 @@
 
 <h1 id="Demo"><a href="#Demo" class="headerlink" title="Demo"></a>Demo</h1><h2 id="如何转换模型"><a href="#如何转换模型" class="headerlink" title="如何转换模型"></a>如何转换模型</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><code class="hljs bash">python ./tools/deploy.py \<br>    configs/mmdet/detection/detection_tensorrt_dynamic-320x320-1344x1344.py \<br>    /home/npu/MyDownload/mmdetection/configs/yolo/yolov3_d53_8xb8-ms-608-273e_coco.py \<br>	/home/npu/MyDownload/mmdetection/checkpoints/yolo/yolov3_d53_mstrain-608_273e_coco_20210518_115020-a2c3acb8.pth \<br>    /home/npu/MyDownload/mmdetection/demo/demo.jpg \<br>    --work-dir work_dir \<br>    --device cuda:0 \<br></code></pre></td></tr></table></figure>
 
-<p><img src="/./InitJetsonTX2.assets/image-20250605141018772.png" srcset="https://murhyimgur.oss-cn-beijing.aliyuncs.com/website/loading.gif" lazyload alt="mmcv版本不行！"></p>
+<p><img src="https://murphyimg.oss-cn-beijing.aliyuncs.com/img/202506061105821.png" srcset="https://murhyimgur.oss-cn-beijing.aliyuncs.com/website/loading.gif" lazyload alt="mmcv版本不行！"></p>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><code class="hljs bash"><span class="hljs-built_in">cd</span> mmdeploy<br><br><span class="hljs-comment"># download faster r-cnn model from mmdet model zoo</span><br>mim download mmdet --config faster-rcnn_r50_fpn_1x_coco --dest .<br><br><span class="hljs-comment"># convert mmdet model to onnxruntime model with dynamic shape</span><br>python tools/deploy.py \<br>    configs/mmdet/detection/detection_onnxruntime_dynamic.py \<br>    faster-rcnn_r50_fpn_1x_coco.py \<br>    faster_rcnn_r50_fpn_1x_coco_20200130-047c8118.pth \<br>    demo/resources/det.jpg \<br>    --work-dir mmdeploy_models/mmdet/ort \<br>    --device cuda \<br>    --show \<br>    --dump-info<br></code></pre></td></tr></table></figure>
 
-<p><img src="/./InitJetsonTX2.assets/image-20250605141711215.png" srcset="https://murhyimgur.oss-cn-beijing.aliyuncs.com/website/loading.gif" lazyload alt="image-20250605141711215"></p>
+<p><img src="https://murphyimg.oss-cn-beijing.aliyuncs.com/img/202506061105822.png" srcset="https://murhyimgur.oss-cn-beijing.aliyuncs.com/website/loading.gif" lazyload alt="image-20250605141711215"></p>
+<p>结果：最后在这个TX2上安装mmdeploy环境失败了！</p>
 <h1 id="思考一下"><a href="#思考一下" class="headerlink" title="思考一下"></a>思考一下</h1><p>MMdeploy是用于把深度学习模型进行部署的工具。</p>
-<p>但我现在想做的工作应该是MMdeploy直接在服务器上部署，然后转换的模型部署在TX2上运行</p>
+<p>但我现在想做的工作应该是MMdeploy直接在服务器上部署，然后转换的模型部署在TX2上运行。</p>
 <blockquote>
 <ul>
 <li><a target="_blank" rel="noopener" href="https://github.com/open-mmlab/mmdeploy/blob/main/docs/zh_cn/get_started.md">https://github.com/open-mmlab/mmdeploy/blob/main/docs/zh_cn/get_started.md</a></li>
 <li>按照文档配了环境，然后转换了一个ONNX模型。</li>
 </ul>
 </blockquote>
-<h1 id="Deploy"><a href="#Deploy" class="headerlink" title="Deploy"></a>Deploy</h1><blockquote>
+<h1 id="Deploy-tutorial"><a href="#Deploy-tutorial" class="headerlink" title="Deploy tutorial"></a>Deploy tutorial</h1><blockquote>
 <p><a target="_blank" rel="noopener" href="https://github.com/open-mmlab/mmdeploy/tree/master/docs/zh_cn/tutorial">mmdeploy&#x2F;docs&#x2F;zh_cn&#x2F;tutorial at master · open-mmlab&#x2F;mmdeploy</a></p>
 </blockquote>
 <ul>
@@ -471,18 +476,73 @@
 <li>部署流水线 PyTorch - ONNX - ONNX Runtime&#x2F;TensorRT</li>
 </ul>
 <p><img src="https://murphyimg.oss-cn-beijing.aliyuncs.com/img/202506051617483.png" srcset="https://murhyimgur.oss-cn-beijing.aliyuncs.com/website/loading.gif" lazyload alt="流水线"></p>
-<ul>
-<li><strong>PyTorch</strong>: Meta</li>
-<li><strong>TensorFlow&#x2F;Caffe</strong>: Google</li>
-<li><strong>MXNet</strong>: Amazon</li>
-<li><strong>ONNX</strong>: ONNX （Open Neural Network Exchange）是 Facebook 和微软在2017年共同发布的，用于标准描述计算图的一种格式。</li>
-<li><strong>TensorRT</strong>: Nvidia</li>
-<li><strong>ONNX Runtime</strong> 是由微软维护的一个跨平台机器学习推理加速器，也就是我们前面提到的”推理引擎“。</li>
-<li><strong>PPL</strong>(Parallel Patterns Library): Microsoft</li>
-<li><strong>ncnn</strong>（NVIDIA CUDA Convolutional Neural Network）</li>
-<li><strong>OpenVINO</strong> 是英特尔开发的跨平台深度学习工具包。 该名称代表“开放式视觉推理和神经网络优化”。</li>
+<p>以下是对这些技术和框架的详细解释：</p>
+<ol>
+<li><strong>PyTorch（Meta）</strong>：PyTorch是由Meta（原Facebook）开发的开源深度学习框架。它以动态计算图、自动求导、Pythonic设计等特性简化了开发流程，提供了模块化神经网络构建和标准化训练流程组件，广泛应用于计算机视觉、自然语言处理、生成式模型等多个领域。其核心设计理念是“灵活性优先”，支持开发者快速迭代实验模型，同时兼顾高效计算与生产部署需求。截至当前，全球超过70%的顶尖AI研究论文使用PyTorch实现。</li>
+<li>TensorFlow&#x2F;Caffe（Google）：<ul>
+<li><strong>TensorFlow</strong>：是由Google开发和维护的开源机器学习框架，自2015年发布以来，在学术界和工业界广泛应用。它支持在CPU、GPU、TPU等多种硬件设备上运行，可用于图像识别、自然语言处理、语音识别、推荐系统等多种机器学习和深度学习任务。TensorFlow支持多种编程语言，提供高层API（如Keras）和用于生产环境部署的工具套件（如TensorFlow Extended），具有灵活性、性能优化和多平台部署支持等优势。</li>
+<li><strong>Caffe</strong>：由加州大学伯克利分校的伯克利人工智能研究实验室开发，是一个清晰、高效的深度学习框架，专注于速度、模块化和表达性，在图像分类和图像识别等领域有广泛应用，尤其在学术研究中曾被广泛使用。</li>
 </ul>
+</li>
+<li><strong>MXNet（Amazon）</strong>：MXNet是亚马逊选择的深度学习库，它拥有类似于Theano和TensorFlow的数据流图，为多GPU配置提供了良好的支持，有类似于Lasagne和Blocks更高级别的模型构建块，并且可以在多种硬件上运行，包括手机。它支持多种编程语言，如Python、C++、R、Scala、Julia和Javascript等，具有强大的可扩展性，可在多场景下进行分布式计算，支持“先定义再计算”的延迟计算模式。</li>
+<li><strong>ONNX（Open Neural Network Exchange）</strong> ：是一种开放的模型交换格式，由Facebook和微软在2017年共同发布，用于标准描述计算图。它允许不同的深度学习框架（如TensorFlow、PyTorch等）之间共享和转换模型，有助于消除不同深度学习框架之间的壁垒，促进模型共享和重用，使开发者可以更容易地与其他人合作，共享和部署他们的模型。</li>
+<li><strong>ONNX Runtime</strong> ：是由微软维护的一个跨平台机器学习推理加速器，即“推理引擎”。它基于ONNX格式，提供了一套高性能库，用于在C等环境中高效执行这些ONNX格式的模型。其主要特点包括高性能、跨平台支持、可扩展性、内存管理和性能提升以及动态形状支持等，适用于云端服务、边缘设备、移动应用等多种人工智能应用场景。</li>
+<li><strong>PPL（Parallel Patterns Library）</strong> ：即并行模式库，是Microsoft开发的用于简化并行编程的库，它提供了一组用于实现常见并行模式的模板和工具，可帮助开发者更轻松地编写并行代码，提高程序在多核处理器上的性能。</li>
+<li><strong>ncnn（<a target="_blank" rel="noopener" href="https://github.com/Tencent/ncnn">Tencent&#x2F;ncnn: ncnn is a high-performance neural network inference framework optimized for the mobile platform</a>）</strong> ：ncnn是一个为手机端极致优化的高性能神经网络前向计算框架，由腾讯优图实验室开源。它针对移动端设备进行了深度优化，具有轻量级、高效率的特点，能够在不依赖第三方计算库的情况下，在移动设备上实现快速的卷积神经网络推理，广泛应用于移动端图像识别、目标检测等领域。需要注意的是，它并非由NVIDIA开发，与NVIDIA没有直接关联 。</li>
+<li><strong>OpenVINO</strong> ：是英特尔开发的跨平台深度学习工具包，名称代表“开放式视觉推理和神经网络优化”。它能够优化深度学习模型的推理性能，支持多种硬件平台，包括英特尔的CPU、GPU、VPU等，可广泛应用于计算机视觉、语音识别、自然语言处理等领域，帮助开发者将深度学习模型部署到各种设备上，实现高效的推理和决策。</li>
+<li><a target="_blank" rel="noopener" href="https://pytorch.org/docs/stable/jit.html">TorchScript</a> 是一种序列化和优化 PyTorch 模型的格式，在优化过程中，一个<code>torch.nn.Module</code>模型会被转换成 TorchScript 的<code>torch.jit.ScriptModule</code>模型。现在， TorchScript 也被常当成一种中间表示使用。<a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/486914187">TorchScript 解读（一）：初识 TorchScript - 知乎</a></li>
+</ol>
 <p><img src="/./InitJetsonTX2.assets/image-20250605163726818.png" srcset="https://murhyimgur.oss-cn-beijing.aliyuncs.com/website/loading.gif" lazyload alt="vscode server上运行netron，host上直接访问对应端口的localhost可以直接可视化onnx模型"></p>
+<p><img src="https://murphyimg.oss-cn-beijing.aliyuncs.com/img/202506061217094.png" srcset="https://murhyimgur.oss-cn-beijing.aliyuncs.com/website/loading.gif" lazyload alt="img"></p>
+<p><strong>ONNX 算子文档:</strong> ONNX 算子的定义情况，都可以在官方的<a target="_blank" rel="noopener" href="https://github.com/onnx/onnx/blob/main/docs/Operators.md">算子文档</a>中查看。这份文档十分重要，我们碰到任何和 ONNX 算子有关的问题都得来”请教“这份文档。</p>
+<p><strong>PyTorch 对 ONNX 算子的映射:</strong> 在 PyTorch 中，和 ONNX 有关的定义全部放在 <a target="_blank" rel="noopener" href="https://github.com/pytorch/pytorch/tree/master/torch/onnx">torch.onnx 目录</a>中</p>
+<p>在实际的部署过程中，难免碰到模型无法用原生 PyTorch 算子表示的情况。这个时候，我们就得考虑扩充 PyTorch，即在 PyTorch 中支持更多 ONNX 算子。</p>
+<p>而要使 PyTorch 算子顺利转换到 ONNX ，我们需要保证以下三个环节都不出错：</p>
+<ul>
+<li>算子在 PyTorch 中有实现</li>
+<li>有把该 PyTorch 算子映射成一个或多个 ONNX 算子的方法</li>
+<li>ONNX 有相应的算子</li>
+</ul>
+<p>可在实际部署中，这三部分的内容都可能有所缺失。其中最坏的情况是：我们定义了一个全新的算子，它不仅缺少 PyTorch 实现，还缺少 PyTorch 到 ONNX 的映射关系。但所谓车到山前必有路，对于这三个环节，我们也分别都有以下的添加支持的方法：</p>
+<ul>
+<li>PyTorch 算子<ul>
+<li>组合现有算子</li>
+<li>添加 TorchScript 算子</li>
+<li>添加普通 C++ 拓展算子</li>
+</ul>
+</li>
+<li>映射方法<ul>
+<li>为 ATen 算子添加符号函数（<a target="_blank" rel="noopener" href="https://pytorch.org/cppdocs/#aten">ATen</a> 是 PyTorch 内置的 C++ 张量计算库，PyTorch 算子在底层绝大多数计算都是用 ATen 实现的。）</li>
+<li>为 TorchScript 算子添加符号函数</li>
+<li>封装成 torch.autograd.Function 并添加符号函数</li>
+</ul>
+</li>
+<li>ONNX 算子<ul>
+<li>使用现有 ONNX 算子</li>
+<li>定义新 ONNX 算子</li>
+</ul>
+</li>
+</ul>
+<p>符号函数，可以看成是 PyTorch 算子类的一个静态方法。在把 PyTorch 模型转换成 ONNX 模型时，各个 PyTorch 算子的符号函数会被依次调用，以完成 PyTorch 算子到 ONNX 算子的转换。</p>
+<p>ONNX 在底层是用 <strong>Protobuf</strong> 定义的。Protobuf，全称 Protocol Buffer，是 Google 提出的一套表示和序列化数据的机制。使用 Protobuf 时，用户需要先写一份数据定义文件，再根据这份定义文件把数据存储进一份二进制文件。</p>
+<p> ONNX 模型是按以下的结构组织起来的：</p>
+<ul>
+<li>ModelProto<ul>
+<li>GraphProto<ul>
+<li>NodeProto</li>
+<li>ValueInfoProto</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<p><img src="https://murphyimg.oss-cn-beijing.aliyuncs.com/img/202506061523969.jpeg" srcset="https://murhyimgur.oss-cn-beijing.aliyuncs.com/website/loading.gif" lazyload alt="ONNX 模型的结构可以用类图大致表示"></p>
+<p>ONNX 提供了 API <code>onnx.checker.check_model</code> 来判断一个 ONNX 模型是否满足标准。</p>
+<p>我们使用 TensorRT 生成模型主要有两种方式：</p>
+<ol>
+<li>直接通过 TensorRT 的 API 逐层搭建网络；</li>
+<li>将中间表示的模型转换成 TensorRT 的模型，比如将 ONNX 模型转换成 TensorRT 模型。</li>
+</ol>
 
                 
               </div>
