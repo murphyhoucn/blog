@@ -19,26 +19,26 @@
   <meta name="author" content="Murphy">
   <meta name="keywords" content="Murphy,CosmicDusty,murphy,cosmicdusty,cn">
   
-    <meta name="description" content="Build onece, run anywhere!">
+    <meta name="description" content="Learn Shell">
 <meta property="og:type" content="article">
-<meta property="og:title" content="Docker入门">
-<meta property="og:url" content="https://blog.cosmicdusty.cc/post/Knowledge/DockerBeginner/index.html">
+<meta property="og:title" content="Shell">
+<meta property="og:url" content="https://blog.cosmicdusty.cc/post/Knowledge/LearnShell/index.html">
 <meta property="og:site_name" content="CosmicDusty-Blog">
-<meta property="og:description" content="Build onece, run anywhere!">
+<meta property="og:description" content="Learn Shell">
 <meta property="og:locale" content="zh_CN">
-<meta property="og:image" content="https://murhyimgur.oss-cn-beijing.aliyuncs.com/img/Moby-share.png">
-<meta property="article:published_time" content="2023-05-06T11:02:26.000Z">
-<meta property="article:modified_time" content="2025-06-06T10:23:01.832Z">
+<meta property="og:image" content="https://murphyimg.oss-cn-beijing.aliyuncs.com/img/202506061905153.png">
+<meta property="article:published_time" content="2021-09-06T10:24:37.000Z">
+<meta property="article:modified_time" content="2025-06-06T11:25:20.401Z">
 <meta property="article:author" content="Murphy">
-<meta property="article:tag" content="Docker">
+<meta property="article:tag" content="Linux">
 <meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:image" content="https://murhyimgur.oss-cn-beijing.aliyuncs.com/img/Moby-share.png">
+<meta name="twitter:image" content="https://murphyimg.oss-cn-beijing.aliyuncs.com/img/202506061905153.png">
   
   
     <meta name="referrer" content="no-referrer-when-downgrade">
   
   
-  <title>Docker入门 - CosmicDusty-Blog</title>
+  <title>Shell - CosmicDusty-Blog</title>
 
   <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
 
@@ -236,13 +236,13 @@
   
 
 <div id="banner" class="banner" parallax=true
-     style="background: url('https://murhyimgur.oss-cn-beijing.aliyuncs.com/img/Moby-share.png') no-repeat center center; background-size: cover;">
+     style="background: url('https://murphyimg.oss-cn-beijing.aliyuncs.com/img/202506061905153.png') no-repeat center center; background-size: cover;">
   <div class="full-bg-img">
     <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
       <div class="banner-text text-center fade-in-up">
         <div class="h2">
           
-            <span id="subtitle" data-typed-text="Docker入门"></span>
+            <span id="subtitle" data-typed-text="Shell"></span>
           
         </div>
 
@@ -258,8 +258,8 @@
     
       <span class="post-meta">
         <i class="iconfont icon-date-fill" aria-hidden="true"></i>
-        <time datetime="2023-05-06 19:02" pubdate>
-          2023年5月6日 晚上
+        <time datetime="2021-09-06 18:24" pubdate>
+          2021年9月6日 晚上
         </time>
       </span>
     
@@ -270,7 +270,7 @@
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          1.3k 字
+          981 字
         
       </span>
     
@@ -281,7 +281,7 @@
         
         
         
-          11 分钟
+          9 分钟
         
       </span>
     
@@ -318,79 +318,73 @@
       <div class="container nopadding-x-md" id="board-ctn">
         <div id="board">
           <article class="post-content mx-auto">
-            <h1 id="seo-header">Docker入门</h1>
+            <h1 id="seo-header">Shell</h1>
             
             
               <div class="markdown-body">
                 
-                <h1 id="小剧场"><a href="#小剧场" class="headerlink" title="小剧场"></a>小剧场</h1><blockquote>
-<p>🤔: 你在看什么呀？<br>😎:我在看docker!<br>🤨:码头装卸工人吗?</p>
-</blockquote>
-<p><a target="_blank" rel="noopener" href="https://docs.docker.com/get-docker/">Get Docker | Docker Documentation</a></p>
-<h1 id="命令记录"><a href="#命令记录" class="headerlink" title="命令记录"></a>命令记录</h1><p>Docker: 容器与管理程序虚拟化</p>
-<p>Docker 是一个应用打包、分发、部署的工具<br>你也可以把它理解为一个轻量的虚拟机，它只虚拟你软件需要的运行环境，多余的一点都不要，<br>而普通虚拟机则是一个完整而庞大的系统，包含各种不管你要不要的软件。</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><code class="hljs bash">docker version <span class="hljs-comment"># 显示 Docker 客户端和服务器端的版本信息。</span><br>docker build   <span class="hljs-comment"># 根据 Dockerfile 构建镜像。</span><br>docker images  <span class="hljs-comment"># 列出本地所有的镜像。</span><br>docker run     <span class="hljs-comment"># 创建并启动一个容器。</span><br>docker ps      <span class="hljs-comment"># 列出运行中的容器。</span><br>docker stop    <span class="hljs-comment"># 停止一个或多个运行中的容器。</span><br>docker <span class="hljs-built_in">kill</span>    <span class="hljs-comment"># 强制停止一个或多个容器（发送 SIGKILL 信号）。</span><br>docker start   <span class="hljs-comment"># 启动一个或多个已停止的容器。</span><br>docker restart <span class="hljs-comment"># 重启一个或多个容器。</span><br>docker <span class="hljs-built_in">rm</span>      <span class="hljs-comment"># 删除一个或多个容器。</span><br>docker rmi     <span class="hljs-comment"># 删除一个或多个镜像。</span><br>docker tag     <span class="hljs-comment"># 为镜像打标签（创建镜像的别名）。</span><br></code></pre></td></tr></table></figure>
-
-<h1 id="Docker-使用经历"><a href="#Docker-使用经历" class="headerlink" title="Docker 使用经历"></a>Docker 使用经历</h1><ul>
-<li>2021.11，信息论课程，图像分割项目。当时是使用在服务器安装了docker,然后配置环境。之后还把docker镜像推送到阿里云上。(<a href="https://blog.cosmicdusty.cc/post/CV/SemSeg/">基于SemSeg的马里亚纳海沟遥感图像场景解析 - CosmicDusty-Blog</a>)</li>
-<li>2023.05，看到Facebook在GitHub上开源的一个小项目很有意思。按照教程在WSL上使用docker部署了一下环境。(<a href="https://blog.cosmicdusty.cc/post/CV/AnimatedDrawings/">AnimatedDrawings - CosmicDusty-Blog</a>)</li>
-<li>2024.10，在服务器上部署了Overleaf.(<a href="https://blog.cosmicdusty.cc/post/Tools/WorkingWithGPUServer/#Docker">瞧瞧我对服务器干了些什么！ - CosmicDusty-Blog</a>)</li>
-</ul>
-<h1 id="Docker-—-从入门到实践"><a href="#Docker-—-从入门到实践" class="headerlink" title="Docker — 从入门到实践"></a>Docker — 从入门到实践</h1><blockquote>
+                <blockquote>
 <ul>
-<li><a target="_blank" rel="noopener" href="https://docs.docker.com/get-started/get-docker/">Get Docker | Docker Docs</a></li>
-<li>⭐<a target="_blank" rel="noopener" href="https://yeasy.gitbook.io/docker_practice/install/ubuntu">Ubuntu | Docker — 从入门到实践</a></li>
-<li><a target="_blank" rel="noopener" href="https://docker.easydoc.net/doc/81170005/cCewZWoN/lTKfePfP">Docker 简介和安装 - Docker 快速入门 - 易文档</a></li>
+<li><a target="_blank" rel="noopener" href="https://mp.weixin.qq.com/s/fRRdFN-zDJmmbyVVvmO89w">一文学完Linux Shell编程（强烈建议收藏）</a></li>
+<li><a target="_blank" rel="noopener" href="https://blog.csdn.net/qq_33154343/article/details/123366377">Shell、Bash、CMD、PowerShell 的区别_powershell bash-CSDN博客</a></li>
+<li><a target="_blank" rel="noopener" href="https://xmuli.tech/posts/d0c4daee/">Shell、Bash、CMD、PowerShell 的区别 | 偕臧</a></li>
+<li><a target="_blank" rel="noopener" href="https://www.jianshu.com/p/b10d458d3fb5">shell进化史 - 简书</a></li>
+<li><a target="_blank" rel="noopener" href="https://juejin.cn/post/7214311338196336701">shell、bash、zsh、powershell、gitbash、cmd这些到底都是啥？一、前言 在日常工作中，我们几 - 掘金</a></li>
 </ul>
 </blockquote>
-<p><strong>Docker</strong> 包括三个基本概念</p>
-<ul>
-<li><p><strong>镜像</strong>（<code>Image</code>）</p>
-<ul>
-<li><strong>Docker 镜像</strong> 是一个特殊的文件系统，除了提供容器运行时所需的程序、库、资源、配置等文件外，还包含了一些为运行时准备的一些配置参数（如匿名卷、环境变量、用户等）。镜像 <strong>不包含</strong> 任何动态数据，其内容在构建之后也不会被改变。</li>
-</ul>
-</li>
-<li><p><strong>容器</strong>（<code>Container</code>）</p>
-<ul>
-<li>镜像（<code>Image</code>）和容器（<code>Container</code>）的关系，就像是面向对象程序设计中的 <code>类</code> 和 <code>实例</code> 一样，镜像是静态的定义，容器是镜像运行时的实体。容器可以被创建、启动、停止、删除、暂停等。</li>
-</ul>
-</li>
-<li><p><strong>仓库</strong>（<code>Repository</code>）</p>
-<ul>
-<li><p>镜像构建完成后，可以很容易的在当前宿主机上运行，但是，如果需要在其它服务器上使用这个镜像，我们就需要一个集中的存储、分发镜像的服务，<a target="_blank" rel="noopener" href="https://yeasy.gitbook.io/docker_practice/repository/registry">Docker Registry</a> 就是这样的服务。</p>
-</li>
-<li><p>一个 <strong>Docker Registry</strong> 中可以包含多个 <strong>仓库</strong>（<code>Repository</code>）；每个仓库可以包含多个 <strong>标签</strong>（<code>Tag</code>）；每个标签对应一个镜像。</p>
-</li>
-<li><p>最常使用的 Registry 公开服务是官方的 <a target="_blank" rel="noopener" href="https://hub.docker.com/">Docker Hub</a>，这也是默认的 Registry，并拥有大量的高质量的 <a target="_blank" rel="noopener" href="https://hub.docker.com/search?q=&type=image&image_filter=official">官方镜像</a>。除此以外，还有 Red Hat 的 <a target="_blank" rel="noopener" href="https://quay.io/repository/">Quay.io</a>；Google 的 <a target="_blank" rel="noopener" href="https://cloud.google.com/container-registry/">Google Container Registry</a>，<a target="_blank" rel="noopener" href="https://kubernetes.io/">Kubernetes</a> 的镜像使用的就是这个服务；代码托管平台 <a target="_blank" rel="noopener" href="https://github.com/">GitHub</a> 推出的 <a target="_blank" rel="noopener" href="https://docs.github.com/cn/packages/working-with-a-github-packages-registry/working-with-the-container-registry">ghcr.io</a>。</p>
-<p>由于某些原因，在国内访问这些服务可能会比较慢。国内的一些云服务商提供了针对 Docker Hub 的镜像服务（<code>Registry Mirror</code>），这些镜像服务被称为 <strong>加速器</strong>。常见的有 <a target="_blank" rel="noopener" href="https://www.aliyun.com/product/acr?source=5176.11533457&userCode=8lx5zmtu">阿里云加速器</a>、<a target="_blank" rel="noopener" href="https://www.daocloud.io/mirror#accelerator-doc">DaoCloud 加速器</a> 等。使用加速器会直接从国内的地址下载 Docker Hub 的镜像，比直接从 Docker Hub 下载速度会提高很多。在 <a target="_blank" rel="noopener" href="https://yeasy.gitbook.io/docker_practice/install/mirror">安装 Docker</a> 一节中有详细的配置方法。</p>
-<p>国内也有一些云服务商提供类似于 Docker Hub 的公开服务。比如 <a target="_blank" rel="noopener" href="https://c.163.com/hub#/m/library/">网易云镜像服务</a>、<a target="_blank" rel="noopener" href="https://hub.daocloud.io/">DaoCloud 镜像市场</a>、<a target="_blank" rel="noopener" href="https://www.aliyun.com/product/acr?source=5176.11533457&userCode=8lx5zmtu">阿里云镜像库</a> 等。</p>
-</li>
-</ul>
-</li>
-</ul>
-<h2 id="image"><a href="#image" class="headerlink" title="image"></a>image</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><code class="hljs bash"><span class="hljs-comment"># 获取镜像</span><br>docker pull<br><br><span class="hljs-comment"># 列出镜像</span><br>docker image <span class="hljs-built_in">ls</span><br><br><span class="hljs-comment"># 删除本地镜像</span><br>docker image <span class="hljs-built_in">rm</span><br><br><span class="hljs-comment"># 命令进行镜像构建</span><br>docker build<br></code></pre></td></tr></table></figure>
-
-<ul>
-<li>使用 Dockerfile 定制镜像</li>
-</ul>
-<blockquote>
-<p>Dockerfile 是一个文本文件，其内包含了一条条的 **指令(Instruction)**，每一条指令构建一层，因此每一条指令的内容，就是描述该层应当如何构建。</p>
+<h1 id="Shell-Intro"><a href="#Shell-Intro" class="headerlink" title="Shell Intro"></a>Shell Intro</h1><p>Shell 是一个用 C 语言编写的程序，通过 Shell 用户可以访问操作系统内核服务。</p>
+<p>Shell 既是一种命令语言，又是一种程序设计语言。</p>
+<p>Shell script 是一种为 shell 编写的脚本程序。Shell 编程一般指 shell 脚本编程，不是指开发 shell 自身。</p>
+<p>Shell 编程跟 java、php 编程一样，只要有一个能编写代码的文本编辑器和一个能解释执行的脚本解释器就可以了。</p>
+<h2 id="Shell-in-different-OS"><a href="#Shell-in-different-OS" class="headerlink" title="Shell in different OS"></a>Shell in different OS</h2><blockquote>
+<p><strong>『Shell』 &#x3D;『图形用户界面（GUI）shell』 + 『命令行界面（CLI）的 shell』</strong></p>
 </blockquote>
-<h2 id="container"><a href="#container" class="headerlink" title="container"></a>container</h2><blockquote>
-<p>启动容器有两种方式，一种是基于镜像新建一个容器并启动，另外一个是将在终止状态（<code>exited</code>）的容器重新启动。</p>
-</blockquote>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><code class="hljs bash"><span class="hljs-comment"># 新建并启动</span><br>docker run<br><br><span class="hljs-comment"># 启动已终止容器.以利用 docker container start 命令，直接将一个已经终止（exited）的容器启动运行。</span><br>docker container start<br><br><span class="hljs-comment"># 守护态运行</span><br>docker run -d<br><br><span class="hljs-comment"># 终止.可以使用 docker container stop 来终止一个运行中的容器。</span><br>docker container stop<br></code></pre></td></tr></table></figure>
+<h3 id="图形用户界面（GUI）shell"><a href="#图形用户界面（GUI）shell" class="headerlink" title="图形用户界面（GUI）shell"></a>图形用户界面（GUI）shell</h3><p>MacOS 的 shell</p>
+<ul>
+<li><strong>『Finder &#x2F; 访达』</strong>: 在 MacOS 中，能让用户管理文件、文件、磁盘、网络，以及启动其他的应用程序的引用程序。</li>
+</ul>
+<p>Linux 的 shell</p>
+<ul>
+<li><p><strong>『X窗口管理器』</strong>: 独立的 <code>X窗口管理器</code>，例如 <a target="_blank" rel="noopener" href="https://zh.wikipedia.org/wiki/Blackbox">Blackbox</a> 与 <a target="_blank" rel="noopener" href="https://zh.wikipedia.org/wiki/Fluxbox">Fluxbox</a> 。</p>
+</li>
+<li><p><strong>『Desktop Environment &#x2F; 桌面环境』</strong>: 桌面环境是依靠于窗口管理器的的扩展实现。如 <a target="_blank" rel="noopener" href="https://zh.wikipedia.org/wiki/KDE">KDE</a>、<a target="_blank" rel="noopener" href="https://zh.wikipedia.org/wiki/GNOME">GNOME</a>、<a target="_blank" rel="noopener" href="https://zh.wikipedia.org/wiki/Xfce">Xfce</a>、<a target="_blank" rel="noopener" href="https://en.wikipedia.org/wiki/Deepin">DDE</a> 。</p>
+</li>
+</ul>
+<p>Windows 的 shell</p>
+<ul>
+<li><p><strong>『Explorer &#x2F; 文件资源管理器』</strong>: 此操作系统中浏览电脑中文件与文件夹结构的基本工具，win + E 快捷键呼出。</p>
+</li>
+<li><p><strong>『开始菜单』</strong>: 屏幕的左下角菜单， win 键呼出。</p>
+</li>
+<li><p><strong>『DOS Shell』</strong>: 1998 年发布于 MS-DOS 的文件管理器，是终端里面生成的可视化界面。</p>
+</li>
+</ul>
+<p><img src="https://murphyimg.oss-cn-beijing.aliyuncs.com/img/202506061920073.png" srcset="https://murhyimgur.oss-cn-beijing.aliyuncs.com/website/loading.gif" lazyload alt="image-20250606192017878"></p>
+<p><img src="https://murphyimg.oss-cn-beijing.aliyuncs.com/img/202506061920872.png" srcset="https://murhyimgur.oss-cn-beijing.aliyuncs.com/website/loading.gif" lazyload alt="image-20250606192032504"></p>
+<h3 id="命令行界面（CLI）的-shell"><a href="#命令行界面（CLI）的-shell" class="headerlink" title="命令行界面（CLI）的 shell"></a>命令行界面（CLI）的 shell</h3><p>MacOS &#x2F; Linux 的 shell</p>
+<ul>
+<li>『sh &#x2F; Bourne shell』: 1977 在 Version 7 Unix 上的默认 shell。</li>
+<li>『Bash』: 名称由来 Bourne-Again SHell，在 GNU 计划中，于 1989 发布于第一个版本，是 sh 的兼容的开源的续作。亦是 Linux 和 MacOS （含10.14之前）的默认 shell。</li>
+<li>『Z shell &#x2F; Zsh』: 是 sh + bash + 扩展功能。自2019 年起，MacOS 的默认 Shell 已从 『Bash 』改为『Zsh』。</li>
+</ul>
+<p>Windows 的 shell</p>
+<ul>
+<li>『命令提示符 &#x2F; cmd.exe』：是 Win32 应用程序，取代『COMMAND.COM』。Windows命令提示符（cmd.exe） 是 Windows NT 下的一个用于运行 Windows 控制台程序或某些 DOS 程序的壳层程序；注释</li>
+<li>『PowerShell』 : 包括 ①Windows PowerShel + ②PowerShell Core ，基于 .NET 框架开发，自 2016 年后开源且跨平台。① 为前四年的版本，仅支持 Win 平台；② 则是其演进，支持跨平台 Linux 和 Mac。注释</li>
+<li>『COMMAND.COM』: 是一个16位的 DOS 应用程序。已经被 命令提示符(cmd.exe) 取代在 MS-DOS、Windows 95、Windows 98、Windows 98SE 和 Windows Me 上的默认命令行界面。</li>
+</ul>
+<h2 id="Linux-Shell"><a href="#Linux-Shell" class="headerlink" title="Linux Shell"></a>Linux Shell</h2><p>Linux 的 <strong>Shell 解释器</strong> 种类众多，一个系统可以存在多个 shell，可以通过 cat &#x2F;etc&#x2F;shells 命令查看系统中安装的 shell 解释器。</p>
+<p>Bash 由于易用和免费，在日常工作中被广泛使用。同时，Bash 也是大多数 Linux 系统默认的 Shell。</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><code class="hljs bash"><span class="hljs-comment"># 通过 cat 命令来查看当前 Linux 系统的可用 Shell：</span><br>(base) houjinliang@4090server2:~$ <span class="hljs-built_in">cat</span> /etc/shells<br><span class="hljs-comment"># /etc/shells: valid login shells</span><br>/bin/sh<br>/bin/bash<br>/usr/bin/bash<br>/bin/rbash<br>/usr/bin/rbash<br>/usr/bin/sh<br>/bin/dash<br>/usr/bin/dash<br>/usr/bin/tmux<br>/usr/bin/screen<br><br><span class="hljs-comment"># 部分shell的全称</span><br><span class="hljs-comment"># Bourne Shell（sh）</span><br><span class="hljs-comment"># Bourne Again shell（bash）</span><br><span class="hljs-comment"># C Shell（csh）</span><br><span class="hljs-comment"># TENEX C Shell（tcsh）</span><br><span class="hljs-comment"># Korn shell（ksh）</span><br><span class="hljs-comment"># Z Shell（zsh）</span><br><span class="hljs-comment"># Friendly Interactive Shell（fish）</span><br><br><span class="hljs-comment"># 查看当前 Linux 的默认 Shell，那么可以输出 SHELL 环境变量：</span><br>(base) houjinliang@4090server2:~$ <span class="hljs-built_in">echo</span> <span class="hljs-variable">$SHELL</span><br>/bin/bash<br></code></pre></td></tr></table></figure>
 
-
-
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs bash"><span class="hljs-comment"># 某些时候需要进入容器进行操作，包括使用 docker attach 命令或 docker exec 命令，推荐大家使用 docker exec 命令</span><br>docker attach<br>docker <span class="hljs-built_in">exec</span><br></code></pre></td></tr></table></figure>
-
-
-
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><code class="hljs bash"><span class="hljs-comment"># 导出容器</span><br>docker <span class="hljs-built_in">export</span><br><br><span class="hljs-comment"># 导入容器快照. 可以使用 docker import 从容器快照文件中再导入为镜像</span><br>docker import<br><br><span class="hljs-comment"># 删除。可以使用 docker container rm 来删除一个处于终止状态的容器。</span><br>docker container <span class="hljs-built_in">rm</span><br><br><span class="hljs-comment"># 清理所有处于终止状态的容器</span><br>docker container <span class="hljs-built_in">ls</span> -a <span class="hljs-comment"># 查看所有已经创建的包括终止状态的容器</span><br>docker container prune <span class="hljs-comment"># 清理掉所有处于终止状态的容器。</span><br></code></pre></td></tr></table></figure>
-
-<h2 id="repository"><a href="#repository" class="headerlink" title="repository"></a>repository</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs bash">docker login<br>docker <span class="hljs-built_in">logout</span><br>docker search<br>docker pull<br>docker push<br></code></pre></td></tr></table></figure>
-
+<ul>
+<li><p><strong><code>bash</code> 是 <code>sh</code> 的一个超集（Superset）和增强版（Enhancement）</strong>.<code>bash</code>（Bourne Again SHell）最初就是为了向后兼容 <code>sh</code>（Bourne SHell）并增加新特性而设计的。<code>sh</code> 是 Unix 早期的一个标准 Shell，由 Stephen Bourne 编写。<code>bash</code> 继承了 <code>sh</code> 的所有基本语法和功能，并且在此基础上添加了很多强大的特性。</p>
+</li>
+<li><p>为了保证兼容性，<code>bash</code> 可以模拟 <code>sh</code> 的行为。当 <code>bash</code> 被调用为 <code>sh</code> 时（例如通过 Shebang <code>#!/bin/sh</code> 或直接运行 <code>sh script.sh</code>），它会尝试尽可能地表现得像一个传统的 <code>sh</code>，通常会禁用或限制那些 <code>sh</code> 不支持的 <code>bash</code> 特性。</p>
+</li>
+<li><p>在现代的 Linux 发行版（如 Ubuntu, Debian, Fedora, CentOS 等）中，<code>bash</code> 通常是默认的交互式 Shell。因此，你登录系统时，大概率是在使用 <code>bash</code>。</p>
+</li>
+</ul>
 
                 
               </div>
@@ -424,7 +418,7 @@
     <div class="post-meta">
       <i class="iconfont icon-tags"></i>
       
-        <a href="/tags/Docker/" class="print-no-link">#Docker</a>
+        <a href="/tags/Linux/" class="print-no-link">#Linux</a>
       
     </div>
   
@@ -436,8 +430,8 @@
 
   <div class="license-box my-3">
     <div class="license-title">
-      <div>Docker入门</div>
-      <div>https://blog.cosmicdusty.cc/post/Knowledge/DockerBeginner/</div>
+      <div>Shell</div>
+      <div>https://blog.cosmicdusty.cc/post/Knowledge/LearnShell/</div>
     </div>
     <div class="license-meta">
       
@@ -449,7 +443,7 @@
       
         <div class="license-meta-item license-meta-date">
           <div>发布于</div>
-          <div>2023年5月6日</div>
+          <div>2021年9月6日</div>
         </div>
       
       
@@ -481,9 +475,9 @@
                   <article class="post-prev col-6">
                     
                     
-                      <a href="/post/CV/FewshotHSIC/" title="小样本条件下高光谱图像分类">
+                      <a href="/post/Knowledge/CommunicationElectronicCircuits/" title="通信电子电路">
                         <i class="iconfont icon-arrowleft"></i>
-                        <span class="hidden-mobile">小样本条件下高光谱图像分类</span>
+                        <span class="hidden-mobile">通信电子电路</span>
                         <span class="visible-mobile">上一篇</span>
                       </a>
                     
@@ -491,8 +485,8 @@
                   <article class="post-next col-6">
                     
                     
-                      <a href="/post/CV/ILSVRC/" title="ILSVRC论文">
-                        <span class="hidden-mobile">ILSVRC论文</span>
+                      <a href="/post/Knowledge/LearnLinux/" title="《鸟哥的Linux私房菜》">
+                        <span class="hidden-mobile">《鸟哥的Linux私房菜》</span>
                         <span class="visible-mobile">下一篇</span>
                         <i class="iconfont icon-arrowright"></i>
                       </a>
