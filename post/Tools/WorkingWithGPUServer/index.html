@@ -28,7 +28,7 @@
 <meta property="og:locale" content="zh_CN">
 <meta property="og:image" content="https://murhyimgur.oss-cn-beijing.aliyuncs.com/img/cyberspace-2784907_1280.jpg">
 <meta property="article:published_time" content="2023-11-01T02:28:51.000Z">
-<meta property="article:modified_time" content="2025-06-06T09:38:30.185Z">
+<meta property="article:modified_time" content="2025-06-11T09:45:35.127Z">
 <meta property="article:author" content="Murphy">
 <meta property="article:tag" content="DeepLearning">
 <meta property="article:tag" content="Docker">
@@ -277,7 +277,7 @@
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          6.3k 字
+          6.9k 字
         
       </span>
     
@@ -288,7 +288,7 @@
         
         
         
-          53 分钟
+          58 分钟
         
       </span>
     
@@ -713,6 +713,47 @@
 <p>Overleaf 容器启动之后，可以打开 <a href="http://xx.xx.xx.xx:xx/launchpad">http://xx.xx.xx.xx:xx/launchpad</a> 注册管理员帐户。之后我们就可以用这个帐户登录 Overleaf 平台。</p>
 <p>网上教程中还给出了一些复杂的配置，后面根据需要再配置吧。</p>
 <h3 id="后记"><a href="#后记" class="headerlink" title="后记"></a>后记</h3><p>因为Overleaf官网对于免费用户，只有20s的编译时间，超过时间限制则无法编译。对于这种情况，只能付费解决。如果面对我遇到这样的情况的话，我可能也会选择付费的方式。但在网上看到了可以在服务器上搭建自己的Overleaf，所以想跟着教程自己试一下。按照教程一步步走下来，最后也配置成功了。也许最后并不会使用自己配置的这个，但折腾永不停息，万一用到了呢？！</p>
+<h1 id="Ubuntu-18-04-20-04"><a href="#Ubuntu-18-04-20-04" class="headerlink" title="Ubuntu 18.04 -&gt; 20.04"></a>Ubuntu 18.04 -&gt; 20.04</h1><p>3080Server和3090Server都是Ubuntu 18.04版本，由于Ubuntu 18.04已经“寿命将尽”，很多软件的维护都结束了，现在出现了一个很大的问题！VSCode 1.85之后的版本使用SSH-remote连不上服务器了！天杀的！Damn!</p>
+<ul>
+<li><p><a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/681183768">(14 封私信 &#x2F; 2 条消息) 千杀的VSCode连接不上ssh远程！ - 知乎</a></p>
+</li>
+<li><p><a target="_blank" rel="noopener" href="https://www.zhihu.com/question/642497147">(14 封私信 &#x2F; 2 条消息) 微软 VS Code 更新 1.86 版本，该版本新增了哪些功能？ - 知乎</a></p>
+</li>
+<li><p><a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/681829337">(14 封私信 &#x2F; 2 条消息) vscode 无法连接较老系统服务器的解决方法 - 知乎</a></p>
+</li>
+<li><p><a target="_blank" rel="noopener" href="https://www.oschina.net/news/277439/vscode-1-86-drops-ubuntu-18-04">VS Code 1.86 会导致远程开发功能无法使用 - OSCHINA - 中文开源技术交流社区</a></p>
+</li>
+</ul>
+<p><img src="/./WorkingWithGPUServer.assets/image-20250611173312204.png" srcset="https://murhyimgur.oss-cn-beijing.aliyuncs.com/website/loading.gif" lazyload alt="image-20250611173312204"></p>
+<p>只有两种解决方法</p>
+<ul>
+<li><strong>根据对应的发行版，升级至 Ubuntu 20.04 LTS、Debian 10 或 RHEL 8</strong></li>
+<li><strong>降级到 VS Code 1.85</strong></li>
+</ul>
+<p>VSCode降级：<a target="_blank" rel="noopener" href="https://code.visualstudio.com/updates/v1_85">November 2023 (version 1.85)</a>，安装1.85.2版本，然后关闭自动更新。<a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/553996841">(14 封私信 &#x2F; 2 条消息) VSCode怎么关闭自动更新 - 知乎</a></p>
+<p>先把VSCode降级之后，将就用了一段时间，后面决定，不能就这么妥协了，我得去把实验室的服务器更新一下！</p>
+<p>系统更新比较简单，直接一行命令，然后一路Y或Enter就行了。</p>
+<ul>
+<li><a target="_blank" rel="noopener" href="https://documentation.ubuntu.com/server/how-to/software/upgrade-your-release/index.html">How to upgrade your Ubuntu release - Ubuntu Server documentation</a></li>
+</ul>
+<p>系统更新完了之后遇到了几个问题</p>
+<ul>
+<li>连不上网（这台服务器之前就有这个问题）</li>
+<li>nVidia驱动。</li>
+<li>ssh端口</li>
+</ul>
+<p>连不上网的问题是最大的，也不记录中间怎么排查的了，就直接贴一下教程了。</p>
+<p><img src="https://murphyimg.oss-cn-beijing.aliyuncs.com/img/202506111740539.png" srcset="https://murhyimgur.oss-cn-beijing.aliyuncs.com/website/loading.gif" lazyload alt="image-20250611174028654"></p>
+<p>找了好久的方法，这个方式是有效的！</p>
+<p>但是，如果按照他说起，再改回false的话，重启后的电脑还是之前连不上网络的状态，还需要重走一边教程。所以最后采取了保持true。这样重启后，会自动联网！</p>
+<p>nVidia驱动，这个问题比较好解决，因为有GUI桌面，直接在软件更新中把驱动换上就行。</p>
+<p><img src="https://murphyimg.oss-cn-beijing.aliyuncs.com/img/202506111742775.png" srcset="https://murhyimgur.oss-cn-beijing.aliyuncs.com/website/loading.gif" lazyload alt="image-20250611174209655"></p>
+<p>第三个问题是ssh端口，系统更新之后又变成了默认的22端口，为了服务器安全，需要改一下。</p>
+<p>这个问题其实很简单。<a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/674944705">(14 封私信 &#x2F; 2 条消息) 安全加固指南：如何更改 SSH 服务器的默认端口号 - 知乎</a></p>
+<p>直接编辑配置文件就行。</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash"><span class="hljs-built_in">sudo</span> vim /etc/ssh/sshd_config<br></code></pre></td></tr></table></figure>
+
+<p>但是！我改了半天的ssh_config！我说怎么一直不生效！改错了！！！废了好大的劲！！！</p>
 
                 
               </div>
