@@ -28,7 +28,7 @@
 <meta property="og:locale" content="zh_CN">
 <meta property="og:image" content="https://murhyimgur.oss-cn-beijing.aliyuncs.com/img/cyberspace-2784907_1280.jpg">
 <meta property="article:published_time" content="2023-11-01T02:28:51.000Z">
-<meta property="article:modified_time" content="2025-06-11T09:45:35.127Z">
+<meta property="article:modified_time" content="2025-06-19T06:04:27.938Z">
 <meta property="article:author" content="Murphy">
 <meta property="article:tag" content="DeepLearning">
 <meta property="article:tag" content="Docker">
@@ -277,7 +277,7 @@
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          6.9k 字
+          7.1k 字
         
       </span>
     
@@ -288,7 +288,7 @@
         
         
         
-          58 分钟
+          59 分钟
         
       </span>
     
@@ -713,7 +713,7 @@
 <p>Overleaf 容器启动之后，可以打开 <a href="http://xx.xx.xx.xx:xx/launchpad">http://xx.xx.xx.xx:xx/launchpad</a> 注册管理员帐户。之后我们就可以用这个帐户登录 Overleaf 平台。</p>
 <p>网上教程中还给出了一些复杂的配置，后面根据需要再配置吧。</p>
 <h3 id="后记"><a href="#后记" class="headerlink" title="后记"></a>后记</h3><p>因为Overleaf官网对于免费用户，只有20s的编译时间，超过时间限制则无法编译。对于这种情况，只能付费解决。如果面对我遇到这样的情况的话，我可能也会选择付费的方式。但在网上看到了可以在服务器上搭建自己的Overleaf，所以想跟着教程自己试一下。按照教程一步步走下来，最后也配置成功了。也许最后并不会使用自己配置的这个，但折腾永不停息，万一用到了呢？！</p>
-<h1 id="Ubuntu-18-04-20-04"><a href="#Ubuntu-18-04-20-04" class="headerlink" title="Ubuntu 18.04 -&gt; 20.04"></a>Ubuntu 18.04 -&gt; 20.04</h1><p>3080Server和3090Server都是Ubuntu 18.04版本，由于Ubuntu 18.04已经“寿命将尽”，很多软件的维护都结束了，现在出现了一个很大的问题！VSCode 1.85之后的版本使用SSH-remote连不上服务器了！天杀的！Damn!</p>
+<h1 id="Ubuntu-18-04-20-04"><a href="#Ubuntu-18-04-20-04" class="headerlink" title="Ubuntu 18.04 -&gt; 20.04"></a>Ubuntu 18.04 -&gt; 20.04</h1><h2 id="3080server-2025-06-11"><a href="#3080server-2025-06-11" class="headerlink" title="3080server(2025.06.11)"></a>3080server(2025.06.11)</h2><p>3080Server和3090Server都是Ubuntu 18.04版本，由于Ubuntu 18.04已经“寿命将尽”，很多软件的维护都结束了，现在出现了一个很大的问题！VSCode 1.85之后的版本使用SSH-remote连不上服务器了！天杀的！Damn!</p>
 <ul>
 <li><p><a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/681183768">(14 封私信 &#x2F; 2 条消息) 千杀的VSCode连接不上ssh远程！ - 知乎</a></p>
 </li>
@@ -724,7 +724,7 @@
 <li><p><a target="_blank" rel="noopener" href="https://www.oschina.net/news/277439/vscode-1-86-drops-ubuntu-18-04">VS Code 1.86 会导致远程开发功能无法使用 - OSCHINA - 中文开源技术交流社区</a></p>
 </li>
 </ul>
-<p><img src="/./WorkingWithGPUServer.assets/image-20250611173312204.png" srcset="https://murhyimgur.oss-cn-beijing.aliyuncs.com/website/loading.gif" lazyload alt="image-20250611173312204"></p>
+<p><img src="https://murphyimg.oss-cn-beijing.aliyuncs.com/img/202506111801219.png" srcset="https://murhyimgur.oss-cn-beijing.aliyuncs.com/website/loading.gif" lazyload alt="image-20250611173312204"></p>
 <p>只有两种解决方法</p>
 <ul>
 <li><strong>根据对应的发行版，升级至 Ubuntu 20.04 LTS、Debian 10 或 RHEL 8</strong></li>
@@ -754,6 +754,15 @@
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash"><span class="hljs-built_in">sudo</span> vim /etc/ssh/sshd_config<br></code></pre></td></tr></table></figure>
 
 <p>但是！我改了半天的ssh_config！我说怎么一直不生效！改错了！！！废了好大的劲！！！</p>
+<h2 id="3090server-2025-06-19"><a href="#3090server-2025-06-19" class="headerlink" title="3090server(2025.06.19)"></a>3090server(2025.06.19)</h2><p>这次比较顺利，遇到的问题还是网络和驱动的问题。</p>
+<p>首先，在还没有更新的时候查看了一下当前的网络配置，比较抽象，为什么是docker桥接的网络， 不知道咋回事，不管了！</p>
+<p><img src="https://murphyimg.oss-cn-beijing.aliyuncs.com/img/202506191354395.png" srcset="https://murhyimgur.oss-cn-beijing.aliyuncs.com/website/loading.gif" lazyload alt="image-20250619135329540"></p>
+<p>更新完成之后遇到一个问题，之前的网线连接的网卡指示灯不亮，我不知道是还没有缓冲好还是咋了，我直接换了另外一个网卡了，指示灯亮了。然后使用<code>nm-connection-editor</code>和<code>nmtui</code>就配好了PPPOE，但是这时候的IP是跟之前不一样了，算了，也不管了，能用就行。</p>
+<p><img src="https://murphyimg.oss-cn-beijing.aliyuncs.com/img/202506191403225.png" srcset="https://murhyimgur.oss-cn-beijing.aliyuncs.com/website/loading.gif" lazyload alt="image-20250619140341789"></p>
+<p>第二个问题是切换英伟达驱动的时候遇到的！</p>
+<p><img src="https://murphyimg.oss-cn-beijing.aliyuncs.com/img/202506191356318.png" srcset="https://murhyimgur.oss-cn-beijing.aliyuncs.com/website/loading.gif" lazyload alt="image-20250619135639080"></p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs bash"><span class="hljs-comment"># 两个命令解决。</span><br><span class="hljs-built_in">sudo</span> dpkg --configure -a<br><span class="hljs-built_in">sudo</span> apt update &amp;&amp; <span class="hljs-built_in">sudo</span> apt upgrade<br></code></pre></td></tr></table></figure>
+
 
                 
               </div>
