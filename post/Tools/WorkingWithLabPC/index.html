@@ -28,7 +28,7 @@
 <meta property="og:locale" content="zh_CN">
 <meta property="og:image" content="https://murhyimgur.oss-cn-beijing.aliyuncs.com/img/IMG_20240109_135646.jpg">
 <meta property="article:published_time" content="2023-12-07T12:04:40.000Z">
-<meta property="article:modified_time" content="2025-05-31T05:08:29.958Z">
+<meta property="article:modified_time" content="2025-08-26T12:35:50.614Z">
 <meta property="article:author" content="Murphy">
 <meta property="article:tag" content="Linux">
 <meta property="article:tag" content="Hardware">
@@ -506,7 +506,7 @@
 <blockquote>
 <p><a target="_blank" rel="noopener" href="https://blog.csdn.net/weixin_42837669/article/details/115713590">Matlab如何更换主题颜色_matlab主题颜色-CSDN博客</a></p>
 </blockquote>
-<h1 id="MATLAB设置工作路径"><a href="#MATLAB设置工作路径" class="headerlink" title="MATLAB设置工作路径"></a>MATLAB设置工作路径</h1><p><img src="/WorkingWithLabPC.assets/image-20240119153258670.png" srcset="https://murhyimgur.oss-cn-beijing.aliyuncs.com/website/loading.gif" lazyload alt="image-20240119153258670"></p>
+<h1 id="MATLAB设置工作路径"><a href="#MATLAB设置工作路径" class="headerlink" title="MATLAB设置工作路径"></a>MATLAB设置工作路径</h1><p><img src="https://murphyimg.oss-cn-beijing.aliyuncs.com/img/202508262033328.png" srcset="https://murhyimgur.oss-cn-beijing.aliyuncs.com/website/loading.gif" lazyload alt="image-20240119153258670"></p>
 <h1 id="使用Gitpush到Github上面的时候出现问题"><a href="#使用Gitpush到Github上面的时候出现问题" class="headerlink" title="使用Gitpush到Github上面的时候出现问题"></a>使用Gitpush到Github上面的时候出现问题</h1><blockquote>
 <p>有一天中午，在GPU server上LabPC上push的时候出现错误，很奇怪唉，我还以为是GitHub崩掉了呢！</p>
 <p>找了一下，在GitHub上面找到了一个解决方法，起效了！</p>
@@ -517,6 +517,9 @@
 <p><a target="_blank" rel="noopener" href="https://stackoverflow.com/questions/15589682/ssh-connect-to-host-github-com-port-22-connection-timed-out">git - ssh: connect to host github.com port 22: Connection timed out - Stack Overflow</a></p>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><code class="hljs bash"><span class="hljs-comment"># Server</span><br>(base) houjinliang@3080server:~$ <span class="hljs-built_in">pwd</span><br>/mnt/houjinliang<br>(base) houjinliang@3080server:~$ <span class="hljs-built_in">cat</span> .ssh/config<br>Host github.com<br>    Hostname ssh.github.com<br>    Port 443<br>    <br><span class="hljs-comment"># LabPC</span><br>(base) PS C:\Users\NPU481\.ssh&gt; <span class="hljs-built_in">pwd</span><br>Path<br>----<br>C:\Users\NPU481\.ssh<br>(base) PS C:\Users\NPU481\.ssh&gt; <span class="hljs-built_in">cat</span> config<br>Host xxx <span class="hljs-comment"># 这个是VSCode连接GPU Server时候的ssh配置</span><br>  HostName xxx<br>  User xxx<br>  Port xxx<br><br>Host github.com<br>  Hostname ssh.github.com<br>  Port 443<br></code></pre></td></tr></table></figure>
 
+
+
+<h1 id="End"><a href="#End" class="headerlink" title="End"></a>End</h1><p>2024.12，因为xx原因，LabPC需要全面清空！Damn！于是决定自己配一台自己的“办公主机”！</p>
 
                 
               </div>
@@ -623,8 +626,8 @@
                   <article class="post-next col-6">
                     
                     
-                      <a href="/post/Knowledge/ChernoCPP_1/" title="ChernoCPP-1">
-                        <span class="hidden-mobile">ChernoCPP-1</span>
+                      <a href="/post/Tools/WorkingWithITX/" title="瞧瞧我对我的ITX干了些什么！">
+                        <span class="hidden-mobile">瞧瞧我对我的ITX干了些什么！</span>
                         <span class="visible-mobile">下一篇</span>
                         <i class="iconfont icon-arrowright"></i>
                       </a>
