@@ -28,7 +28,7 @@
 <meta property="og:locale" content="zh_CN">
 <meta property="og:image" content="https://murhyimgur.oss-cn-beijing.aliyuncs.com/img/IMG_20240109_135646.jpg">
 <meta property="article:published_time" content="2023-12-07T12:04:40.000Z">
-<meta property="article:modified_time" content="2025-08-26T12:35:50.614Z">
+<meta property="article:modified_time" content="2025-08-30T11:28:46.869Z">
 <meta property="article:author" content="Murphy">
 <meta property="article:tag" content="Linux">
 <meta property="article:tag" content="Hardware">
@@ -273,7 +273,7 @@
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          2k 字
+          1.8k 字
         
       </span>
     
@@ -284,7 +284,7 @@
         
         
         
-          17 分钟
+          15 分钟
         
       </span>
     
@@ -497,28 +497,6 @@
 
 <h1 id="Ubuntu开机卡在了紫屏，进入不了用户登陆界面"><a href="#Ubuntu开机卡在了紫屏，进入不了用户登陆界面" class="headerlink" title="Ubuntu开机卡在了紫屏，进入不了用户登陆界面"></a>Ubuntu开机卡在了紫屏，进入不了用户登陆界面</h1><p>不知道怎么回事，有一次从Ubuntu启动的时候卡在了紫屏进不来系统了。也不知怎么解决网上搜了搜说是内核的问题，也有说是英伟达驱动的问题，不知道怎么回事，于是重启之后，在开机时候选择了<code>Ubuntu的高级选项</code>，然后选了一个<code>Recovery</code>模式的内核，可以进入登陆界面，但是显示缩放不正常，并且双屏中只有一个屏幕有输出图像。这个现象和英伟达显示驱动有问题一模一样，所以就打开了<code>附加驱动</code>，果然当前的选择是<code>X.Org X Server</code>，重新选择了<code>Nvidia</code>驱动之后，然后重启，正常选择<code>Ubuntu</code>就能正常进入系统了。</p>
 <p><img src="https://murhyimgur.oss-cn-beijing.aliyuncs.com/img/image-20231208211848886.jpg" srcset="https://murhyimgur.oss-cn-beijing.aliyuncs.com/website/loading.gif" lazyload alt="image-20231208211848886"></p>
-<h1 id="Windows-MATLAB配置"><a href="#Windows-MATLAB配置" class="headerlink" title="Windows MATLAB配置"></a>Windows MATLAB配置</h1><p>字体：<a target="_blank" rel="noopener" href="https://github.com/yakumioto/YaHei-Consolas-Hybrid-1.12">GitHub - yakumioto&#x2F;YaHei-Consolas-Hybrid-1.12: YaHei Consolas Hybrid 字体</a></p>
-<blockquote>
-<p><a target="_blank" rel="noopener" href="https://www.cnblogs.com/yutian-blogs/p/15366608.html">一种适用于matlab的代码字体解决方案 - Yu_tiann - 博客园 (cnblogs.com)</a></p>
-</blockquote>
-<p><img src="https://murhyimgur.oss-cn-beijing.aliyuncs.com/img/image-20231212153215003.jpg" srcset="https://murhyimgur.oss-cn-beijing.aliyuncs.com/website/loading.gif" lazyload alt="image-20231212153215003"></p>
-<p>主题：<a target="_blank" rel="noopener" href="https://github.com/scottclowe/matlab-schemer">GitHub - scottclowe&#x2F;matlab-schemer: Apply and save color schemes in MATLAB with ease.</a></p>
-<blockquote>
-<p><a target="_blank" rel="noopener" href="https://blog.csdn.net/weixin_42837669/article/details/115713590">Matlab如何更换主题颜色_matlab主题颜色-CSDN博客</a></p>
-</blockquote>
-<h1 id="MATLAB设置工作路径"><a href="#MATLAB设置工作路径" class="headerlink" title="MATLAB设置工作路径"></a>MATLAB设置工作路径</h1><p><img src="https://murphyimg.oss-cn-beijing.aliyuncs.com/img/202508262033328.png" srcset="https://murhyimgur.oss-cn-beijing.aliyuncs.com/website/loading.gif" lazyload alt="image-20240119153258670"></p>
-<h1 id="使用Gitpush到Github上面的时候出现问题"><a href="#使用Gitpush到Github上面的时候出现问题" class="headerlink" title="使用Gitpush到Github上面的时候出现问题"></a>使用Gitpush到Github上面的时候出现问题</h1><blockquote>
-<p>有一天中午，在GPU server上LabPC上push的时候出现错误，很奇怪唉，我还以为是GitHub崩掉了呢！</p>
-<p>找了一下，在GitHub上面找到了一个解决方法，起效了！</p>
-</blockquote>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><code class="hljs bash">[master ca35107] Site updated: 2024-01-17 16:30:15<br> 3 files changed, 40 insertions(+), 16 deletions(-)<br>ssh: connect to host github.com port 22: Connection timed out<br>fatal: Could not <span class="hljs-built_in">read</span> from remote repository.<br><br>Please make sure you have the correct access rights<br>and the repository exists.<br></code></pre></td></tr></table></figure>
-
-<p>解决方法：<a target="_blank" rel="noopener" href="https://gist.github.com/Tamal/1cc77f88ef3e900aeae65f0e5e504794">Solution for ‘ssh: connect to host github.com port 22: Connection timed out’ error</a></p>
-<p><a target="_blank" rel="noopener" href="https://stackoverflow.com/questions/15589682/ssh-connect-to-host-github-com-port-22-connection-timed-out">git - ssh: connect to host github.com port 22: Connection timed out - Stack Overflow</a></p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><code class="hljs bash"><span class="hljs-comment"># Server</span><br>(base) houjinliang@3080server:~$ <span class="hljs-built_in">pwd</span><br>/mnt/houjinliang<br>(base) houjinliang@3080server:~$ <span class="hljs-built_in">cat</span> .ssh/config<br>Host github.com<br>    Hostname ssh.github.com<br>    Port 443<br>    <br><span class="hljs-comment"># LabPC</span><br>(base) PS C:\Users\NPU481\.ssh&gt; <span class="hljs-built_in">pwd</span><br>Path<br>----<br>C:\Users\NPU481\.ssh<br>(base) PS C:\Users\NPU481\.ssh&gt; <span class="hljs-built_in">cat</span> config<br>Host xxx <span class="hljs-comment"># 这个是VSCode连接GPU Server时候的ssh配置</span><br>  HostName xxx<br>  User xxx<br>  Port xxx<br><br>Host github.com<br>  Hostname ssh.github.com<br>  Port 443<br></code></pre></td></tr></table></figure>
-
-
-
 <h1 id="End"><a href="#End" class="headerlink" title="End"></a>End</h1><p>2024.12，因为xx原因，LabPC需要全面清空！Damn！于是决定自己配一台自己的“办公主机”！</p>
 
                 
