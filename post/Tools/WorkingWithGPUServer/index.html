@@ -28,7 +28,7 @@
 <meta property="og:locale" content="zh_CN">
 <meta property="og:image" content="https://murhyimgur.oss-cn-beijing.aliyuncs.com/img/cyberspace-2784907_1280.jpg">
 <meta property="article:published_time" content="2023-11-01T02:28:51.000Z">
-<meta property="article:modified_time" content="2025-06-19T06:04:27.938Z">
+<meta property="article:modified_time" content="2025-09-01T14:01:21.844Z">
 <meta property="article:author" content="Murphy">
 <meta property="article:tag" content="DeepLearning">
 <meta property="article:tag" content="Docker">
@@ -288,7 +288,7 @@
         
         
         
-          59 分钟
+          60 分钟
         
       </span>
     
@@ -762,6 +762,10 @@
 <p>第二个问题是切换英伟达驱动的时候遇到的！</p>
 <p><img src="https://murphyimg.oss-cn-beijing.aliyuncs.com/img/202506191356318.png" srcset="https://murhyimgur.oss-cn-beijing.aliyuncs.com/website/loading.gif" lazyload alt="image-20250619135639080"></p>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs bash"><span class="hljs-comment"># 两个命令解决。</span><br><span class="hljs-built_in">sudo</span> dpkg --configure -a<br><span class="hljs-built_in">sudo</span> apt update &amp;&amp; <span class="hljs-built_in">sudo</span> apt upgrade<br></code></pre></td></tr></table></figure>
+
+
+
+<h1 id="Adduser"><a href="#Adduser" class="headerlink" title="Adduser"></a>Adduser</h1><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><code class="hljs bash"><span class="hljs-comment"># user add</span><br>admin-301-8x2080ti@ubuntu-server:/home/data$ <span class="hljs-built_in">sudo</span> useradd -d <span class="hljs-string">&quot;/home/data/houjinliang&quot;</span> -m -s <span class="hljs-string">&quot;/bin/bash&quot;</span> houjinliang<br>admin-301-8x2080ti@ubuntu-server:/home/data$ <span class="hljs-built_in">sudo</span> passwd houjinliang<br><br><span class="hljs-comment"># change permission</span><br><span class="hljs-built_in">chmod</span> 0750 /home/data/houjinliang<br></code></pre></td></tr></table></figure>
 
 
                 
