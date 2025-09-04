@@ -28,7 +28,7 @@
 <meta property="og:locale" content="zh_CN">
 <meta property="og:image" content="https://murphyimg.oss-cn-beijing.aliyuncs.com/img/202508281135565.png">
 <meta property="article:published_time" content="2024-12-18T14:26:34.000Z">
-<meta property="article:modified_time" content="2025-08-28T03:35:58.459Z">
+<meta property="article:modified_time" content="2025-09-04T12:43:48.142Z">
 <meta property="article:author" content="Murphy">
 <meta property="article:tag" content="Linux">
 <meta property="article:tag" content="Hardware">
@@ -273,7 +273,7 @@
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          544 字
+          2.5k 字
         
       </span>
     
@@ -284,7 +284,7 @@
         
         
         
-          5 分钟
+          21 分钟
         
       </span>
     
@@ -335,7 +335,110 @@
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><code class="hljs bash"><span class="hljs-comment"># C:\Users\cosmi\.ssh\config</span><br><br>Host github.com<br>  HostName ssh.github.com<br>  User git<br>  Port 443<br>  ProxyCommand connect -S 127.0.0.1:7890 %h %p<br></code></pre></td></tr></table></figure>
 
 
-<h1 id="Ubuntu-24-04"><a href="#Ubuntu-24-04" class="headerlink" title="Ubuntu 24.04"></a>Ubuntu 24.04</h1><h2 id="Win-L锁屏后不熄屏"><a href="#Win-L锁屏后不熄屏" class="headerlink" title="Win + L锁屏后不熄屏"></a>Win + L锁屏后不熄屏</h2><blockquote>
+<h1 id="Ubuntu-24-04"><a href="#Ubuntu-24-04" class="headerlink" title="Ubuntu 24.04"></a>Ubuntu 24.04</h1><h2 id="Ubuntuer-Server-user"><a href="#Ubuntuer-Server-user" class="headerlink" title="Ubuntuer Server user"></a>Ubuntuer Server user</h2><blockquote>
+<p>这部分内容是在服务器上完成的，设计到权限问题。</p>
+</blockquote>
+<h3 id="增减用户"><a href="#增减用户" class="headerlink" title="增减用户"></a>增减用户</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><code class="hljs bash"><span class="hljs-comment"># user add</span><br>user@3080server:/mnt$ <span class="hljs-built_in">sudo</span> useradd -d <span class="hljs-string">&quot;/mnt/songwenming&quot;</span> -m -s <span class="hljs-string">&quot;/bin/bash&quot;</span> songwenming<br>user@3080server:/mnt$ <span class="hljs-built_in">sudo</span> passwd songwenming<br>新的 密码：<br>重新输入新的 密码：<br>passwd：已成功更新密码<br><br><span class="hljs-comment"># 查看用户和用户组</span><br>user@3080server:/mnt$ <span class="hljs-built_in">cat</span> /etc/passwd<br>……<br>songwenming:x:1035:1035::/mnt/songwenming:/bin/bash<br>……<br><br>user@3080server:/mnt$ <span class="hljs-built_in">cat</span> /etc/group<br>……<br>songwenming:x:1035:<br>……<br><br><span class="hljs-comment"># user delete</span><br>user@3080server:/mnt$ <span class="hljs-built_in">sudo</span> userdel -r songwenming<br>[<span class="hljs-built_in">sudo</span>] user 的密码：<br>userdel: songwenming 邮件池 (/var/mail/songwenming) 未找到<br><br></code></pre></td></tr></table></figure>
+
+<h3 id="用户权限"><a href="#用户权限" class="headerlink" title="用户权限"></a>用户权限</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><code class="hljs bash">&gt; ssh with houjinliang<br><span class="hljs-comment"># change permission</span><br><span class="hljs-built_in">chmod</span> 750 /mnt/houjinliang<br><br><span class="hljs-comment">#所有者 (User - u): 权限是 7，二进制表示为 111，即 rwx（读、写、执行）。假设您是这个目录的所有者（比如用户 houjinliang），那么您拥有全部权限。</span><br><span class="hljs-comment">#所属组 (Group - g): 权限是 5，二进制表示为 101，即 r-x（读、执行）。与您在同一个用户组的其他成员可以读取目录内容（ls）和进入该目录（cd），但不能在该目录中创建或删除文件。</span><br><span class="hljs-comment">#其他人 (Other - o): 权限是 0，二进制表示为 000，即 ---（无权限）。除了所有者和所属组成员之外的任何其他用户，对这个目录没有任何权限。</span><br><br><span class="hljs-comment"># 个设置非常适合用来阻止其他普通用户访问您的目录，但它对 root 用户就像不存在一样。 管理员依然可以自由地进入您的目录、读取、修改或删除里面的任何文件。</span><br></code></pre></td></tr></table></figure>
+
+<h3 id="用于与用户组"><a href="#用于与用户组" class="headerlink" title="用于与用户组"></a>用于与用户组</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><code class="hljs bash"><span class="hljs-built_in">cat</span> /etc/passwd    or    getent passwd<br><span class="hljs-comment"># 这个文件包含了所有用户的基本信息，每一行代表一个用户。</span><br>username:password_placeholder:UID:GID:comment:home_directory:login_shell<br><br><span class="hljs-built_in">cat</span> /etc/group     or    getent group<br><span class="hljs-comment"># 这个文件定义了所有的用户组。</span><br>group_name:password_placeholder:GID:members_list<br><br><span class="hljs-comment"># 查看特定用户的组</span><br>user@3080server:/mnt$ <span class="hljs-built_in">groups</span> houjinliang<br>houjinliang : houjinliang<br></code></pre></td></tr></table></figure>
+
+<h3 id="sudo-特殊的组"><a href="#sudo-特殊的组" class="headerlink" title="sudo-特殊的组"></a>sudo-特殊的组</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br></pre></td><td class="code"><pre><code class="hljs bash"><span class="hljs-comment"># sudo 权限是通过将用户添加到一个特定的用户组来实现的。</span><br><span class="hljs-comment"># 在 Debian/Ubuntu 系统中，这个组通常是 sudo。</span><br>user@3080server:/mnt$ <span class="hljs-built_in">sudo</span> grep -rE <span class="hljs-string">&#x27;^%[a-zA-Z_]+&#x27;</span> /etc/sudoers /etc/sudoers.d/<br>/etc/sudoers:%admin ALL=(ALL) ALL<br>/etc/sudoers:%<span class="hljs-built_in">sudo</span>      ALL=(ALL:ALL) ALL<br><br>user@3080server:/mnt$ getent group <span class="hljs-built_in">sudo</span><br><span class="hljs-built_in">sudo</span>:x:27:user<br><span class="hljs-comment"># user 拥有 sudo 权限</span><br><br><span class="hljs-comment"># 这个方法会直接扫描所有 sudo 配置文件，找出所有被明确授权的用户和组。</span><br>user@3080server:/mnt$ <span class="hljs-built_in">sudo</span> grep -rvE <span class="hljs-string">&#x27;^#|^$&#x27;</span> /etc/sudoers /etc/sudoers.d/ | sed <span class="hljs-string">&#x27;s/#.*//&#x27;</span><br>/etc/sudoers:Defaults   env_reset<br>/etc/sudoers:Defaults   mail_badpass<br>/etc/sudoers:Defaults   secure_path=<span class="hljs-string">&quot;/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/snap/bin&quot;</span><br>/etc/sudoers:root       ALL=(ALL:ALL) ALL<br>/etc/sudoers:houjinliang ALL=(ALL) ALL<br>/etc/sudoers:%admin ALL=(ALL) ALL<br>/etc/sudoers:%<span class="hljs-built_in">sudo</span>      ALL=(ALL:ALL) ALL<br><br><br><br><span class="hljs-comment"># 查看某一用户的sudo权限</span><br><span class="hljs-comment"># 如果用户有权限，系统会详细列出该用户可以执行的所有命令</span><br><span class="hljs-comment"># 如果用户没有权限，系统会明确告知</span><br>user@3080server:/mnt$ <span class="hljs-built_in">sudo</span> -l -U user<br>匹配 %2<span class="hljs-variable">$s</span> 上 %1<span class="hljs-variable">$s</span> 的默认条目：<br>    env_reset, mail_badpass, secure_path=/usr/local/sbin\:/usr/local/bin\:/usr/sbin\:/usr/bin\:/sbin\:/bin\:/snap/bin<br><br>用户 user 可以在 3080server 上运行以下命令：<br>    (ALL : ALL) ALL<br>user@3080server:/mnt$ <span class="hljs-built_in">sudo</span> -l -U houjinliang<br>匹配 %2<span class="hljs-variable">$s</span> 上 %1<span class="hljs-variable">$s</span> 的默认条目：<br>    env_reset, mail_badpass, secure_path=/usr/local/sbin\:/usr/local/bin\:/usr/sbin\:/usr/bin\:/sbin\:/bin\:/snap/bin<br><br>用户 houjinliang 可以在 3080server 上运行以下命令：<br>    (ALL) ALL<br><br><br><br><span class="hljs-comment"># 查看sudo组下的用户</span><br>user@3080server:/mnt$ getent group <span class="hljs-built_in">sudo</span><br><span class="hljs-built_in">sudo</span>:x:27:user<br></code></pre></td></tr></table></figure>
+
+<table>
+<thead>
+<tr>
+<th>用户 (User)</th>
+<th>权限级别 (Permission Level)</th>
+<th>获得方式 (Method of Grant)</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><strong><code>root</code></strong></td>
+<td>超级用户 (Superuser)</td>
+<td>系统内置 (System Built-in)</td>
+</tr>
+<tr>
+<td><strong><code>houjinliang</code></strong></td>
+<td>完整 <code>sudo</code> 权限 (Full <code>sudo</code> Access)</td>
+<td>直接在 <code>sudoers</code> 文件中指定 (Directly Named in <code>sudoers</code>)</td>
+</tr>
+<tr>
+<td><strong><code>user</code></strong></td>
+<td>完整 <code>sudo</code> 权限 (Full <code>sudo</code> Access)</td>
+<td><code>sudo</code> 组成员 (Member of <code>sudo</code> Group)</td>
+</tr>
+</tbody></table>
+<h3 id="把用户加入用户组"><a href="#把用户加入用户组" class="headerlink" title="把用户加入用户组"></a>把用户加入用户组</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><code class="hljs bash"><span class="hljs-comment"># 把houjinliang加入sodo组</span><br>user@3080server:/mnt$ <span class="hljs-built_in">sudo</span> usermod -aG <span class="hljs-built_in">sudo</span> houjinliang<br>user@3080server:/mnt$ getent group <span class="hljs-built_in">sudo</span><br><span class="hljs-built_in">sudo</span>:x:27:user,houjinliang<br><br>user@3080server:/mnt$ <span class="hljs-built_in">sudo</span> -l -U houjinliang<br>匹配 %2<span class="hljs-variable">$s</span> 上 %1<span class="hljs-variable">$s</span> 的默认条目：<br>    env_reset, mail_badpass, secure_path=/usr/local/sbin\:/usr/local/bin\:/usr/sbin\:/usr/bin\:/sbin\:/bin\:/snap/bin<br><br>用户 houjinliang 可以在 3080server 上运行以下命令：<br>    (ALL) ALL<br>    (ALL : ALL) ALL<br>    <br>user@3080server:~$ <span class="hljs-built_in">sudo</span> vim /etc/sudoers <span class="hljs-comment"># 把这个手动加的权限“(ALL) ALL”删掉 </span><br>user@3080server:~$ <span class="hljs-built_in">sudo</span> -l -U houjinliang<br>匹配 %2<span class="hljs-variable">$s</span> 上 %1<span class="hljs-variable">$s</span> 的默认条目：<br>    env_reset, mail_badpass, secure_path=/usr/local/sbin\:/usr/local/bin\:/usr/sbin\:/usr/bin\:/sbin\:/bin\:/snap/bin<br><br>用户 houjinliang 可以在 3080server 上运行以下命令：<br>    (ALL : ALL) ALL<br>    <br>user@3080server:~$ <span class="hljs-built_in">groups</span> houjinliang<br>houjinliang : houjinliang <span class="hljs-built_in">sudo</span><br></code></pre></td></tr></table></figure>
+
+<table>
+<thead>
+<tr>
+<th>用户 (User)</th>
+<th>权限级别 (Permission Level)</th>
+<th>获得方式 (Method of Grant)</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><strong><code>root</code></strong></td>
+<td>超级用户 (Superuser)</td>
+<td>系统内置 (System Built-in)</td>
+</tr>
+<tr>
+<td><strong><code>houjinliang</code></strong></td>
+<td>完整 <code>sudo</code> 权限 (Full <code>sudo</code> Access)</td>
+<td><code>sudo</code> 组成员 (Member of <code>sudo</code> Group)</td>
+</tr>
+<tr>
+<td><strong><code>user</code></strong></td>
+<td>完整 <code>sudo</code> 权限 (Full <code>sudo</code> Access)</td>
+<td><code>sudo</code> 组成员 (Member of <code>sudo</code> Group)</td>
+</tr>
+</tbody></table>
+<h3 id="user是在sudo组的用户，能看到普通用户的文件吗？"><a href="#user是在sudo组的用户，能看到普通用户的文件吗？" class="headerlink" title="user是在sudo组的用户，能看到普通用户的文件吗？"></a>user是在sudo组的用户，能看到普通用户的文件吗？</h3><ul>
+<li><code>user</code> 不是文件的所有者。</li>
+<li><code>user</code><strong>不属于</strong>该文件的用户组，那么他就会被归类为“其他人”，权限是 <code>0</code>，因此他<strong>不能</strong>读取文件。</li>
+</ul>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><code class="hljs bash"><span class="hljs-comment"># 普通用户755权限，不在组里的用户，可读</span><br>drwxr-xr-x  4 songwenming  songwenming   4096 9月   4 19:59 songwenming/<br><br>user@3080server:~$ <span class="hljs-built_in">cd</span> /mnt/songwenming/<br>user@3080server:/mnt/songwenming$ <span class="hljs-built_in">cd</span> ..<br>user@3080server:/mnt$ <span class="hljs-built_in">cd</span> songwenming/<br>user@3080server:/mnt/songwenming$ ll<br>总用量 40<br>drwxr-xr-x  4 songwenming songwenming 4096 9月   4 20:29 ./<br>drwxr-xr-x 25 root        root        4096 9月   4 19:56 ../<br>-rw-------  1 songwenming songwenming   31 9月   4 19:59 .bash_history<br>-rw-r--r--  1 songwenming songwenming  220 4月   5  2018 .bash_logout<br>-rw-r--r--  1 songwenming songwenming 3771 4月   5  2018 .bashrc<br>drwx------  2 songwenming songwenming 4096 9月   4 19:58 .cache/<br>drwx------  3 songwenming songwenming 4096 9月   4 19:58 .config/<br>-rw-r--r--  1 songwenming songwenming  807 4月   5  2018 .profile<br>-rw-rw-r--  1 songwenming songwenming   10 9月   4 20:29 try.py<br>-rw-------  1 songwenming songwenming  760 9月   4 20:29 .viminfo<br>user@3080server:/mnt/songwenming$ <span class="hljs-built_in">cat</span> try.py<br>import os<br></code></pre></td></tr></table></figure>
+
+<h3 id="user是在sudo用户组，能看chmod-750的用户的文件内容吗？"><a href="#user是在sudo用户组，能看chmod-750的用户的文件内容吗？" class="headerlink" title="user是在sudo用户组，能看chmod 750的用户的文件内容吗？"></a>user是在sudo用户组，能看chmod 750的用户的文件内容吗？</h3><ul>
+<li>以user，不加sudo.</li>
+</ul>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><code class="hljs bash"><span class="hljs-comment"># 750权限，不在用户组里的用户不可读，不可写，不可执行</span><br><span class="hljs-comment"># cd进入文件夹属于一种“执行(x)”权限</span><br>user@3080server:~$ <span class="hljs-built_in">cd</span> /mnt/houjinliang/<br>-bash: <span class="hljs-built_in">cd</span>: /mnt/houjinliang/: 权限不够<br><span class="hljs-comment"># cat, 读权限</span><br>user@3080server:~$ <span class="hljs-built_in">cat</span> /mnt/houjinliang/MyDevProject/NPUDevCode/GitAuto.sh<br><span class="hljs-built_in">cat</span>: /mnt/houjinliang/MyDevProject/NPUDevCode/GitAuto.sh: 权限不够<br></code></pre></td></tr></table></figure>
+
+<ul>
+<li>user，加sudo.</li>
+</ul>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><code class="hljs bash">user@3080server:~$ <span class="hljs-built_in">sudo</span> <span class="hljs-built_in">cd</span> /mnt/houjinliang/<br>[<span class="hljs-built_in">sudo</span>] user 的密码：<br><span class="hljs-built_in">sudo</span>: <span class="hljs-built_in">cd</span>：找不到命令<br><br><span class="hljs-comment"># 使用sudo就破解了权限</span><br>user@3080server:~$ <span class="hljs-built_in">sudo</span> <span class="hljs-built_in">cat</span> /mnt/houjinliang/MyDevProject/NPUDevCode/GitAuto.sh<br><br><span class="hljs-comment">#!/bin/bash</span><br>server_name=$(hostname)<br>…………<br>…………<br></code></pre></td></tr></table></figure>
+
+<p>引申出一个内容， <code>sudo: cd：找不到命令</code></p>
+<p>这是问题的核心。你可能会非常困惑：“<code>cd</code> 明明是一个命令，为什么 <code>sudo</code> 会说找不到它？”</p>
+<p>原因是：<strong>Linux 的命令分为两种类型</strong></p>
+<ol>
+<li><strong>外部命令 (External Command):</strong><ul>
+<li>这些是存在于磁盘上的独立程序文件，比如 <code>/bin/ls</code>, <code>/bin/cat</code>, <code>/usr/bin/grep</code>。</li>
+<li>当你执行 <code>ls</code> 时，你的 Shell 会在 <code>PATH</code> 环境变量指定的路径中去查找一个叫做 <code>ls</code> 的可执行文件，然后运行它。</li>
+<li><code>sudo</code> 正是设计用来<strong>运行这些外部命令</strong>的。它会在一个安全的路径（<code>secure_path</code>）里去寻找这些程序。</li>
+</ul>
+</li>
+<li><strong>Shell 内建命令 (Shell Built-in Command):</strong><ul>
+<li>这些命令是 Shell 程序（比如你用的 <code>bash</code>）自身的一部分，它们<strong>不是磁盘上的独立文件</strong>。</li>
+<li><code>cd</code> 就是一个最典型的内建命令。此外还有 <code>pwd</code>, <code>echo</code>, <code>export</code>, <code>alias</code>, <code>exit</code> 等。</li>
+<li><code>sudo</code> 无法找到 <code>cd</code> 命令，因为它不是一个独立的文件，所以 <code>sudo</code> 在所有程序路径里都找不到它，最终只能报告“找不到命令”。</li>
+</ul>
+</li>
+</ol>
+<p>为什么 <code>cd</code> 必须是内建命令？</p>
+<p>想象一下，如果 <code>cd</code> 是一个外部程序。当你运行 <code>cd /some/dir</code> 时，系统会启动一个<strong>新的进程</strong>来运行 <code>cd</code> 这个程序。这个新进程会成功地把<strong>它自己</strong>的工作目录切换到 <code>/some/dir</code>，然后……它就退出了。你原来的那个 Shell 进程的工作目录<strong>完全没有受到任何影响</strong>。</p>
+<p>所以，为了能够改变当前 Shell 自身的环境（比如当前所在目录），<code>cd</code> 必须是 Shell “内置”的功能，直接在当前进程内执行。</p>
+<ul>
+<li>终极方法，切换到root ！！！终极无敌权限，不管任何chmod！！！</li>
+</ul>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><code class="hljs bash"><span class="hljs-comment"># 方法一：切换到一个临时的 root Shell (推荐)</span><br><span class="hljs-comment"># 这会开启一个新的 Shell，而这个 Shell 的用户是 root。</span><br>&gt; Ctrl + D, 注销root用户，显示的是“<span class="hljs-built_in">exit</span><span class="hljs-string">&quot;</span><br><span class="hljs-string">sudo -s 或 sudo su</span><br><span class="hljs-string">user@3080server:~$ sudo -s</span><br><span class="hljs-string">root@3080server:/home/user# exit</span><br><span class="hljs-string">user@3080server:~$ sudo su</span><br><span class="hljs-string">root@3080server:/home/user# exit</span><br><span class="hljs-string"></span><br><span class="hljs-string"></span><br><span class="hljs-string"># 方法二：切换到一个完整的 root 登录环境</span><br><span class="hljs-string"># 这不仅会切换到 root 用户，还会加载 root 用户的完整环境变量，并把当前目录切换到 /root。这被认为是更规范、更安全的做法。</span><br><span class="hljs-string">&gt; Ctrl + D, 注销root用户，显示的的&quot;</span>注销<span class="hljs-string">&quot;</span><br><span class="hljs-string">user@3080server:~$ sudo -i</span><br><span class="hljs-string">root@3080server:~# 注销</span><br><span class="hljs-string">user@3080server:~$ sudo su -</span><br><span class="hljs-string">root@3080server:~# 注销</span><br><span class="hljs-string">user@3080server:~$</span><br></code></pre></td></tr></table></figure>
+
+
+<h2 id="Win-L锁屏后不熄屏"><a href="#Win-L锁屏后不熄屏" class="headerlink" title="Win + L锁屏后不熄屏"></a>Win + L锁屏后不熄屏</h2><blockquote>
 <p>2025.08.27<br><a target="_blank" rel="noopener" href="https://www.zhihu.com/question/276118015">https://www.zhihu.com/question/276118015</a></p>
 </blockquote>
 <p>短按win+l 会锁屏，然后关显示器； 按win+l 持续几秒钟，就会采用你设置的关屏时间，设置成never就永远亮着了。</p>
@@ -381,6 +484,7 @@
 <div class="group-image-container"><div class="group-image-row"><div class="group-image-wrap"><img src="https://murphyimg.oss-cn-beijing.aliyuncs.com/img/202508271810173.jpg" srcset="https://murhyimgur.oss-cn-beijing.aliyuncs.com/website/loading.gif" lazyload alt="买了一个铭瑄的512GB硬盘，还搞了一个硬盘支架"></div><div class="group-image-wrap"><img src="https://murphyimg.oss-cn-beijing.aliyuncs.com/img/202508271810253.jpg" srcset="https://murhyimgur.oss-cn-beijing.aliyuncs.com/website/loading.gif" lazyload alt="IMG_20250827_112249"></div></div></div>
 
 <div class="group-image-container"><div class="group-image-row"><div class="group-image-wrap"><img src="https://murphyimg.oss-cn-beijing.aliyuncs.com/img/202508271810332.jpeg" srcset="https://murhyimgur.oss-cn-beijing.aliyuncs.com/website/loading.gif" lazyload alt="IMG_20250827_113756"></div><div class="group-image-wrap"><img src="https://murphyimg.oss-cn-beijing.aliyuncs.com/img/202508271811969.jpeg" srcset="https://murhyimgur.oss-cn-beijing.aliyuncs.com/website/loading.gif" lazyload alt="IMG_20250827_114054"></div><div class="group-image-wrap"><img src="https://murphyimg.oss-cn-beijing.aliyuncs.com/img/202508271811824.jpg" srcset="https://murhyimgur.oss-cn-beijing.aliyuncs.com/website/loading.gif" lazyload alt="IMG_20250827_114301"></div><div class="group-image-wrap"><img src="https://murphyimg.oss-cn-beijing.aliyuncs.com/img/202508271811593.jpg" srcset="https://murhyimgur.oss-cn-beijing.aliyuncs.com/website/loading.gif" lazyload alt="IMG_20250827_115647"></div><div class="group-image-wrap"><img src="https://murphyimg.oss-cn-beijing.aliyuncs.com/img/202508271811710.jpeg" srcset="https://murhyimgur.oss-cn-beijing.aliyuncs.com/website/loading.gif" lazyload alt="IMG_20250827_120808"></div><div class="group-image-wrap"><img src="https://murphyimg.oss-cn-beijing.aliyuncs.com/img/202508271811771.jpg" srcset="https://murhyimgur.oss-cn-beijing.aliyuncs.com/website/loading.gif" lazyload alt="安装了俩小时才装完！"></div><div class="group-image-wrap"><img src="https://murphyimg.oss-cn-beijing.aliyuncs.com/img/202508271811006.jpg" srcset="https://murhyimgur.oss-cn-beijing.aliyuncs.com/website/loading.gif" lazyload alt="IMG_20250827_142525"></div></div></div>
+
 
 
 <h1 id="硬件配置"><a href="#硬件配置" class="headerlink" title="硬件配置"></a>硬件配置</h1><blockquote>
