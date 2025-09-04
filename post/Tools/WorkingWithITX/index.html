@@ -28,7 +28,7 @@
 <meta property="og:locale" content="zh_CN">
 <meta property="og:image" content="https://murphyimg.oss-cn-beijing.aliyuncs.com/img/202508281135565.png">
 <meta property="article:published_time" content="2024-12-18T14:26:34.000Z">
-<meta property="article:modified_time" content="2025-09-04T12:43:48.142Z">
+<meta property="article:modified_time" content="2025-09-04T12:52:21.709Z">
 <meta property="article:author" content="Murphy">
 <meta property="article:tag" content="Linux">
 <meta property="article:tag" content="Hardware">
@@ -336,7 +336,7 @@
 
 
 <h1 id="Ubuntu-24-04"><a href="#Ubuntu-24-04" class="headerlink" title="Ubuntu 24.04"></a>Ubuntu 24.04</h1><h2 id="Ubuntuer-Server-user"><a href="#Ubuntuer-Server-user" class="headerlink" title="Ubuntuer Server user"></a>Ubuntuer Server user</h2><blockquote>
-<p>这部分内容是在服务器上完成的，设计到权限问题。</p>
+<p>这部分内容是在服务器上完成的，涉及到权限问题。</p>
 </blockquote>
 <h3 id="增减用户"><a href="#增减用户" class="headerlink" title="增减用户"></a>增减用户</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><code class="hljs bash"><span class="hljs-comment"># user add</span><br>user@3080server:/mnt$ <span class="hljs-built_in">sudo</span> useradd -d <span class="hljs-string">&quot;/mnt/songwenming&quot;</span> -m -s <span class="hljs-string">&quot;/bin/bash&quot;</span> songwenming<br>user@3080server:/mnt$ <span class="hljs-built_in">sudo</span> passwd songwenming<br>新的 密码：<br>重新输入新的 密码：<br>passwd：已成功更新密码<br><br><span class="hljs-comment"># 查看用户和用户组</span><br>user@3080server:/mnt$ <span class="hljs-built_in">cat</span> /etc/passwd<br>……<br>songwenming:x:1035:1035::/mnt/songwenming:/bin/bash<br>……<br><br>user@3080server:/mnt$ <span class="hljs-built_in">cat</span> /etc/group<br>……<br>songwenming:x:1035:<br>……<br><br><span class="hljs-comment"># user delete</span><br>user@3080server:/mnt$ <span class="hljs-built_in">sudo</span> userdel -r songwenming<br>[<span class="hljs-built_in">sudo</span>] user 的密码：<br>userdel: songwenming 邮件池 (/var/mail/songwenming) 未找到<br><br></code></pre></td></tr></table></figure>
 

@@ -28,7 +28,7 @@
 <meta property="og:locale" content="zh_CN">
 <meta property="og:image" content="https://murhyimgur.oss-cn-beijing.aliyuncs.com/img/cyberspace-2784907_1280.jpg">
 <meta property="article:published_time" content="2023-11-01T02:28:51.000Z">
-<meta property="article:modified_time" content="2025-09-04T12:44:04.793Z">
+<meta property="article:modified_time" content="2025-09-04T13:24:46.051Z">
 <meta property="article:author" content="Murphy">
 <meta property="article:tag" content="DeepLearning">
 <meta property="article:tag" content="Docker">
@@ -277,7 +277,7 @@
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          7.1k 字
+          8.4k 字
         
       </span>
     
@@ -288,7 +288,7 @@
         
         
         
-          59 分钟
+          70 分钟
         
       </span>
     
@@ -434,17 +434,6 @@
 
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><code class="hljs bash">(base) houjinliang@3080server:~/userdoc/offlinefile$ wget  http://images.cocodataset.org/zips/val2017.zip<br>--2024-01-10 16:17:46--  http://images.cocodataset.org/zips/val2017.zip<br>正在解析主机 images.cocodataset.org (images.cocodataset.org)... 3.5.7.141, 52.216.215.25, 52.216.185.83, ...<br>正在连接 images.cocodataset.org (images.cocodataset.org)|3.5.7.141|:80... 已连接。<br>已发出 HTTP 请求，正在等待回应... 200 OK<br>长度： 815585330 (778M) [application/zip]<br>正在保存至: “val2017.zip”<br><br>val2017.zip                                          100%[===================================================================================================================&gt;] 777.80M  3.89MB/s    用时 2m 22ss<br>2024-01-10 16:20:08 (5.48 MB/s) - 已保存 “val2017.zip” [815585330/815585330])<br></code></pre></td></tr></table></figure>
 
-
-
-<h1 id="目录占用空间大小查询"><a href="#目录占用空间大小查询" class="headerlink" title="目录占用空间大小查询"></a>目录占用空间大小查询</h1><ul>
-<li>查看文件以及文件夹大小</li>
-</ul>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br></pre></td><td class="code"><pre><code class="hljs bash">(py38mmyolo) houjinliang@3080server:~/userdoc/offlinefile$ ll<br>总用量 26251480<br>drwxrwxr-x 6 houjinliang houjinliang        4096 1月  10 21:36 ./<br>drwxrwxr-x 9 houjinliang houjinliang        4096 1月  10 15:59 ../<br>-rw-rw-r-- 1 houjinliang houjinliang     3996930 1月  10 14:43 clash-linux-amd64-v1.18.0.gz<br>drwxr-xr-x 5 houjinliang houjinliang        4096 8月  26  2022 coco/<br>-rw-rw-r-- 1 houjinliang houjinliang     6983030 1月  10 17:00 coco128.zip<br>-rw-rw-r-- 1 houjinliang houjinliang    48639045 1月  10 16:21 coco2017labels.zip<br>-rw-rw-r-- 1 houjinliang houjinliang     4372979 1月  10 14:48 curl-8.5.0.tar.gz<br>-rw-rw-r-- 1 houjinliang houjinliang    12353723 1月   5 16:32 pandas-2.0.3-cp38-cp38-manylinux_2_17_x86_64.manylinux2014_x86_64.whl<br>drwxrwxr-x 2 houjinliang houjinliang     1429504 8月  31  2017 test2017/<br>-rw-rw-r-- 1 houjinliang houjinliang  6646970404 1月  10 17:47 test2017.zip<br>drwxrwxr-x 2 houjinliang houjinliang     4112384 8月  31  2017 train2017/<br>-rw-rw-r-- 1 houjinliang houjinliang 19336861798 1月  10 21:35 train2017.zip<br>drwxrwxr-x 2 houjinliang houjinliang      167936 8月  31  2017 val2017/<br>-rw-rw-r-- 1 houjinliang houjinliang   815585330 7月  11  2018 val2017.zip<br><br>(py38mmyolo) houjinliang@3080server:~/userdoc/offlinefile$ ll -hl<br>总用量 26G<br>drwxrwxr-x 6 houjinliang houjinliang 4.0K 1月  10 21:36 ./<br>drwxrwxr-x 9 houjinliang houjinliang 4.0K 1月  10 15:59 ../<br>-rw-rw-r-- 1 houjinliang houjinliang 3.9M 1月  10 14:43 clash-linux-amd64-v1.18.0.gz<br>drwxr-xr-x 5 houjinliang houjinliang 4.0K 8月  26  2022 coco/<br>-rw-rw-r-- 1 houjinliang houjinliang 6.7M 1月  10 17:00 coco128.zip<br>-rw-rw-r-- 1 houjinliang houjinliang  47M 1月  10 16:21 coco2017labels.zip<br>-rw-rw-r-- 1 houjinliang houjinliang 4.2M 1月  10 14:48 curl-8.5.0.tar.gz<br>-rw-rw-r-- 1 houjinliang houjinliang  12M 1月   5 16:32 pandas-2.0.3-cp38-cp38-manylinux_2_17_x86_64.manylinux2014_x86_64.whl<br>drwxrwxr-x 2 houjinliang houjinliang 1.4M 8月  31  2017 test2017/<br>-rw-rw-r-- 1 houjinliang houjinliang 6.2G 1月  10 17:47 test2017.zip<br>drwxrwxr-x 2 houjinliang houjinliang 4.0M 8月  31  2017 train2017/<br>-rw-rw-r-- 1 houjinliang houjinliang  19G 1月  10 21:35 train2017.zip<br>drwxrwxr-x 2 houjinliang houjinliang 164K 8月  31  2017 val2017/<br>-rw-rw-r-- 1 houjinliang houjinliang 778M 7月  11  2018 val2017.zip<br></code></pre></td></tr></table></figure>
-
-<ul>
-<li>如要查看当前目录已经使用总大小及当前目录下一级文件或文件夹各自使用的总空间大小</li>
-</ul>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><code class="hljs bash">(py38mmyolo) houjinliang@3080server:~$ <span class="hljs-built_in">du</span> -h --max-depth=1<br>6.5M    ./.config<br>8.0K    ./.conda<br>1.1G    ./.vscode-server<br>12G     ./cuda-11.3<br>86G     ./userdoc<br>8.0K    ./.gnupg<br>16K     ./.ssh<br>8.0K    ./.nv<br>2.7G    ./.cache<br>24G     ./miniconda3<br>125G    .<br></code></pre></td></tr></table></figure>
 
 <h1 id="3090Server"><a href="#3090Server" class="headerlink" title="3090Server"></a>3090Server</h1><ul>
 <li>Ubuntu 18.04.6 LTS</li>
@@ -762,6 +751,90 @@
 <p>第二个问题是切换英伟达驱动的时候遇到的！</p>
 <p><img src="https://murphyimg.oss-cn-beijing.aliyuncs.com/img/202506191356318.png" srcset="https://murhyimgur.oss-cn-beijing.aliyuncs.com/website/loading.gif" lazyload alt="image-20250619135639080"></p>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs bash"><span class="hljs-comment"># 两个命令解决。</span><br><span class="hljs-built_in">sudo</span> dpkg --configure -a<br><span class="hljs-built_in">sudo</span> apt update &amp;&amp; <span class="hljs-built_in">sudo</span> apt upgrade<br></code></pre></td></tr></table></figure>
+
+
+
+<h1 id="磁盘工具"><a href="#磁盘工具" class="headerlink" title="磁盘工具"></a>磁盘工具</h1><ul>
+<li>磁盘查询, df。<code>df</code> 的全称是 “disk free”，它的核心作用是<strong>从文件系统（通常可以理解为磁盘分区）的宏观角度</strong>查看整体的使用情况。</li>
+</ul>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><code class="hljs bash">user@3080server:~$ <span class="hljs-built_in">df</span> -h<br><span class="hljs-comment"># -h 是 --human-readable（人类可读）的缩写。</span><br><br>user@3080server:~$ <span class="hljs-built_in">df</span> -T<br><span class="hljs-comment"># df -T: 显示文件系统类型 (filesystem Type)，比如 ext4, xfs, ntfs 等。</span><br><br>user@3080server:~$ <span class="hljs-built_in">df</span> -hT<br><span class="hljs-comment"># df -hT: 结合起来使用，非常方便。</span><br></code></pre></td></tr></table></figure>
+
+<ul>
+<li>磁盘查询，du。<code>du</code> 的全称是 “disk usage”，它与 <code>df</code> 完美互补。当 <code>df</code> 告诉你某个分区（比如 <code>/</code>）快满了，<code>du</code> 就能帮你找到<strong>到底是哪个目录或文件占用了大量空间</strong>。</li>
+</ul>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><code class="hljs bash"><span class="hljs-built_in">du</span> -h /path/to/dir<br><span class="hljs-comment"># 以易读格式显示指定目录下所有子目录的大小。如果目录很深，会输出大量信息。</span><br><br><span class="hljs-built_in">du</span> -sh /path/to/dir: 这是最常用的组合！<br><span class="hljs-comment"># -s (--summarize): 只显示总计大小，不显示子目录的。</span><br><span class="hljs-comment"># -h: 易读格式。</span><br><br><span class="hljs-built_in">sudo</span> <span class="hljs-built_in">du</span> -sh /mnt/houjinliang<br><span class="hljs-comment"># 示例：sudo du -sh /mnt/houjinliang 会计算并只显示 houjinliang 文件夹的总大小。</span><br><br><span class="hljs-built_in">sudo</span> <span class="hljs-built_in">du</span> --max-depth=1 -h /mnt/ | <span class="hljs-built_in">sort</span> -rh<br><span class="hljs-comment"># 计算 /mnt 目录下第一层所有文件夹的大小，并按从大到小排序</span><br></code></pre></td></tr></table></figure>
+
+<ul>
+<li><p><code>ncdu</code> 命令 (交互式磁盘空间分析器)。这是一个<strong>强烈推荐</strong>的工具，可以看作是 <code>du</code> 的超级升级版。它不是系统自带的，但非常值得安装。<strong>功能:</strong> 它会扫描你指定的目录，然后提供一个<strong>可交互的、可视化的文本界面</strong>，让你能方便地按大小排序、进入子目录、甚至直接删除文件。</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><code class="hljs Bash"><span class="hljs-comment"># - **如何安装:**</span><br>- Debian/Ubuntu: `<span class="hljs-built_in">sudo</span> apt update &amp;&amp; <span class="hljs-built_in">sudo</span> apt install ncdu`<br>- CentOS/RHEL: `<span class="hljs-built_in">sudo</span> yum install ncdu`<br><br><span class="hljs-comment"># - **如何使用:**</span><br><br><span class="hljs-comment"># 扫描 /mnt 目录</span><br><span class="hljs-built_in">sudo</span> ncdu /mnt<br><span class="hljs-comment">#   命令执行后会有一个扫描过程，扫描结束后你就可以用键盘方向键自由探索了。</span><br></code></pre></td></tr></table></figure>
+</li>
+<li><p>查看磁盘和分区结构的工具 (<code>lsblk</code>, <code>fdisk</code>)。有时候你不仅想看容量，还想了解物理磁盘的结构，比如“我的服务器上到底有几块硬盘？每块硬盘是怎么分区的？”</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs Bash">lsblk<br><span class="hljs-comment"># - **`lsblk` (List Block Devices):** 以树状结构清晰地列出所有磁盘和分区，非常直观。</span><br><br><span class="hljs-built_in">sudo</span> fdisk -l<br><span class="hljs-comment"># - **`sudo fdisk -l` (需要 sudo):** 一个更传统、更强大的分区工具。`-l` 参数可以列出详细的分区表信息，比 `lsblk` 更底层。</span><br></code></pre></td></tr></table></figure>
+
+
+</li>
+<li><p>查看文件以及文件夹大小</p>
+</li>
+</ul>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><code class="hljs bash"><span class="hljs-comment"># ll</span><br>(py38mmyolo) houjinliang@3080server:~/userdoc/offlinefile$ ll<br>总用量 26251480<br>drwxrwxr-x 6 houjinliang houjinliang        4096 1月  10 21:36 ./<br>drwxrwxr-x 9 houjinliang houjinliang        4096 1月  10 15:59 ../<br>drwxr-xr-x 5 houjinliang houjinliang        4096 8月  26  2022 coco/<br>-rw-rw-r-- 1 houjinliang houjinliang     6983030 1月  10 17:00 coco128.zip<br>-rw-rw-r-- 1 houjinliang houjinliang    48639045 1月  10 16:21 coco2017labels.zip<br>-rw-rw-r-- 1 houjinliang houjinliang     4372979 1月  10 14:48 curl-8.5.0.tar.gz<br>-rw-rw-r-- 1 houjinliang houjinliang    12353723 1月   5 16:32 pandas-2.0.3-cp38-cp38-manylinux_2_17_x86_64.manylinux2014_x86_64.whl<br>…………<br></code></pre></td></tr></table></figure>
+<p>总用量 26251480<br>总用量: 英文是 “total”。它表示当前目录下所有文件和目录所占用的磁盘块的总大小。<br>26251480: 这是一个数字，单位是块。</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><code class="hljs bash"><span class="hljs-comment"># ll -hl</span><br>(py38mmyolo) houjinliang@3080server:~/userdoc/offlinefile$ ll -hl<br>总用量 26G<br>drwxrwxr-x 6 houjinliang houjinliang 4.0K 1月  10 21:36 ./<br>drwxrwxr-x 9 houjinliang houjinliang 4.0K 1月  10 15:59 ../<br>drwxr-xr-x 5 houjinliang houjinliang 4.0K 8月  26  2022 coco/<br>-rw-rw-r-- 1 houjinliang houjinliang 6.7M 1月  10 17:00 coco128.zip<br>-rw-rw-r-- 1 houjinliang houjinliang  47M 1月  10 16:21 coco2017labels.zip<br>-rw-rw-r-- 1 houjinliang houjinliang 4.2M 1月  10 14:48 curl-8.5.0.tar.gz<br>-rw-rw-r-- 1 houjinliang houjinliang  12M 1月   5 16:32 pandas-2.0.3-cp38-cp38-manylinux_2_17_x86_64.manylinux2014_x86_64.whl<br>…………<br></code></pre></td></tr></table></figure>
+
+<p><strong>命令：</strong></p>
+<figure class="highlight ebnf"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs ebnf"><span class="hljs-attribute">ll -hl</span><br></code></pre></td></tr></table></figure>
+
+<p><strong>等价于：</strong></p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash"><span class="hljs-built_in">ls</span> -l -h -l<br></code></pre></td></tr></table></figure>
+
+<p>不过，<code>ls</code> 命令的选项可以合并，所以通常写作 <code>ls -hl</code>。因为 <code>ll</code> 本身就是 <code>ls -l</code>，所以这个命令实际上是 <code>ls -l -h</code>。</p>
+<p><strong>选项解释：</strong></p>
+<ul>
+<li><p><strong><code>-l</code></strong>: 我们已经知道了，表示使用长格式输出。</p>
+</li>
+<li><p><strong><code>-h</code></strong>: 代表 “human-readable”（人类可读格式）。这是一个非常实用的选项，它会自动将文件大小（以及这里的 <code>总用量</code>）的单位从字节或块，转换为更易于阅读的 K（千字节）、M（兆字节）、G（吉字节）等单位。</p>
+<ul>
+<li><p><strong><code>总用量</code></strong>: 含义与之前相同，表示当前目录下所有文件和目录所占用的磁盘块的总大小。</p>
+</li>
+<li><p><strong><code>26G</code></strong>: 这就是 <code>-h</code> 选项的功劳。它将之前那个不直观的数字 <code>26251480</code>（单位：块）转换成了人类可读的格式。</p>
+</li>
+<li><p>单位换算：</p>
+<ul>
+<li>我们之前估算过，<code>26251480</code> 块 ≈ 26,869,515,520 字节。</li>
+<li><code>26,869,515,520 字节 / 1024 = 26,243,708 KB</code></li>
+<li><code>26,243,708 KB / 1024 = 25,628 MB</code></li>
+<li><code>25,628 MB / 1024 ≈ 25.03 GB</code></li>
+</ul>
+</li>
+<li><p>您看到的输出是26G，这与我们计算出的25.03 GB非常接近。微小的差异可能源于：</p>
+<ul>
+<li><strong>系统显示的舍入</strong>：<code>25.03 GB</code> 在显示时可能会被舍入为 <code>26G</code>（虽然通常 <code>25.03</code> 会显示为 <code>25G</code>，但不同系统或版本的 <code>ls</code> 可能有不同的舍入逻辑）。</li>
+<li><strong>块大小的定义</strong>：在某些系统或文件系统中，1 块可能被定义为 4096 字节（4 KB）。如果按这个标准计算：<code>26251480 块 * 4096 字节/块 ≈ 107,527,426,560 字节 ≈ 100.15 GB</code>。这与 <code>26G</code> 差距很大。因此，可以断定您系统的块大小是 <strong>1024 字节</strong>。</li>
+<li><strong>最可能的原因</strong>：<code>ls</code> 命令在计算 <code>total</code> 时，其内部算法可能对单位转换做了特定的处理，导致显示为 <code>26G</code>。我们只需理解它代表大约 26 GB 的磁盘空间占用即可。</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><p>如要查看当前目录已经使用总大小及当前目录下一级文件或文件夹各自使用的总空间大小</p>
+</li>
+</ul>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><code class="hljs bash">(py38mmyolo) houjinliang@3080server:~$ <span class="hljs-built_in">du</span> -h --max-depth=1<br>6.5M    ./.config<br>8.0K    ./.conda<br>1.1G    ./.vscode-server<br>12G     ./cuda-11.3<br>86G     ./userdoc<br>8.0K    ./.gnupg<br>16K     ./.ssh<br>8.0K    ./.nv<br>2.7G    ./.cache<br>24G     ./miniconda3<br>125G    .<br></code></pre></td></tr></table></figure>
+
+<ul>
+<li>查看文件夹大小</li>
+</ul>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs bash">user@3080server:/mnt$ <span class="hljs-built_in">sudo</span> <span class="hljs-built_in">du</span> -sh /mnt/bailuqian/<br>16K     /mnt/bailuqian/<br><br>user@3080server:/mnt$ <span class="hljs-built_in">sudo</span> <span class="hljs-built_in">du</span> -sh /mnt/chenzhengtao/<br>119G    /mnt/chenzhengtao/<br></code></pre></td></tr></table></figure>
+
+<ul>
+<li>文件夹大小与排序</li>
+</ul>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash"><span class="hljs-built_in">sudo</span> <span class="hljs-built_in">du</span> --max-depth=1 -h /mnt/ | <span class="hljs-built_in">sort</span> -rh<br></code></pre></td></tr></table></figure>
+
+<ul>
+<li>批量输出目录下的文件夹的大小，脚本</li>
+</ul>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br></pre></td><td class="code"><pre><code class="hljs bash"><span class="hljs-meta">#!/bin/bash</span><br><br><span class="hljs-comment"># ==============================================================================</span><br><span class="hljs-comment"># 脚本名称: calculate_dir_sizes.sh</span><br><span class="hljs-comment"># 描述:     计算指定目录下第一层所有子目录的大小。</span><br><span class="hljs-comment"># 作者:     Gemini</span><br><span class="hljs-comment"># 日期:     2025-09-04</span><br><span class="hljs-comment"># ==============================================================================</span><br><br><span class="hljs-comment"># 定义要扫描的目标目录</span><br>TARGET_DIR=<span class="hljs-string">&quot;/mnt&quot;</span><br><br><span class="hljs-comment"># --- 主逻辑 ---</span><br><br><span class="hljs-comment"># 检查目标目录是否存在</span><br><span class="hljs-keyword">if</span> [ ! -d <span class="hljs-string">&quot;<span class="hljs-variable">$TARGET_DIR</span>&quot;</span> ]; <span class="hljs-keyword">then</span><br>  <span class="hljs-built_in">echo</span> <span class="hljs-string">&quot;错误: 目录 <span class="hljs-variable">$&#123;TARGET_DIR&#125;</span> 不存在。&quot;</span><br>  <span class="hljs-built_in">exit</span> 1<br><span class="hljs-keyword">fi</span><br><br><span class="hljs-built_in">echo</span> <span class="hljs-string">&quot;正在计算目录 [<span class="hljs-variable">$&#123;TARGET_DIR&#125;</span>] 下所有文件夹的大小...&quot;</span><br><span class="hljs-built_in">echo</span> <span class="hljs-string">&quot;--------------------------------------------------&quot;</span><br><br><span class="hljs-comment"># 循环遍历目标目录下的每一个项目</span><br><span class="hljs-comment"># 使用 find 命令可以更精确地只选择目录，避免处理文件</span><br><span class="hljs-comment"># -mindepth 1 -maxdepth 1 确保只处理第一层子目录</span><br>find <span class="hljs-string">&quot;<span class="hljs-variable">$&#123;TARGET_DIR&#125;</span>&quot;</span> -mindepth 1 -maxdepth 1 -<span class="hljs-built_in">type</span> d | <span class="hljs-keyword">while</span> <span class="hljs-built_in">read</span> -r <span class="hljs-built_in">dir</span>; <span class="hljs-keyword">do</span><br>    <span class="hljs-comment"># 使用 sudo du -sh 计算每个目录的总大小</span><br>    <span class="hljs-comment"># -s (summarize) 表示只显示总计大小</span><br>    <span class="hljs-comment"># -h (human-readable) 表示使用易读格式 (K, M, G)</span><br>    <span class="hljs-built_in">sudo</span> <span class="hljs-built_in">du</span> -sh <span class="hljs-string">&quot;<span class="hljs-variable">$&#123;dir&#125;</span>&quot;</span><br><span class="hljs-keyword">done</span><br><br><span class="hljs-built_in">echo</span> <span class="hljs-string">&quot;--------------------------------------------------&quot;</span><br><span class="hljs-built_in">echo</span> <span class="hljs-string">&quot;计算完成。&quot;</span><br></code></pre></td></tr></table></figure>
+
+
                 
               </div>
             
