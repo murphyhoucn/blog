@@ -28,7 +28,7 @@
 <meta property="og:locale" content="zh_CN">
 <meta property="og:image" content="https://murhyimgur.oss-cn-beijing.aliyuncs.com/img/cyberspace-2784907_1280.jpg">
 <meta property="article:published_time" content="2023-11-01T02:28:51.000Z">
-<meta property="article:modified_time" content="2025-09-04T13:24:46.051Z">
+<meta property="article:modified_time" content="2025-09-10T09:21:19.936Z">
 <meta property="article:author" content="Murphy">
 <meta property="article:tag" content="DeepLearning">
 <meta property="article:tag" content="Docker">
@@ -277,7 +277,7 @@
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          8.4k 字
+          8k 字
         
       </span>
     
@@ -288,7 +288,7 @@
         
         
         
-          70 分钟
+          67 分钟
         
       </span>
     
@@ -369,26 +369,6 @@
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><code class="hljs bash">(dlpy310pth113) houjinliang@3080server:~$ pip install nvitop<br>Requirement already satisfied: nvitop <span class="hljs-keyword">in</span> ./miniconda3/envs/dlpy310pth113/lib/python3.10/site-packages (1.3.0)<br>Requirement already satisfied: nvidia-ml-py&lt;12.536.0a0,&gt;=11.450.51 <span class="hljs-keyword">in</span> ./miniconda3/envs/dlpy310pth113/lib/python3.10/site-packages (from nvitop) (12.535.108)<br>Requirement already satisfied: psutil&gt;=5.6.6 <span class="hljs-keyword">in</span> ./miniconda3/envs/dlpy310pth113/lib/python3.10/site-packages (from nvitop) (5.9.5)<br>Requirement already satisfied: cachetools&gt;=1.0.1 <span class="hljs-keyword">in</span> ./miniconda3/envs/dlpy310pth113/lib/python3.10/site-packages (from nvitop) (5.3.1)<br>Requirement already satisfied: termcolor&gt;=1.0.0 <span class="hljs-keyword">in</span> ./miniconda3/envs/dlpy310pth113/lib/python3.10/site-packages (from nvitop) (2.3.0)<br></code></pre></td></tr></table></figure>
 
 <p><img src="https://murhyimgur.oss-cn-beijing.aliyuncs.com/img/image-20231101110731169.png" srcset="https://murhyimgur.oss-cn-beijing.aliyuncs.com/website/loading.gif" lazyload alt="image-20231101110731169"></p>
-<h1 id="Clash-for-Linux"><a href="#Clash-for-Linux" class="headerlink" title="Clash for Linux"></a>Clash for Linux</h1><blockquote>
-<p><a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/662552814">Ubuntu配置 命令行Clash 教程 - 知乎 (zhihu.com)</a></p>
-<p><a target="_blank" rel="noopener" href="https://weilining.github.io/294.html">终端使用代理加速的正确方式（Clash） | Ln’s Blog (weilining.github.io)</a></p>
-</blockquote>
-<h2 id="2024-01-10"><a href="#2024-01-10" class="headerlink" title="2024.01.10"></a>2024.01.10</h2><ul>
-<li>Download: <a target="_blank" rel="noopener" href="https://pub-eac3eb5670f44f09984dee5c57939316.r2.dev/clash-linux-amd64-v1.18.0.gz">clash-linux-amd64-v1.18.0.gz</a></li>
-</ul>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs bash">gunzip clash-linux-amd64-v1.18.0.gz<br><span class="hljs-built_in">mv</span> clash-linux-amd64-v1.18.0 clash<br><span class="hljs-built_in">chmod</span> u+x clash<br>./clash<br></code></pre></td></tr></table></figure>
-
-<figure class="highlight markdown"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs markdown">在 ~/.config/clash/config.yaml 写入订阅的内容<br></code></pre></td></tr></table></figure>
-
-<p><img src="https://murhyimgur.oss-cn-beijing.aliyuncs.com/img/image-20240110153702123-170513523115811.png" srcset="https://murhyimgur.oss-cn-beijing.aliyuncs.com/website/loading.gif" lazyload alt="image-20240110153702123"></p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><code class="hljs bash">`~/.bashrc`<br><br><span class="hljs-keyword">function</span> <span class="hljs-function"><span class="hljs-title">proxy</span></span>() &#123;<br><span class="hljs-built_in">export</span> http_proxy=http://127.0.0.1:7890<br><span class="hljs-built_in">export</span> https_proxy=<span class="hljs-variable">$http_proxy</span><br><span class="hljs-built_in">echo</span> -e <span class="hljs-string">&quot;proxy on!&quot;</span><br>&#125;<br><span class="hljs-keyword">function</span> <span class="hljs-function"><span class="hljs-title">unproxy</span></span>()&#123;<br><span class="hljs-built_in">unset</span> http_proxy https_proxy<br><span class="hljs-built_in">echo</span> -e <span class="hljs-string">&quot;proxy off&quot;</span><br>&#125;<br></code></pre></td></tr></table></figure>
-
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs bash">(base) houjinliang@3080server:~/userdoc$ <span class="hljs-built_in">source</span> ~/.bashrc<br>(base) houjinliang@3080server:~/userdoc$ proxy<br>proxy on!<br>(base) houjinliang@3080server:~/userdoc$ unproxy<br>proxy off<br></code></pre></td></tr></table></figure>
-
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><code class="hljs bash">(base) houjinliang@3080server:~/userdoc$ wget www.zhihu.com<br>URL transformed to HTTPS due to an HSTS policy<br>--2024-01-10 15:33:59--  https://www.zhihu.com/<br>正在连接 127.0.0.1:7890... 已连接。<br>已发出 Proxy 请求，正在等待回应... 302 Found<br>位置：//www.zhihu.com/signin?next=%2F [跟随至新的 URL]<br>URL transformed to HTTPS due to an HSTS policy<br>--2024-01-10 15:33:59--  https://www.zhihu.com/signin?next=%2F<br>再次使用存在的到 www.zhihu.com:443 的连接。<br>已发出 Proxy 请求，正在等待回应... 200 OK<br>长度： 39879 (39K) [text/html]<br>正在保存至: “index.html”<br><br>index.html                                           100%[===================================================================================================================&gt;]  38.94K  --.-KB/s    用时 0.04s<br><br><br><br>2024-01-10 15:33:59 (944 KB/s) - 已保存 “index.html” [39879/39879])<br><br>(base) houjinliang@3080server:~/userdoc$ wget www.google.com<br>--2024-01-10 15:34:14--  http://www.google.com/<br>正在连接 127.0.0.1:7890... 已连接。<br>已发出 Proxy 请求，正在等待回应... 200 OK<br>长度： 未指定 [text/html]<br>正在保存至: “index.html.1”<br><br>index.html.1                                             [ &lt;=&gt;                                                                                                                ]  18.72K  --.-KB/s    用时 0.07s<br><br>2024-01-10 15:34:16 (257 KB/s) - “index.html.1” 已保存 [19169]<br></code></pre></td></tr></table></figure>
-
-
-
 <h1 id="3080Server-MMDetection"><a href="#3080Server-MMDetection" class="headerlink" title="3080Server - MMDetection"></a>3080Server - MMDetection</h1><ul>
 <li>Ubuntu 18.04.6 LTS</li>
 <li>gcc version 7.5.0</li>
