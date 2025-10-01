@@ -28,7 +28,7 @@
 <meta property="og:locale" content="zh_CN">
 <meta property="og:image" content="https://murphyimg.oss-cn-beijing.aliyuncs.com/img/202506011358984.jpg">
 <meta property="article:published_time" content="2025-06-01T03:57:08.000Z">
-<meta property="article:modified_time" content="2025-09-23T02:52:30.796Z">
+<meta property="article:modified_time" content="2025-09-30T16:15:30.260Z">
 <meta property="article:author" content="Murphy">
 <meta property="article:tag" content="DeepLearning">
 <meta property="article:tag" content="Python">
@@ -286,7 +286,7 @@
         
         
         
-          97 分钟
+          99 分钟
         
       </span>
     
@@ -576,6 +576,22 @@
 <h2 id="environment-yml"><a href="#environment-yml" class="headerlink" title="environment.yml"></a>environment.yml</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs bash">(SSPSR) houjinliang@3080server:~/MyCVProject/eSuperResolution/Re_SSPSR$ conda <span class="hljs-built_in">env</span> <span class="hljs-built_in">export</span> &gt; environment.yml<br><br>conda <span class="hljs-built_in">env</span> create -f environment.yml<br></code></pre></td></tr></table></figure>
 
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs bash">conda <span class="hljs-built_in">env</span> create -f environment.yml<br><br><span class="hljs-comment"># 新建的环境根据yml中的name来命名新环境</span><br></code></pre></td></tr></table></figure>
+
+
+<h2 id="reqirements-txt"><a href="#reqirements-txt" class="headerlink" title="reqirements.txt"></a>reqirements.txt</h2><p>为了便于新环境部署，python项目中需要包含一个 requirements.txt 文件，用于记录所有依赖包及其精确的版本号requirements.txt可以通过pip命令自动生成和安装</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">pip install -r requirements.txt<br></code></pre></td></tr></table></figure>
+
+<h3 id="方式一：freeze命令"><a href="#方式一：freeze命令" class="headerlink" title="方式一：freeze命令"></a>方式一：freeze命令</h3><ul>
+<li>应用场景：在单一虚拟环境下，可以使用这种方式。</li>
+<li>优点：这种方式会把当前环境下的所有依赖包都整理出来。</li>
+<li>缺点：不是针对某个项目生成，如果当前环境下有多个项目，那么会生成大量无关的依赖信息。<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">pip freeze &gt; requirements.txt<br></code></pre></td></tr></table></figure>
+但是用这个方法，可以实现一个功能：删除当前环境的所有python依赖。<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">pip uninstall -r requirements.txt -y<br></code></pre></td></tr></table></figure></li>
+</ul>
+<h3 id="方式二：pipreqs（推荐）"><a href="#方式二：pipreqs（推荐）" class="headerlink" title="方式二：pipreqs（推荐）"></a>方式二：pipreqs（推荐）</h3><ul>
+<li>应用场景：针对单个项目生成 requirements.txt</li>
+<li>优点：使用 pipreqs 可以自动检索到当前项目下的所有组件及其版本，并生成 requirements.txt 文件，极大方便了项目迁移和部署的包管理。</li>
+<li>缺点：相比直接用 freeze 命令，能直接隔离其它项目的包生成。<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><code class="hljs bash">pip install pipreqs<br><br>pipreqs ./ --encoding=utf-8<br><br><span class="hljs-comment"># 强制执行命令 --force ，覆盖原有的 requirements.txt 文件</span><br>pipreqs ./ --encoding=utf-8 --force<br></code></pre></td></tr></table></figure></li>
+</ul>
 <h2 id="conda环境打包"><a href="#conda环境打包" class="headerlink" title="conda环境打包"></a>conda环境打包</h2><ol>
 <li>直接把整个环境打包成压缩包<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><code class="hljs bash">(SSPSR) houjinliang@3080server:~/MyCVProject/eSuperResolution/Re_SSPSR$ pip install conda-pack<br>(SSPSR) houjinliang@3080server:~/MyCVProject/eSuperResolution/Re_SSPSR$ conda <span class="hljs-built_in">env</span> list<br><span class="hljs-comment"># conda environments:</span><br><span class="hljs-comment">#</span><br>base                     /mnt/houjinliang/miniconda3<br>SSPSR                 *  /mnt/houjinliang/miniconda3/envs/SSPSR<br>xxxxx                     xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx<br><br>(SSPSR) houjinliang@3080server:~/MyCVProject/eSuperResolution/Re_SSPSR$ conda pack -n SSPSR<br>Collecting packages...<br>Packing environment at <span class="hljs-string">&#x27;/mnt/houjinliang/miniconda3/envs/SSPSR&#x27;</span> to <span class="hljs-string">&#x27;SSPSR.tar.gz&#x27;</span><br>[#################################       ] | 83% Completed |  3min 30.7s<br></code></pre></td></tr></table></figure></li>
 <li>把环境压缩包上传到新设备上，直接在对应位置解压缩</li>

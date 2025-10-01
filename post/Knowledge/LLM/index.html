@@ -28,7 +28,7 @@
 <meta property="og:locale" content="zh_CN">
 <meta property="og:image" content="https://murphyimg.oss-cn-beijing.aliyuncs.com/img/202509291142479.png">
 <meta property="article:published_time" content="2025-07-10T01:16:30.000Z">
-<meta property="article:modified_time" content="2025-09-29T07:15:29.999Z">
+<meta property="article:modified_time" content="2025-10-01T11:51:07.507Z">
 <meta property="article:author" content="Murphy">
 <meta property="article:tag" content="CS">
 <meta name="twitter:card" content="summary_large_image">
@@ -270,7 +270,7 @@
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          1.3k 字
+          2.4k 字
         
       </span>
     
@@ -281,7 +281,7 @@
         
         
         
-          11 分钟
+          21 分钟
         
       </span>
     
@@ -366,11 +366,113 @@
 <li>涌现能力；</li>
 <li>上下文学习能力、指令理解能力和文本生成能力；</li>
 </ul>
+<p><img src="https://murphyimg.oss-cn-beijing.aliyuncs.com/img/20251001194029621.png" srcset="https://murhyimgur.oss-cn-beijing.aliyuncs.com/website/loading.gif" lazyload alt="image-20251001192737848"></p>
+<blockquote>
+<ul>
+<li><a target="_blank" rel="noopener" href="https://medium.com/@lmpo/%E5%A4%A7%E5%9E%8B%E8%AF%AD%E8%A8%80%E6%A8%A1%E5%9E%8B%E7%AE%80%E5%8F%B2-%E4%BB%8Etransformer-2017-%E5%88%B0deepseek-r1-2025-cc54d658fb43">大语言模型简史. 2025年初，随着中国推出的开创性、高性价比的大型语言模型（LLM） — —… | by LM Po | Medium</a></li>
+</ul>
+</blockquote>
 <h2 id="1-NLP"><a href="#1-NLP" class="headerlink" title="1. NLP"></a>1. NLP</h2><ul>
 <li>NLP 是 一种让计算机理解、解释和生成人类语言的技术。</li>
 <li>NLP of Deep Learning: 循环神经网络（Recurrent Neural Network，RNN）、长短时记忆网络（Long Short-Term Memory，LSTM）和注意力机制</li>
 <li>2013年，Word2Vec模型; 2018年，BERT模型; Transformer-based Models</li>
+<li>Word2Vec</li>
+<li>ELMo（Embeddings from Language Models）</li>
 </ul>
+<h2 id="2-Transformer架构"><a href="#2-Transformer架构" class="headerlink" title="2. Transformer架构"></a>2. Transformer架构</h2><ul>
+<li>NLP 任务所需要处理的文本往往是序列；RNN 以及 RNN 的衍生架构 LSTM <ul>
+<li>并行能力限制</li>
+<li>长距离相关信息</li>
+</ul>
+</li>
+<li>注意力机制最先源于计算机视觉领域，其核心思想为当我们关注一张图片，我们往往无需看清楚全部内容而仅将注意力集中在重点部分即可。而在自然语言处理领域，我们往往也可以通过将重点注意力集中在一个或几个 token，从而取得更高效高质的计算效果。</li>
+<li>注意力机制有三个核心变量：Query（查询值）、Key（键值）和 Value（真值）。</li>
+<li>注意力机制的特点是通过计算 Query 与Key的相关性为真值加权求和，从而拟合序列中每个词同其他词的相关关系。</li>
+</ul>
+<h2 id="3-预训练语言模型"><a href="#3-预训练语言模型" class="headerlink" title="3. 预训练语言模型"></a>3. 预训练语言模型</h2><ul>
+<li>Encoder-Only: BERT</li>
+<li>Encoder-Decoder: T5</li>
+<li>Decoder-Only: GPT</li>
+</ul>
+<h3 id="3-1-Encoder-only-PLM"><a href="#3-1-Encoder-only-PLM" class="headerlink" title="3.1 Encoder-only PLM"></a>3.1 Encoder-only PLM</h3><ul>
+<li>海量无监督语料上进行预训练来获得通用的文本理解与生成能力，再在对应的下游任务上进行微调。</li>
+<li>所谓微调，其实和训练时更新模型参数的策略一致，只不过在特定的任务、更少的训练数据、更小的 batch_size 上进行训练，更新参数的幅度更小。</li>
+<li>BERT衍生：RoBERTa(更大的BERT)；ALBERT(更小的BERT)</li>
+</ul>
+<h3 id="3-2-Encoder-Decoder-PLM"><a href="#3-2-Encoder-Decoder-PLM" class="headerlink" title="3.2 Encoder-Decoder PLM"></a>3.2 Encoder-Decoder PLM</h3><ul>
+<li>T5</li>
+<li>T5模型的一个核心理念是“大一统思想”，即所有的 NLP 任务都可以统一为文本到文本的任务。</li>
+<li>对于不同的NLP任务，每次输入前都会加上一个任务描述前缀，明确指定当前任务的类型。</li>
+</ul>
+<h3 id="3-3-Decoder-Only-PLM"><a href="#3-3-Decoder-Only-PLM" class="headerlink" title="3.3 Decoder-Only PLM"></a>3.3 Decoder-Only PLM</h3><ul>
+<li>事实上，Decoder-Only 就是目前大火的 LLM 的基础架构，目前所有的 LLM 基本都是 Decoder-Only 模型（RWKV、Mamba 等非 Transformer 架构除外）。</li>
+<li>引发 LLM 热潮的 ChatGPT，正是 Decoder-Only 系列的代表模型 <strong>GPT 系列模型</strong>的大成之作。</li>
+<li>开源 LLM 基本架构的 <strong>LLaMA 模型</strong>，也正是在 GPT 的模型架构基础上优化发展而来。</li>
+</ul>
+<p>为什么 GPT 叫 <strong>Decoder-Only</strong>？</p>
+<p>GPT 之所以被冠以“解码器”之名，是因为它保留了原始 Transformer <strong>解码器的关键特性：</strong> <strong>因果（Causal）掩码</strong>。</p>
+<ol>
+<li>决定性因素：因果掩码（Causal Masking）</li>
+</ol>
+<ul>
+<li><p><strong>Decoder-Only 的本质：</strong> 任何被称为 Decoder-Only 的模型，其自注意力层都使用了<strong>因果掩码</strong>（或称为<strong>前瞻掩码</strong>）。</p>
+<ul>
+<li><strong>作用：</strong> 强制模型在处理序列中的任何一个 Token 时，<strong>只能关注它之前</strong>（左侧）的 Token，而<strong>不能看到它之后</strong>（右侧&#x2F;未来）的 Token。</li>
+<li><strong>目的：</strong> 这是为了模拟<strong>人类写字或说话的过程</strong>——预测下一个词是基于前面已经出现的所有词。这种机制使得模型具备<strong>自回归（Autoregressive）</strong>能力，能够进行<strong>文本生成</strong>。</li>
+</ul>
+</li>
+<li><p><strong>Encoder-Only 的区别：</strong> 像 <strong>BERT</strong> 这样的 Encoder-Only 模型，其自注意力层是<strong>双向（Bidirectional）</strong>的，<strong>没有因果掩码</strong>。模型可以看到输入序列中的所有 Token，因此它擅长<strong>理解</strong>上下文，但无法自然地按顺序生成文本。</p>
+</li>
+</ul>
+<ol start="2">
+<li>原始 Decoder 层的设计演变</li>
+</ol>
+<p>您提到的原始 Transformer Decoder 层的双注意力层设计，可以分解为：</p>
+<ol>
+<li><strong>带因果掩码的自注意力层（Self-Attention with Mask）：</strong> 关注<strong>已生成</strong>（自身）的部分。</li>
+<li><strong>编码器-解码器注意力层（Encoder-Decoder Attention）：</strong> 关注<strong>编码器</strong>的输出。</li>
+</ol>
+<p>GPT 架构<strong>移除了第 2 层</strong>，因为它不再需要 Encoder 的输入。但它<strong>保留了第 1 层</strong>，正是这一层定义了其“解码器”的身份和<strong>生成功能</strong>。</p>
+<hr>
+<p><strong>Decoder-Only</strong> 与 <strong>Encoder-Only</strong> 的本质区别</p>
+<table>
+<thead>
+<tr>
+<th align="left">特性</th>
+<th align="left"><strong>Encoder-Only (BERT)</strong></th>
+<th align="left"><strong>Decoder-Only (GPT, Llama)</strong></th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="left"><strong>代表模型</strong></td>
+<td align="left"><strong>BERT</strong>、RoBERTa</td>
+<td align="left"><strong>GPT</strong> 系列、Llama、Claude</td>
+</tr>
+<tr>
+<td align="left"><strong>注意力机制</strong></td>
+<td align="left"><strong>双向（无掩码）</strong></td>
+<td align="left"><strong>单向&#x2F;因果（带掩码）</strong></td>
+</tr>
+<tr>
+<td align="left"><strong>核心功能</strong></td>
+<td align="left"><strong>理解（NLU）</strong>：理解上下文、分类、抽取信息</td>
+<td align="left"><strong>生成（NLG）</strong>：补全、续写、对话</td>
+</tr>
+<tr>
+<td align="left"><strong>预训练目标</strong></td>
+<td align="left">**遮蔽语言模型 (MLM)**：填空题</td>
+<td align="left">**传统语言模型 (LM)**：预测下一个词</td>
+</tr>
+<tr>
+<td align="left"><strong>信息流向</strong></td>
+<td align="left">整个序列信息<strong>可以完全流动</strong></td>
+<td align="left">信息流向被<strong>严格限制</strong>为单向</td>
+</tr>
+</tbody></table>
+<p><strong>简单总结：</strong></p>
+<p><strong>BERT</strong> 是一个<strong>阅读理解器</strong>。它的目标是理解一整段话的意思，所以它必须能双向查看所有内容。</p>
+<p><strong>GPT</strong> 是一个<strong>作家&#x2F;聊天机器人</strong>。它的目标是接续你已经写出的内容，所以它必须遵循因果关系，一个词一个词地生成，绝不能“偷看”到它还没有生成的部分。</p>
+<p>架构上看起来相似，但<strong>注意力掩码</strong>这个微小的差异，决定了模型的功能和用途。</p>
 
                 
               </div>
