@@ -1,0 +1,845 @@
+
+
+<!DOCTYPE html>
+<html lang="zh-CN" data-default-color-scheme=auto>
+
+
+
+<head>
+  <meta charset="UTF-8">
+
+  <link rel="apple-touch-icon" sizes="76x76" href="https://murphyimg.oss-cn-beijing.aliyuncs.com/img/202505301726222.png">
+  <link rel="icon" href="https://murphyimg.oss-cn-beijing.aliyuncs.com/img/202505301728148.png">
+  
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="author" content="Murphy">
+  <meta name="keywords" content="Murphy,CosmicDusty,murphy,cosmicdusty,cn">
+  
+    <meta name="description" content="New Zotero 7">
+<meta property="og:type" content="article">
+<meta property="og:title" content="New Zotero 7">
+<meta property="og:url" content="https://blog.cosmicdusty.cc/post/Tools/Zotero7/index.html">
+<meta property="og:site_name" content="CosmicDusty-Blog">
+<meta property="og:description" content="New Zotero 7">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://murhyimgur.oss-cn-beijing.aliyuncs.com/img/%E6%96%87%E7%AB%A0%E9%BB%98%E8%AE%A4%E5%B0%81%E9%9D%A2.jpg">
+<meta property="article:published_time" content="2025-10-02T05:03:40.000Z">
+<meta property="article:modified_time" content="2025-10-04T13:31:29.520Z">
+<meta property="article:author" content="Murphy">
+<meta property="article:tag" content="Paper">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="https://murhyimgur.oss-cn-beijing.aliyuncs.com/img/%E6%96%87%E7%AB%A0%E9%BB%98%E8%AE%A4%E5%B0%81%E9%9D%A2.jpg">
+  
+  
+    <meta name="referrer" content="no-referrer-when-downgrade">
+  
+  
+  <title>New Zotero 7 - CosmicDusty-Blog</title>
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
+
+
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/github-markdown-css/4.0.0/github-markdown.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/hint.css/2.7.0/hint.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.css" />
+
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+<!-- Do not modify the link that theme dependent icons -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/c/font_1749284_5i9bdhy70f8.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_lbnruvf0jn.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+
+  <link id="highlight-css" rel="stylesheet" href="/css/highlight.css" />
+  
+    <link id="highlight-css-dark" rel="stylesheet" href="/css/highlight-dark.css" />
+  
+
+
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    Fluid.ctx = Object.assign({}, Fluid.ctx)
+    var CONFIG = {"hostname":"blog.cosmicdusty.cc","root":"/","version":"1.9.8","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false,"scope":[]},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"left","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"code_language":{"enable":true,"default":"TEXT"},"copy_btn":true,"image_caption":{"enable":true},"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"placement":"right","headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"https://murhyimgur.oss-cn-beijing.aliyuncs.com/website/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":true,"follow_dnt":true,"baidu":"16d93d5abbd7ea15ec53daed5459ebf7","google":null,"tencent":{"sid":null,"cid":null},"leancloud":{"app_id":"JijHNKemeVNog4wF7g9I5TR3","app_key":"FvsKdxHOP2aG5rHrHby5aV0b","server_url":null,"path":"window.location.pathname","ignore_local":false},"umami":{"src":null,"website_id":null,"domains":null,"start_time":"2024-01-01T00:00:00.000Z","token":null,"api_server":null},"gtag":null,"woyaola":null,"cnzz":null},"search_path":"/local-search.xml","include_content_in_search":true};
+
+    if (CONFIG.web_analytics.follow_dnt) {
+      var dntVal = navigator.doNotTrack || window.doNotTrack || navigator.msDoNotTrack;
+      Fluid.ctx.dnt = dntVal && (dntVal.startsWith('1') || dntVal.startsWith('yes') || dntVal.startsWith('on'));
+    }
+  </script>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+  
+
+  
+    <!-- Baidu Analytics -->
+    <script async>
+      if (!Fluid.ctx.dnt) {
+        var _hmt = _hmt || [];
+        (function() {
+          var hm = document.createElement("script");
+          hm.src = "https://hm.baidu.com/hm.js?16d93d5abbd7ea15ec53daed5459ebf7";
+          var s = document.getElementsByTagName("script")[0];
+          s.parentNode.insertBefore(hm, s);
+        })();
+      }
+    </script>
+  
+
+  
+
+  
+
+  
+
+  
+    
+  
+
+
+
+  
+<meta name="generator" content="Hexo 7.3.0"></head>
+
+
+<body>
+  
+
+  <header>
+    
+
+<div class="header-inner" style="height: 70vh;">
+  <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand" href="/">
+      <strong>CosmicDusty</strong>
+    </a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/" target="_self">
+                <i class="iconfont icon-home-fill"></i>
+                <span>首页</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/" target="_self">
+                <i class="iconfont icon-archive-fill"></i>
+                <span>归档</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/" target="_self">
+                <i class="iconfont icon-category-fill"></i>
+                <span>分类</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/" target="_self">
+                <i class="iconfont icon-tags-fill"></i>
+                <span>标签</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/" target="_self">
+                <i class="iconfont icon-user-fill"></i>
+                <span>关于</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/links/" target="_self">
+                <i class="iconfont icon-link-fill"></i>
+                <span>友链</span>
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" target="_self" href="javascript:;" data-toggle="modal" data-target="#modalSearch" aria-label="Search">
+              <i class="iconfont icon-search"></i>
+            </a>
+          </li>
+          
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" target="_self" href="javascript:;" aria-label="Color Toggle">
+              <i class="iconfont icon-dark" id="color-toggle-icon"></i>
+            </a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+  
+
+<div id="banner" class="banner" parallax=true
+     style="background: url('https://murhyimgur.oss-cn-beijing.aliyuncs.com/img/文章默认封面.jpg') no-repeat center center; background-size: cover;">
+  <div class="full-bg-img">
+    <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+      <div class="banner-text text-center fade-in-up">
+        <div class="h2">
+          
+            <span id="subtitle" data-typed-text="New Zotero 7"></span>
+          
+        </div>
+
+        
+          
+  <div class="mt-3">
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-author" aria-hidden="true"></i>
+        Murphy
+      </span>
+    
+    
+      <span class="post-meta">
+        <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+        <time datetime="2025-10-02 13:03" pubdate>
+          2025年10月2日 下午
+        </time>
+      </span>
+    
+  </div>
+
+  <div class="mt-1">
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-chart"></i>
+        
+          1.1k 字
+        
+      </span>
+    
+
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-clock-fill"></i>
+        
+        
+        
+          10 分钟
+        
+      </span>
+    
+
+    
+    
+  </div>
+
+
+        
+      </div>
+
+      
+    </div>
+  </div>
+</div>
+
+</div>
+
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+
+    </div>
+
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div id="board">
+          <article class="post-content mx-auto">
+            <h1 id="seo-header">New Zotero 7</h1>
+            
+            
+              <div class="markdown-body">
+                
+                <p>对于论文整理与管理常用的软件有：<br><a target="_blank" rel="noopener" href="https://endnote.com/">EndNote</a><br><a target="_blank" rel="noopener" href="https://www.mendeley.com/">Mendeley</a><br><a target="_blank" rel="noopener" href="https://www.zotero.org/">Zotero</a></p>
+<p>前两者其实我都没有用过，而Zotero因为是开源软件，且有插件市场丰富，所以我一直都是选择的Zotero。</p>
+<h1 id="Zotero-6"><a href="#Zotero-6" class="headerlink" title="Zotero 6"></a>Zotero 6</h1><p>Zotero已经用了有大概四五年的时间了吧，一直都是用到Zotero 6的版本。<br>说一下我常用的插件</p>
+<ul>
+<li>zotero-night： <a target="_blank" rel="noopener" href="https://github.com/tefkah/zotero-night">https://github.com/tefkah/zotero-night</a><ul>
+<li>night model, 感觉白色太刺眼了了</li>
+<li>Zotero 7 版本已经原生支持Dark模式了，所以在7中，也不再使用。</li>
+</ul>
+</li>
+<li>Zotfile： <a target="_blank" rel="noopener" href="https://github.com/jlegewie/zotfile">https://github.com/jlegewie/zotfile</a><ul>
+<li>文献库中的文章PDF会默认保存在<code>C:\Users\cosmi\Zotero\storage</code>,利用Zotero的云存储同步的时候会一起上传上去，让本就不大的云存储空间雪上加霜。利用主要ZotFile把加入的文章能进行Move and Rename。</li>
+<li>我选将PDFMove到<code>D:\Document\EResource\aPaperReading</code>,然后利用坚果云对这个文件夹进行云存储同步。</li>
+<li>Zotero的云同步只会同步一个类似于“超链接”的东西，在Zotero打开Item的时候，自动根据这个超链接去索引PDF。这样可以有效利用Zotero的云存储的5GB空间。</li>
+<li>不再支持Zotero 7，<a target="_blank" rel="noopener" href="https://zotero-chinese.com/plugins/deprecated">https://zotero-chinese.com/plugins/deprecated</a></li>
+</ul>
+</li>
+<li>Zotero-style： <a target="_blank" rel="noopener" href="https://github.com/MuiseDestiny/zotero-style">https://github.com/MuiseDestiny/zotero-style</a><ul>
+<li>功能很多。</li>
+<li>最喜欢跟EasyScholar联动的“期刊标签”功能。</li>
+<li>阅读进度。</li>
+<li>有个缺点是功能太多了，学习成本很高，并且也会拖累Zotero的运行速度。</li>
+<li>在Zotero 7中，会很大拖累运行速度，并且现在又很多BUG，我遇到了列宽和列序会在重开软件后会自己跳变，类似的<a target="_blank" rel="noopener" href="https://github.com/MuiseDestiny/zotero-style/issues/1275">Issues</a>看到了很多，所以在7中也没有使用该插件。</li>
+</ul>
+</li>
+<li>ZoteroIF： <a target="_blank" rel="noopener" href="https://github.com/qnscholar/zotero-if">https://github.com/qnscholar/zotero-if</a><ul>
+<li>使用Zotero对论文做标记本质上可能是“打标签”，并将数据保存在数据库中，并不是真正将标记写到PDF中。所以我用该插件将在Zotero中做的高亮等笔记，直接写进PDF中，从而完成对PDF的修改。</li>
+<li>该插件的最新版本(2025.10.04)目前还不能实现在Zetero7中将标记写入PDF。<a target="_blank" rel="noopener" href="https://github.com/qnscholar/zotero-if/issues/16">https://github.com/qnscholar/zotero-if/issues/16</a></li>
+</ul>
+</li>
+</ul>
+<h1 id="Zotero-7"><a href="#Zotero-7" class="headerlink" title="Zotero 7"></a>Zotero 7</h1><p>Zotero 7已经出来好久了，但因为最需要的Zotfile已经停止维护，不支持7版本的，所以对于7的升级，我一直没有提上日程。<br>最近打开Zotero，一直在提醒我升级到Zotero 7版本，起初我并没有理会，后来我查了一下大家的评价，网络上对其评价还不错，比老版本流畅了很多，所以我决定开始升级到7版本！</p>
+<h2 id="使用配置"><a href="#使用配置" class="headerlink" title="使用配置"></a>使用配置</h2><p>先说一下我的基本配置。我是登录的Zotero的账户，然后使用Zotero的云同步功能来进行多设备间同步。尽管其只有300M的云空间，但如果不同步PDF文件的话，我用了大概四五年也只有了20%的空间，本着“原厂”比“副厂”稳定的原则，我暂时还是先用的Zotero自己的云空间。后面如果需要的话，迁移到坚果云的WebDAV上也很方便！</p>
+<div class="group-image-container"><div class="group-image-row"><div class="group-image-wrap"><img src="https://murphyimg.oss-cn-beijing.aliyuncs.com/img/20251004191939331.png" srcset="https://murhyimgur.oss-cn-beijing.aliyuncs.com/website/loading.gif" lazyload alt="基础配置"></div><div class="group-image-wrap"><img src="https://murphyimg.oss-cn-beijing.aliyuncs.com/img/20251004191936522.png" srcset="https://murhyimgur.oss-cn-beijing.aliyuncs.com/website/loading.gif" lazyload alt="https://www.zotero.org/settings/storage"></div></div></div>
+
+<h2 id="插件配置"><a href="#插件配置" class="headerlink" title="插件配置"></a>插件配置</h2><h3 id="zotero-reading-list"><a href="#zotero-reading-list" class="headerlink" title="zotero-reading-list"></a>zotero-reading-list</h3><blockquote>
+<ul>
+<li><a target="_blank" rel="noopener" href="https://github.com/Dominic-DallOsto/zotero-reading-list">https://github.com/Dominic-DallOsto/zotero-reading-list</a></li>
+<li>之前在用的是Zotero自带的Tag, 现在用这个插件来标记论文的阅读状态。</li>
+</ul>
+</blockquote>
+<div class="group-image-container"><div class="group-image-row"><div class="group-image-wrap"><img src="https://murphyimg.oss-cn-beijing.aliyuncs.com/img/20251004192954536.png" srcset="https://murhyimgur.oss-cn-beijing.aliyuncs.com/website/loading.gif" lazyload alt="显示论文的阅读状态"></div><div class="group-image-wrap"><img src="https://murphyimg.oss-cn-beijing.aliyuncs.com/img/20251004192957453.png" srcset="https://murhyimgur.oss-cn-beijing.aliyuncs.com/website/loading.gif" lazyload alt="使用了默认配置"></div></div></div>
+
+<h3 id="Attanger"><a href="#Attanger" class="headerlink" title="Attanger"></a>Attanger</h3><blockquote>
+<ul>
+<li>代替Zotfile：<a target="_blank" rel="noopener" href="https://www.reddit.com/r/zotero/comments/1g947cd/zotfile_incompatible/">https://www.reddit.com/r/zotero/comments/1g947cd/zotfile_incompatible/</a></li>
+<li><a target="_blank" rel="noopener" href="https://github.com/wileyyugioh/zotmoov">wileyyugioh&#x2F;zotmoov: Zotero plugin to automatically move attachments and link them</a><ul>
+<li>没使用这个，不知道好不好用</li>
+</ul>
+</li>
+<li><a target="_blank" rel="noopener" href="https://github.com/MuiseDestiny/zotero-attanger">MuiseDestiny&#x2F;zotero-attanger: Attachment Manager for Zotero</a><ul>
+<li>我选择了Attanger✅</li>
+</ul>
+</li>
+</ul>
+</blockquote>
+<p>我采用的重命名规则</p>
+<figure class="highlight markdown"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><code class="hljs markdown">&#123;&#123; year suffix=&quot;-&quot; &#125;&#125;<br>&#123;&#123; shortTitle suffix=&quot;-&quot; &#125;&#125;<br>&#123;&#123; authors name=&quot;given-family&quot; initialize=&quot;given&quot;max=&quot;1&quot; suffix=&quot;-&quot; &#125;&#125;<br>&#123;&#123; title truncate=&quot;50&quot; suffix=&quot;-&quot; &#125;&#125;<br>&#123;&#123;publisher suffix=&quot;-&quot; &#125;&#125;<br>&#123;&#123;publicationTitle&#125;&#125;<br></code></pre></td></tr></table></figure>
+<div class="group-image-container"><div class="group-image-row"><div class="group-image-wrap"><img src="https://murphyimg.oss-cn-beijing.aliyuncs.com/img/20251004194827800.png" srcset="https://murhyimgur.oss-cn-beijing.aliyuncs.com/website/loading.gif" lazyload alt="Attanger配置"></div><div class="group-image-wrap"><img src="https://murphyimg.oss-cn-beijing.aliyuncs.com/img/20251004193802772.png" srcset="https://murhyimgur.oss-cn-beijing.aliyuncs.com/website/loading.gif" lazyload alt="重命名效果参考"></div><div class="group-image-wrap"><img src="https://murphyimg.oss-cn-beijing.aliyuncs.com/img/20251004193917868.png" srcset="https://murhyimgur.oss-cn-beijing.aliyuncs.com/website/loading.gif" lazyload alt="分类参考"></div><div class="group-image-wrap"><img src="https://murphyimg.oss-cn-beijing.aliyuncs.com/img/20251004194029000.png" srcset="https://murhyimgur.oss-cn-beijing.aliyuncs.com/website/loading.gif" lazyload alt="效果参考"></div></div></div>
+
+<h3 id="zotero-ccf-info"><a href="#zotero-ccf-info" class="headerlink" title="zotero-ccf-info"></a>zotero-ccf-info</h3><blockquote>
+<ul>
+<li><a target="_blank" rel="noopener" href="https://github.com/TimeTrapzz/zotero-ccf-info#readme">TimeTrapzz&#x2F;zotero-ccf-info: Zotero plugin for quick access to paper CCF rating, conference&#x2F;journal, and citation count.</a></li>
+<li>没有了Style的“期刊标签”，我选择了这个插件了。虽然只有CCF，但对我来说也差不多够了。</li>
+<li>通用是也提供了引用数的功能。</li>
+</ul>
+</blockquote>
+<h3 id="Better-Notes-for-Zotero"><a href="#Better-Notes-for-Zotero" class="headerlink" title="Better Notes for Zotero"></a>Better Notes for Zotero</h3><blockquote>
+<ul>
+<li><a target="_blank" rel="noopener" href="https://github.com/windingwind/zotero-better-notes">windingwind&#x2F;zotero-better-notes: Everything about note management. All in Zotero.</a></li>
+<li>对我来说还是轻微的写写画画，我主要还是在用飞书云文档来整理论文笔记。</li>
+</ul>
+</blockquote>
+<h3 id="Zoplicate"><a href="#Zoplicate" class="headerlink" title="Zoplicate"></a>Zoplicate</h3><blockquote>
+<ul>
+<li>Detect and manage duplicate items in Zotero.</li>
+<li><a target="_blank" rel="noopener" href="https://github.com/ChenglongMa/zoplicate">ChenglongMa&#x2F;zoplicate: A plugin that does one thing only: Detect and manage duplicate items in Zotero.</a></li>
+<li>管理重复添加的论文。</li>
+</ul>
+</blockquote>
+<h3 id="Awesome-GPT"><a href="#Awesome-GPT" class="headerlink" title="Awesome GPT"></a>Awesome GPT</h3><blockquote>
+<ul>
+<li>GPT for Zotero</li>
+<li><a target="_blank" rel="noopener" href="https://github.com/MuiseDestiny/zotero-gpt">MuiseDestiny&#x2F;zotero-gpt: GPT Meet Zotero.</a></li>
+<li>Style作者</li>
+</ul>
+</blockquote>
+<ul>
+<li>【三步教你部署本地大模型 Llama3，运行在 Zotero GPT 上】 <a target="_blank" rel="noopener" href="https://www.bilibili.com/video/BV1Wt421A7SD/?share_source=copy_web&vd_source=cb8ca20bb2f448c45637301044049930">https://www.bilibili.com/video/BV1Wt421A7SD/?share_source=copy_web&amp;vd_source=cb8ca20bb2f448c45637301044049930</a></li>
+</ul>
+<p>我在服务器上部署了Ollama和API服务，详细请看：<a href="https://blog.cosmicdusty.cc/post/Tools/Ollama/">Ollama - CosmicDusty-Blog</a></p>
+
+                
+              </div>
+            
+            <hr/>
+            <div>
+              <div class="post-metas my-3">
+  
+    <div class="post-meta mr-3 d-flex align-items-center">
+      <i class="iconfont icon-category"></i>
+      
+
+<span class="category-chains">
+  
+  
+    
+      <span class="category-chain">
+        
+  <a href="/categories/%E9%AB%98%E6%95%88%E5%B7%A5%E5%85%B7/" class="category-chain-item">高效工具</a>
+  
+  
+
+      </span>
+    
+  
+</span>
+
+    </div>
+  
+  
+    <div class="post-meta">
+      <i class="iconfont icon-tags"></i>
+      
+        <a href="/tags/Paper/" class="print-no-link">#Paper</a>
+      
+    </div>
+  
+</div>
+
+
+              
+  
+
+  <div class="license-box my-3">
+    <div class="license-title">
+      <div>New Zotero 7</div>
+      <div>https://blog.cosmicdusty.cc/post/Tools/Zotero7/</div>
+    </div>
+    <div class="license-meta">
+      
+        <div class="license-meta-item">
+          <div>作者</div>
+          <div>Murphy</div>
+        </div>
+      
+      
+        <div class="license-meta-item license-meta-date">
+          <div>发布于</div>
+          <div>2025年10月2日</div>
+        </div>
+      
+      
+      
+        <div class="license-meta-item">
+          <div>许可协议</div>
+          <div>
+            
+              
+              
+                <a class="print-no-link" target="_blank" href="https://creativecommons.org/licenses/by/4.0/">
+                  <span class="hint--top hint--rounded" aria-label="BY - 署名">
+                    <i class="iconfont icon-cc-by"></i>
+                  </span>
+                </a>
+              
+            
+          </div>
+        </div>
+      
+    </div>
+    <div class="license-icon iconfont"></div>
+  </div>
+
+
+
+              
+                <div class="post-prevnext my-3">
+                  <article class="post-prev col-6">
+                    
+                    
+                      <a href="/post/Tools/Ollama/" title="Ollama">
+                        <i class="iconfont icon-arrowleft"></i>
+                        <span class="hidden-mobile">Ollama</span>
+                        <span class="visible-mobile">上一篇</span>
+                      </a>
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/post/Tools/AI-Assitant/" title="AI Assitant">
+                        <span class="hidden-mobile">AI Assitant</span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+  
+  
+    <article id="comments" lazyload>
+      
+  <div id="valine"></div>
+  <script type="text/javascript">
+    Fluid.utils.loadComments('#valine', function() {
+      Fluid.utils.createScript('https://lib.baomitu.com/valine/1.5.1/Valine.min.js', function() {
+        var options = Object.assign(
+          {"appId":"JijHNKemeVNog4wF7g9I5TR3-gzGzoHsz","appKey":"FvsKdxHOP2aG5rHrHby5aV0b","path":"window.location.pathname","placeholder":null,"avatar":"retro","meta":["nick","mail","link"],"requiredFields":[],"pageSize":10,"lang":"zh-CN","highlight":false,"recordIP":false,"serverURLs":"","emojiCDN":null,"emojiMaps":null,"enableQQ":false},
+          {
+            el: "#valine",
+            path: window.location.pathname
+          }
+        )
+        new Valine(options);
+        Fluid.utils.waitElementVisible('#valine .vcontent', () => {
+          var imgSelector = '#valine .vcontent img:not(.vemoji)';
+          Fluid.plugins.imageCaption(imgSelector);
+          Fluid.plugins.fancyBox(imgSelector);
+        })
+      });
+    });
+  </script>
+  <noscript>Please enable JavaScript to view the comments</noscript>
+
+
+    </article>
+  
+
+
+          </article>
+        </div>
+      </div>
+    </div>
+
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+  <aside class="sidebar" style="margin-left: -1rem">
+    <div id="toc">
+  <p class="toc-header">
+    <i class="iconfont icon-list"></i>
+    <span>目录</span>
+  </p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+
+
+  </aside>
+
+
+    </div>
+  </div>
+</div>
+
+
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+
+
+
+
+    
+
+    
+      <a id="scroll-top-button" aria-label="TOP" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v" for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+    
+
+    
+  </main>
+
+  <footer>
+    <div class="footer-inner">
+  
+    <div class="footer-content">
+       <a rel="nofollow noopener"><span>Powered by</span></a> <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span><b>Hexo</b></span></a> <i class="iconfont icon-love"></i> <a rel="nofollow noopener"><span>Themed by</span></a> <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"><span><b>Fluid</b></span></a> 
+    </div>
+  
+  
+    <div class="statistics">
+  
+  
+
+  
+    
+      <span id="busuanzi_container_site_pv" style="display: none">
+        总访问量
+        <span id="busuanzi_value_site_pv"></span>
+        次
+      </span>
+    
+    
+      <span id="busuanzi_container_site_uv" style="display: none">
+        总访客数
+        <span id="busuanzi_value_site_uv"></span>
+        人
+      </span>
+    
+    
+
+  
+
+</div>
+
+  
+  
+</div>
+
+  </footer>
+
+  <!-- Scripts -->
+  
+  <script  src="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://lib.baomitu.com/jquery/3.6.0/jquery.min.js" ></script>
+<script  src="https://lib.baomitu.com/twitter-bootstrap/4.6.1/js/bootstrap.min.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
+
+
+  <script  src="https://lib.baomitu.com/typed.js/2.0.12/typed.min.js" ></script>
+  <script>
+    (function (window, document) {
+      var typing = Fluid.plugins.typing;
+      var subtitle = document.getElementById('subtitle');
+      if (!subtitle || !typing) {
+        return;
+      }
+      var text = subtitle.getAttribute('data-typed-text');
+      
+        typing(text);
+      
+    })(window, document);
+  </script>
+
+
+
+
+  
+    <script  src="/js/img-lazyload.js" ></script>
+  
+
+
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/tocbot/4.18.2/tocbot.min.js', function() {
+    var toc = jQuery('#toc');
+    if (toc.length === 0 || !window.tocbot) { return; }
+    var boardCtn = jQuery('#board-ctn');
+    var boardTop = boardCtn.offset().top;
+
+    window.tocbot.init(Object.assign({
+      tocSelector     : '#toc-body',
+      contentSelector : '.markdown-body',
+      linkClass       : 'tocbot-link',
+      activeLinkClass : 'tocbot-active-link',
+      listClass       : 'tocbot-list',
+      isCollapsedClass: 'tocbot-is-collapsed',
+      collapsibleClass: 'tocbot-is-collapsible',
+      scrollSmooth    : true,
+      includeTitleTags: true,
+      headingsOffset  : -boardTop,
+    }, CONFIG.toc));
+    if (toc.find('.toc-list-item').length > 0) {
+      toc.css('visibility', 'visible');
+    }
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('tocbot' in window) {
+        tocbot.refresh();
+        var toc = jQuery('#toc');
+        if (toc.length === 0 || !tocbot) {
+          return;
+        }
+        if (toc.find('.toc-list-item').length > 0) {
+          toc.css('visibility', 'visible');
+        }
+      }
+    });
+  });
+</script>
+
+
+  <script src=https://lib.baomitu.com/clipboard.js/2.0.11/clipboard.min.js></script>
+
+  <script>Fluid.plugins.codeWidget();</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/anchor-js/4.3.1/anchor.min.js', function() {
+    window.anchors.options = {
+      placement: CONFIG.anchorjs.placement,
+      visible  : CONFIG.anchorjs.visible
+    };
+    if (CONFIG.anchorjs.icon) {
+      window.anchors.options.icon = CONFIG.anchorjs.icon;
+    }
+    var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+    var res = [];
+    for (var item of el) {
+      res.push('.markdown-body > ' + item.trim());
+    }
+    if (CONFIG.anchorjs.placement === 'left') {
+      window.anchors.options.class = 'anchorjs-link-left';
+    }
+    window.anchors.add(res.join(', '));
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('anchors' in window) {
+        anchors.removeAll();
+        var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+        var res = [];
+        for (var item of el) {
+          res.push('.markdown-body > ' + item.trim());
+        }
+        if (CONFIG.anchorjs.placement === 'left') {
+          anchors.options.class = 'anchorjs-link-left';
+        }
+        anchors.add(res.join(', '));
+      }
+    });
+  });
+</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.js', function() {
+    Fluid.plugins.fancyBox();
+  });
+</script>
+
+
+  <script>Fluid.plugins.imageCaption();</script>
+
+  <script defer src="/js/leancloud.js" ></script>
+
+  <script  src="/js/local-search.js" ></script>
+
+  <script defer src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js" ></script>
+
+
+
+
+
+<!-- 主题的启动项，将它保持在最底部 -->
+<!-- the boot of the theme, keep it at the bottom -->
+<script  src="/js/boot.js" ></script>
+
+
+  
+
+  <noscript>
+    <div class="noscript-warning">博客在允许 JavaScript 运行的环境下浏览效果更佳</div>
+  </noscript>
+</body>
+</html>
