@@ -28,7 +28,7 @@
 <meta property="og:locale" content="zh_CN">
 <meta property="og:image" content="https://murhyimgur.oss-cn-beijing.aliyuncs.com/img/github-logo.jpeg">
 <meta property="article:published_time" content="2023-12-10T00:44:45.000Z">
-<meta property="article:modified_time" content="2025-05-31T05:06:27.050Z">
+<meta property="article:modified_time" content="2025-10-06T08:11:19.786Z">
 <meta property="article:author" content="Murphy">
 <meta property="article:tag" content="GithubPages">
 <meta name="twitter:card" content="summary_large_image">
@@ -270,7 +270,7 @@
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          505 字
+          2.5k 字
         
       </span>
     
@@ -281,7 +281,7 @@
         
         
         
-          5 分钟
+          21 分钟
         
       </span>
     
@@ -326,6 +326,7 @@
                 <h1 id="Git-Github"><a href="#Git-Github" class="headerlink" title="Git &amp; Github"></a>Git &amp; Github</h1><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs bash">(base) PS C:\Users\NPU481&gt; git -v<br>git version 2.42.0.windows.2<br></code></pre></td></tr></table></figure>
 
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><code class="hljs bash">(base) PS C:\Users\NPU481&gt; git config --global user.name murphyhoucn<br>(base) PS C:\Users\NPU481&gt; git config --global user.email cosmicdustycn@outlook.com<br>(base) PS C:\Users\NPU481&gt; git config user.name<br>murphyhoucn<br>(base) PS C:\Users\NPU481&gt; git config user.email<br>cosmicdustycn@outlook.com<br><br>(base) PS C:\Users\NPU481&gt; git config --global  --list<br>(base) PS C:\Users\NPU481&gt; git config --system  --list<br>(base) PS C:\Users\NPU481&gt; git config --<span class="hljs-built_in">local</span>  --list<br><br>(base) PS C:\Users\NPU481&gt; ssh-keygen -t rsa -C <span class="hljs-string">&quot;cosmicdustycn@outlook.com&quot;</span><br><br>(base) PS C:\Users\NPU481&gt; ssh -T git@github.com<br>The authenticity of host <span class="hljs-string">&#x27;github.com (20.205.243.166)&#x27;</span> can<span class="hljs-string">&#x27;t be established.</span><br><span class="hljs-string">ECDSA key fingerprint is SHA256:p2QAMXNIC1TJYWeIOttrVc98/R1BUFWu3/LiyKgUfQM.</span><br><span class="hljs-string">Are you sure you want to continue connecting (yes/no/[fingerprint])? yes</span><br><span class="hljs-string">Warning: Permanently added &#x27;</span>github.com,20.205.243.166<span class="hljs-string">&#x27; (ECDSA) to the list of known hosts.</span><br><span class="hljs-string">Hi murphyhoucn! You&#x27;</span>ve successfully authenticated, but GitHub does not provide shell access.<br></code></pre></td></tr></table></figure>
+
 <h1 id="NodeJS"><a href="#NodeJS" class="headerlink" title="NodeJS"></a>NodeJS</h1><p><code>以管理员身份运行Terminal</code></p>
 <h2 id="安装与配置"><a href="#安装与配置" class="headerlink" title="安装与配置"></a>安装与配置</h2><blockquote>
 <p><a target="_blank" rel="noopener" href="https://blog.csdn.net/qq_42006801/article/details/124830995">Node.js安装与配置（详细步骤）_nodejs安装及环境配置-CSDN博客</a></p>
@@ -340,6 +341,290 @@
 <p><a target="_blank" rel="noopener" href="https://blog.csdn.net/qq_40738764/article/details/134263735">在Windows命令提示符（cmd）中设置代理的方法（可解决 git &#x2F; pip 等指令网络请求失败的情况）_cmd 代理-CSDN博客</a></p>
 <h2 id="安装hexo"><a href="#安装hexo" class="headerlink" title="安装hexo"></a>安装hexo</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br></pre></td><td class="code"><pre><code class="hljs bash">(base) PS D:\Github\murphyhoucn\murphuhoucn.github.io&gt; npm install -g hexo-cli<br><br>added 54 packages <span class="hljs-keyword">in</span> 5s<br><br>(base) PS D:\Github\murphyhoucn\murphuhoucn.github.io&gt; hexo -v<br>hexo-cli: 4.3.1<br>os: win32 10.0.19045<br>node: 20.10.0<br>acorn: 8.10.0<br>ada: 2.7.2<br>ares: 1.20.1<br><span class="hljs-built_in">base64</span>: 0.5.0<br>brotli: 1.0.9<br>cjs_module_lexer: 1.2.2<br>cldr: 43.1<br>icu: 73.2<br>llhttp: 8.1.1<br>modules: 115<br>napi: 9<br>nghttp2: 1.57.0<br>nghttp3: 0.7.0<br>ngtcp2: 0.8.1<br>openssl: 3.0.12+quic<br>simdutf: 3.2.18<br>tz: 2023c<br>undici: 5.26.4<br>unicode: 15.0<br>uv: 1.46.0<br>uvwasi: 0.0.19<br>v8: 11.3.244.8-node.25<br>zlib: 1.2.13.1-motley<br></code></pre></td></tr></table></figure>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">(base) PS D:\Github\murphyhoucn\murphuhoucn.github.io&gt;npm install hexo-deployer-git --save<br></code></pre></td></tr></table></figure>
+
+
+<h1 id="NodeJS-v-s-npm"><a href="#NodeJS-v-s-npm" class="headerlink" title="NodeJS v.s. npm"></a>NodeJS v.s. npm</h1><p><strong>Node.js 是一个能让 JavaScript 在服务器上运行的环境；npm 是这个环境的“应用商店”，用来管理你项目中需要用到的各种工具库（包）。</strong></p>
+<h2 id="1-Node-js-通常简称为-Node"><a href="#1-Node-js-通常简称为-Node" class="headerlink" title="1. Node.js (通常简称为 Node)"></a>1. Node.js (通常简称为 Node)</h2><ul>
+<li><strong>全称</strong>：Node.js</li>
+<li><strong>本质</strong>：一个 JavaScript **运行时环境 (Runtime Environment)**。</li>
+<li><strong>作用</strong>：在 Node.js 出现之前，JavaScript 只能运行在浏览器中，主要用来做网页的交互效果。Node.js 的诞生打破了这个限制，它把 Google Chrome 浏览器中强大的 V8 JavaScript 引擎拿了出来，让 JavaScript 可以直接在任何计算机或服务器的操作系统上运行。</li>
+<li><strong>结果</strong>：这使得开发者可以使用 JavaScript 这一门语言来编写<strong>后端服务</strong>，比如开发网站的 API 接口、操作数据库、读写文件、构建实时聊天应用等等，实现了“全栈开发”。</li>
+<li><strong>如何使用</strong>：你安装好 Node.js 后，就可以在终端（命令行工具）中使用 <code>node</code> 命令来执行一个 <code>.js</code> 文件。<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs bash"><span class="hljs-comment"># 运行一个名为 app.js 的文件</span><br>node app.js<br></code></pre></td></tr></table></figure></li>
+</ul>
+<h2 id="2-npm-Node-Package-Manager"><a href="#2-npm-Node-Package-Manager" class="headerlink" title="2. npm (Node Package Manager)"></a>2. npm (Node Package Manager)</h2><ul>
+<li><strong>全称</strong>：Node Package Manager</li>
+<li><strong>本质</strong>：Node.js 的<strong>官方包管理器</strong>。</li>
+<li><strong>作用</strong>：npm 有两个核心功能：<ol>
+<li><strong>一个命令行工具 (<code>npm</code>)<strong>：当你安装 Node.js 时，npm 会被</strong>自动一起安装</strong>。你可以用它来安装、卸载、更新和管理项目所依赖的各种第三方代码库（这些库被称为“包”或“模块”）。</li>
+<li>**一个在线代码仓库 (npm Registry)**：这是世界上最大的软件注册表，网址是 <a target="_blank" rel="noopener" href="https://www.npmjs.com/">npmjs.com</a>。全世界的开发者都把他们编写的可重用代码包上传到这里，供其他人下载使用。</li>
+</ol>
+</li>
+<li><strong>为什么需要它</strong>：在开发复杂的应用时，你不可能所有功能都从零开始写。比如，你需要开发一个网站服务器，你不需要自己去写底层的网络请求处理逻辑，可以直接使用社区里最流行的 <code>Express</code> 包。</li>
+<li><strong>如何使用</strong>：通过 <code>npm</code> 命令来管理这些包。<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><code class="hljs bash"><span class="hljs-comment"># 初始化一个新项目，会生成一个 package.json 文件来记录项目信息和依赖</span><br>npm init<br><br><span class="hljs-comment"># 安装一个名为 express 的包，并将其记录到 package.json</span><br>npm install express<br><br><span class="hljs-comment"># 卸载一个包</span><br>npm uninstall express<br></code></pre></td></tr></table></figure></li>
+</ul>
+<h2 id="关系总结"><a href="#关系总结" class="headerlink" title="关系总结"></a>关系总结</h2><ol>
+<li><strong>从属关系</strong>：<strong>npm 是伴随 Node.js 而生的，是 Node.js 生态系统的一部分</strong>。当你安装 Node.js 时，就自动获得了 npm。</li>
+<li><strong>协作关系</strong>：<strong>Node.js 提供了运行环境，npm 负责管理在这个环境中运行的代码包</strong>。</li>
+<li><strong>工作流程</strong>：<ul>
+<li>你先安装 <strong>Node.js</strong>，获得在服务器上运行 JavaScript 的能力。</li>
+<li>然后在一个项目中，通过 <strong>npm</strong> 工具从 npm Registry 下载你需要的各种第三方包（比如 <code>Express</code> 框架、<code>lodash</code> 工具库等）。</li>
+<li>最后，你编写自己的业务逻辑代码，并通过 <code>node</code> 命令来执行整个项目。<table>
+<thead>
+<tr>
+<th align="left">特性</th>
+<th align="left">Node.js (Node)</th>
+<th align="left">npm</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="left"><strong>全称</strong></td>
+<td align="left">Node.js</td>
+<td align="left">Node Package Manager</td>
+</tr>
+<tr>
+<td align="left"><strong>角色</strong></td>
+<td align="left">JavaScript 运行时环境</td>
+<td align="left">Node.js 的包管理器</td>
+</tr>
+<tr>
+<td align="left"><strong>比喻</strong></td>
+<td align="left">厨房（提供了运行的基础设施）</td>
+<td align="left">食材供应商和仓库管理员</td>
+</tr>
+<tr>
+<td align="left"><strong>核心功能</strong></td>
+<td align="left">让 JavaScript 脱离浏览器在服务器端运行</td>
+<td align="left">下载、安装、管理项目依赖的第三方代码包</td>
+</tr>
+<tr>
+<td align="left"><strong>如何获得</strong></td>
+<td align="left">从官网下载安装</td>
+<td align="left"><strong>安装 Node.js 时会自动附带安装</strong></td>
+</tr>
+<tr>
+<td align="left"><strong>常用命令</strong></td>
+<td align="left"><code>node &lt;文件名&gt;.js</code></td>
+<td align="left"><code>npm install &lt;包名&gt;</code>, <code>npm init</code>, <code>npm start</code></td>
+</tr>
+</tbody></table>
+</li>
+</ul>
+</li>
+</ol>
+<p>简单来说，它们是一对密不可分的组合，共同构成了强大而繁荣的现代 JavaScript 后端开发生态。</p>
+<h2 id="Node-js-node-常用命令"><a href="#Node-js-node-常用命令" class="headerlink" title="Node.js (node) 常用命令"></a>Node.js (<code>node</code>) 常用命令</h2><p><code>node</code> 命令本身相对简单，主要用于执行脚本和启动交互式环境。</p>
+<table>
+<thead>
+<tr>
+<th align="left">命令</th>
+<th align="left">作用</th>
+<th align="left">示例</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="left"><code>node [文件名]</code></td>
+<td align="left"><strong>执行一个 JavaScript 文件</strong>。这是最核心、最常用的命令。</td>
+<td align="left"><code>node app.js</code></td>
+</tr>
+<tr>
+<td align="left"><code>node</code></td>
+<td align="left">进入 <strong>REPL</strong> (Read-Eval-Print-Loop) 交互式环境。你可以在这个环境里输入任何 JS 代码并立即看到结果，非常适合快速测试和学习。</td>
+<td align="left"><code>node</code> (然后输入 <code>1+1</code>，会立即返回 <code>2</code>)</td>
+</tr>
+<tr>
+<td align="left"><code>node -v</code> 或 <code>node --version</code></td>
+<td align="left">查看当前安装的 Node.js 的<strong>版本号</strong>。</td>
+<td align="left"><code>node -v</code></td>
+</tr>
+<tr>
+<td align="left"><code>node -e &quot;[代码]&quot;</code> 或 <code>node --eval=&quot;[代码]&quot;</code></td>
+<td align="left">直接在命令行中执行一段 JavaScript 字符串代码。</td>
+<td align="left"><code>node -e &quot;console.log(1+1)&quot;</code></td>
+</tr>
+<tr>
+<td align="left"><code>node --check [文件名]</code></td>
+<td align="left">检查一个 JS 文件的语法是否正确，但不会执行它。</td>
+<td align="left"><code>node --check app.js</code></td>
+</tr>
+</tbody></table>
+<hr>
+<h3 id="npm-Node-Package-Manager-常用命令"><a href="#npm-Node-Package-Manager-常用命令" class="headerlink" title="npm (Node Package Manager) 常用命令"></a>npm (Node Package Manager) 常用命令</h3><p>npm 的命令要丰富得多，主要围绕项目管理和包（依赖）管理。</p>
+<h4 id="1-项目初始化"><a href="#1-项目初始化" class="headerlink" title="1. 项目初始化"></a>1. 项目初始化</h4><table>
+<thead>
+<tr>
+<th align="left">命令</th>
+<th align="left">别名</th>
+<th align="left">作用</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="left"><code>npm init</code></td>
+<td align="left"></td>
+<td align="left">在当前文件夹下创建一个 <code>package.json</code> 文件。它会通过问答的方式让你输入项目名称、版本等信息。</td>
+</tr>
+<tr>
+<td align="left"><code>npm init -y</code></td>
+<td align="left"></td>
+<td align="left">快速创建 <code>package.json</code> 文件，所有选项都使用默认值，跳过问答环节。</td>
+</tr>
+</tbody></table>
+<h4 id="2-安装依赖-Packages"><a href="#2-安装依赖-Packages" class="headerlink" title="2. 安装依赖 (Packages)"></a>2. 安装依赖 (Packages)</h4><p>这是 npm 最核心的功能。</p>
+<table>
+<thead>
+<tr>
+<th align="left">命令</th>
+<th align="left">别名</th>
+<th align="left">作用</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="left"><code>npm install</code></td>
+<td align="left"><code>npm i</code></td>
+<td align="left"><strong>安装 <code>package.json</code> 文件中 <code>dependencies</code> 和 <code>devDependencies</code> 里的所有依赖包</strong>。通常在拿到一个新项目后，首先执行此命令。</td>
+</tr>
+<tr>
+<td align="left"><code>npm install &lt;包名&gt;</code></td>
+<td align="left"><code>npm i &lt;包名&gt;</code></td>
+<td align="left">安装指定的包，并默认将其添加到 <code>package.json</code> 的 <code>dependencies</code> 中。这是<strong>生产环境</strong>需要的依赖。</td>
+</tr>
+<tr>
+<td align="left"><code>npm install &lt;包名&gt; --save-dev</code></td>
+<td align="left"><code>npm i &lt;包名&gt; -D</code></td>
+<td align="left">安装指定的包，并将其添加到 <code>package.json</code> 的 <code>devDependencies</code> 中。这是<strong>开发环境</strong>需要的依赖（如测试工具、打包工具）。</td>
+</tr>
+<tr>
+<td align="left"><code>npm install &lt;包名&gt;@&lt;版本号&gt;</code></td>
+<td align="left"><code>npm i &lt;包名&gt;@&lt;版本号&gt;</code></td>
+<td align="left">安装指定版本的包。</td>
+</tr>
+<tr>
+<td align="left"><code>npm install &lt;包名&gt; --global</code></td>
+<td align="left"><code>npm i &lt;包名&gt; -g</code></td>
+<td align="left"><strong>全局安装</strong>一个包。这种包通常是命令行工具（如 <code>nodemon</code>, <code>http-server</code>），安装后可以在任何地方直接使用其命令。</td>
+</tr>
+</tbody></table>
+<h4 id="3-卸载和更新依赖"><a href="#3-卸载和更新依赖" class="headerlink" title="3. 卸载和更新依赖"></a>3. 卸载和更新依赖</h4><table>
+<thead>
+<tr>
+<th align="left">命令</th>
+<th align="left">别名</th>
+<th align="left">作用</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="left"><code>npm uninstall &lt;包名&gt;</code></td>
+<td align="left"><code>npm un &lt;包名&gt;</code></td>
+<td align="left">卸载一个包，并将其从 <code>package.json</code> 中移除。</td>
+</tr>
+<tr>
+<td align="left"><code>npm update</code></td>
+<td align="left"></td>
+<td align="left">根据 <code>package.json</code> 中指定的版本规则，将所有依赖更新到最新的兼容版本。</td>
+</tr>
+<tr>
+<td align="left"><code>npm update &lt;包名&gt;</code></td>
+<td align="left"></td>
+<td align="left">更新指定的单个包。</td>
+</tr>
+</tbody></table>
+<h4 id="4-查看依赖信息"><a href="#4-查看依赖信息" class="headerlink" title="4. 查看依赖信息"></a>4. 查看依赖信息</h4><table>
+<thead>
+<tr>
+<th align="left">命令</th>
+<th align="left">别名</th>
+<th align="left">作用</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="left"><code>npm list</code></td>
+<td align="left"><code>npm ls</code></td>
+<td align="left">以树状结构列出当前项目安装的所有依赖包。</td>
+</tr>
+<tr>
+<td align="left"><code>npm list -g</code></td>
+<td align="left"><code>npm ls -g</code></td>
+<td align="left">列出所有全局安装的包。</td>
+</tr>
+<tr>
+<td align="left"><code>npm list --depth=0</code></td>
+<td align="left"><code>npm ls --depth=0</code></td>
+<td align="left">只列出顶层依赖，不展示依赖的依赖。</td>
+</tr>
+<tr>
+<td align="left"><code>npm outdated</code></td>
+<td align="left"></td>
+<td align="left">检查当前项目的依赖是否有可用的新版本，非常有用。</td>
+</tr>
+<tr>
+<td align="left"><code>npm view &lt;包名&gt; version</code></td>
+<td align="left"></td>
+<td align="left">查看某个包在 npm 仓库中最新的版本号。</td>
+</tr>
+<tr>
+<td align="left"><code>npm view &lt;包名&gt; versions</code></td>
+<td align="left"></td>
+<td align="left">查看某个包在 npm 仓库中所有的历史版本。</td>
+</tr>
+</tbody></table>
+<h4 id="5-运行脚本"><a href="#5-运行脚本" class="headerlink" title="5. 运行脚本"></a>5. 运行脚本</h4><p><code>package.json</code> 文件中有一个 <code>scripts</code> 字段，可以定义一些快捷命令。</p>
+<table>
+<thead>
+<tr>
+<th align="left">命令</th>
+<th align="left">作用</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="left"><code>npm start</code></td>
+<td align="left">执行 <code>scripts</code> 中名为 <code>start</code> 的命令。通常用于启动项目。</td>
+</tr>
+<tr>
+<td align="left"><code>npm test</code></td>
+<td align="left">执行 <code>scripts</code> 中名为 <code>test</code> 的命令。通常用于运行测试。</td>
+</tr>
+<tr>
+<td align="left"><code>npm run &lt;脚本名&gt;</code></td>
+<td align="left"><strong>执行 <code>scripts</code> 中任意自定义名称的命令</strong>。这是最灵活、最常用的运行脚本方式。</td>
+</tr>
+<tr>
+<td align="left"><code>npm run</code></td>
+<td align="left">列出 <code>package.json</code> 中所有可用的 <code>scripts</code> 命令。</td>
+</tr>
+</tbody></table>
+<h4 id="6-其他常用命令"><a href="#6-其他常用命令" class="headerlink" title="6. 其他常用命令"></a>6. 其他常用命令</h4><table>
+<thead>
+<tr>
+<th align="left">命令</th>
+<th align="left">作用</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="left"><code>npm -v</code></td>
+<td align="left">查看 npm 自身的版本号。</td>
+</tr>
+<tr>
+<td align="left"><code>npm config list</code></td>
+<td align="left">查看 npm 的所有配置信息。</td>
+</tr>
+<tr>
+<td align="left"><code>npm cache clean --force</code></td>
+<td align="left">强制清除 npm 的本地缓存。当遇到奇怪的安装问题时，可以尝试此命令。</td>
+</tr>
+<tr>
+<td align="left"><code>npx &lt;包名&gt;</code></td>
+<td align="left"><strong>执行一个包的命令</strong>。它会先检查本地 <code>node_modules</code> 中是否存在该包，如果不存在，则会临时下载并运行，运行结束后不保留。非常适合运行那些不常使用的脚手架工具。</td>
+</tr>
+</tbody></table>
+<h3 id="总结：日常开发最高频命令"><a href="#总结：日常开发最高频命令" class="headerlink" title="总结：日常开发最高频命令"></a>总结：日常开发最高频命令</h3><p>对于日常开发，你最需要记住的可能就是下面这几个：</p>
+<ol>
+<li><code>npm init -y</code>：开始一个新项目。</li>
+<li><code>npm install</code>：下载项目所有依赖。</li>
+<li><code>npm install &lt;包名&gt;</code>：添加新的生产依赖。</li>
+<li><code>npm install &lt;包名&gt; -D</code>：添加新的开发依赖。</li>
+<li><code>npm run &lt;脚本名&gt;</code>：运行在 <code>package.json</code> 中定义的各种任务（如启动、构建、测试）。</li>
+<li><code>npm uninstall &lt;包名&gt;</code>：移除不再需要的依赖。</li>
+<li><code>node app.js</code>：运行你的程序。</li>
+</ol>
 
                 
               </div>

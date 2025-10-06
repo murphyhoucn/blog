@@ -28,7 +28,7 @@
 <meta property="og:locale" content="zh_CN">
 <meta property="og:image" content="https://murphyimg.oss-cn-beijing.aliyuncs.com/img/ITX_Snipaste_2025-09-29_14-50-51.png">
 <meta property="article:published_time" content="2025-09-29T04:03:40.000Z">
-<meta property="article:modified_time" content="2025-09-29T06:56:18.343Z">
+<meta property="article:modified_time" content="2025-10-06T07:49:25.619Z">
 <meta property="article:author" content="Murphy">
 <meta property="article:tag" content="Code">
 <meta property="article:tag" content="LLM">
@@ -272,7 +272,7 @@
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          162 字
+          436 字
         
       </span>
     
@@ -283,7 +283,7 @@
         
         
         
-          2 分钟
+          4 分钟
         
       </span>
     
@@ -519,6 +519,32 @@
 <div class="note note-note">
             <ul><li>个人偏向使用VSCode较多，在插件支持上仅写了VSCode，对JetBrains及其他编辑器的支持未提及。</li><li><a target="_blank" rel="noopener" href="https://copilot.microsoft.com/">Microsoft Copilot</a>  和 <a target="_blank" rel="noopener" href="https://github.com/features/copilot">Github Copilot</a>不一样！<a target="_blank" rel="noopener" href="https://www.dev4side.com/en/blog/microsoft-copilot-vs-github-copilot">Microsoft Copilot VS. GitHub Copilot: What’s the difference?</a></li></ul>
           </div>
+
+
+
+<h1 id="My-Option"><a href="#My-Option" class="headerlink" title="My Option"></a>My Option</h1><h2 id="VSCode-Github-Copilot"><a href="#VSCode-Github-Copilot" class="headerlink" title="VSCode + Github Copilot"></a>VSCode + Github Copilot</h2><ul>
+<li>VSCode 是最常用的代码编辑器</li>
+<li>Github 通过了Edu 认证之后，能免费使用 Github Copilot Pro</li>
+</ul>
+<h2 id="Gemini-CLI"><a href="#Gemini-CLI" class="headerlink" title="Gemini CLI"></a>Gemini CLI</h2><ul>
+<li><a target="_blank" rel="noopener" href="https://github.com/google-gemini/gemini-cli">google-gemini&#x2F;gemini-cli: An open-source AI agent that brings the power of Gemini directly into your terminal.</a></li>
+</ul>
+<p>首先需要配置好NodeJS（Node.js version 20 or higher）的环境，参考：<a href="https://blog.cosmicdusty.cc/post/Tools/GithubPages/#NodeJS">GithubPages - CosmicDusty-Blog</a></p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs bash">(base) PS C:\Users\cosmi&gt; node -v<br>v22.16.0<br>(base) PS C:\Users\cosmi&gt; npm -v<br>10.9.2<br></code></pre></td></tr></table></figure>
+<p>Install globally with npm (Windwos Terminal需要以管理员权限打开，要不然没有权限是下载不了的)</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">npm install -g @google/gemini-cli<br></code></pre></td></tr></table></figure>
+
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs bash">(base) PS C:\Users\cosmi&gt; npm <span class="hljs-built_in">ls</span> -g<br>D:\DevEnv\nodejs\node_global<br>+-- @google/gemini-cli@0.7.0<br>`-- hexo-cli@4.3.2<br></code></pre></td></tr></table></figure>
+
+<p>Start Gemini CLI, then choose <em>Login with Google</em> and follow the browser authentication flow when prompted</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">gemini<br></code></pre></td></tr></table></figure>
+
+<p>在Windows系统中，会直接弹出Login with Google的网页，然后直接根据指引授权登录就行。需要注意的是整个URL是localhost, 所以需要Terminal中的命令要走网络代理。参考：<a target="_blank" rel="noopener" href="https://github.com/murphyhoucn/HandyShellScripts/tree/main/WinMeow">HandyShellScripts&#x2F;WinMeow at main · murphyhoucn&#x2F;HandyShellScripts</a></p>
+<p><img src="https://murphyimg.oss-cn-beijing.aliyuncs.com/img/20251006154140533.png" srcset="https://murhyimgur.oss-cn-beijing.aliyuncs.com/website/loading.gif" lazyload alt="Gemini CLI"></p>
+<p>Google 账户登录之后的授权文件在这个目录下</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><code class="hljs bash">(base) PS C:\Users\cosmi\.gemini&gt; <span class="hljs-built_in">ls</span><br>    目录: C:\Users\cosmi\.gemini<br>Mode                 LastWriteTime         Length Name<br>----                 -------------         ------ ----<br>d-----         2025/10/6     15:26                tmp<br>-a----         2025/10/6     15:26             54 google_accounts.json<br>-a----         2025/10/6     15:25             36 installation_id<br>-a----         2025/10/6     15:26           1796 oauth_creds.json<br>-a----         2025/10/6     15:24             82 settings.json<br></code></pre></td></tr></table></figure>
+
+<p>对于Linux (无GUI)环境的设备中，可以直接把<code>settings.json</code>和<code>oauth_creds.json</code>配置文件直接复制到<code>~/.gemini/</code>中，从而跳过登录环节。</p>
 
                 
               </div>
