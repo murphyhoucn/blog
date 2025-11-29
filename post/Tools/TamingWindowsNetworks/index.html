@@ -28,7 +28,7 @@
 <meta property="og:locale" content="zh_CN">
 <meta property="og:image" content="https://murhyimgur.oss-cn-beijing.aliyuncs.com/img/%E6%96%87%E7%AB%A0%E9%BB%98%E8%AE%A4%E5%B0%81%E9%9D%A2.jpg">
 <meta property="article:published_time" content="2025-11-20T04:27:08.000Z">
-<meta property="article:modified_time" content="2025-11-20T13:22:03.000Z">
+<meta property="article:modified_time" content="2025-11-24T03:22:17.000Z">
 <meta property="article:author" content="Murphy">
 <meta property="article:tag" content="Windows">
 <meta name="twitter:card" content="summary_large_image">
@@ -270,7 +270,7 @@
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          8.8k 字
+          10k 字
         
       </span>
     
@@ -281,7 +281,7 @@
         
         
         
-          74 分钟
+          87 分钟
         
       </span>
     
@@ -880,6 +880,90 @@
 <ul>
 <li>这些软件会在顶部工具栏提供一个“切换显示器”的按钮。</li>
 <li>你可以点击按钮，在笔记本上轮流查看台式机的左屏和右屏。</li>
+</ul>
+<h1 id="后记-遇到了一种奇怪的问题"><a href="#后记-遇到了一种奇怪的问题" class="headerlink" title="后记 - 遇到了一种奇怪的问题"></a>后记 - 遇到了一种奇怪的问题</h1><p>笔记本带到教研室之后，笔记本和ITX的ping&#x2F;tracert都不通！ssh可以通！</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><code class="hljs bash">(base) PS C:\Users\cosmi&gt; ping 10.31.xx.xx<br>正在 Ping 10.31.xx.xx 具有 32 字节的数据:<br>来自 10.31.xx.xx 的回复: 无法访问目标主机。<br>请求超时。<br>来自 10.31.xx.xx 的回复: 无法访问目标主机。<br>请求超时。<br>10.31.xx.xx 的 Ping 统计信息:<br>    数据包: 已发送 = 4，已接收 = 2，丢失 = 2 (50% 丢失)<br><br><br>(base) PS C:\Users\cosmi&gt; tracert 10.31.xx.xx<br>通过最多 30 个跃点跟踪到 10.31.xx.xx 的路由<br>  1  Murphy-TB16p [10.31.xx.xx]  报告: 无法访问目标主机。<br>跟踪完成。<br></code></pre></td></tr></table></figure>
+
+<p>搜了一下，可能是“<strong>同 AP 隔离” (AP Isolation)</strong> ”</p>
+<p>请想象一下这个场景：</p>
+<ul>
+<li><strong>场景 A：你在图书馆，台式机在实验室</strong><ul>
+<li>你连的是 **AP-1 (图书馆)**，台式机连的是 **AP-2 (实验室)**。</li>
+<li>你的数据流向：笔记本 -&gt; AP-1 -&gt; <strong>核心交换机</strong> -&gt; AP-2 -&gt; 台式机。</li>
+<li><strong>结果</strong>：核心交换机通常只管转发，不怎么管闲事，所以你们<strong>通了</strong>。</li>
+</ul>
+</li>
+<li><strong>场景 B：你回到了实验室</strong><ul>
+<li>你连上了 **AP-2 (实验室)**，台式机也连着 <strong>AP-2</strong>。</li>
+<li>你们俩现在像两个连体婴儿一样，挂在同一个无线路由器（AP）下面。</li>
+<li><strong>结果</strong>：企业级 AP 为了防止用户互黑（或者广播风暴），默认有一条铁律——<strong>“禁止连接在我身上的客户端直接互访”</strong>。</li>
+<li>所以，你的数据包刚发到 AP，就被 AP 一脚踢回来了，根本没发给台式机。</li>
+</ul>
+</li>
+</ul>
+<p><strong>结论：离得越近（连同一个 AP），反而越被隔离。</strong></p>
+<p>这确实非常反直觉，也不怪你疑惑。在我们的常识里：“咱俩都连同一个 Wi-Fi，就在一个房间，应该更亲密才对啊，怎么反而成路人了？”</p>
+<p>但这就是<strong>企业级&#x2F;校园级网络</strong>和<strong>家用网络</strong>最大的区别。</p>
+<h3 id="1-为什么一开始（异地）通？——“走公家大路”"><a href="#1-为什么一开始（异地）通？——“走公家大路”" class="headerlink" title="1. 为什么一开始（异地）通？——“走公家大路”"></a>1. 为什么一开始（异地）通？——“走公家大路”</h3><p>当你人在图书馆，台式机在实验室时，你们连的是<strong>不同</strong>的 AP（无线基站）。</p>
+<ul>
+<li><strong>路径</strong>：你的笔记本 -&gt; 图书馆 AP -&gt; <strong>学校核心交换机</strong> -&gt; 实验室 AP -&gt; 台式机。</li>
+<li><strong>原理</strong>：虽然你们都在 <code>10.31.x.x</code>，但在物理上你们隔得很远。数据包必须上行到学校的“核心层”。核心交换机（那个 <code>172.20.x.x</code>）只管转发，它看到你要找台式机，就帮你把包转过去了。</li>
+<li><strong>结论</strong>：<strong>虽然隔得远，但因为走了上层路由，所以通了。</strong></li>
+</ul>
+<h3 id="2-为什么现在（同屋）不通？——“禁止窃窃私语”"><a href="#2-为什么现在（同屋）不通？——“禁止窃窃私语”" class="headerlink" title="2. 为什么现在（同屋）不通？——“禁止窃窃私语”"></a>2. 为什么现在（同屋）不通？——“禁止窃窃私语”</h3><p>现在你回到了实验室，两台设备连上了<strong>同一个</strong> AP。</p>
+<ul>
+<li><strong>路径</strong>：你的笔记本 -&gt; 实验室 AP -&gt; 台式机。</li>
+<li><strong>阻碍</strong>：**AP 隔离 (Client Isolation)**。这是学校为了安全强制开启的功能。<ul>
+<li><strong>规则</strong>：连接在同一个 AP 下的无线设备，<strong>禁止直接二层通信</strong>。</li>
+<li><strong>比喻</strong>：就像在考场里。你（笔记本）和台式机坐同桌。虽然你们离得最近，但监考老师（AP）规定：<strong>严禁交头接耳</strong>。你想传纸条给同桌？老师（AP）直接把纸条没收了。</li>
+</ul>
+</li>
+<li><strong>为什么要有这个反人类的规定？</strong><ul>
+<li><strong>防病毒</strong>：如果一台学生电脑中了勒索病毒，它会试图扫描同一个 Wi-Fi 下的所有邻居。开了隔离，它谁也染不上。</li>
+<li><strong>防黑客</strong>：防止你在星巴克&#x2F;图书馆这种公用 Wi-Fi 下，通过 ARP 欺骗窃取旁边人的账号密码。</li>
+</ul>
+</li>
+</ul>
+<p>这是一个极好的问题！这说明你正在用<strong>“家用路由器”</strong>的思维去理解<strong>“企业级网络”</strong>，而这两者有着本质的区别。</p>
+<p>简单直接的答案是：<strong>因为这些 AP 根本不是路由器，它们只是“无线网线”而已。</strong></p>
+<h3 id="1-家用路由器-vs-校园网-AP"><a href="#1-家用路由器-vs-校园网-AP" class="headerlink" title="1. 家用路由器 vs. 校园网 AP"></a>1. 家用路由器 vs. 校园网 AP</h3><ul>
+<li>**家用路由器 (All-in-One)**：<ul>
+<li>你在家买的 TP-Link，它是个“多面手”。它既是<strong>天线</strong>（发 Wi-Fi），又是<strong>路由器</strong>（发 IP、做网关），还是<strong>交换机</strong>。</li>
+<li>所以，每个家用路由器都有自己的网关 IP（比如 <code>192.168.1.1</code>）。</li>
+</ul>
+</li>
+<li>**校园网 AP (Access Point)**：<ul>
+<li>学校天花板上挂的那些白色方盒子，它们是**“瘦 AP” (Thin AP)**。</li>
+<li>它们的功能被极度“阉割”了：<strong>它们只负责把无线信号变成有线信号，不负责分配 IP，也不负责做网关。</strong></li>
+<li>它们本质上就是一根<strong>“无线的延长线”</strong>。</li>
+</ul>
+</li>
+</ul>
+<h3 id="2-架构揭秘：AC-AP-模式"><a href="#2-架构揭秘：AC-AP-模式" class="headerlink" title="2. 架构揭秘：AC + AP 模式"></a>2. 架构揭秘：AC + AP 模式</h3><p>学校的网络架构是 <strong>“控制器 (AC) + 接入点 (AP)”</strong> 模式。</p>
+<p>想象一下<strong>一栋大楼的供水系统</strong>：</p>
+<ul>
+<li><strong>核心交换机 (网关 10.31.0.1)<strong>：这是大楼的</strong>“总水闸”</strong>。</li>
+<li><strong>网线</strong>：这是铺设在墙里的<strong>“水管”</strong>。</li>
+<li><strong>图书馆 AP</strong>：这是 1 楼的<strong>“水龙头”</strong>。</li>
+<li><strong>实验室 AP</strong>：这是 2 楼的<strong>“水龙头”</strong>。</li>
+</ul>
+<p><strong>请问：</strong> 你在 1 楼打开水龙头，和在 2 楼打开水龙头，流出来的水是不是都来自同一个<strong>“总水闸”</strong>？ <strong>是的！</strong></p>
+<ul>
+<li>当你连上图书馆 AP，你其实是接到了核心交换机上。</li>
+<li>当你连上实验室 AP，你还是接到了同一台核心交换机上。</li>
+<li>这台核心交换机负责管理 <code>10.31.x.x</code> 这个大网段，所以无论你在哪接进来，它都告诉你：“我是你的网关 (<code>10.31.0.1</code>)”。</li>
+</ul>
+<h3 id="3-为什么要这样设计？（为了漫游）"><a href="#3-为什么要这样设计？（为了漫游）" class="headerlink" title="3. 为什么要这样设计？（为了漫游）"></a>3. 为什么要这样设计？（为了漫游）</h3><p>如果每个 AP 都是一个独立的路由器（像家里那样），会有什么灾难性的后果？</p>
+<ul>
+<li>你在图书馆，IP 是 <code>192.168.1.5</code>，正在下载电影。</li>
+<li>你抱着电脑走到走廊（切换到了走廊 AP），如果走廊 AP 是个新路由器，它会给你发个新 IP <code>192.168.2.6</code>。</li>
+<li><strong>后果</strong>：<strong>你的 IP 变了，网络连接瞬间中断，下载失败，游戏掉线，视频卡住。</strong></li>
+</ul>
+<p><strong>现在的设计（大二层网络）：</strong></p>
+<ul>
+<li>因为所有 AP 都共用同一个网关 (<code>10.31.0.1</code>)，都属于同一个大局域网。</li>
+<li>当你从图书馆走到实验室，你只是换了一个“水龙头”，但你的 <strong>IP 地址 (<code>10.31.208.138</code>) 不需要变</strong>，网关也不用变。</li>
+<li><strong>结果</strong>：你可以一边打视频电话一边全校溜达，信号无缝切换，完全感觉不到断网。这就是**无缝漫游 (Roaming)**。</li>
 </ul>
 
                 
