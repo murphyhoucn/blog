@@ -1,0 +1,1391 @@
+
+
+<!DOCTYPE html>
+<html lang="zh-CN" data-default-color-scheme=auto>
+
+
+
+<head>
+  <meta charset="UTF-8">
+
+  <link rel="apple-touch-icon" sizes="76x76" href="https://murphyimg.oss-cn-beijing.aliyuncs.com/img/202505301726222.png">
+  <link rel="icon" href="https://murphyimg.oss-cn-beijing.aliyuncs.com/img/202505301728148.png">
+  
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="author" content="Murphy">
+  <meta name="keywords" content="Murphy,CosmicDusty,murphy,cosmicdusty,cn">
+  
+    <meta name="description" content="驯服 Windows 网络：双网卡并发、SSH 穿透与 SMB 挂载">
+<meta property="og:type" content="article">
+<meta property="og:title" content="驯服 Windows 网络：双网卡并发、SSH 穿透与 SMB 挂载">
+<meta property="og:url" content="https://blog.cosmicdusty.cc/post/Tools/Taming-Windows-Networks/index.html">
+<meta property="og:site_name" content="CosmicDusty-Blog">
+<meta property="og:description" content="驯服 Windows 网络：双网卡并发、SSH 穿透与 SMB 挂载">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://murhyimgur.oss-cn-beijing.aliyuncs.com/img/%E6%96%87%E7%AB%A0%E9%BB%98%E8%AE%A4%E5%B0%81%E9%9D%A2.jpg">
+<meta property="article:published_time" content="2025-11-20T04:27:08.000Z">
+<meta property="article:modified_time" content="2025-11-24T03:22:17.000Z">
+<meta property="article:author" content="Murphy">
+<meta property="article:tag" content="Windows">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="https://murhyimgur.oss-cn-beijing.aliyuncs.com/img/%E6%96%87%E7%AB%A0%E9%BB%98%E8%AE%A4%E5%B0%81%E9%9D%A2.jpg">
+  
+  
+    <meta name="referrer" content="no-referrer-when-downgrade">
+  
+  
+  <title>驯服 Windows 网络：双网卡并发、SSH 穿透与 SMB 挂载 - CosmicDusty-Blog</title>
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
+
+
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/github-markdown-css/4.0.0/github-markdown.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/hint.css/2.7.0/hint.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.css" />
+
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+<!-- Do not modify the link that theme dependent icons -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/c/font_1749284_5i9bdhy70f8.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_lbnruvf0jn.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+
+  <link id="highlight-css" rel="stylesheet" href="/css/highlight.css" />
+  
+    <link id="highlight-css-dark" rel="stylesheet" href="/css/highlight-dark.css" />
+  
+
+
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    Fluid.ctx = Object.assign({}, Fluid.ctx)
+    var CONFIG = {"hostname":"blog.cosmicdusty.cc","root":"/","version":"1.9.8","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false,"scope":[]},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"left","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"code_language":{"enable":true,"default":"TEXT"},"copy_btn":true,"image_caption":{"enable":true},"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"placement":"right","headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"https://murhyimgur.oss-cn-beijing.aliyuncs.com/website/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":true,"follow_dnt":true,"baidu":"16d93d5abbd7ea15ec53daed5459ebf7","google":null,"tencent":{"sid":null,"cid":null},"leancloud":{"app_id":"JijHNKemeVNog4wF7g9I5TR3","app_key":"FvsKdxHOP2aG5rHrHby5aV0b","server_url":null,"path":"window.location.pathname","ignore_local":false},"umami":{"src":null,"website_id":null,"domains":null,"start_time":"2024-01-01T00:00:00.000Z","token":null,"api_server":null},"gtag":null,"woyaola":null,"cnzz":null},"search_path":"/local-search.xml","include_content_in_search":true};
+
+    if (CONFIG.web_analytics.follow_dnt) {
+      var dntVal = navigator.doNotTrack || window.doNotTrack || navigator.msDoNotTrack;
+      Fluid.ctx.dnt = dntVal && (dntVal.startsWith('1') || dntVal.startsWith('yes') || dntVal.startsWith('on'));
+    }
+  </script>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+  
+
+  
+    <!-- Baidu Analytics -->
+    <script async>
+      if (!Fluid.ctx.dnt) {
+        var _hmt = _hmt || [];
+        (function() {
+          var hm = document.createElement("script");
+          hm.src = "https://hm.baidu.com/hm.js?16d93d5abbd7ea15ec53daed5459ebf7";
+          var s = document.getElementsByTagName("script")[0];
+          s.parentNode.insertBefore(hm, s);
+        })();
+      }
+    </script>
+  
+
+  
+
+  
+
+  
+
+  
+    
+  
+
+
+
+  
+<meta name="generator" content="Hexo 7.3.0"></head>
+
+
+<body>
+  
+
+  <header>
+    
+
+<div class="header-inner" style="height: 70vh;">
+  <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand" href="/">
+      <strong>CosmicDusty</strong>
+    </a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/" target="_self">
+                <i class="iconfont icon-home-fill"></i>
+                <span>首页</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/" target="_self">
+                <i class="iconfont icon-archive-fill"></i>
+                <span>归档</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/" target="_self">
+                <i class="iconfont icon-category-fill"></i>
+                <span>分类</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/" target="_self">
+                <i class="iconfont icon-tags-fill"></i>
+                <span>标签</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/" target="_self">
+                <i class="iconfont icon-user-fill"></i>
+                <span>关于</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/links/" target="_self">
+                <i class="iconfont icon-link-fill"></i>
+                <span>友链</span>
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" target="_self" href="javascript:;" data-toggle="modal" data-target="#modalSearch" aria-label="Search">
+              <i class="iconfont icon-search"></i>
+            </a>
+          </li>
+          
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" target="_self" href="javascript:;" aria-label="Color Toggle">
+              <i class="iconfont icon-dark" id="color-toggle-icon"></i>
+            </a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+  
+
+<div id="banner" class="banner" parallax=true
+     style="background: url('https://murhyimgur.oss-cn-beijing.aliyuncs.com/img/文章默认封面.jpg') no-repeat center center; background-size: cover;">
+  <div class="full-bg-img">
+    <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+      <div class="banner-text text-center fade-in-up">
+        <div class="h2">
+          
+            <span id="subtitle" data-typed-text="驯服 Windows 网络：双网卡并发、SSH 穿透与 SMB 挂载"></span>
+          
+        </div>
+
+        
+          
+  <div class="mt-3">
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-author" aria-hidden="true"></i>
+        Murphy
+      </span>
+    
+    
+      <span class="post-meta">
+        <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+        <time datetime="2025-11-20 12:27" pubdate>
+          2025年11月20日 中午
+        </time>
+      </span>
+    
+  </div>
+
+  <div class="mt-1">
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-chart"></i>
+        
+          10k 字
+        
+      </span>
+    
+
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-clock-fill"></i>
+        
+        
+        
+          87 分钟
+        
+      </span>
+    
+
+    
+    
+  </div>
+
+
+        
+      </div>
+
+      
+    </div>
+  </div>
+</div>
+
+</div>
+
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+
+    </div>
+
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div id="board">
+          <article class="post-content mx-auto">
+            <h1 id="seo-header">驯服 Windows 网络：双网卡并发、SSH 穿透与 SMB 挂载</h1>
+            
+            
+              <div class="markdown-body">
+                
+                <h1 id="网络拓扑概览-Topology-Overview"><a href="#网络拓扑概览-Topology-Overview" class="headerlink" title="网络拓扑概览 (Topology Overview)"></a>网络拓扑概览 (Topology Overview)</h1><p><img src="https://murphyimg.oss-cn-beijing.aliyuncs.com/img/202511202120675.png" srcset="https://murhyimgur.oss-cn-beijing.aliyuncs.com/website/loading.gif" lazyload alt="Web"></p>
+<h2 id="1-校园骨干网-Campus-Intranet"><a href="#1-校园骨干网-Campus-Intranet" class="headerlink" title="1.校园骨干网 (Campus Intranet)"></a>1.校园骨干网 (Campus Intranet)</h2><p>整个学校构成了一个巨大的局域网（MAN），IP 地址段通常为 <code>10.x.x.x</code>。</p>
+<ul>
+<li>学校的核心网络接入是NWPU-FREE &#x2F; NWPU-WiFi 包括有线和无线连接</li>
+<li>无论是图书馆、宿舍还是食堂，无线终端设备通过 Wi-Fi （XXXX-FREE &#x2F; XXXX-WIFI），有线终端设备则通过网线，接入这个大局域网。</li>
+</ul>
+<h2 id="2-实验室局域网-Lab-Subnet"><a href="#2-实验室局域网-Lab-Subnet" class="headerlink" title="2. 实验室局域网 (Lab Subnet)"></a>2. 实验室局域网 (Lab Subnet)</h2><p>为了满足多设备接入的需求，实验室内部通常会部署二级路由器，形成“网中网”。 在我的实验室中，存在两台路由器，将网络划分为两个独立的子网：</p>
+<ol>
+<li><strong>TP-Link 子网 (<code>192.168.1.x</code>)</strong></li>
+<li>**Xiaomi 子网 (<code>192.168.31.x</code>)**。</li>
+</ol>
+<h2 id="3-个人核心设备-Infrastructure"><a href="#3-个人核心设备-Infrastructure" class="headerlink" title="3. 个人核心设备 (Infrastructure)"></a>3. 个人核心设备 (Infrastructure)</h2><p>我的主力生产力工具大多都挂载在 TP-Link 路由器下：</p>
+<ul>
+<li><strong>Murphy-ITX-Win&#x2F;Ubt</strong>：办公PC（双系统），<code>192.168.1.x</code>；</li>
+<li><strong>NAS</strong>：实验室数据存储中心，仅有内网 IP，<code>192.168.1.x</code>；</li>
+<li><strong>OECT</strong>：刷了CasaOS的轻NAS，主要用于数据冷备份，<code>192.168.1.x</code>；</li>
+<li>Murphy-TB16p或手机等移动设备，在教研室内会连接内部路由器，出来之后一般连接NWPU-Free。</li>
+</ul>
+<h2 id="4-路由追踪举例"><a href="#4-路由追踪举例" class="headerlink" title="4. 路由追踪举例"></a>4. 路由追踪举例</h2><h3 id="4-1-连接-TP-Link-的设备访问GPUServers"><a href="#4-1-连接-TP-Link-的设备访问GPUServers" class="headerlink" title="4.1 连接 TP-Link 的设备访问GPUServers"></a>4.1 连接 TP-Link 的设备访问GPUServers</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs bash">houjinliang@481-nas:~$ traceroute 10.70.xx.x<br>traceroute to 10.70.xx.xx (10.70.xx.xx), 30 hops max, 60 byte packets<br> 1  192.168.1.1 (192.168.1.1)  0.835 ms  0.790 ms  0.515 ms<br> 2  10.68.0.1 (10.68.0.1)  10.201 ms  10.301 ms  10.424 ms<br> 3  10.70.xx.xx (10.70.xx.xx)  1.857 ms  2.107 ms  2.078 ms<br></code></pre></td></tr></table></figure>
+
+<ul>
+<li><strong>第 1 跳：<code>192.168.1.1</code></strong> (TP-Link 路由器)<ul>
+<li>NAS 成功通过网线找到了它的网关（TP-Link）。这证明 NAS 的网络设置没问题，TP-Link 正在正常工作。</li>
+<li>TP-Link是网关是实验室的内部大门。</li>
+</ul>
+</li>
+<li><strong>第 2 跳：<code>10.68.0.1</code></strong> (核心汇聚网关)<ul>
+<li><strong>这是最关键的节点</strong>。不管你去 <code>10.68</code>、<code>10.69</code> 还是 <code>10.70</code>，都会经过这里。</li>
+</ul>
+</li>
+<li><strong>第 3 跳：目标服务器</strong><ul>
+<li>直接到达终点。</li>
+</ul>
+</li>
+</ul>
+<p><strong><code>10.68.0.1</code> 的真实身份</strong>：它很可能是学校核心交换机上的一个 **虚接口 (SVI - Switch Virtual Interface)**。</p>
+<p>这个核心交换机上划分了多个 VLAN：</p>
+<ul>
+<li><strong>VLAN 68</strong>: 对应 <code>10.68.x.x</code> 网段</li>
+<li><strong>VLAN 69</strong>: 对应 <code>10.69.x.x</code> 网段</li>
+<li><strong>VLAN 70</strong>: 对应 <code>10.70.x.x</code> 网段</li>
+</ul>
+<p><strong>实验室墙上的那个有线网口，拥有“VIP 待遇”，它在网络拓扑上比校园网 Wi-Fi 离服务器机房更近！</strong></p>
+<h3 id="4-2-连接-Xiaomi-的设备访问GPUServers"><a href="#4-2-连接-Xiaomi-的设备访问GPUServers" class="headerlink" title="4.2 连接 Xiaomi 的设备访问GPUServers"></a>4.2 连接 Xiaomi 的设备访问GPUServers</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash"><span class="hljs-comment"># TODO</span><br></code></pre></td></tr></table></figure>
+
+<h3 id="4-3-连接-XXXX-FREE-的设备访问GPUServers"><a href="#4-3-连接-XXXX-FREE-的设备访问GPUServers" class="headerlink" title="4.3 连接 XXXX-FREE 的设备访问GPUServers"></a>4.3 连接 XXXX-FREE 的设备访问GPUServers</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><code class="hljs bash">(base) PS C:\Users\cosmi&gt; tracert 10.70.xx.xx<br>通过最多 30 个跃点跟踪到 10.70.200.143 的路由<br>  1     3 ms     5 ms     6 ms  10.31.0.1<br>  2     7 ms     5 ms    21 ms  172.20.0.xx<br>  3     3 ms     8 ms     6 ms  172.20.0.xx<br>  4     3 ms    11 ms    65 ms  172.20.0.6<br>  5     5 ms     3 ms     4 ms  10.70.xx.xx<br>  跟踪完成。<br></code></pre></td></tr></table></figure>
+
+<p>WiFi -&gt; [WiFi 网关 10.31.0.1] -&gt; [骨干网 172.20.x.x] -&gt; <strong>[核心交换机入口 172.20.0.6]</strong> -&gt; 服务器。</p>
+<ul>
+<li><p><strong><code>10.68.0.1</code><strong>：是实验室有线网络的</strong>专属网关</strong>。只有从实验室网线出来的流量才会看到它。</p>
+</li>
+<li><p><strong><code>172.20.x.x</code><strong>：是学校的</strong>公共骨干道路</strong>。从 Wi-Fi（或其他教学楼）过来的流量都会走这条路。</p>
+</li>
+</ul>
+<h3 id="4-4-连接XXXX-FREE的设备访问连接XXXX-FREE的设备（同一个10-31子网）"><a href="#4-4-连接XXXX-FREE的设备访问连接XXXX-FREE的设备（同一个10-31子网）" class="headerlink" title="4.4 连接XXXX-FREE的设备访问连接XXXX-FREE的设备（同一个10.31子网）"></a>4.4 连接XXXX-FREE的设备访问连接XXXX-FREE的设备（同一个10.31子网）</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><code class="hljs bash">(base) PS C:\Users\cosmi&gt; tracert 10.31.xx.xx<br>通过最多 30 个跃点跟踪<br>到 MURPHY-ITX-WIN [10.31.xx.xx] 的路由:<br>  1    63 ms     3 ms     5 ms  10.31.0.1<br>  2    30 ms    21 ms     5 ms  MURPHY-ITX-WIN [10.31.xx.xx]<br>跟踪完成。<br></code></pre></td></tr></table></figure>
+
+<p>明明两台设备都在同一个 WiFi（10.31.x.x）里，为什么不直接“点对点”通话，非要跑去网关（10.31.0.1）绕一圈？</p>
+<p>核心原因：AP 隔离 (AP Isolation)</p>
+<p>学校网络为了安全，通常开启了 <strong>“AP 隔离”</strong> 或 <strong>“二层隔离”</strong> 功能。</p>
+<ul>
+<li><strong>不隔离（家用模式）</strong>：就像在一个<strong>嘈杂的聚会</strong>。我和你面对面，可以直接说话，不需要经过主人。</li>
+<li><strong>隔离（校园模式）</strong>：就像在一个<strong>考场</strong>。<ul>
+<li>所有学生（设备）都坐在同一个教室里（同一个 IP 段）。</li>
+<li>但是<strong>严禁交头接耳</strong>（禁止设备间直接通信）。</li>
+<li>如果我想传纸条给你，我必须先把纸条交给<strong>监考老师（网关 10.31.0.1）</strong>，老师检查没问题后，再把纸条递给你。</li>
+</ul>
+</li>
+</ul>
+<p>为什么要这么做？</p>
+<ul>
+<li><strong>防止病毒扩散</strong>：如果一台学生电脑中了勒索病毒，试图扫描局域网里的其他电脑（ARP 攻击或广播风暴），AP 隔离会直接把它的嘴堵住，不让它祸害旁边的同学。</li>
+<li><strong>性能优化</strong>：防止无用的广播包在无线空口里乱飞，节省宝贵的 WiFi 频宽。</li>
+</ul>
+<h3 id="4-5-连接XXXX-FREE的设备访问连接XXXX-FREE的设备（不同的子网，如10-68-与-10-70）"><a href="#4-5-连接XXXX-FREE的设备访问连接XXXX-FREE的设备（不同的子网，如10-68-与-10-70）" class="headerlink" title="4.5 连接XXXX-FREE的设备访问连接XXXX-FREE的设备（不同的子网，如10.68 与 10.70）"></a>4.5 连接XXXX-FREE的设备访问连接XXXX-FREE的设备（不同的子网，如10.68 与 10.70）</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs bash">(base) houjinliang@3090server:~$ traceroute 10.68.xx.xx<br>traceroute to 10.68.xx.xx (10.68.xx.xx), 30 hops max, 60 byte packets<br> 1  _gateway (10.68.0.1)  8.217 ms  8.292 ms  8.395 ms<br> 2  10.68.xx.xx (10.68.xx.xx)  0.489 ms  0.460 ms  0.432 ms<br></code></pre></td></tr></table></figure>
+
+<p>这里10.70的服务器连接的网关的’_gateway (10.68.0.1)’, 能与10.68的服务器直连。</p>
+<h3 id="4-6-连接XXXX-FREE的设备访问连接-TP-Link-的设备"><a href="#4-6-连接XXXX-FREE的设备访问连接-TP-Link-的设备" class="headerlink" title="4.6 连接XXXX-FREE的设备访问连接 TP-Link 的设备"></a>4.6 连接XXXX-FREE的设备访问连接 TP-Link 的设备</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><code class="hljs bash">(base) PS C:\Users\cosmi&gt; tracert 192.168.1.xx<br><br>通过最多 30 个跃点跟踪到 192.168.1.39 的路由<br><br>  1     4 ms     7 ms     4 ms  10.31.0.1<br>  2    81 ms     7 ms     7 ms  172.20.0.xx<br>  3    10 ms     4 ms     7 ms  172.20.0.xx<br>  4     9 ms     8 ms    12 ms  172.20.0.xx<br>  5     9 ms    68 ms     4 ms  172.20.128.xx<br>  6     *        *        *     请求超时。<br>  7     *        *        *     请求超时。<br>  8     *        *        *     请求超时。<br>  9     *        *        *     请求超时。<br></code></pre></td></tr></table></figure>
+
+<p>这种情况是联不通的，NAT 的“单向玻璃”特性</p>
+<p><strong>内 -&gt; 外（允许）</strong>： 当你坐在实验室（<code>192.168.1.x</code>）访问百度时，TP-Link 路由器会把你的私有 IP 替换成它的 WAN 口 IP（<code>10.x.x.x</code>）发出去。</p>
+<p><strong>外 -&gt; 内（禁止）</strong>： 当你从图书馆（<code>10.31.x.x</code>）试图访问 <code>192.168.1.x</code> 时，TP-Link 会直接拦截。因为它遵循一个原则：<strong>“任何我没主动请求过的外部数据，一律视为攻击，直接丢弃。”</strong></p>
+<p>即使 TP-Link 愿意放行，校园网的路由器也不知道怎么走。</p>
+<ul>
+<li><strong>场景</strong>：你在图书馆喊一声：“我要找 <code>192.168.1.x</code>！”</li>
+<li><strong>校园网核心路由器</strong>：它会一脸懵逼。因为 <code>192.168.1.x</code> 是私有地址，<strong>全校可能有 100 个实验室都在用这个网段</strong>。</li>
+<li><strong>结果</strong>：核心路由器根本不知道你要找的是“张三实验室的 192.168”还是“李四宿舍的 192.168”，所以它通常配置为<strong>不转发</strong>此类私有地址，或者直接丢弃。</li>
+</ul>
+<p>但是存在例外的情况：<strong>唯一的例外：端口映射 (Port Forwarding)， 只有一种情况能通，那就是你在 TP-Link 上手动开了“后门”。</strong></p>
+<ul>
+<li>比如设置：<em>“凡是访问我 WAN 口 8080 端口的，都转给内网的 NAS。”</em></li>
+<li>即便如此，你也只能访问这一个特定的端口，而且前提是你知道 TP-Link WAN 口那个 <code>10.x.x.x</code> 的 IP 是多少。</li>
+</ul>
+<h3 id="4-7-连接-TP-Link-的设备访问连接XXXX-FREE的设备"><a href="#4-7-连接-TP-Link-的设备访问连接XXXX-FREE的设备" class="headerlink" title="4.7 连接 TP-Link 的设备访问连接XXXX-FREE的设备"></a>4.7 连接 TP-Link 的设备访问连接XXXX-FREE的设备</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><code class="hljs bash">houjinliang@481-nas:~$ tracert 10.31.xx.xx<br>-bash: tracert: <span class="hljs-built_in">command</span> not found<br>houjinliang@481-nas:~$ traceroute 10.31.xx.xx<br>traceroute to 10.31.xx.xx (10.31.xx.xx), 30 hops max, 60 byte packets<br> 1  192.168.1.1 (192.168.1.1)  0.425 ms  0.473 ms  0.540 ms<br> 2  10.68.0.1 (10.68.0.1)  3.686 ms  3.851 ms  3.987 ms<br> 3  172.20.0.xx (172.20.0.xx)  2.640 ms  2.726 ms  2.807 ms<br> 4  172.20.0.xx (172.20.0.xx)  2.670 ms  2.644 ms  2.726 ms<br> 5  172.20.0.xx (172.20.0.xx)  3.102 ms  3.077 ms  3.155 ms<br> 6  * * *<br> 7  * * *<br> 8  * * *<br> 9  * * *<br>10  * * *<br></code></pre></td></tr></table></figure>
+
+<p>这里虽然是没有连接上的，但是按道理来说应该是可以连上的，192.168.1.x 通过 NAT 伪装成了一个10.68.0.x 的设备，所以跟连接XXXX-FREE的设备是同出相同内网的，按道理来说是能连上的。</p>
+<p>用了GPUServer(10.68.x.x &#x2F; 10.70.x.x)进行连接测试，也是连不上。</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><code class="hljs bash">(base) houjinliang@3080server:~$ traceroute 10.31.xx.xx<br>traceroute to 10.31.xx.xx (10.31.xx.xx), 30 hops max, 60 byte packets<br> 1  _gateway (10.68.0.1)  1.897 ms  2.033 ms  2.173 ms<br> 2  172.20.0.5 (172.20.0.xx)  1.889 ms  1.992 ms  2.153 ms<br> 3  172.20.0.22 (172.20.0.xx)  4.518 ms  4.567 ms  4.777 ms<br> 4  172.20.0.38 (172.20.0.xx)  1.396 ms  1.484 ms  1.524 ms<br> 5  * * *<br> 6  * * *<br> 7  * * *<br> 8  * * *<br> 9  * * *<br>10  * * *<br></code></pre></td></tr></table></figure>
+
+<p>照这样的情况来说，大概率是被XXXX-FREE的设备（Windows系统）的防火墙给拦截了！</p>
+<p>用Murphy-ITXWin(10.31.x.x)进行连接测试，可以连接上。</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><code class="hljs bash">(base) PS C:\Users\cosmi&gt; tracert 10.31.x.x<br>通过最多 30 个跃点跟踪<br>到 MURPHY-TB16P [10.31.x.x] 的路由:<br>  1     3 ms     1 ms     2 ms  10.31.0.1<br>  2     8 ms    12 ms    11 ms  MURPHY-TB16P [10.31.x.x]<br>跟踪完成。<br></code></pre></td></tr></table></figure>
+
+<p>你的笔记本连接的是校园网 WiFi。</p>
+<ul>
+<li><strong>默认策略</strong>：Windows 默认把校园网识别为 **“公用网络” (Public Network)**。</li>
+<li><strong>安全规则</strong>：在公用网络下，Windows 防火墙会开启 <strong>“隐身模式”</strong>——它会<strong>丢弃</strong>所有入站的 ICMP 请求（也就是 Ping 和 Traceroute 包）。</li>
+<li><strong>现象</strong>：NAS 发出的探针戳到了笔记本，笔记本系统内核收到了，看了一眼防火墙规则：“哦，公用网络不许 Ping”，然后直接把包扔进垃圾桶，<strong>不给回执</strong>。</li>
+<li><strong>结果</strong>：NAS 以为包丢了，所以显示 <code>* * *</code>。</li>
+</ul>
+<p>Windows 防火墙的很多规则（尤其是 ICMP 回显&#x2F;Ping），默认设置的 <strong>“作用域 (Scope)”</strong> 都是 <strong>“仅限本地子网 (LocalSubnet)”</strong>。</p>
+<p>这就是为什么：</p>
+<ul>
+<li><strong>Murphy-ITXWin PC 能通</strong>：因为它在“本地子网”白名单里。</li>
+<li><strong>服务器&#x2F;NAS 不通</strong>：因为它们属于外部子网。</li>
+</ul>
+<h1 id="要实现个人设备互联可能面临的情况"><a href="#要实现个人设备互联可能面临的情况" class="headerlink" title="要实现个人设备互联可能面临的情况"></a>要实现个人设备互联可能面临的情况</h1><p>现在我有一个需求是，我在图书馆使用Murphy-TB16p（10.x.x.x）如何连接教研室电脑Murphy-ITXWin&#x2F;Ubt，进行资源访问。</p>
+<h2 id="情况一：Murphy-ITXWin-Ubt通过有线-无线的方式连接到TP-Link-分配IP：192-168-1-x-或Xiaomi-分配IP：192-168-31-x"><a href="#情况一：Murphy-ITXWin-Ubt通过有线-无线的方式连接到TP-Link-分配IP：192-168-1-x-或Xiaomi-分配IP：192-168-31-x" class="headerlink" title="情况一：Murphy-ITXWin&#x2F;Ubt通过有线&#x2F;无线的方式连接到TP-Link(分配IP：192.168.1.x)或Xiaomi(分配IP：192.168.31.x)"></a>情况一：Murphy-ITXWin&#x2F;Ubt通过有线&#x2F;无线的方式连接到TP-Link(分配IP：192.168.1.x)或Xiaomi(分配IP：192.168.31.x)</h2><p><strong>笔记本 -&gt; SSH -&gt; 服务器</strong>:</p>
+<ul>
+<li><strong>通</strong>。两者都在校园网大池子里，路由可达。</li>
+</ul>
+<p><strong>台式机 (<code>192.168</code>) -&gt; SSH -&gt; 服务器 (<code>10.69</code>)</strong>:</p>
+<ul>
+<li><strong>通</strong>。台式机的流量经过实验室路由器，路由器做一个 NAT（把源IP伪装成路由器的WAN口IP），发给服务器。服务器回包给路由器，路由器再转给台式机。</li>
+</ul>
+<p><strong>笔记本 (<code>10.31</code>) -&gt; SSH -&gt; 台式机 (<code>192.168</code>)</strong>:</p>
+<ul>
+<li>**不通 (大概率)**。这是最关键的区别。</li>
+<li>你的笔记本在“大网”，台式机在“小网”内部。大网的设备不知道 <code>192.168.x.x</code> 在哪里（或者即使知道，也被实验室路由器的防火墙挡住了）。</li>
+</ul>
+<hr>
+<p><strong>笔记本 (<code>10.31</code>) -&gt; SSH -&gt; 台式机 (<code>192.168</code>)<strong>的连接实现</strong>（并未做尝试）</strong></p>
+<h3 id="方案一：端口映射-Port-Forwarding-——-最推荐，速度最快"><a href="#方案一：端口映射-Port-Forwarding-——-最推荐，速度最快" class="headerlink" title="方案一：端口映射 (Port Forwarding) —— 最推荐，速度最快"></a>方案一：端口映射 (Port Forwarding) —— 最推荐，速度最快</h3><p><strong>前提条件</strong>：你需要有权限登录实验室那个路由器的管理后台。</p>
+<p>原理：告诉路由器：“如果在校园网有人访问你的 WAN口 IP 的 10022端口，请把这个请求直接转交给内部 192.168.x.x 的 22端口。”</p>
+<p><strong>操作步骤</strong>：</p>
+<ol>
+<li><strong>固定台式机IP</strong>：在你的台式机上，或者路由器设置里，把台式机的IP固定下来（例如 <code>192.168.1.100</code>），防止重启后变动。</li>
+<li><strong>查看路由器的WAN口IP</strong>：<ul>
+<li>登录路由器后台，查看 <strong>“运行状态”</strong> 或 <strong>“上网设置”</strong>。</li>
+<li>找到 <strong>WAN口 IP地址</strong>。注意：这个IP必须是 <code>10.x.x.x</code> 开头的（校园网IP）。记下它，假设是 <code>10.70.100.5</code>。</li>
+</ul>
+</li>
+<li><strong>设置映射</strong>：<ul>
+<li>在路由器后台找到 <strong>“虚拟服务器”</strong>、<strong>“端口转发”</strong> 或 <strong>“NAT设置”</strong>。</li>
+<li>添加一条规则：<ul>
+<li><strong>外部端口</strong>：<code>10022</code> (可以自己定，建议不用默认的22，避免冲突)</li>
+<li><strong>内部IP地址</strong>：<code>192.168.1.100</code> (你的台式机IP)</li>
+<li><strong>内部端口</strong>：<code>22</code> (SSH默认端口)</li>
+<li><strong>协议</strong>：<code>TCP</code> 或 <code>ALL</code></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><strong>连接方法</strong>：<ul>
+<li>在笔记本上（连接校园网时）：<code>ssh username@10.70.100.5 -p 10022</code></li>
+</ul>
+</li>
+</ol>
+<p>优点：直连，速度最快，不依赖第三方软件。</p>
+<p>缺点：如果路由器的WAN口IP是动态获取的（DHCP），IP变了你就连不上了（除非学校给这个网口分配了固定IP）。</p>
+<hr>
+<h3 id="方案二：虚拟组网-ZeroTier-Tailscale"><a href="#方案二：虚拟组网-ZeroTier-Tailscale" class="headerlink" title="方案二：虚拟组网 (ZeroTier &#x2F; Tailscale)"></a>方案二：虚拟组网 (ZeroTier &#x2F; Tailscale)</h3><p><strong>前提条件</strong>：台式机和笔记本都能联网即可。不需要动路由器。</p>
+<p>原理：这两个软件会在你的台式机和笔记本上装一个“虚拟网卡”，把它们拉进同一个“虚拟聊天室”。无论物理位置在哪里，它们都认为对方就在身边。</p>
+<p>**操作步骤 (以 Tailscale 为例，更傻瓜化)**：</p>
+<ol>
+<li><strong>注册</strong>：去 Tailscale 官网用邮箱注册个账号。</li>
+<li>**安装 (台式机)**：在实验室台式机安装 Tailscale 客户端并登录。它会获得一个类似 <code>100.x.y.z</code> 的虚拟IP。</li>
+<li>**安装 (笔记本)**：在笔记本安装 Tailscale 并登录同一个账号。</li>
+<li><strong>连接方法</strong>：<ul>
+<li>在笔记本上直接 SSH 台式机的那个 <strong>虚拟IP</strong>。</li>
+<li><code>ssh username@100.x.y.z</code></li>
+</ul>
+</li>
+</ol>
+<p>优点：完全无视路由器和防火墙，配置极其简单，还能跨网（比如你在校外家里也能连）。</p>
+<p>缺点：流量经过了一层虚拟封装，速度可能略低于方案一，但在校园网内通常很快。</p>
+<hr>
+<h3 id="方案三：SSH-跳板-反向隧道-——-利用现有的服务器"><a href="#方案三：SSH-跳板-反向隧道-——-利用现有的服务器" class="headerlink" title="方案三：SSH 跳板&#x2F;反向隧道 —— 利用现有的服务器"></a>方案三：SSH 跳板&#x2F;反向隧道 —— 利用现有的服务器</h3><p><strong>前提条件</strong>：你拥有列表中某台服务器（例如 <code>10.69.xx.xx</code>）的账号权限，且这台服务器在校园网内长期开机。</p>
+<p>原理：台式机虽然被藏起来了，但它能主动出击。让台式机主动去连服务器，建立一条“秘密隧道”。笔记本通过服务器钻进这个隧道找到台式机。</p>
+<p><strong>操作步骤</strong>：</p>
+<ol>
+<li><p>在台式机上 (建立反向隧道)：</p>
+<p>执行命令（需要保持运行，可以用 tmux 或 autossh 挂在后台）：</p>
+</li>
+</ol>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs Bash"><span class="hljs-comment">#意思：把服务器的 8888 端口，映射到我(localhost)的 22 端口</span><br>ssh -NfR 8888:localhost:22 username@10.69.xx.xx<br></code></pre></td></tr></table></figure>
+
+<ol start="2">
+<li><p>在笔记本上 (连接)：</p>
+<p>你现在连上那台服务器 10.69.xx.xx，然后在服务器内部跳一跳：</p>
+</li>
+</ol>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs Bash">ssh username@localhost -p 8888<br></code></pre></td></tr></table></figure>
+
+<p>   或者直接在笔记本配置 ProxyJump (更高级用法)。</p>
+<p>优点：不需要动路由器，不需要装新软件。</p>
+<p>缺点：依赖中间那台服务器的稳定性；配置稍微硬核一点，需要会用命令行保持连接。</p>
+<h2 id="情况二：Murphy-ITXWin-Ubt-通过有线-无线的方式连接到XXXX-FREE-分配IP：10-x-x-x"><a href="#情况二：Murphy-ITXWin-Ubt-通过有线-无线的方式连接到XXXX-FREE-分配IP：10-x-x-x" class="headerlink" title="情况二：Murphy-ITXWin&#x2F;Ubt 通过有线&#x2F;无线的方式连接到XXXX-FREE(分配IP：10.x.x.x)"></a>情况二：Murphy-ITXWin&#x2F;Ubt 通过有线&#x2F;无线的方式连接到XXXX-FREE(分配IP：10.x.x.x)</h2><h3 id="问题1，子网问题"><a href="#问题1，子网问题" class="headerlink" title="问题1，子网问题"></a>问题1，子网问题</h3><p>这样的情况下，Murphy-TB16p 与 Murphy-ITXWin&#x2F;Ubt 在<strong>“有可能”</strong>同一个子网下。</p>
+<p>为什么是有可能？</p>
+<p><code>10.0.0.0</code> 到 <code>10.255.255.255</code> 在确实被定义为 <strong>A类私有地址</strong>。</p>
+<ul>
+<li><strong>标准 A 类的定义</strong>：前 1 段是网络号，后 3 段是主机号。</li>
+<li><strong>标准 A 类掩码</strong>：<code>255.0.0.0</code></li>
+<li><strong>含义</strong>：只要是 <code>10</code> 开头的，大家都是一家人。<code>10.1.1.1</code> 和 <code>10.200.200.200</code> 在同一个局域网里。</li>
+</ul>
+<p><strong>但现实中几乎没人这么用！</strong> 因为如果全校几万台设备都在同一个“A类大网”里，只要一台电脑中毒发广播，几万台设备都会被吵死（广播风暴），网络瞬间瘫痪。</p>
+<p>学校网关设置了“子网掩码”！<code>255.255.0.0</code>，这意味着：</p>
+<table>
+<thead>
+<tr>
+<th><strong>你的 IP</strong></th>
+<th><strong>对方 IP</strong></th>
+<th><strong>掩码 (规则)</strong></th>
+<th><strong>关系</strong></th>
+<th><strong>防火墙“本地子网”策略</strong></th>
+</tr>
+</thead>
+<tbody><tr>
+<td>10.<strong>31</strong>.1.1</td>
+<td>10.<strong>31</strong>.2.2</td>
+<td>255.255.0.0</td>
+<td><strong>同子网</strong></td>
+<td>✅ 允许</td>
+</tr>
+<tr>
+<td>10.<strong>31</strong>.1.1</td>
+<td>10.<strong>32</strong>.1.1</td>
+<td>255.255.0.0</td>
+<td><strong>不同子网</strong></td>
+<td>❌ 拦截</td>
+</tr>
+<tr>
+<td>10.31.1.1</td>
+<td>10.32.1.1</td>
+<td>255.0.0.0 (纯A类)</td>
+<td><strong>同子网</strong></td>
+<td>✅ 允许 (但学校不这么配)</td>
+</tr>
+</tbody></table>
+<p>“子网掩码”！<code>255.255.0.0</code>的这个设置是由学校的网络中心（DHCP 服务器）统一推送到你的设备上的，自己是无法决定的。</p>
+<p>当电脑连接校园 Wi-Fi 并选择“自动获得 IP 地址”时，实际上发生了一次对话：</p>
+<blockquote>
+<ol>
+<li><strong>你的电脑喊</strong>：“我是新来的，我要入网！谁来管管我？”（发送 DHCP Discover 广播）</li>
+<li><strong>学校服务器答</strong>：“来，给你分配个位子。”<ul>
+<li><strong>你的 IP</strong>：<code>10.31.xx.</code></li>
+<li><strong>子网掩码</strong>：<code>255.255.0.0</code>（这是最关键的规矩）</li>
+<li><strong>网关</strong>：<code>10.31.0.1</code></li>
+</ul>
+</li>
+</ol>
+</blockquote>
+<p>虽然有这样的问题，但实际情况还是比较乐观的，首先我们可以看到（4.3 连接 XXXX-FREE 的设备访问GPUServers），在 10.31 连接 10.70 子网的设备是可以的：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><code class="hljs bash">(base) PS C:\Users\cosmi&gt; tracert 10.70.xx.xx<br>通过最多 30 个跃点跟踪到 10.70.200.143 的路由<br>  1     3 ms     5 ms     6 ms  10.31.0.1<br>  2     7 ms     5 ms    21 ms  172.20.0.xx<br>  3     3 ms     8 ms     6 ms  172.20.0.xx<br>  4     3 ms    11 ms    65 ms  172.20.0.6<br>  5     5 ms     3 ms     4 ms  10.70.xx.xx<br>  跟踪完成。<br></code></pre></td></tr></table></figure>
+
+<p>WiFi -&gt; [WiFi 网关 10.31.0.1] -&gt; [骨干网 172.20.x.x] -&gt; <strong>[核心交换机入口 172.20.0.6]</strong> -&gt; 服务器。</p>
+<ul>
+<li><p><strong><code>10.68.0.1</code><strong>：是实验室有线网络的</strong>专属网关</strong>。只有从实验室网线出来的流量才会看到它。</p>
+</li>
+<li><p><strong><code>172.20.x.x</code><strong>：是学校的</strong>公共骨干道路</strong>。从 Wi-Fi（或其他教学楼）过来的流量都会走这条路。</p>
+</li>
+</ul>
+<p>其中包括了两方的规则放行</p>
+<ul>
+<li>学校的骨干网（172.20）运行不同子网之间的设备进行通信，只要是 <code>10.x.x.x</code> 开头的内部网段，路由器默认都会帮忙转发，<strong>所以在物理上，路是通的</strong>。</li>
+<li>被访问方（GPUServer&#x2F;Murphy-ITXWin&#x2F;Ubt）通过设置好<strong>防火墙规则</strong>，运行“允许任何 IP”访问，那么问题就解决了！</li>
+</ul>
+<h3 id="问题2，内部小局域网问题"><a href="#问题2，内部小局域网问题" class="headerlink" title="问题2，内部小局域网问题"></a>问题2，内部小局域网问题</h3><p>Murphy-ITXWin&#x2F;Ubt 通过有线&#x2F;无线的方式连接到XXXX-FREE(分配IP：10.x.x.x)之后，访问不了NAS所在的TP-Link所在的192.168.1.x的子网了！</p>
+<p><strong>成年人不做选择题，我两个都要</strong>。</p>
+<p>可以通过<strong>“双网卡并发（Dual Homing）”</strong>的方案来完美解决这个问题：让台式机<strong>同时</strong>连接有线网卡（连实验室路由）和无线网卡（连校园 Wifi）。</p>
+<p>下面讲具体的操作逻辑！</p>
+<h1 id="情况二的解决方案"><a href="#情况二的解决方案" class="headerlink" title="情况二的解决方案"></a>情况二的解决方案</h1><p>概要：当Murphy-ITXWin&#x2F;Ubt同时连接这两张网时，Windows 会“精神分裂”，导致Murphy-TB16p无法 SSH 连接Murphy-ITXWin&#x2F;Ubt，或者Murphy-ITXWin&#x2F;Ubt无法访问内网 NAS。同时，Windows 繁琐的权限验证（UAC、Microsoft 账号）也让文件共享变得异常困难。本文记录了如何通过双网卡路由管理、SSH 服务配置以及命令行级共享管理，将 Windows 打造成如 Linux 般灵活的”服务器”。</p>
+<h2 id="第一部分：解决“双网卡冲突”-Split-Routing"><a href="#第一部分：解决“双网卡冲突”-Split-Routing" class="headerlink" title="第一部分：解决“双网卡冲突” (Split Routing)"></a>第一部分：解决“双网卡冲突” (Split Routing)</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><code class="hljs BASH"><span class="hljs-comment">#当有线以太网适配器和无线局域网适配器都连接时，两种方式都可以上网</span><br>(base) PS C:\Users\cosmi&gt; ipconfig<br>Windows IP 配置<br>以太网适配器 以太网:<br>   连接特定的 DNS 后缀 . . . . . . . :<br>   本地链接 IPv6 地址. . . . . . . . : xxxxxxxxxxxxxxxxxxx<br>   IPv4 地址 . . . . . . . . . . . . : 192.168.1.xx<br>   子网掩码  . . . . . . . . . . . . : 255.255.255.0<br>   默认网关. . . . . . . . . . . . . : 192.168.1.1 <span class="hljs-comment"># (实验室路由器)</span><br>   <br>无线局域网适配器 WLAN:<br>   连接特定的 DNS 后缀 . . . . . . . :<br>   IPv6 地址 . . . . . . . . . . . . : xxxxxxxxxxxxxxxxxxx<br>   临时 IPv6 地址. . . . . . . . . . : xxxxxxxxxxxxxxxxxxx<br>   本地链接 IPv6 地址. . . . . . . . : xxxxxxxxxxxxxxxxxxx<br>   IPv4 地址 . . . . . . . . . . . . : 10.31.xx.xx<br>   子网掩码  . . . . . . . . . . . . : 255.255.0.0  <span class="hljs-comment"># 这个子网掩码要求第二位数相同才是同一个子网</span><br>   默认网关. . . . . . . . . . . . . : xxxxxxxxxxx<br>                                       10.31.0.1  <span class="hljs-comment"># (校园网)</span><br></code></pre></td></tr></table></figure>
+
+<p>这个时候，Windows的状态栏显示的是“WiFi”连接，但事实是这样的？</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><code class="hljs bash">(base) PS C:\Users\cosmi&gt; route <span class="hljs-built_in">print</span> -4<br>活动路由:<br>网络目标        网络掩码          网关          接口         跃点数<br>0.0.0.0        0.0.0.0      192.168.1.1     192.168.1.xx     25<br>0.0.0.0        0.0.0.0      10.31.0.1       10.31.xx.xx      35<br> <br>(base) PS C:\Users\cosmi&gt; tracert -d 114.114.114.114<br>通过最多 30 个跃点跟踪到 114.114.114.114 的路由<br>  1    &lt;1 毫秒   &lt;1 毫秒   &lt;1 毫秒 192.168.1.1<br>  2     7 ms     5 ms     5 ms  10.68.0.1<br></code></pre></td></tr></table></figure>
+
+<p>根据路由表可以看到，192.168.0.1这子网明显跃点数要小，意味着其更容易接入互联网，Windows系统会优先考虑使用192.168.0.1的网关，因此才有有线以太网进行上网。</p>
+<p>同时，路由追踪也证实了这一点，第一跳是到的192.168.0.1的网关！</p>
+<p>因为，Windows的状态栏显示的并不代表其真实的上网连接方式！</p>
+<p>解决方案：手动“切断”内网网关，以实现“有线网卡只负责内网，不要尝试用它上网”。</p>
+<p><strong>按照以下步骤操作：</strong></p>
+<ol>
+<li>按下 <code>Win + R</code>，输入 <code>ncpa.cpl</code>，回车（本质上就是控制面板的网络连接）。</li>
+<li>找到那个 <strong>“以太网”</strong>，右键 -&gt; <strong>属性</strong>。</li>
+<li>双击 <strong>“Internet 协议版本 4 (TCP&#x2F;IPv4)”</strong>。</li>
+<li>修改设置为 <strong>“使用下面的 IP 地址”</strong>（不要选自动获得）：<ul>
+<li><strong>IP 地址</strong>：填写 <code>192.168.1.XX</code> (就用你现在获取到的这个就行，以防跟别的网络设备冲突了)。</li>
+<li><strong>子网掩码</strong>：填写 <code>255.255.255.0</code>。</li>
+<li><strong>默认网关</strong>：👉 <strong>关键！这一栏必须留空！什么都不要填！</strong> 👈</li>
+<li><strong>首选 DNS</strong>：留空。</li>
+</ul>
+</li>
+<li>点击 <strong>“确定”</strong> 保存。</li>
+</ol>
+<p><img src="https://murphyimg.oss-cn-beijing.aliyuncs.com/img/202511202002717.png" srcset="https://murhyimgur.oss-cn-beijing.aliyuncs.com/website/loading.gif" lazyload alt="image-20251120200017637"></p>
+<p><img src="https://murphyimg.oss-cn-beijing.aliyuncs.com/img/202511202002172.png" srcset="https://murhyimgur.oss-cn-beijing.aliyuncs.com/website/loading.gif" lazyload alt="原来是自动获得IP，即通过让路由器的DHCP服务来自动分配IP。使用下面 IP 则是手动确定这个IP且不会被路由器更改"></p>
+<p>访问 192.168.1.x (NAS) -&gt; 命中本地子网 -&gt; 走有线。</p>
+<p>访问互联网 &#x2F; 响应 SSH -&gt; 没有内网网关 -&gt; 走 Wi-Fi。</p>
+<p>在“自动模式”下，实验室的路由器（<code>192.168.1.1</code>）不仅会分配给你 IP 地址（<code>192.168.1.15</code>），还会<strong>强制附赠</strong>给你一个网关（<code>192.168.1.1</code>）。 只要是自动模式，你就无法拒绝这个网关。只要有了这个网关，你的电脑就会傻乎乎地把 SSH 回复包发给它，导致断连。</p>
+<h2 id="第二部分：打通-SSH-连接"><a href="#第二部分：打通-SSH-连接" class="headerlink" title="第二部分：打通 SSH 连接"></a>第二部分：打通 SSH 连接</h2><h3 id="Step1-OpenSSH-Server"><a href="#Step1-OpenSSH-Server" class="headerlink" title="Step1, OpenSSH Server"></a>Step1, OpenSSH Server</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><code class="hljs bash"><span class="hljs-comment">#以管理员打开Windows Terminal</span><br>(base) PS C:\Users\cosmi&gt; Get-WindowsCapability -Online | Where-Object Name -like <span class="hljs-string">&#x27;OpenSSH*&#x27;</span><br>Name  : OpenSSH.Client~~~~0.0.1.0 <span class="hljs-comment"># 默认已安装</span><br>State : Installed<br>Name  : OpenSSH.Server~~~~0.0.1.0 <span class="hljs-comment"># 可以看到服务端并未安装</span><br>State : NotPresent<br></code></pre></td></tr></table></figure>
+
+<ul>
+<li>使用命令进行安装(或者是在Windwos设置中搜索可选功能-查看或编辑可选功能-查看可用功能-搜索OpenSSH, 然后把这个server功能下载下来)</li>
+</ul>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><code class="hljs bash"><span class="hljs-comment">#安装 OpenSSH Server</span><br>Add-WindowsCapability -Online -Name OpenSSH.Server~~~~0.0.1.0<br><br><span class="hljs-comment">#启动服务并设置开机自启</span><br>Start-Service sshd<br>Set-Service -Name sshd -StartupType <span class="hljs-string">&#x27;Automatic&#x27;</span><br><br><span class="hljs-comment">#更改默认 Shell 为 PowerShell (可选，默认为 CMD)</span><br>New-ItemProperty -Path <span class="hljs-string">&quot;HKLM:\SOFTWARE\OpenSSH&quot;</span> -Name DefaultShell -Value <span class="hljs-string">&quot;C:\Windows\System32\WindowsPowerShell\v1.0\powershell.exe&quot;</span> -PropertyType String -Force<br></code></pre></td></tr></table></figure>
+
+<h3 id="Step-2-解决防火墙拦截"><a href="#Step-2-解决防火墙拦截" class="headerlink" title="Step 2, 解决防火墙拦截"></a>Step 2, 解决防火墙拦截</h3><p>这时候之间用ssh 连接会直接“Connection timed out”，因为校园网通常被 Windows 视为**“公用网络” (Public Network)**，出于安全，系统默认会拦截外部发起的连接。</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs bash"><span class="hljs-comment">#强制放行 22 端口</span><br>New-NetFirewallRule -Name <span class="hljs-string">&quot;Allow_SSH&quot;</span> -DisplayName <span class="hljs-string">&quot;Open SSH Port&quot;</span> -Protocol TCP -LocalPort 22 -Action Allow<br><span class="hljs-comment">#对远程地址放行</span><br>Set-NetFirewallRule -Name <span class="hljs-string">&quot;Allow_SSH&quot;</span> -RemoteAddress Any<br></code></pre></td></tr></table></figure>
+
+<ul>
+<li><strong>作用域</strong>：变成了 **Any (任何)**。</li>
+<li><strong>效果</strong>：<ul>
+<li>你在 <strong>图书馆 (<code>10.31</code>)</strong> -&gt; <strong>能连</strong>。</li>
+<li>你在 <strong>宿舍 (<code>10.32</code>)</strong> -&gt; <strong>能连</strong>。</li>
+<li>你在 <strong>食堂 (<code>10.100</code>)</strong> -&gt; <strong>能连</strong>。</li>
+</ul>
+</li>
+</ul>
+<p>只要你还在校园网内，还没出学校大门，你的台式机就会对你敞开大门！</p>
+<h3 id="Step-4-关闭“仅允许-Windows-Hello-登录”"><a href="#Step-4-关闭“仅允许-Windows-Hello-登录”" class="headerlink" title="Step 4, 关闭“仅允许 Windows Hello 登录”"></a>Step 4, 关闭“仅允许 Windows Hello 登录”</h3><p>如果是微软邮箱登录 Windows，SSH 验证会一直提示密码错误。这是因为“仅允许 Windows Hello 登录”策略导致系统没有存储密码 Hash。</p>
+<p>微软真的是太Shit了！微软现在推行“无密码未来”，如果你的台式机开启了“仅允许 Windows Hello 登录”，那么系统里根本就没有存储用于网络验证的密码 Hash。</p>
+<p><strong>在Murphy-ITXWin上检查：</strong></p>
+<ol>
+<li>打开 <strong>设置</strong> -&gt; <strong>账户</strong> -&gt; <strong>登录选项</strong>。</li>
+<li>找到 <strong>“为了提高安全性，仅允许对这台设备上的 Microsoft 账户使用 Windows Hello 登录”</strong>。</li>
+<li><strong>关掉它！</strong> (设为“关”)。</li>
+<li><strong>重启台式机</strong>（这一步很重要，重启后系统才会重新生成密码 Hash）。</li>
+</ol>
+<h3 id="Step-3-启动ssh连接！"><a href="#Step-3-启动ssh连接！" class="headerlink" title="Step 3, 启动ssh连接！"></a>Step 3, 启动ssh连接！</h3><ul>
+<li>我的Windows设备其实是使用的Microsoft账户连接的，登录设备的用户名是<code>C:\Users\cosmi</code>这里这个username，我的就是<code>cosmi</code>，而密码呢？这个太坑了，这个密码是微软账户的密码！而不是PIN。</li>
+<li>废了这么大的劲，终于连上了！</li>
+</ul>
+<blockquote>
+<ul>
+<li>Step 3,4真的非常坑！其实可用新建一个标准的本地管理员账户，专门用来 SSH 和 SMB 文件传输。这样永远不会有权限问题。<ul>
+<li>不过我不想建立本地用户，Windows本来就够地狱的了，多用户管理估计又得乱套了！</li>
+</ul>
+</li>
+</ul>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><code class="hljs bash"><span class="hljs-comment"># 以管理员身份运行 PowerShell。</span><br><br><span class="hljs-comment"># 1. 创建admin用户</span><br>net user admin 123456 /add<br><br><span class="hljs-comment"># 2. 把他拉进管理员组 (这样才有权限读写C盘)</span><br>net localgroup administrators admin /add<br></code></pre></td></tr></table></figure>
+</blockquote>
+<h3 id="Step-4-Filezille-使用SFTP-SSH-File-Transfer-Protocol连接ITX的时候，只能看到C盘，看不到D-E-…-…"><a href="#Step-4-Filezille-使用SFTP-SSH-File-Transfer-Protocol连接ITX的时候，只能看到C盘，看不到D-E-…-…" class="headerlink" title="Step 4, Filezille 使用SFTP - SSH File Transfer Protocol连接ITX的时候，只能看到C盘，看不到D,E … …"></a>Step 4, Filezille 使用SFTP - SSH File Transfer Protocol连接ITX的时候，只能看到C盘，看不到D,E … …</h3><p>在 FileZilla 的右侧（远程站点）面板上方，有一个 **地址栏 (Remote site)**。</p>
+<ol>
+<li>清空里面的内容。</li>
+<li>手动输入：**<code>/D:/</code>** (或者 <strong><code>/E:/</code></strong>)</li>
+<li>按 <strong>回车</strong>。</li>
+</ol>
+<p>你就发现文件列表瞬间跳到 D 盘了。 <em>(注意：前面的斜杠 <code>/</code> 和后面的冒号 <code>:</code> 最好都带上，这是 OpenSSH for Windows 的标准路径格式)</em></p>
+<p><img src="https://murphyimg.oss-cn-beijing.aliyuncs.com/img/202511202120425.png" srcset="https://murhyimgur.oss-cn-beijing.aliyuncs.com/website/loading.gif" lazyload alt="image-20251120204021199"></p>
+<p><img src="https://murphyimg.oss-cn-beijing.aliyuncs.com/img/202511202120759.png" srcset="https://murhyimgur.oss-cn-beijing.aliyuncs.com/website/loading.gif" lazyload alt="image-20251120204233422"></p>
+<h2 id="第三部分，SMB共享"><a href="#第三部分，SMB共享" class="headerlink" title="第三部分，SMB共享"></a>第三部分，SMB共享</h2><p>在资源管理器访问ITX的文件<code>\\10.31.xx.xx</code></p>
+<p><img src="https://murphyimg.oss-cn-beijing.aliyuncs.com/img/202511202120863.png" srcset="https://murhyimgur.oss-cn-beijing.aliyuncs.com/website/loading.gif" lazyload alt="Thinkbook_Snipaste_2025-11-20_11-41-31"></p>
+<p>当使用微软邮箱登录时，远程电脑不知道你是要用“本地账户”验证还是“微软云端账户”验证。你需要显式地告诉它。</p>
+<p>在笔记本弹出的输入框中，尝试这种格式：</p>
+<ul>
+<li><strong>用户名</strong>：<code>MicrosoftAccount\你的邮箱地址</code><ul>
+<li><em>例如：<code>MicrosoftAccount\zhangsan@outlook.com</code></em></li>
+<li><em>注意：前面那个 <code>MicrosoftAccount\</code> 很关键，或者直接输完整的邮箱地址试试。</em></li>
+</ul>
+</li>
+<li><strong>密码</strong>：你的微软账户<strong>登录密码</strong>（必须是邮箱密码，绝对不能是 PIN 码！）。</li>
+</ul>
+<p>进来之后，发现是空的！直接在笔记本资源管理器的顶部地址栏里，把地址改写一下：</p>
+<p><strong>查看 C 盘所有文件：</strong> 输入 <code>\\10.31.xx.xx\c$</code> <em>(注意后面加了 <code>\c$</code>)</em></p>
+<p><strong>查看 D 盘所有文件：</strong> 输入 <code>\\10.31.xx.xx\d$</code></p>
+<p>这是以管理员方式进行查看，结果没有权限。。。我服了，真的无语啊，太反人类了！</p>
+<ul>
+<li>UAC问题</li>
+</ul>
+<p>Windows 的右键共享菜单既慢又容易受 UAC 限制（导致 \IP\d$ 无法访问）。我们可以使用 PowerShell (对应 Linux 的 exportfs) 和 Net 命令 (对应 mount) 来高效管理。</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs bash">New-ItemProperty -Path <span class="hljs-string">&quot;HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\Policies\System&quot;</span> -Name <span class="hljs-string">&quot;LocalAccountTokenFilterPolicy&quot;</span> -Value 1 -PropertyType DWORD -Force<br><span class="hljs-comment">#因为使用了Microsoft云端账号，安全权限设置的非常严格，所以即使更杠UAC也无法使用SMB进行访问！</span><br></code></pre></td></tr></table></figure>
+
+<ul>
+<li>SMB网络问题</li>
+</ul>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs bash">Set-NetFirewallRule -DisplayGroup <span class="hljs-string">&quot;文件和打印机共享&quot;</span> -Enabled True -Profile Any<br><span class="hljs-comment">#(注意：如果系统是纯英文版，把引号里的字换成 &quot;File and Printer Sharing&quot;)</span><br></code></pre></td></tr></table></figure>
+
+<ul>
+<li>!!!!!!!! 终极解决办法！！！！！！！！</li>
+</ul>
+<p>服务端：创建共享 (PowerShell)，与其破解隐藏共享 (D$) 的权限，不如直接新建一个标准共享。</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs bash">New-SmbShare -Name <span class="hljs-string">&quot;SMB-D&quot;</span> -Path <span class="hljs-string">&quot;D:\&quot; -FullAccess &quot;</span>Everyone<span class="hljs-string">&quot;</span><br><span class="hljs-string">#这条命令的意思是：把 D 盘整个共享出来，名字叫 SMB-D，允许任何人读写 —— 放心，进入时依然需要输入你的账号密码，只有你能进</span><br></code></pre></td></tr></table></figure>
+
+<p>这次终于可用通过SMB在TB上对ITX的文件进行访问了！</p>
+<ul>
+<li>SMB的基本命令</li>
+</ul>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><code class="hljs bash"><span class="hljs-comment">#查看所有共享</span><br>(base) PS C:\Users\cosmi&gt; Get-SmbShare<br><br>Name   ScopeName Path       Description<br>----   --------- ----       -----------<br>ADMIN$ *         C:\WINDOWS 远程管理<br>C$     *         C:\        默认共享<br>D$     *         D:\        默认共享<br>E$     *         E:\        默认共享<br>IPC$   *                    远程 IPC<br>SMB-D  *         D:\<br>SMB-E  *         E:\<br><br><span class="hljs-comment">#语法：Remove-SmbShare -Name &quot;共享名&quot;</span><br>Remove-SmbShare -Name <span class="hljs-string">&quot;SMB-D&quot;</span><br>Remove-SmbShare -Name <span class="hljs-string">&quot;Data&quot;</span> -Force<br><br><span class="hljs-comment">#新建共享</span><br>New-SmbShare -Name <span class="hljs-string">&quot;SMB-D&quot;</span> -Path <span class="hljs-string">&quot;D:\&quot; -FullAccess &quot;</span>Everyone<span class="hljs-string">&quot;</span><br><span class="hljs-string"></span><br><span class="hljs-string">#创建时指定权限</span><br><span class="hljs-string">New-SmbShare -Name &quot;</span>Data<span class="hljs-string">&quot; -Path &quot;</span>D:\&quot; -FullAccess <span class="hljs-string">&quot;lab&quot;</span><br><br><span class="hljs-comment"># 对现有的共享修改权限 如果共享已经存在了，你想把 Everyone 踢出去，换成 lab：</span><br><span class="hljs-comment"># 1. 给 lab 用户完全控制权</span><br>Grant-SmbShareAccess -Name <span class="hljs-string">&quot;Data&quot;</span> -AccountName <span class="hljs-string">&quot;lab&quot;</span> -AccessRight Full -Force<br><span class="hljs-comment"># 2. 把 Everyone 踢出去 (Revoke)</span><br>Revoke-SmbShareAccess -Name <span class="hljs-string">&quot;Data&quot;</span> -AccountName <span class="hljs-string">&quot;Everyone&quot;</span> -Force<br></code></pre></td></tr></table></figure>
+
+
+
+<ul>
+<li>客户端的net命令</li>
+</ul>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><code class="hljs bash"><span class="hljs-comment">#查看IXT开放的所有共享资源</span><br>net view \\10.31.XX.XX<br><span class="hljs-comment">#把开放的文件夹挂载到TB的资源管理器的Z和Y盘</span><br>net use Z: \\10.31.XX.XX\SMB-D /persistent:<span class="hljs-built_in">yes</span><br>net use Y: \\10.31.XX.XX\SMB-E /persistent:<span class="hljs-built_in">yes</span><br><br><span class="hljs-comment">#查看当前已经连接的网络驱动器</span><br>net use<br><span class="hljs-comment">#临时挂载网络盘</span><br>net use Z: \\10.31.XX.XX\SMB-D<br><span class="hljs-comment">#永久挂载网络盘</span><br>net use Z: \\10.31.XX.XX\SMB-D /persistent:<span class="hljs-built_in">yes</span><br><span class="hljs-comment">#删除挂载 (卸载)</span><br>net use Z: /del<br><span class="hljs-comment">#彻底清除所有连接 (重置)</span><br>net use * /del /y<br></code></pre></td></tr></table></figure>
+
+<ul>
+<li>服务器的net命令</li>
+</ul>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><code class="hljs bash"><span class="hljs-comment">#查看开放了哪些共享</span><br>net share<br><span class="hljs-comment">#创建新共享</span><br><span class="hljs-comment">#语法：net share 共享名=路径 /grant:用户,权限</span><br>net share Movie=E:\Downloads /grant:everyone,full<br><span class="hljs-comment">#删除共享</span><br>net share Movie /del<br></code></pre></td></tr></table></figure>
+
+<ul>
+<li><p>net user 用户管理</p>
+</li>
+<li><p>net view 网络侦察</p>
+</li>
+</ul>
+<h2 id="第三部分，防火墙规则查看"><a href="#第三部分，防火墙规则查看" class="headerlink" title="第三部分，防火墙规则查看"></a>第三部分，防火墙规则查看</h2><p>在 PowerShell 中查看防火墙规则是最准确的，因为它可以直接显示出刚才我们关心的 <strong>“作用域 (RemoteAddress)”</strong>。</p>
+<p>请在<strong>台式机</strong>的 PowerShell (管理员) 中运行以下命令，分别检查 SSH 和 SMB 的状态。</p>
+<h3 id="1-检查-SSH-规则"><a href="#1-检查-SSH-规则" class="headerlink" title="1. 检查 SSH 规则"></a>1. 检查 SSH 规则</h3><p>看看刚才创建的 <code>Allow_SSH</code> 规则是否生效，以及它的作用域是不是 <code>Any</code>。</p>
+<p>复制并运行：</p>
+<p>PowerShell</p>
+<figure class="highlight pgsql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs pgsql"><span class="hljs-keyword">Get</span>-NetFirewallRule -<span class="hljs-type">Name</span> &quot;Allow_SSH&quot; | <span class="hljs-keyword">Select</span>-<span class="hljs-keyword">Object</span> DisplayName, Enabled, @&#123;<span class="hljs-type">Name</span>=<span class="hljs-string">&#x27;作用域(Scope)&#x27;</span>; Expression=&#123;($_ | <span class="hljs-keyword">Get</span>-NetFirewallAddressFilter).RemoteAddress&#125;&#125;<br></code></pre></td></tr></table></figure>
+
+<ul>
+<li><strong>理想结果</strong>：<ul>
+<li>Enabled: <code>True</code></li>
+<li>作用域: <code>Any</code> (或者显示为空，也代表 Any)</li>
+</ul>
+</li>
+</ul>
+<hr>
+<h3 id="2-检查-SMB-文件共享-规则"><a href="#2-检查-SMB-文件共享-规则" class="headerlink" title="2. 检查 SMB (文件共享) 规则"></a>2. 检查 SMB (文件共享) 规则</h3><p>这个命令会列出所有<strong>已启用</strong>且监听 <strong>445 端口</strong> (SMB) 的规则。这比直接查名字更准。</p>
+<p>复制并运行：</p>
+<p>PowerShell</p>
+<figure class="highlight powershell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs powershell"><span class="hljs-built_in">Get-NetFirewallRule</span> | <span class="hljs-built_in">Where-Object</span> &#123;<span class="hljs-variable">$_</span>.Enabled <span class="hljs-operator">-eq</span> <span class="hljs-string">&#x27;True&#x27;</span> <span class="hljs-operator">-and</span> (<span class="hljs-variable">$_</span> | <span class="hljs-built_in">Get-NetFirewallPortFilter</span>).LocalPort <span class="hljs-operator">-eq</span> <span class="hljs-number">445</span>&#125; | <span class="hljs-built_in">Select-Object</span> DisplayName, Direction, <span class="hljs-selector-tag">@</span>&#123;Name=<span class="hljs-string">&#x27;作用域(Scope)&#x27;</span>; Expression=&#123;(<span class="hljs-variable">$_</span> | <span class="hljs-built_in">Get-NetFirewallAddressFilter</span>).RemoteAddress&#125;&#125;<br></code></pre></td></tr></table></figure>
+
+<ul>
+<li><strong>理想结果</strong>：<ul>
+<li>你应该能看到好几条规则（比如“文件和打印机共享 (SMB-In)”）。</li>
+<li><strong>关键看最后一列</strong>：如果是 **<code>Any</code>**，说明全校都能连；如果是 **<code>LocalSubnet</code>**，说明只能连同子网。</li>
+</ul>
+</li>
+</ul>
+<h3 id="3-备选-图形界面查看法"><a href="#3-备选-图形界面查看法" class="headerlink" title="3. (备选) 图形界面查看法"></a>3. (备选) 图形界面查看法</h3><p>如果你觉得命令行的输出太乱，也可以用图形界面看，更直观：</p>
+<ol>
+<li>按 <code>Win + R</code>，输入 <code>wf.msc</code>，回车。</li>
+<li>点击左侧 **“入站规则” (Inbound Rules)**。</li>
+<li><strong>查看 SSH</strong>：<ul>
+<li>在列表中找到你刚才建的规则名（比如 <code>Open SSH Port</code> 或 <code>Allow_SSH</code>）。</li>
+<li>双击它 -&gt; <strong>作用域 (Scope)</strong> 选项卡 -&gt; 看 <strong>远程 IP 地址</strong> 是否为 <strong>任何 IP 地址</strong>。</li>
+</ul>
+</li>
+<li><strong>查看 SMB</strong>：<ul>
+<li>在右侧点击 <strong>“按组筛选”</strong> -&gt; 选择 <strong>“文件和打印机共享”</strong>。</li>
+<li>看中间列表中 <strong>“已启用”</strong> 为 <strong>是</strong> 的规则。</li>
+<li>看 <strong>“远程地址”</strong> 这一列，是不是显示为 <strong>“任何”</strong>。</li>
+</ul>
+</li>
+</ol>
+<p><strong>只要看到是 <code>Any</code> 或 <code>任何</code>，就说明你的设置成功了，跨子网连接没问题！</strong></p>
+<h2 id="后记，Windows的逻辑跟Linux差别太大了！"><a href="#后记，Windows的逻辑跟Linux差别太大了！" class="headerlink" title="后记，Windows的逻辑跟Linux差别太大了！"></a>后记，Windows的逻辑跟Linux差别太大了！</h2><p><strong>Windows 的逻辑是“保姆模式”</strong>：它假设用户什么都不懂，所以设置了层层安检（UAC、防火墙、网络位置、组策略、注册表），想方设法拦着你，生怕你把系统搞坏了。结果就是想干点正事的时候，得先花两小时跟它“打架”。</p>
+<p><strong>Linux 的逻辑是“极客模式”</strong>：它假设你知道自己在干什么。<code>Everything is a file</code>，只要你只要有 root 权限，改两行 config 配置文件，重启服务，立马生效。简单、暴力、透明。</p>
+<h1 id="远程桌面连接-mstsc"><a href="#远程桌面连接-mstsc" class="headerlink" title="远程桌面连接 mstsc"></a>远程桌面连接 mstsc</h1><p>在打通了局域网之后，可用使用Microsoft Remote Desktop&#x2F;RDP)进行远程连接了！</p>
+<h2 id="隐私问题"><a href="#隐私问题" class="headerlink" title="隐私问题"></a>隐私问题</h2><p>如果你使用的是 Windows 自带的“远程桌面连接” (Microsoft Remote Desktop&#x2F;RDP)，另一台电脑（被控端）的屏幕会显示“锁屏界面”。</p>
+<p><strong>如果你使用的是 Windows 自带的“远程桌面连接” (Microsoft Remote Desktop&#x2F;RDP)，另一台电脑（被控端）的屏幕会显示“锁屏界面”。</strong></p>
+<p>坐在那台电脑前面的人，<strong>完全看不到</strong>你在做什么操作。</p>
+<ol>
+<li>屏幕显示什么？<br>当你点击“连接”并成功进入桌面后，实验室那台台式机的物理显示器会发生以下变化：</li>
+</ol>
+<ul>
+<li><strong>黑屏或锁屏壁纸</strong>：屏幕会退回到登录界面。</li>
+<li><strong>提示文字</strong>：通常会显示“<strong>计算机正在由另一用户使用</strong>”或者显示你的用户名，提示已锁定。</li>
+<li><strong>操作不可见</strong>：你在远程端打开网页、写代码、看视频，实验室显示器上<strong>全都不会显示</strong>。鼠标也不会动。</li>
+</ul>
+<ol start="2">
+<li>声音会怎样？</li>
+</ol>
+<p>默认设置下，台式机播放的声音会被“重定向”到你的笔记本上播放。</p>
+<ul>
+<li><strong>台式机音箱</strong>：静音（或者根本不响）。</li>
+<li><strong>笔记本音箱</strong>：播放台式机发出的声音（比如看视频的声音）。</li>
+</ul>
+<ol start="3">
+<li>如果实验室有人动那台电脑怎么办？</li>
+</ol>
+<p>如果此时你的同学走过去，晃动鼠标或按下键盘：</p>
+<ul>
+<li>他会看到锁屏界面。</li>
+<li>如果他不知道密码，他进不去，也干扰不了你。</li>
+<li><strong>如果他知道密码（或者是管理员）并强行登录</strong>：你的远程连接会被<strong>立刻踢掉（断开）</strong>，他夺回控制权，看到原本的桌面。</li>
+</ul>
+<p>⚠️ 重要区别：RDP vs 远程控制软件</p>
+<p>大家经常混淆 <strong>Windows RDP</strong> 和 <strong>TeamViewer&#x2F;向日葵&#x2F;ToDesk</strong>，它们的原理完全不同：</p>
+<table>
+<thead>
+<tr>
+<th><strong>特性</strong></th>
+<th><strong>Windows 自带 RDP</strong></th>
+<th><strong>TeamViewer &#x2F; 向日葵 &#x2F; AnyDesk</strong></th>
+</tr>
+</thead>
+<tbody><tr>
+<td><strong>原理</strong></td>
+<td><strong>虚拟会话</strong> (Virtual Session)</td>
+<td><strong>屏幕镜像</strong> (Screen Mirroring)</td>
+</tr>
+<tr>
+<td><strong>被控端屏幕</strong></td>
+<td><strong>锁屏&#x2F;黑屏</strong> (看不到操作)</td>
+<td><strong>同步显示</strong> (你在动，屏幕也在动)</td>
+</tr>
+<tr>
+<td><strong>隐私性</strong></td>
+<td><strong>极高</strong> (像在用这台电脑的影子分身)</td>
+<td><strong>低</strong> (旁边的人能像看电影一样看你操作)</td>
+</tr>
+<tr>
+<td><strong>性能</strong></td>
+<td><strong>极快</strong> (传输的是绘图指令，极清晰)</td>
+<td><strong>一般</strong> (传输的是视频流，可能有画质损耗)</td>
+</tr>
+<tr>
+<td><strong>用途</strong></td>
+<td>办公、开发 (不想被人窥屏)</td>
+<td>远程协助 (演示给对方看怎么操作)</td>
+</tr>
+</tbody></table>
+<h2 id="多屏幕问题"><a href="#多屏幕问题" class="headerlink" title="多屏幕问题"></a>多屏幕问题</h2><p>这是一个非常经典的误解。<strong>Windows 自带的远程桌面 (RDP) 和 TeamViewer&#x2F;向日葵这类软件在处理多屏幕时的逻辑是截然不同的。</strong></p>
+<p>简单来说：<strong>RDP 是“适应”你的笔记本，而不是“照搬”台式机。</strong></p>
+<ol>
+<li>核心原因：由“你的笔记本”说了算</li>
+</ol>
+<ul>
+<li><p>TeamViewer&#x2F;向日葵（屏幕镜像逻辑）：<br>它们是<strong>“摄像机”</strong>。台式机有两个屏幕，它们就传两个视频流过来。你可以在笔记本上点击按钮切换“查看屏幕1”或“查看屏幕2”，或者把两个屏幕挤在一个画面里。</p>
+</li>
+<li><p>Windows RDP（重绘逻辑）：<br>它是<strong>“重新排版”。<br>当你用笔记本（只有 1 个屏幕）去连台式机（有 2 个屏幕）时，RDP 会认为：“哦，现在的操作者只有 1 个显示器，那我就把台式机原本分散在 2 个屏幕上的窗口，全部那挪到一个屏幕上来显示。”</strong></p>
+<p>结果就是：</p>
+<p>台式机的双屏模式被暂时强制变成单屏模式。你只能看到一个桌面，原本在副屏上的窗口会被自动挤到这一个主屏里来（或者你需要把它们拖出来）。</p>
+</li>
+</ul>
+<hr>
+<ol start="2">
+<li>如果你想在远程时也用双屏，该怎么办？</li>
+</ol>
+<p>只有一种情况，你可以开启 RDP 的多屏支持，那就是：<strong>你的笔记本同时也外接了一个显示器（即客户端也是双屏）</strong>。</p>
+<p>如果你的笔记本接了外接显示器，你可以这样设置，让远程桌面占满你的两个屏幕：</p>
+<ol>
+<li>打开远程桌面连接 (<code>mstsc</code>)。</li>
+<li>点击左下角的 **“显示选项” (Show Options)**。</li>
+<li>切换到 <strong>“显示” (Display)</strong> 选项卡。</li>
+<li><strong>勾选</strong>中间的 **“将我的所有监视器用于远程会话” (Use all my monitors for the remote session)**。</li>
+<li>点击连接。</li>
+</ol>
+<p><strong>效果</strong>：你的笔记本屏幕显示台式机的屏幕1，你的外接显示器显示台式机的屏幕2。完美还原双屏体验。</p>
+<hr>
+<ol start="3">
+<li>如果你只有一台笔记本（单屏），但想看双屏画面</li>
+</ol>
+<p>如果你没法给笔记本外接显示器，但又想体验“双屏”，你有两个选择：<br>方案 A：忍受 RDP 的单屏合并（默认）</p>
+<p>就像现在这样，RDP 会把台式机变成单屏。你虽然失去了物理双屏，但<strong>分辨率会适配你的笔记本</strong>，字很清晰，操作很流畅。你需要习惯用 <code>Alt + Tab</code> 切换窗口。</p>
+<p>方案 B：改用第三方软件（如果你非要“切换屏幕”）</p>
+<p>如果你必须明确区分“屏幕1”和“屏幕2”（比如屏幕1看代码，屏幕2看监控），RDP 做不到在单屏里切换双屏视图。</p>
+<p>你需要换回 <strong>ToDesk &#x2F; 向日葵 &#x2F; TeamViewer</strong>。</p>
+<ul>
+<li>这些软件会在顶部工具栏提供一个“切换显示器”的按钮。</li>
+<li>你可以点击按钮，在笔记本上轮流查看台式机的左屏和右屏。</li>
+</ul>
+<h1 id="后记-遇到了一种奇怪的问题"><a href="#后记-遇到了一种奇怪的问题" class="headerlink" title="后记 - 遇到了一种奇怪的问题"></a>后记 - 遇到了一种奇怪的问题</h1><p>笔记本带到教研室之后，笔记本和ITX的ping&#x2F;tracert都不通！ssh可以通！</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><code class="hljs bash">(base) PS C:\Users\cosmi&gt; ping 10.31.xx.xx<br>正在 Ping 10.31.xx.xx 具有 32 字节的数据:<br>来自 10.31.xx.xx 的回复: 无法访问目标主机。<br>请求超时。<br>来自 10.31.xx.xx 的回复: 无法访问目标主机。<br>请求超时。<br>10.31.xx.xx 的 Ping 统计信息:<br>    数据包: 已发送 = 4，已接收 = 2，丢失 = 2 (50% 丢失)<br><br><br>(base) PS C:\Users\cosmi&gt; tracert 10.31.xx.xx<br>通过最多 30 个跃点跟踪到 10.31.xx.xx 的路由<br>  1  Murphy-TB16p [10.31.xx.xx]  报告: 无法访问目标主机。<br>跟踪完成。<br></code></pre></td></tr></table></figure>
+
+<p>搜了一下，可能是“<strong>同 AP 隔离” (AP Isolation)</strong> ”</p>
+<p>请想象一下这个场景：</p>
+<ul>
+<li><strong>场景 A：你在图书馆，台式机在实验室</strong><ul>
+<li>你连的是 **AP-1 (图书馆)**，台式机连的是 **AP-2 (实验室)**。</li>
+<li>你的数据流向：笔记本 -&gt; AP-1 -&gt; <strong>核心交换机</strong> -&gt; AP-2 -&gt; 台式机。</li>
+<li><strong>结果</strong>：核心交换机通常只管转发，不怎么管闲事，所以你们<strong>通了</strong>。</li>
+</ul>
+</li>
+<li><strong>场景 B：你回到了实验室</strong><ul>
+<li>你连上了 **AP-2 (实验室)**，台式机也连着 <strong>AP-2</strong>。</li>
+<li>你们俩现在像两个连体婴儿一样，挂在同一个无线路由器（AP）下面。</li>
+<li><strong>结果</strong>：企业级 AP 为了防止用户互黑（或者广播风暴），默认有一条铁律——<strong>“禁止连接在我身上的客户端直接互访”</strong>。</li>
+<li>所以，你的数据包刚发到 AP，就被 AP 一脚踢回来了，根本没发给台式机。</li>
+</ul>
+</li>
+</ul>
+<p><strong>结论：离得越近（连同一个 AP），反而越被隔离。</strong></p>
+<p>这确实非常反直觉，也不怪你疑惑。在我们的常识里：“咱俩都连同一个 Wi-Fi，就在一个房间，应该更亲密才对啊，怎么反而成路人了？”</p>
+<p>但这就是<strong>企业级&#x2F;校园级网络</strong>和<strong>家用网络</strong>最大的区别。</p>
+<h3 id="1-为什么一开始（异地）通？——“走公家大路”"><a href="#1-为什么一开始（异地）通？——“走公家大路”" class="headerlink" title="1. 为什么一开始（异地）通？——“走公家大路”"></a>1. 为什么一开始（异地）通？——“走公家大路”</h3><p>当你人在图书馆，台式机在实验室时，你们连的是<strong>不同</strong>的 AP（无线基站）。</p>
+<ul>
+<li><strong>路径</strong>：你的笔记本 -&gt; 图书馆 AP -&gt; <strong>学校核心交换机</strong> -&gt; 实验室 AP -&gt; 台式机。</li>
+<li><strong>原理</strong>：虽然你们都在 <code>10.31.x.x</code>，但在物理上你们隔得很远。数据包必须上行到学校的“核心层”。核心交换机（那个 <code>172.20.x.x</code>）只管转发，它看到你要找台式机，就帮你把包转过去了。</li>
+<li><strong>结论</strong>：<strong>虽然隔得远，但因为走了上层路由，所以通了。</strong></li>
+</ul>
+<h3 id="2-为什么现在（同屋）不通？——“禁止窃窃私语”"><a href="#2-为什么现在（同屋）不通？——“禁止窃窃私语”" class="headerlink" title="2. 为什么现在（同屋）不通？——“禁止窃窃私语”"></a>2. 为什么现在（同屋）不通？——“禁止窃窃私语”</h3><p>现在你回到了实验室，两台设备连上了<strong>同一个</strong> AP。</p>
+<ul>
+<li><strong>路径</strong>：你的笔记本 -&gt; 实验室 AP -&gt; 台式机。</li>
+<li><strong>阻碍</strong>：**AP 隔离 (Client Isolation)**。这是学校为了安全强制开启的功能。<ul>
+<li><strong>规则</strong>：连接在同一个 AP 下的无线设备，<strong>禁止直接二层通信</strong>。</li>
+<li><strong>比喻</strong>：就像在考场里。你（笔记本）和台式机坐同桌。虽然你们离得最近，但监考老师（AP）规定：<strong>严禁交头接耳</strong>。你想传纸条给同桌？老师（AP）直接把纸条没收了。</li>
+</ul>
+</li>
+<li><strong>为什么要有这个反人类的规定？</strong><ul>
+<li><strong>防病毒</strong>：如果一台学生电脑中了勒索病毒，它会试图扫描同一个 Wi-Fi 下的所有邻居。开了隔离，它谁也染不上。</li>
+<li><strong>防黑客</strong>：防止你在星巴克&#x2F;图书馆这种公用 Wi-Fi 下，通过 ARP 欺骗窃取旁边人的账号密码。</li>
+</ul>
+</li>
+</ul>
+<p>这是一个极好的问题！这说明你正在用<strong>“家用路由器”</strong>的思维去理解<strong>“企业级网络”</strong>，而这两者有着本质的区别。</p>
+<p>简单直接的答案是：<strong>因为这些 AP 根本不是路由器，它们只是“无线网线”而已。</strong></p>
+<h3 id="1-家用路由器-vs-校园网-AP"><a href="#1-家用路由器-vs-校园网-AP" class="headerlink" title="1. 家用路由器 vs. 校园网 AP"></a>1. 家用路由器 vs. 校园网 AP</h3><ul>
+<li>**家用路由器 (All-in-One)**：<ul>
+<li>你在家买的 TP-Link，它是个“多面手”。它既是<strong>天线</strong>（发 Wi-Fi），又是<strong>路由器</strong>（发 IP、做网关），还是<strong>交换机</strong>。</li>
+<li>所以，每个家用路由器都有自己的网关 IP（比如 <code>192.168.1.1</code>）。</li>
+</ul>
+</li>
+<li>**校园网 AP (Access Point)**：<ul>
+<li>学校天花板上挂的那些白色方盒子，它们是**“瘦 AP” (Thin AP)**。</li>
+<li>它们的功能被极度“阉割”了：<strong>它们只负责把无线信号变成有线信号，不负责分配 IP，也不负责做网关。</strong></li>
+<li>它们本质上就是一根<strong>“无线的延长线”</strong>。</li>
+</ul>
+</li>
+</ul>
+<h3 id="2-架构揭秘：AC-AP-模式"><a href="#2-架构揭秘：AC-AP-模式" class="headerlink" title="2. 架构揭秘：AC + AP 模式"></a>2. 架构揭秘：AC + AP 模式</h3><p>学校的网络架构是 <strong>“控制器 (AC) + 接入点 (AP)”</strong> 模式。</p>
+<p>想象一下<strong>一栋大楼的供水系统</strong>：</p>
+<ul>
+<li><strong>核心交换机 (网关 10.31.0.1)<strong>：这是大楼的</strong>“总水闸”</strong>。</li>
+<li><strong>网线</strong>：这是铺设在墙里的<strong>“水管”</strong>。</li>
+<li><strong>图书馆 AP</strong>：这是 1 楼的<strong>“水龙头”</strong>。</li>
+<li><strong>实验室 AP</strong>：这是 2 楼的<strong>“水龙头”</strong>。</li>
+</ul>
+<p><strong>请问：</strong> 你在 1 楼打开水龙头，和在 2 楼打开水龙头，流出来的水是不是都来自同一个<strong>“总水闸”</strong>？ <strong>是的！</strong></p>
+<ul>
+<li>当你连上图书馆 AP，你其实是接到了核心交换机上。</li>
+<li>当你连上实验室 AP，你还是接到了同一台核心交换机上。</li>
+<li>这台核心交换机负责管理 <code>10.31.x.x</code> 这个大网段，所以无论你在哪接进来，它都告诉你：“我是你的网关 (<code>10.31.0.1</code>)”。</li>
+</ul>
+<h3 id="3-为什么要这样设计？（为了漫游）"><a href="#3-为什么要这样设计？（为了漫游）" class="headerlink" title="3. 为什么要这样设计？（为了漫游）"></a>3. 为什么要这样设计？（为了漫游）</h3><p>如果每个 AP 都是一个独立的路由器（像家里那样），会有什么灾难性的后果？</p>
+<ul>
+<li>你在图书馆，IP 是 <code>192.168.1.5</code>，正在下载电影。</li>
+<li>你抱着电脑走到走廊（切换到了走廊 AP），如果走廊 AP 是个新路由器，它会给你发个新 IP <code>192.168.2.6</code>。</li>
+<li><strong>后果</strong>：<strong>你的 IP 变了，网络连接瞬间中断，下载失败，游戏掉线，视频卡住。</strong></li>
+</ul>
+<p><strong>现在的设计（大二层网络）：</strong></p>
+<ul>
+<li>因为所有 AP 都共用同一个网关 (<code>10.31.0.1</code>)，都属于同一个大局域网。</li>
+<li>当你从图书馆走到实验室，你只是换了一个“水龙头”，但你的 <strong>IP 地址 (<code>10.31.208.138</code>) 不需要变</strong>，网关也不用变。</li>
+<li><strong>结果</strong>：你可以一边打视频电话一边全校溜达，信号无缝切换，完全感觉不到断网。这就是**无缝漫游 (Roaming)**。</li>
+</ul>
+
+                
+              </div>
+            
+            <hr/>
+            <div>
+              <div class="post-metas my-3">
+  
+    <div class="post-meta mr-3 d-flex align-items-center">
+      <i class="iconfont icon-category"></i>
+      
+
+<span class="category-chains">
+  
+  
+    
+      <span class="category-chain">
+        
+  <a href="/categories/%E9%AB%98%E6%95%88%E5%B7%A5%E5%85%B7/" class="category-chain-item">高效工具</a>
+  
+  
+
+      </span>
+    
+  
+</span>
+
+    </div>
+  
+  
+    <div class="post-meta">
+      <i class="iconfont icon-tags"></i>
+      
+        <a href="/tags/Windows/" class="print-no-link">#Windows</a>
+      
+    </div>
+  
+</div>
+
+
+              
+  
+
+  <div class="license-box my-3">
+    <div class="license-title">
+      <div>驯服 Windows 网络：双网卡并发、SSH 穿透与 SMB 挂载</div>
+      <div>https://blog.cosmicdusty.cc/post/Tools/Taming-Windows-Networks/</div>
+    </div>
+    <div class="license-meta">
+      
+        <div class="license-meta-item">
+          <div>作者</div>
+          <div>Murphy</div>
+        </div>
+      
+      
+        <div class="license-meta-item license-meta-date">
+          <div>发布于</div>
+          <div>2025年11月20日</div>
+        </div>
+      
+      
+      
+        <div class="license-meta-item">
+          <div>许可协议</div>
+          <div>
+            
+              
+              
+                <a class="print-no-link" target="_blank" href="https://creativecommons.org/licenses/by/4.0/">
+                  <span class="hint--top hint--rounded" aria-label="BY - 署名">
+                    <i class="iconfont icon-cc-by"></i>
+                  </span>
+                </a>
+              
+            
+          </div>
+        </div>
+      
+    </div>
+    <div class="license-icon iconfont"></div>
+  </div>
+
+
+
+              
+                <div class="post-prevnext my-3">
+                  <article class="post-prev col-6">
+                    
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/post/Tools/Lightweight-NAS/" title="OECT">
+                        <span class="hidden-mobile">OECT</span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+  
+  
+    <article id="comments" lazyload>
+      
+  <div id="valine"></div>
+  <script type="text/javascript">
+    Fluid.utils.loadComments('#valine', function() {
+      Fluid.utils.createScript('https://lib.baomitu.com/valine/1.5.1/Valine.min.js', function() {
+        var options = Object.assign(
+          {"appId":"JijHNKemeVNog4wF7g9I5TR3-gzGzoHsz","appKey":"FvsKdxHOP2aG5rHrHby5aV0b","path":"window.location.pathname","placeholder":null,"avatar":"retro","meta":["nick","mail","link"],"requiredFields":[],"pageSize":10,"lang":"zh-CN","highlight":false,"recordIP":false,"serverURLs":"","emojiCDN":null,"emojiMaps":null,"enableQQ":false},
+          {
+            el: "#valine",
+            path: window.location.pathname
+          }
+        )
+        new Valine(options);
+        Fluid.utils.waitElementVisible('#valine .vcontent', () => {
+          var imgSelector = '#valine .vcontent img:not(.vemoji)';
+          Fluid.plugins.imageCaption(imgSelector);
+          Fluid.plugins.fancyBox(imgSelector);
+        })
+      });
+    });
+  </script>
+  <noscript>Please enable JavaScript to view the comments</noscript>
+
+
+    </article>
+  
+
+
+          </article>
+        </div>
+      </div>
+    </div>
+
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+  <aside class="sidebar" style="margin-left: -1rem">
+    <div id="toc">
+  <p class="toc-header">
+    <i class="iconfont icon-list"></i>
+    <span>目录</span>
+  </p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+
+
+  </aside>
+
+
+    </div>
+  </div>
+</div>
+
+
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+
+
+
+
+    
+
+    
+      <a id="scroll-top-button" aria-label="TOP" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v" for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+    
+
+    
+  </main>
+
+  <footer>
+    <div class="footer-inner">
+  
+    <div class="footer-content">
+       <a rel="nofollow noopener"><span>Powered by</span></a> <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span><b>Hexo</b></span></a> <i class="iconfont icon-love"></i> <a rel="nofollow noopener"><span>Themed by</span></a> <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"><span><b>Fluid</b></span></a> 
+    </div>
+  
+  
+    <div class="statistics">
+  
+  
+
+  
+    
+      <span id="busuanzi_container_site_pv" style="display: none">
+        总访问量
+        <span id="busuanzi_value_site_pv"></span>
+        次
+      </span>
+    
+    
+      <span id="busuanzi_container_site_uv" style="display: none">
+        总访客数
+        <span id="busuanzi_value_site_uv"></span>
+        人
+      </span>
+    
+    
+
+  
+
+</div>
+
+  
+  
+</div>
+
+  </footer>
+
+  <!-- Scripts -->
+  
+  <script  src="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://lib.baomitu.com/jquery/3.6.0/jquery.min.js" ></script>
+<script  src="https://lib.baomitu.com/twitter-bootstrap/4.6.1/js/bootstrap.min.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
+
+
+  <script  src="https://lib.baomitu.com/typed.js/2.0.12/typed.min.js" ></script>
+  <script>
+    (function (window, document) {
+      var typing = Fluid.plugins.typing;
+      var subtitle = document.getElementById('subtitle');
+      if (!subtitle || !typing) {
+        return;
+      }
+      var text = subtitle.getAttribute('data-typed-text');
+      
+        typing(text);
+      
+    })(window, document);
+  </script>
+
+
+
+
+  
+    <script  src="/js/img-lazyload.js" ></script>
+  
+
+
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/tocbot/4.18.2/tocbot.min.js', function() {
+    var toc = jQuery('#toc');
+    if (toc.length === 0 || !window.tocbot) { return; }
+    var boardCtn = jQuery('#board-ctn');
+    var boardTop = boardCtn.offset().top;
+
+    window.tocbot.init(Object.assign({
+      tocSelector     : '#toc-body',
+      contentSelector : '.markdown-body',
+      linkClass       : 'tocbot-link',
+      activeLinkClass : 'tocbot-active-link',
+      listClass       : 'tocbot-list',
+      isCollapsedClass: 'tocbot-is-collapsed',
+      collapsibleClass: 'tocbot-is-collapsible',
+      scrollSmooth    : true,
+      includeTitleTags: true,
+      headingsOffset  : -boardTop,
+    }, CONFIG.toc));
+    if (toc.find('.toc-list-item').length > 0) {
+      toc.css('visibility', 'visible');
+    }
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('tocbot' in window) {
+        tocbot.refresh();
+        var toc = jQuery('#toc');
+        if (toc.length === 0 || !tocbot) {
+          return;
+        }
+        if (toc.find('.toc-list-item').length > 0) {
+          toc.css('visibility', 'visible');
+        }
+      }
+    });
+  });
+</script>
+
+
+  <script src=https://lib.baomitu.com/clipboard.js/2.0.11/clipboard.min.js></script>
+
+  <script>Fluid.plugins.codeWidget();</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/anchor-js/4.3.1/anchor.min.js', function() {
+    window.anchors.options = {
+      placement: CONFIG.anchorjs.placement,
+      visible  : CONFIG.anchorjs.visible
+    };
+    if (CONFIG.anchorjs.icon) {
+      window.anchors.options.icon = CONFIG.anchorjs.icon;
+    }
+    var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+    var res = [];
+    for (var item of el) {
+      res.push('.markdown-body > ' + item.trim());
+    }
+    if (CONFIG.anchorjs.placement === 'left') {
+      window.anchors.options.class = 'anchorjs-link-left';
+    }
+    window.anchors.add(res.join(', '));
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('anchors' in window) {
+        anchors.removeAll();
+        var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+        var res = [];
+        for (var item of el) {
+          res.push('.markdown-body > ' + item.trim());
+        }
+        if (CONFIG.anchorjs.placement === 'left') {
+          anchors.options.class = 'anchorjs-link-left';
+        }
+        anchors.add(res.join(', '));
+      }
+    });
+  });
+</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.js', function() {
+    Fluid.plugins.fancyBox();
+  });
+</script>
+
+
+  <script>Fluid.plugins.imageCaption();</script>
+
+  <script defer src="/js/leancloud.js" ></script>
+
+  <script  src="/js/local-search.js" ></script>
+
+  <script defer src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js" ></script>
+
+
+
+
+
+<!-- 主题的启动项，将它保持在最底部 -->
+<!-- the boot of the theme, keep it at the bottom -->
+<script  src="/js/boot.js" ></script>
+
+
+  
+
+  <noscript>
+    <div class="noscript-warning">博客在允许 JavaScript 运行的环境下浏览效果更佳</div>
+  </noscript>
+</body>
+</html>
