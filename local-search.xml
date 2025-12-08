@@ -29,7 +29,7 @@
   
   
   <entry>
-    <title>OECT</title>
+    <title>【📌 等待更新】OECT</title>
     <link href="/post/Tools/Lightweight-NAS/"/>
     <url>/post/Tools/Lightweight-NAS/</url>
     
@@ -137,7 +137,7 @@
   
   
   <entry>
-    <title>AI Assitant</title>
+    <title>【🌿 持续更新】AI Assitant</title>
     <link href="/post/Tools/AI-Assitant/"/>
     <url>/post/Tools/AI-Assitant/</url>
     
@@ -251,7 +251,7 @@
   
   
   <entry>
-    <title>书影音2025</title>
+    <title>【🌿 持续更新】书影音2025</title>
     <link href="/post/MyLife/Book-Movie-Music-2025/"/>
     <url>/post/MyLife/Book-Movie-Music-2025/</url>
     
@@ -336,37 +336,6 @@
       <tag>OpenMMLab</tag>
       
       <tag>MMPose</tag>
-      
-    </tags>
-    
-  </entry>
-  
-  
-  
-  <entry>
-    <title>CUDA C Programming</title>
-    <link href="/post/Knowledge/CUDA/"/>
-    <url>/post/Knowledge/CUDA/</url>
-    
-    <content type="html"><![CDATA[<h1 id="线程管理"><a href="#线程管理" class="headerlink" title="线程管理"></a>线程管理</h1><p>CUDA明确了线程层次抽象的概念以便于组织线程，这是一个两层的线程层次结构，由<strong>线程块</strong>和<strong>线程块网格</strong>构成。</p><p>关系：</p><ol><li>由一个内核启动所产生的所有线程统称为一个网格。同一个网格中的所有线程共享相同的内存空间。</li><li>一个网格由多个线程块构成，一个线程块包含一组线程，同一个线程块内的线程协作通过：“同步”，“共享内存”的方式来实现，不同块内的线程不能协作。</li><li>线程依靠两个坐标变量来区分彼此</li></ol><ul><li>blockIdx : 线程块在线程网格内的索引</li><li>threadIdx : 块内的线程索引</li></ul><ol start="4"><li>CUDA可以组织三维的网格和块。网格和块的维度由两个内置变量指定。</li></ol><ul><li>gridDim : 线程格的维度，用每个线程格中的<strong>线程数</strong>来表示</li><li>blockDim : 线程块的维度，用每个线程块中的<strong>线程数</strong>来表示</li></ul><ol start="5"><li>一个<strong>线程格</strong>会被组织成<strong>线程块</strong>的<strong>二维数组</strong>形式，一个<strong>线程块</strong>会被组织成<strong>线程</strong>的<strong>三维数组</strong>形式。</li></ol><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br></pre></td><td class="code"><pre><code class="hljs CUDA">#include &lt;cuda_runtime.h&gt;<br>#include &lt;stdio.h&gt;<br><br>__global__ void CheckIndex()<br>&#123;<br>    // 核函数中，每个线程都输出自己的线程索引，块索引，块维度，网格维度<br>    printf(&quot;threadIdx: (%d, %d, %d) \tblockIdx: (%d, %d, %d) \t\<br>            blockDim: (%d, %d, %d) \tgridDim: (%d, %d, %d)\n&quot;,<br>            threadIdx.x, threadIdx.y, threadIdx.z, <br>            blockIdx.x, blockIdx.y, blockIdx.z, <br>            blockDim.x, blockDim.y, blockDim.z, <br>            gridDim.x, gridDim.y, gridDim.z);<br>&#125;<br><br>int main()<br>&#123;<br>    int n_element = 6;<br><br>    dim3 block = 3;<br>    dim3 grid = ((n_element + block.x - 1) / block.x);<br><br>    // 主机端，检查块和网格维度<br>    printf(&quot;block.x = %d, block.y = %d, block.z = %d\n&quot;, block.x, block.y, block.z);<br>    printf(&quot;grid.x =  %d, grid.y =  %d, grid.z =  %d\n&quot;, grid.x, grid.y, grid.z);<br><br>    CheckIndex&lt;&lt;&lt;grid, block&gt;&gt;&gt;();<br>    cudaDeviceReset();<br><br>    return 0;<br>&#125;<br></code></pre></td></tr></table></figure><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><code class="hljs bash">block.x = 3, block.y = 1, block.z = 1<br>grid.x =  2, grid.y =  1, grid.z =  1<br>threadIdx: (0, 0, 0)  blockIdx: (0, 0, 0)               blockDim: (3, 1, 1)   gridDim: (2, 1, 1)<br>threadIdx: (1, 0, 0)  blockIdx: (0, 0, 0)               blockDim: (3, 1, 1)   gridDim: (2, 1, 1)<br>threadIdx: (2, 0, 0)  blockIdx: (0, 0, 0)               blockDim: (3, 1, 1)   gridDim: (2, 1, 1)<br>threadIdx: (0, 0, 0)  blockIdx: (1, 0, 0)               blockDim: (3, 1, 1)   gridDim: (2, 1, 1)<br>threadIdx: (1, 0, 0)  blockIdx: (1, 0, 0)               blockDim: (3, 1, 1)   gridDim: (2, 1, 1)<br>threadIdx: (2, 0, 0)  blockIdx: (1, 0, 0)               blockDim: (3, 1, 1)   gridDim: (2, 1, 1)<br></code></pre></td></tr></table></figure>]]></content>
-    
-    
-    <categories>
-      
-      <category>知识积累</category>
-      
-    </categories>
-    
-    
-    <tags>
-      
-      <tag>HPC</tag>
-      
-      <tag>CUDA</tag>
-      
-      <tag>C</tag>
-      
-      <tag>CPP</tag>
       
     </tags>
     
@@ -516,33 +485,6 @@
   
   
   <entry>
-    <title>ChernoOpenGL</title>
-    <link href="/post/Knowledge/Cherno-OpenGL/"/>
-    <url>/post/Knowledge/Cherno-OpenGL/</url>
-    
-    <content type="html"><![CDATA[<h1 id="Back-to-Top"><a href="#Back-to-Top" class="headerlink" title="Back to Top"></a>Back to Top</h1><h2 id="Video-Links"><a href="#Video-Links" class="headerlink" title="Video Links"></a>Video Links</h2><div align = center>    <iframe width="560" height="315" src="https://www.youtube.com/embed/W3gAzLwfIP0?si=sZLuN8kLPbniNWvx" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe></div><h2 id="Notebook-Links"><a href="#Notebook-Links" class="headerlink" title="Notebook Links"></a>Notebook Links</h2><ul><li><a href="https://thecherno.com/">Cherno (thecherno.com)</a></li><li><a href="https://nagi.fun/Cherno-CPP-Notes/">📘 The Cherno’s C++ Course Notes 📘</a></li><li><a href="https://zh.cppreference.com/w/%E9%A6%96%E9%A1%B5">cppreference.com</a></li><li><a href="https://www.bilibili.com/video/BV1Ni4y1o7Au/?spm_id_from=333.999.0.0&vd_source=6d46640a443a49f050af078d1f65143e">【双语】【TheCherno】OpenGL_哔哩哔哩_bilibili</a></li><li><a href="https://www.opengl.org/">OpenGL - The Industry Standard for High Performance Graphics</a></li><li><a href="https://en.wikipedia.org/wiki/OpenGL">OpenGL - Wikipedia</a></li><li><a href="https://learnopengl.com/">https://learnopengl.com/</a></li><li><a href="https://learnopengl-cn.github.io/">https://learnopengl-cn.github.io/</a></li></ul><h1 id="1-Welcome-to-OpenGL"><a href="#1-Welcome-to-OpenGL" class="headerlink" title="1. Welcome to OpenGL"></a>1. Welcome to OpenGL</h1>]]></content>
-    
-    
-    <categories>
-      
-      <category>知识积累</category>
-      
-    </categories>
-    
-    
-    <tags>
-      
-      <tag>CPP</tag>
-      
-      <tag>OpenGL</tag>
-      
-    </tags>
-    
-  </entry>
-  
-  
-  
-  <entry>
     <title>书影音2024</title>
     <link href="/post/MyLife/Book-Movie-Music-2024/"/>
     <url>/post/MyLife/Book-Movie-Music-2024/</url>
@@ -597,7 +539,7 @@
   
   
   <entry>
-    <title>瞧瞧我在Win系统上干了些什么！</title>
+    <title>【🌿 持续更新】瞧瞧我在Win系统上干了些什么！</title>
     <link href="/post/Tools/Working-With-Win/"/>
     <url>/post/Tools/Working-With-Win/</url>
     
@@ -653,7 +595,7 @@
   
   
   <entry>
-    <title>瞧瞧我在Ubuntu系统上干了些什么！</title>
+    <title>【🌿 持续更新】瞧瞧我在Ubuntu系统上干了些什么！</title>
     <link href="/post/Tools/Working-With-Ubt/"/>
     <url>/post/Tools/Working-With-Ubt/</url>
     
@@ -677,13 +619,13 @@
       
       <tag>Hardware</tag>
       
-      <tag>Software</tag>
-      
       <tag>Server</tag>
       
       <tag>GPU</tag>
       
       <tag>CV</tag>
+      
+      <tag>Software</tag>
       
     </tags>
     
@@ -696,7 +638,7 @@
     <link href="/post/MyLife/Hi/"/>
     <url>/post/MyLife/Hi/</url>
     
-    <content type="html"><![CDATA[<h2 align="center">👋  Hi Here! I'm Murphy. Nice to meet you.  ❤</h1><div align=center>    <img src="https://murphyimg.oss-cn-beijing.aliyuncs.com/img/202505302043661.jpg" width="450px"/>    </br>  <p></p></div><h3 id="👋-Hi"><a href="#👋-Hi" class="headerlink" title="👋 Hi"></a>👋 Hi</h3><ul><li>👋 嗨！我是<a href="https://github.com/murphyhoucn">Murphy</a>，一个<strong>在知识海洋里不断探索</strong>的大学生。</li><li>🏫 我本科在<strong>中国海洋大学</strong>学习通信工程。</li><li>🏫 现在正在<strong>西北工业大学</strong>攻读信息与通信工程的硕士学位。</li><li>🔍 最近我正沉迷于计算机视觉、模式识别和遥感图像处理。</li><li>💻 我日常工作中会使用: <img src="https://img.shields.io/badge/C-00599C?logo=c&logoColor=white" alt="C">&nbsp;<img src="https://img.shields.io/badge/C++-%2300599C.svg?logo=c++&logoColor=white" alt="C++">&nbsp;<img src="https://img.shields.io/badge/Python-3776AB?logo=python&logoColor=fff" alt="Python">&nbsp;<img src="https://img.shields.io/badge/PyTorch-ee4c2c?logo=pytorch&logoColor=white" alt="PyTorch">&nbsp;<img src="https://img.shields.io/badge/Ubuntu-E95420?logo=ubuntu&logoColor=white" alt="Ubuntu">&nbsp;<img src="https://img.shields.io/badge/Vim-%2311AB00.svg?logo=vim&logoColor=white" alt="Vim">&nbsp;<img src="https://custom-icon-badges.demolab.com/badge/Visual%20Studio%20Code-0078d7.svg?logo=vsc&logoColor=white" alt="Visual Studio Code">&nbsp;<img src="https://custom-icon-badges.demolab.com/badge/Visual%20Studio-5C2D91.svg?&logo=visual-studio&logoColor=white" alt="Visual Studio">&nbsp;<img src="https://img.shields.io/badge/Git-black?logo=Git" alt="Git"> &nbsp;<img src="https://img.shields.io/badge/GitHub-%23121011.svg?logo=github&logoColor=white" alt="GitHub"></li><li>📃 我的主页 👉: <a href="https://cosmicdusty.cc/" title="Home Page">cosmicdusty.cc</a></li><li>💬 向我提问 👉:<a href="https://github.com/murphyhoucn/murphyhoucn/issues" title="Issues">Issues</a></li><li>📫 Email: <a href="mailto: cosmicdustycn@outlook.com">cosmicdustycn@outlook.com</a></li></ul><h3 id="📇-Github-统计数据"><a href="#📇-Github-统计数据" class="headerlink" title="📇 Github 统计数据"></a>📇 Github 统计数据</h3><div align="center"> <div style="display: flex;"><img src="https://github-readme-stats-one-bice.vercel.app/api?username=murphyhoucn&count_private=true&theme=react&show_icons=true&include_all_commits=true&role=OWNER,ORGANIZATION_MEMBER,COLLABORATOR" alt="Murphy's GitHub stats" style="width:100%;" /> &nbsp;<img src="https://github-readme-streak-stats.herokuapp.com/?user=murphyhoucn&theme=react" style="width: 100%;" /><img src="https://github-readme-stats-one-bice.vercel.app/api/top-langs/?username=murphyhoucn&layout=compact&langs_count=8&theme=react&role=OWNER,ORGANIZATION_MEMBER" alt="Top Langs" style="width: 100%;" /></div></div><h3 id="📊-Github-提交记录"><a href="#📊-Github-提交记录" class="headerlink" title="📊 Github 提交记录"></a>📊 Github 提交记录</h3><div style="text-align:center">      <a target="_blank" rel="noopener" href="https://github.com/murphyhoucn">      <img src="https://ghchart.rshah.org/murphyhoucn" alt="Murphy's Github chart" style="width: 80%;"/>      </a>      </br>      <a target="_blank" rel="noopener" href="https://github.com/murphyhoucn">      <img src="https://github-readme-activity-graph.vercel.app/graph?username=murphyhoucn&amp;bg_color=ffffff&amp;theme=github-compact&amp;color=666666&amp;hide_title=true&amp;hide_border=true&amp;area=true&amp;height=300" style="width: 80%;">      </a></div><h3 id="💰-打赏"><a href="#💰-打赏" class="headerlink" title="💰 打赏"></a>💰 打赏</h3><blockquote><p>如果您觉得我的内容对您有帮助，请扫描下方的二维码随意打赏，要是能打赏个10.24就太👍了。您的支持将鼓励我继续创作🤗</p></blockquote><div style="text-align:center"><img src="https://murphyimg.oss-cn-beijing.aliyuncs.com/img/202505311102315.png" alt="微信支付" width="15%">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<img src="https://murphyimg.oss-cn-beijing.aliyuncs.com/img/202505311102681.png" alt="支付宝" width="15%"></div>]]></content>
+    <content type="html"><![CDATA[<h1 id="【TODO】介绍一下网站基本信息"><a href="#【TODO】介绍一下网站基本信息" class="headerlink" title="【TODO】介绍一下网站基本信息"></a>【TODO】介绍一下网站基本信息</h1><ul><li>为什么建站</li><li>建站的过程</li><li>网站中会包含哪些内容，定位是什么？</li></ul><h2 align="center">👋  Hi Here! I'm Murphy. Nice to meet you.  ❤</h1><div align=center>    <img src="https://murphyimg.oss-cn-beijing.aliyuncs.com/img/202505302043661.jpg" width="450px"/>    </br>  <p></p></div><h3 id="👋-Hi"><a href="#👋-Hi" class="headerlink" title="👋 Hi"></a>👋 Hi</h3><ul><li>👋 嗨！我是<a href="https://github.com/murphyhoucn">Murphy</a>，一个<strong>在知识海洋里不断探索</strong>的大学生。</li><li>🏫 我本科在<strong>中国海洋大学</strong>学习通信工程。</li><li>🏫 现在正在<strong>西北工业大学</strong>攻读信息与通信工程的硕士学位。</li><li>🔍 最近我正沉迷于计算机视觉、模式识别和遥感图像处理。</li><li>💻 我日常工作中会使用: <img src="https://img.shields.io/badge/C-00599C?logo=c&logoColor=white" alt="C">&nbsp;<img src="https://img.shields.io/badge/C++-%2300599C.svg?logo=c++&logoColor=white" alt="C++">&nbsp;<img src="https://img.shields.io/badge/Python-3776AB?logo=python&logoColor=fff" alt="Python">&nbsp;<img src="https://img.shields.io/badge/PyTorch-ee4c2c?logo=pytorch&logoColor=white" alt="PyTorch">&nbsp;<img src="https://img.shields.io/badge/Ubuntu-E95420?logo=ubuntu&logoColor=white" alt="Ubuntu">&nbsp;<img src="https://img.shields.io/badge/Vim-%2311AB00.svg?logo=vim&logoColor=white" alt="Vim">&nbsp;<img src="https://custom-icon-badges.demolab.com/badge/Visual%20Studio%20Code-0078d7.svg?logo=vsc&logoColor=white" alt="Visual Studio Code">&nbsp;<img src="https://custom-icon-badges.demolab.com/badge/Visual%20Studio-5C2D91.svg?&logo=visual-studio&logoColor=white" alt="Visual Studio">&nbsp;<img src="https://img.shields.io/badge/Git-black?logo=Git" alt="Git"> &nbsp;<img src="https://img.shields.io/badge/GitHub-%23121011.svg?logo=github&logoColor=white" alt="GitHub"></li><li>📃 我的主页 👉: <a href="https://cosmicdusty.cc/" title="Home Page">cosmicdusty.cc</a></li><li>💬 向我提问 👉:<a href="https://github.com/murphyhoucn/murphyhoucn/issues" title="Issues">Issues</a></li><li>📫 Email: <a href="mailto: cosmicdustycn@outlook.com">cosmicdustycn@outlook.com</a></li></ul><h3 id="📇-Github-统计数据"><a href="#📇-Github-统计数据" class="headerlink" title="📇 Github 统计数据"></a>📇 Github 统计数据</h3><div align="center"> <div style="display: flex;"><img src="https://github-readme-stats-one-bice.vercel.app/api?username=murphyhoucn&count_private=true&theme=react&show_icons=true&include_all_commits=true&role=OWNER,ORGANIZATION_MEMBER,COLLABORATOR" alt="Murphy's GitHub stats" style="width:100%;" /> &nbsp;<img src="https://github-readme-streak-stats.herokuapp.com/?user=murphyhoucn&theme=react" style="width: 100%;" /><img src="https://github-readme-stats-one-bice.vercel.app/api/top-langs/?username=murphyhoucn&layout=compact&langs_count=8&theme=react&role=OWNER,ORGANIZATION_MEMBER" alt="Top Langs" style="width: 100%;" /></div></div><h3 id="📊-Github-提交记录"><a href="#📊-Github-提交记录" class="headerlink" title="📊 Github 提交记录"></a>📊 Github 提交记录</h3><div style="text-align:center">      <a target="_blank" rel="noopener" href="https://github.com/murphyhoucn">      <img src="https://ghchart.rshah.org/murphyhoucn" alt="Murphy's Github chart" style="width: 80%;"/>      </a>      </br>      <a target="_blank" rel="noopener" href="https://github.com/murphyhoucn">      <img src="https://github-readme-activity-graph.vercel.app/graph?username=murphyhoucn&amp;bg_color=ffffff&amp;theme=github-compact&amp;color=666666&amp;hide_title=true&amp;hide_border=true&amp;area=true&amp;height=300" style="width: 80%;">      </a></div><h3 id="💰-打赏"><a href="#💰-打赏" class="headerlink" title="💰 打赏"></a>💰 打赏</h3><blockquote><p>如果您觉得我的内容对您有帮助，请扫描下方的二维码随意打赏，要是能打赏个10.24就太👍了。您的支持将鼓励我继续创作🤗</p></blockquote><div style="text-align:center"><img src="https://murphyimg.oss-cn-beijing.aliyuncs.com/img/202505311102315.png" alt="微信支付" width="15%">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<img src="https://murphyimg.oss-cn-beijing.aliyuncs.com/img/202505311102681.png" alt="支付宝" width="15%"></div>]]></content>
     
     
     <categories>
@@ -922,13 +864,13 @@
     
     <tags>
       
-      <tag>Python</tag>
-      
       <tag>MachineLearning</tag>
       
       <tag>JupyterNotebook</tag>
       
       <tag>TensorFlow</tag>
+      
+      <tag>Python</tag>
       
     </tags>
     
@@ -984,9 +926,9 @@
     
     <tags>
       
-      <tag>OpenSource</tag>
-      
       <tag>ESP</tag>
+      
+      <tag>OpenSource</tag>
       
       <tag>C/C++</tag>
       
@@ -1046,9 +988,9 @@
     
     <tags>
       
-      <tag>OpenSource</tag>
-      
       <tag>ESP</tag>
+      
+      <tag>OpenSource</tag>
       
       <tag>C/C++</tag>
       
@@ -1102,9 +1044,9 @@
     
     <tags>
       
-      <tag>ESP</tag>
-      
       <tag>IoT</tag>
+      
+      <tag>ESP</tag>
       
     </tags>
     
@@ -1381,7 +1323,7 @@
     <link href="/post/Astronomy/Survey-The-Night-Sky/"/>
     <url>/post/Astronomy/Survey-The-Night-Sky/</url>
     
-    <content type="html"><![CDATA[<p>1928年，国际天文学联合会为了统一繁杂的星座划分，用精确的边界把天空分为八十八个星座，使天空每一颗恒星都属于某一特定星座。<br>对于天文爱好者来说，认识星座的意义在于快速识别方向与定位。先找到星座，进而才能进一步对该天区进行深入的观测与研究！</p><p>找星座往往是天文爱好者入门的第一步！</p><div align = center><p>  <font size = 10><a>“巡天”项目</a></font></p></div><p>从2019年第一次接触星空摄影开始到现在，我已经拍摄过好多次的星空，我将这些星空摄影照片发布到社交网络上，收到了许多不同的反馈，有“好美啊！”之类的夸赞，有“哇！这是怎么拍出来的？”之类的求知，有“原来的天空的最亮的那个星🌟原来是这个名字啊！”，“我是xx座的，我能看到自己的星座吗？”，“城市中为什么看不到这么多星星？”……当然也有“这个有什么意义”之类的质疑。</p><p>“我们都是阴沟里的虫子，但总还是得有人仰望星空。”</p><p>对于身处银河系荒凉偏僻的旋臂上，微小的太阳星系中，一颗渺小蓝色星球上，我们像尘埃一样微不足道，但我们可以仰望星空！仰望星空，我们从未停止幻想，探索星海中的未知与神秘，捕捉银河间的瑰丽与灵感，我们的征途是星辰大海。</p><p>在此，我发起“巡天”项目，如果你对星空和宇宙感兴趣，想把自己与星空的故事和拍摄的照片分享给大家，可以通过下面的邮箱与我联系。筛选整理后，我会更新到该网站页面中。</p><p>邮箱：<a href="mailto:&#77;&#x75;&#x72;&#x70;&#104;&#121;&#x30;&#x39;&#50;&#x38;&#72;&#x6f;&#117;&#64;&#111;&#x75;&#116;&#x6c;&#x6f;&#111;&#x6b;&#x2e;&#x63;&#111;&#x6d;">&#77;&#x75;&#x72;&#x70;&#104;&#121;&#x30;&#x39;&#50;&#x38;&#72;&#x6f;&#117;&#64;&#111;&#x75;&#116;&#x6c;&#x6f;&#111;&#x6b;&#x2e;&#x63;&#111;&#x6d;</a></p><hr><p>“我所见过的事物，你们人类绝对无法置信，我目睹了战舰在猎户星座的端沿起火燃烧，我看着C射线在唐怀瑟之门附近的黑暗中闪耀，所有这些时刻，终将随时间消逝，一如眼泪消失在雨中。” —— 《银翼杀手》</p><hr><h1 id="巡天（一）"><a href="#巡天（一）" class="headerlink" title="巡天（一）"></a>巡天（一）</h1><p>名称：巡天（一）<br>时间：2022.01.27 23:30-23:50。<br>作者：MurphyHou<br>设备：HUAWEI P30 Pro<br>软件：Adebe PhotoShop 2020<br>星图：<a href="https://stellarium.org/zh_CN/">stellarium</a><br>原图下载：<a href="https://pan.baidu.com/s/13vN8bPHv2mOGmlnlZIGVwQ">链接</a>  提取码：myad<br>注：手机仅能拍摄到恒星，深空天体贴图来自stellarium，黑洞照片来自网络！</p><p>全天88星座，由于季节和地理位置原因，本次巡天拍摄到31个星座。</p><p><img src="https://murhyimgur.oss-cn-beijing.aliyuncs.com/astronomy/%E5%8D%97.jpg" alt="正南"></p><p><img src="https://murhyimgur.oss-cn-beijing.aliyuncs.com/astronomy/%E4%B8%9C%E5%8D%97.jpg" alt="东南"></p><p><img src="https://murhyimgur.oss-cn-beijing.aliyuncs.com/astronomy/%E6%AD%A3%E4%B8%9C.jpg" alt="正东"></p><p><img src="https://murhyimgur.oss-cn-beijing.aliyuncs.com/astronomy/%E4%B8%9C%E5%8C%97.jpg" alt="东北"></p><p><img src="https://murhyimgur.oss-cn-beijing.aliyuncs.com/astronomy/%E6%AD%A3%E5%8C%97.jpg" alt="正北"></p><p><img src="https://murhyimgur.oss-cn-beijing.aliyuncs.com/astronomy/%E8%A5%BF%E5%8C%97.jpg" alt="西北"></p><p><img src="https://murhyimgur.oss-cn-beijing.aliyuncs.com/astronomy/%E6%AD%A3%E8%A5%BF.jpg" alt="正西"></p><p><img src="https://murhyimgur.oss-cn-beijing.aliyuncs.com/astronomy/%E8%A5%BF%E5%8D%97.jpg" alt="西南"></p><p><img src="https://murhyimgur.oss-cn-beijing.aliyuncs.com/astronomy/%E5%A4%A9%E9%A1%B6.jpg" alt="天顶"></p><h1 id="巡天（二）"><a href="#巡天（二）" class="headerlink" title="巡天（二）"></a>巡天（二）</h1><p>名称：巡天（二）<br>时间：2022.01.29 21:30-22:00。<br>作者：MurphyHou<br>设备：HUAWEI P30 Pro<br>软件：Adebe PhotoShop 2020</p><p><em>咕咕~~~~</em>🕊🕊🕊</p><p>在01.27的基础上加了好几个星座，但是一直没做后期，暂时🕊了！🤣</p><h1 id="仰望星空，凝固时间"><a href="#仰望星空，凝固时间" class="headerlink" title="仰望星空，凝固时间"></a>仰望星空，凝固时间</h1><p>名称：仰望星空，凝固时间<br>作者：MurphyHou<br>设备：HUAWEI P30 Pro<br>参数：星轨模式，ISO-800，3703S，f&#x2F;1.6<br>地点：山东省潍坊市<br>时间：2021.08.02<br>简介：<br>抬头看到漫天繁星的那一瞬间，我彻底沉浸其中了！<br>在城市上学，城市的夜空中晚上抬头也看不到几颗星，趁着暑假回家，熬了好多个夜，拍了好多天星空！拍摄的星空是一样的，不一样的是每张照片后面的故事！<br>星空摄影需要长时间的曝光，拍摄过程中，会遇到太多不确定的事情了，一到突然来袭的光可能就毁掉了这张照片，但是乐观点看，这道光也给这张照片“添光加彩”了！</p><div align = center>  <img src="https://murhyimgur.oss-cn-beijing.aliyuncs.com/img/slide-7.jpg"/>  <img src="https://murhyimgur.oss-cn-beijing.aliyuncs.com/img/slide-10.jpg"/>  <img src="https://murhyimgur.oss-cn-beijing.aliyuncs.com/img/slide-9.jpg"/></div><h1 id="海大星空"><a href="#海大星空" class="headerlink" title="海大星空"></a>海大星空</h1><p>作者：MurphyHou<br>设备：HUAWEI P30 Pro<br>地点：中国海洋大学（六级光污染~~~）<br>时间：2022.01.17</p><div align = center>  <img src="https://murhyimgur.oss-cn-beijing.aliyuncs.com/img/IMG_20220117_235812PS.png"/>  <img src="https://murhyimgur.oss-cn-beijing.aliyuncs.com/img/IMG_20220117_235839PS.png"/>  <img src="https://murhyimgur.oss-cn-beijing.aliyuncs.com/img/IMG_20220118_000845PS.png"/>  <img src="https://murhyimgur.oss-cn-beijing.aliyuncs.com/img/IMG_20220118_002015.jpg"/>  <img src="https://murhyimgur.oss-cn-beijing.aliyuncs.com/img/IMG_20220118_002434.jpg"/></div><h1 id="星轨合集"><a href="#星轨合集" class="headerlink" title="星轨合集"></a>星轨合集</h1><p>作者：MurphyHou<br>设备：HUAWEI P30 Pro</p><div align = center>  <img src="https://murhyimgur.oss-cn-beijing.aliyuncs.com/img/IMG_20220129_214652.jpg"/>  <img src="https://murhyimgur.oss-cn-beijing.aliyuncs.com/img/IMG_20220129_221955.jpg"/>  <img src="https://murhyimgur.oss-cn-beijing.aliyuncs.com/img/IMG_20220129_225409.jpg"/>  <img src="https://murhyimgur.oss-cn-beijing.aliyuncs.com/img/gallery_img-05.jpg"/>  <img src="https://murhyimgur.oss-cn-beijing.aliyuncs.com/img/gallery-9.jpg"/>  <img src="https://murhyimgur.oss-cn-beijing.aliyuncs.com/img/gallery-6.jpg"/>  <img src="https://murhyimgur.oss-cn-beijing.aliyuncs.com/img/gallery-14.jpg"/>  <img src="https://murhyimgur.oss-cn-beijing.aliyuncs.com/img/gallery-15.jpg"/>  <img src="https://murhyimgur.oss-cn-beijing.aliyuncs.com/img/gallery-19.jpg"/>  <img src="https://murhyimgur.oss-cn-beijing.aliyuncs.com/img/slide-1.jpg"/></div><h1 id="巡天（三）"><a href="#巡天（三）" class="headerlink" title="巡天（三）"></a>巡天（三）</h1>]]></content>
+    <content type="html"><![CDATA[<p>1928年，国际天文学联合会为了统一繁杂的星座划分，用精确的边界把天空分为八十八个星座，使天空每一颗恒星都属于某一特定星座。<br>对于天文爱好者来说，认识星座的意义在于快速识别方向与定位。先找到星座，进而才能进一步对该天区进行深入的观测与研究！</p><p>找星座往往是天文爱好者入门的第一步！</p><div align = center><p>  <font size = 10><a>“巡天”项目</a></font></p></div><p>从2019年第一次接触星空摄影开始到现在，我已经拍摄过好多次的星空，我将这些星空摄影照片发布到社交网络上，收到了许多不同的反馈，有“好美啊！”之类的夸赞，有“哇！这是怎么拍出来的？”之类的求知，有“原来的天空的最亮的那个星🌟原来是这个名字啊！”，“我是xx座的，我能看到自己的星座吗？”，“城市中为什么看不到这么多星星？”……当然也有“这个有什么意义”之类的质疑。</p><p>“我们都是阴沟里的虫子，但总还是得有人仰望星空。”</p><p>对于身处银河系荒凉偏僻的旋臂上，微小的太阳星系中，一颗渺小蓝色星球上，我们像尘埃一样微不足道，但我们可以仰望星空！仰望星空，我们从未停止幻想，探索星海中的未知与神秘，捕捉银河间的瑰丽与灵感，我们的征途是星辰大海。</p><p>在此，我发起“巡天”项目，如果你对星空和宇宙感兴趣，想把自己与星空的故事和拍摄的照片分享给大家，可以通过下面的邮箱与我联系。筛选整理后，我会更新到该网站页面中。</p><p>邮箱：<a href="mailto:&#x4d;&#x75;&#114;&#x70;&#104;&#121;&#48;&#57;&#50;&#x38;&#x48;&#111;&#117;&#64;&#x6f;&#117;&#x74;&#108;&#x6f;&#111;&#x6b;&#x2e;&#99;&#111;&#x6d;">&#x4d;&#x75;&#114;&#x70;&#104;&#121;&#48;&#57;&#50;&#x38;&#x48;&#111;&#117;&#64;&#x6f;&#117;&#x74;&#108;&#x6f;&#111;&#x6b;&#x2e;&#99;&#111;&#x6d;</a></p><hr><p>“我所见过的事物，你们人类绝对无法置信，我目睹了战舰在猎户星座的端沿起火燃烧，我看着C射线在唐怀瑟之门附近的黑暗中闪耀，所有这些时刻，终将随时间消逝，一如眼泪消失在雨中。” —— 《银翼杀手》</p><hr><h1 id="巡天（一）"><a href="#巡天（一）" class="headerlink" title="巡天（一）"></a>巡天（一）</h1><p>名称：巡天（一）<br>时间：2022.01.27 23:30-23:50。<br>作者：MurphyHou<br>设备：HUAWEI P30 Pro<br>软件：Adebe PhotoShop 2020<br>星图：<a href="https://stellarium.org/zh_CN/">stellarium</a><br>原图下载：<a href="https://pan.baidu.com/s/13vN8bPHv2mOGmlnlZIGVwQ">链接</a>  提取码：myad<br>注：手机仅能拍摄到恒星，深空天体贴图来自stellarium，黑洞照片来自网络！</p><p>全天88星座，由于季节和地理位置原因，本次巡天拍摄到31个星座。</p><p><img src="https://murhyimgur.oss-cn-beijing.aliyuncs.com/astronomy/%E5%8D%97.jpg" alt="正南"></p><p><img src="https://murhyimgur.oss-cn-beijing.aliyuncs.com/astronomy/%E4%B8%9C%E5%8D%97.jpg" alt="东南"></p><p><img src="https://murhyimgur.oss-cn-beijing.aliyuncs.com/astronomy/%E6%AD%A3%E4%B8%9C.jpg" alt="正东"></p><p><img src="https://murhyimgur.oss-cn-beijing.aliyuncs.com/astronomy/%E4%B8%9C%E5%8C%97.jpg" alt="东北"></p><p><img src="https://murhyimgur.oss-cn-beijing.aliyuncs.com/astronomy/%E6%AD%A3%E5%8C%97.jpg" alt="正北"></p><p><img src="https://murhyimgur.oss-cn-beijing.aliyuncs.com/astronomy/%E8%A5%BF%E5%8C%97.jpg" alt="西北"></p><p><img src="https://murhyimgur.oss-cn-beijing.aliyuncs.com/astronomy/%E6%AD%A3%E8%A5%BF.jpg" alt="正西"></p><p><img src="https://murhyimgur.oss-cn-beijing.aliyuncs.com/astronomy/%E8%A5%BF%E5%8D%97.jpg" alt="西南"></p><p><img src="https://murhyimgur.oss-cn-beijing.aliyuncs.com/astronomy/%E5%A4%A9%E9%A1%B6.jpg" alt="天顶"></p><h1 id="巡天（二）"><a href="#巡天（二）" class="headerlink" title="巡天（二）"></a>巡天（二）</h1><p>名称：巡天（二）<br>时间：2022.01.29 21:30-22:00。<br>作者：MurphyHou<br>设备：HUAWEI P30 Pro<br>软件：Adebe PhotoShop 2020</p><p><em>咕咕~~~~</em>🕊🕊🕊</p><p>在01.27的基础上加了好几个星座，但是一直没做后期，暂时🕊了！🤣</p><h1 id="仰望星空，凝固时间"><a href="#仰望星空，凝固时间" class="headerlink" title="仰望星空，凝固时间"></a>仰望星空，凝固时间</h1><p>名称：仰望星空，凝固时间<br>作者：MurphyHou<br>设备：HUAWEI P30 Pro<br>参数：星轨模式，ISO-800，3703S，f&#x2F;1.6<br>地点：山东省潍坊市<br>时间：2021.08.02<br>简介：<br>抬头看到漫天繁星的那一瞬间，我彻底沉浸其中了！<br>在城市上学，城市的夜空中晚上抬头也看不到几颗星，趁着暑假回家，熬了好多个夜，拍了好多天星空！拍摄的星空是一样的，不一样的是每张照片后面的故事！<br>星空摄影需要长时间的曝光，拍摄过程中，会遇到太多不确定的事情了，一到突然来袭的光可能就毁掉了这张照片，但是乐观点看，这道光也给这张照片“添光加彩”了！</p><div align = center>  <img src="https://murhyimgur.oss-cn-beijing.aliyuncs.com/img/slide-7.jpg"/>  <img src="https://murhyimgur.oss-cn-beijing.aliyuncs.com/img/slide-10.jpg"/>  <img src="https://murhyimgur.oss-cn-beijing.aliyuncs.com/img/slide-9.jpg"/></div><h1 id="海大星空"><a href="#海大星空" class="headerlink" title="海大星空"></a>海大星空</h1><p>作者：MurphyHou<br>设备：HUAWEI P30 Pro<br>地点：中国海洋大学（六级光污染~~~）<br>时间：2022.01.17</p><div align = center>  <img src="https://murhyimgur.oss-cn-beijing.aliyuncs.com/img/IMG_20220117_235812PS.png"/>  <img src="https://murhyimgur.oss-cn-beijing.aliyuncs.com/img/IMG_20220117_235839PS.png"/>  <img src="https://murhyimgur.oss-cn-beijing.aliyuncs.com/img/IMG_20220118_000845PS.png"/>  <img src="https://murhyimgur.oss-cn-beijing.aliyuncs.com/img/IMG_20220118_002015.jpg"/>  <img src="https://murhyimgur.oss-cn-beijing.aliyuncs.com/img/IMG_20220118_002434.jpg"/></div><h1 id="星轨合集"><a href="#星轨合集" class="headerlink" title="星轨合集"></a>星轨合集</h1><p>作者：MurphyHou<br>设备：HUAWEI P30 Pro</p><div align = center>  <img src="https://murhyimgur.oss-cn-beijing.aliyuncs.com/img/IMG_20220129_214652.jpg"/>  <img src="https://murhyimgur.oss-cn-beijing.aliyuncs.com/img/IMG_20220129_221955.jpg"/>  <img src="https://murhyimgur.oss-cn-beijing.aliyuncs.com/img/IMG_20220129_225409.jpg"/>  <img src="https://murhyimgur.oss-cn-beijing.aliyuncs.com/img/gallery_img-05.jpg"/>  <img src="https://murhyimgur.oss-cn-beijing.aliyuncs.com/img/gallery-9.jpg"/>  <img src="https://murhyimgur.oss-cn-beijing.aliyuncs.com/img/gallery-6.jpg"/>  <img src="https://murhyimgur.oss-cn-beijing.aliyuncs.com/img/gallery-14.jpg"/>  <img src="https://murhyimgur.oss-cn-beijing.aliyuncs.com/img/gallery-15.jpg"/>  <img src="https://murhyimgur.oss-cn-beijing.aliyuncs.com/img/gallery-19.jpg"/>  <img src="https://murhyimgur.oss-cn-beijing.aliyuncs.com/img/slide-1.jpg"/></div><h1 id="巡天（三）"><a href="#巡天（三）" class="headerlink" title="巡天（三）"></a>巡天（三）</h1>]]></content>
     
     
     <categories>
@@ -1559,9 +1501,9 @@
     
     <tags>
       
-      <tag>ESP</tag>
-      
       <tag>IoT</tag>
+      
+      <tag>ESP</tag>
       
     </tags>
     
