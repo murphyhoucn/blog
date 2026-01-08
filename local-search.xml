@@ -116,31 +116,6 @@
   
   
   <entry>
-    <title>3D Vision</title>
-    <link href="/post/CV/3DV/"/>
-    <url>/post/CV/3DV/</url>
-    
-    <content type="html"><![CDATA[<h1 id="3D-Vison"><a href="#3D-Vison" class="headerlink" title="3D Vison"></a>3D Vison</h1><h1 id="Datasets"><a href="#Datasets" class="headerlink" title="Datasets"></a>Datasets</h1><h2 id="KITTI"><a href="#KITTI" class="headerlink" title="KITTI"></a>KITTI</h2><p>Note, that in order to access the image data, you need the KITTI Raw dataset, you can get it <a href="http://www.cvlibs.net/datasets/kitti/raw_data.php">here</a>.<br>We recommend using the <a href="http://www.cvlibs.net/download.php?file=raw_data_downloader.zip">download script</a>.</p><p><a href="https://github.com/Armanasq/kitti-dataset-tutorial">https://github.com/Armanasq/kitti-dataset-tutorial</a></p><p><a href="https://gitee.com/china_bing/mini-kitti">https://gitee.com/china_bing/mini-kitti</a></p><h2 id="ScanNet"><a href="#ScanNet" class="headerlink" title="ScanNet"></a>ScanNet</h2><p>ScanNet: Richly-annotated 3D Reconstructions of Indoor Scenes</p>]]></content>
-    
-    
-    <categories>
-      
-      <category>CV</category>
-      
-    </categories>
-    
-    
-    <tags>
-      
-      <tag>DeepLearning</tag>
-      
-    </tags>
-    
-  </entry>
-  
-  
-  
-  <entry>
     <title>New Zotero 7</title>
     <link href="/post/Tools/Zotero7/"/>
     <url>/post/Tools/Zotero7/</url>
