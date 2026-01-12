@@ -1,0 +1,824 @@
+
+
+<!DOCTYPE html>
+<html lang="zh-CN" data-default-color-scheme=auto>
+
+
+
+<head>
+  <meta charset="UTF-8">
+
+  <link rel="apple-touch-icon" sizes="76x76" href="https://murphyimg.oss-cn-beijing.aliyuncs.com/img/202505301726222.png">
+  <link rel="icon" href="https://murphyimg.oss-cn-beijing.aliyuncs.com/img/202505301728148.png">
+  
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="author" content="Murphy">
+  <meta name="keywords" content="Murphy,CosmicDusty,murphy,cosmicdusty,cn">
+  
+    <meta name="description" content="Learn Shell">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Shell">
+<meta property="og:url" content="https://blog.cosmicdusty.cc/post/Knowledge-Base/Shell-Learn/index.html">
+<meta property="og:site_name" content="CosmicDusty-Blog">
+<meta property="og:description" content="Learn Shell">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://murphyimg.oss-cn-beijing.aliyuncs.com/img/202506061905153.png">
+<meta property="article:published_time" content="2021-09-06T10:24:37.000Z">
+<meta property="article:modified_time" content="2026-01-12T09:42:28.000Z">
+<meta property="article:author" content="Murphy">
+<meta property="article:tag" content="Linux">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="https://murphyimg.oss-cn-beijing.aliyuncs.com/img/202506061905153.png">
+  
+  
+    <meta name="referrer" content="no-referrer-when-downgrade">
+  
+  
+  <title>Shell - CosmicDusty-Blog</title>
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
+
+
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/github-markdown-css/4.0.0/github-markdown.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/hint.css/2.7.0/hint.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.css" />
+
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+<!-- Do not modify the link that theme dependent icons -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/c/font_1749284_5i9bdhy70f8.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_lbnruvf0jn.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+
+  <link id="highlight-css" rel="stylesheet" href="/css/highlight.css" />
+  
+    <link id="highlight-css-dark" rel="stylesheet" href="/css/highlight-dark.css" />
+  
+
+
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    Fluid.ctx = Object.assign({}, Fluid.ctx)
+    var CONFIG = {"hostname":"blog.cosmicdusty.cc","root":"/","version":"1.9.8","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false,"scope":[]},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"left","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"code_language":{"enable":true,"default":"TEXT"},"copy_btn":true,"image_caption":{"enable":true},"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"placement":"right","headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"https://murhyimgur.oss-cn-beijing.aliyuncs.com/website/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":true,"follow_dnt":true,"baidu":"16d93d5abbd7ea15ec53daed5459ebf7","google":null,"tencent":{"sid":null,"cid":null},"leancloud":{"app_id":"JijHNKemeVNog4wF7g9I5TR3","app_key":"FvsKdxHOP2aG5rHrHby5aV0b","server_url":null,"path":"window.location.pathname","ignore_local":false},"umami":{"src":null,"website_id":null,"domains":null,"start_time":"2024-01-01T00:00:00.000Z","token":null,"api_server":null},"gtag":null,"woyaola":null,"cnzz":null},"search_path":"/local-search.xml","include_content_in_search":true};
+
+    if (CONFIG.web_analytics.follow_dnt) {
+      var dntVal = navigator.doNotTrack || window.doNotTrack || navigator.msDoNotTrack;
+      Fluid.ctx.dnt = dntVal && (dntVal.startsWith('1') || dntVal.startsWith('yes') || dntVal.startsWith('on'));
+    }
+  </script>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+  
+
+  
+    <!-- Baidu Analytics -->
+    <script async>
+      if (!Fluid.ctx.dnt) {
+        var _hmt = _hmt || [];
+        (function() {
+          var hm = document.createElement("script");
+          hm.src = "https://hm.baidu.com/hm.js?16d93d5abbd7ea15ec53daed5459ebf7";
+          var s = document.getElementsByTagName("script")[0];
+          s.parentNode.insertBefore(hm, s);
+        })();
+      }
+    </script>
+  
+
+  
+
+  
+
+  
+
+  
+    
+  
+
+
+
+  
+<meta name="generator" content="Hexo 7.3.0"></head>
+
+
+<body>
+  
+
+  <header>
+    
+
+<div class="header-inner" style="height: 70vh;">
+  <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand" href="/">
+      <strong>CosmicDusty</strong>
+    </a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/" target="_self">
+                <i class="iconfont icon-home-fill"></i>
+                <span>首页</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/" target="_self">
+                <i class="iconfont icon-archive-fill"></i>
+                <span>归档</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/" target="_self">
+                <i class="iconfont icon-category-fill"></i>
+                <span>分类</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/" target="_self">
+                <i class="iconfont icon-tags-fill"></i>
+                <span>标签</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/" target="_self">
+                <i class="iconfont icon-user-fill"></i>
+                <span>关于</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/links/" target="_self">
+                <i class="iconfont icon-link-fill"></i>
+                <span>友链</span>
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" target="_self" href="javascript:;" data-toggle="modal" data-target="#modalSearch" aria-label="Search">
+              <i class="iconfont icon-search"></i>
+            </a>
+          </li>
+          
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" target="_self" href="javascript:;" aria-label="Color Toggle">
+              <i class="iconfont icon-dark" id="color-toggle-icon"></i>
+            </a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+  
+
+<div id="banner" class="banner" parallax=true
+     style="background: url('https://murphyimg.oss-cn-beijing.aliyuncs.com/img/202506061905153.png') no-repeat center center; background-size: cover;">
+  <div class="full-bg-img">
+    <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+      <div class="banner-text text-center fade-in-up">
+        <div class="h2">
+          
+            <span id="subtitle" data-typed-text="Shell"></span>
+          
+        </div>
+
+        
+          
+  <div class="mt-3">
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-author" aria-hidden="true"></i>
+        Murphy
+      </span>
+    
+    
+      <span class="post-meta">
+        <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+        <time datetime="2021-09-06 18:24" pubdate>
+          2021年9月6日 晚上
+        </time>
+      </span>
+    
+  </div>
+
+  <div class="mt-1">
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-chart"></i>
+        
+          986 字
+        
+      </span>
+    
+
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-clock-fill"></i>
+        
+        
+        
+          9 分钟
+        
+      </span>
+    
+
+    
+    
+  </div>
+
+
+        
+      </div>
+
+      
+    </div>
+  </div>
+</div>
+
+</div>
+
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+
+    </div>
+
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div id="board">
+          <article class="post-content mx-auto">
+            <h1 id="seo-header">Shell</h1>
+            
+            
+              <div class="markdown-body">
+                
+                <blockquote>
+<ul>
+<li><a target="_blank" rel="noopener" href="https://mp.weixin.qq.com/s/fRRdFN-zDJmmbyVVvmO89w">一文学完Linux Shell编程（强烈建议收藏）</a></li>
+<li><a target="_blank" rel="noopener" href="https://blog.csdn.net/qq_33154343/article/details/123366377">Shell、Bash、CMD、PowerShell 的区别_powershell bash-CSDN博客</a></li>
+<li><a target="_blank" rel="noopener" href="https://xmuli.tech/posts/d0c4daee/">Shell、Bash、CMD、PowerShell 的区别 | 偕臧</a></li>
+<li><a target="_blank" rel="noopener" href="https://www.jianshu.com/p/b10d458d3fb5">shell进化史 - 简书</a></li>
+<li><a target="_blank" rel="noopener" href="https://juejin.cn/post/7214311338196336701">shell、bash、zsh、powershell、gitbash、cmd这些到底都是啥？一、前言 在日常工作中，我们几 - 掘金</a></li>
+</ul>
+</blockquote>
+<blockquote>
+<p><a target="_blank" rel="noopener" href="https://github.com/murphyhoucn/NPUDevCode/tree/main/LinuxShell">NPUDevCode&#x2F;LinuxShell at main · murphyhoucn&#x2F;NPUDevCode</a></p>
+</blockquote>
+<h1 id="Shell-Intro"><a href="#Shell-Intro" class="headerlink" title="Shell Intro"></a>Shell Intro</h1><p>Shell 是一个用 C 语言编写的程序，通过 Shell 用户可以访问操作系统内核服务。</p>
+<p>Shell 既是一种命令语言，又是一种程序设计语言。</p>
+<p>Shell script 是一种为 shell 编写的脚本程序。Shell 编程一般指 shell 脚本编程，不是指开发 shell 自身。</p>
+<p>Shell 编程跟 java、php 编程一样，只要有一个能编写代码的文本编辑器和一个能解释执行的脚本解释器就可以了。</p>
+<h2 id="Shell-in-different-OS"><a href="#Shell-in-different-OS" class="headerlink" title="Shell in different OS"></a>Shell in different OS</h2><blockquote>
+<p><strong>『Shell』 &#x3D;『图形用户界面（GUI）shell』 + 『命令行界面（CLI）的 shell』</strong></p>
+</blockquote>
+<h3 id="图形用户界面（GUI）shell"><a href="#图形用户界面（GUI）shell" class="headerlink" title="图形用户界面（GUI）shell"></a>图形用户界面（GUI）shell</h3><p>MacOS 的 shell</p>
+<ul>
+<li><strong>『Finder &#x2F; 访达』</strong>: 在 MacOS 中，能让用户管理文件、文件、磁盘、网络，以及启动其他的应用程序的引用程序。</li>
+</ul>
+<p>Linux 的 shell</p>
+<ul>
+<li><p><strong>『X窗口管理器』</strong>: 独立的 <code>X窗口管理器</code>，例如 <a target="_blank" rel="noopener" href="https://zh.wikipedia.org/wiki/Blackbox">Blackbox</a> 与 <a target="_blank" rel="noopener" href="https://zh.wikipedia.org/wiki/Fluxbox">Fluxbox</a> 。</p>
+</li>
+<li><p><strong>『Desktop Environment &#x2F; 桌面环境』</strong>: 桌面环境是依靠于窗口管理器的的扩展实现。如 <a target="_blank" rel="noopener" href="https://zh.wikipedia.org/wiki/KDE">KDE</a>、<a target="_blank" rel="noopener" href="https://zh.wikipedia.org/wiki/GNOME">GNOME</a>、<a target="_blank" rel="noopener" href="https://zh.wikipedia.org/wiki/Xfce">Xfce</a>、<a target="_blank" rel="noopener" href="https://en.wikipedia.org/wiki/Deepin">DDE</a> 。</p>
+</li>
+</ul>
+<p>Windows 的 shell</p>
+<ul>
+<li><p><strong>『Explorer &#x2F; 文件资源管理器』</strong>: 此操作系统中浏览电脑中文件与文件夹结构的基本工具，win + E 快捷键呼出。</p>
+</li>
+<li><p><strong>『开始菜单』</strong>: 屏幕的左下角菜单， win 键呼出。</p>
+</li>
+<li><p><strong>『DOS Shell』</strong>: 1998 年发布于 MS-DOS 的文件管理器，是终端里面生成的可视化界面。</p>
+</li>
+</ul>
+<p><img src="https://murphyimg.oss-cn-beijing.aliyuncs.com/img/202506061920073.png" srcset="https://murhyimgur.oss-cn-beijing.aliyuncs.com/website/loading.gif" lazyload alt="image-20250606192017878"></p>
+<p><img src="https://murphyimg.oss-cn-beijing.aliyuncs.com/img/202506061920872.png" srcset="https://murhyimgur.oss-cn-beijing.aliyuncs.com/website/loading.gif" lazyload alt="image-20250606192032504"></p>
+<h3 id="命令行界面（CLI）的-shell"><a href="#命令行界面（CLI）的-shell" class="headerlink" title="命令行界面（CLI）的 shell"></a>命令行界面（CLI）的 shell</h3><p>MacOS &#x2F; Linux 的 shell</p>
+<ul>
+<li>『sh &#x2F; Bourne shell』: 1977 在 Version 7 Unix 上的默认 shell。</li>
+<li>『Bash』: 名称由来 Bourne-Again SHell，在 GNU 计划中，于 1989 发布于第一个版本，是 sh 的兼容的开源的续作。亦是 Linux 和 MacOS （含10.14之前）的默认 shell。</li>
+<li>『Z shell &#x2F; Zsh』: 是 sh + bash + 扩展功能。自2019 年起，MacOS 的默认 Shell 已从 『Bash 』改为『Zsh』。</li>
+</ul>
+<p>Windows 的 shell</p>
+<ul>
+<li>『命令提示符 &#x2F; cmd.exe』：是 Win32 应用程序，取代『COMMAND.COM』。Windows命令提示符（cmd.exe） 是 Windows NT 下的一个用于运行 Windows 控制台程序或某些 DOS 程序的壳层程序；注释</li>
+<li>『PowerShell』 : 包括 ①Windows PowerShel + ②PowerShell Core ，基于 .NET 框架开发，自 2016 年后开源且跨平台。① 为前四年的版本，仅支持 Win 平台；② 则是其演进，支持跨平台 Linux 和 Mac。注释</li>
+<li>『COMMAND.COM』: 是一个16位的 DOS 应用程序。已经被 命令提示符(cmd.exe) 取代在 MS-DOS、Windows 95、Windows 98、Windows 98SE 和 Windows Me 上的默认命令行界面。</li>
+</ul>
+<h2 id="Linux-Shell"><a href="#Linux-Shell" class="headerlink" title="Linux Shell"></a>Linux Shell</h2><p>Linux 的 <strong>Shell 解释器</strong> 种类众多，一个系统可以存在多个 shell，可以通过 cat &#x2F;etc&#x2F;shells 命令查看系统中安装的 shell 解释器。</p>
+<p>Bash 由于易用和免费，在日常工作中被广泛使用。同时，Bash 也是大多数 Linux 系统默认的 Shell。</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><code class="hljs bash"><span class="hljs-comment"># 通过 cat 命令来查看当前 Linux 系统的可用 Shell：</span><br>(base) houjinliang@4090server2:~$ <span class="hljs-built_in">cat</span> /etc/shells<br><span class="hljs-comment"># /etc/shells: valid login shells</span><br>/bin/sh<br>/bin/bash<br>/usr/bin/bash<br>/bin/rbash<br>/usr/bin/rbash<br>/usr/bin/sh<br>/bin/dash<br>/usr/bin/dash<br>/usr/bin/tmux<br>/usr/bin/screen<br><br><span class="hljs-comment"># 部分shell的全称</span><br><span class="hljs-comment"># Bourne Shell（sh）</span><br><span class="hljs-comment"># Bourne Again shell（bash）</span><br><span class="hljs-comment"># C Shell（csh）</span><br><span class="hljs-comment"># TENEX C Shell（tcsh）</span><br><span class="hljs-comment"># Korn shell（ksh）</span><br><span class="hljs-comment"># Z Shell（zsh）</span><br><span class="hljs-comment"># Friendly Interactive Shell（fish）</span><br><br><span class="hljs-comment"># 查看当前 Linux 的默认 Shell，那么可以输出 SHELL 环境变量：</span><br>(base) houjinliang@4090server2:~$ <span class="hljs-built_in">echo</span> <span class="hljs-variable">$SHELL</span><br>/bin/bash<br></code></pre></td></tr></table></figure>
+
+<ul>
+<li><p><strong><code>bash</code> 是 <code>sh</code> 的一个超集（Superset）和增强版（Enhancement）</strong>.<code>bash</code>（Bourne Again SHell）最初就是为了向后兼容 <code>sh</code>（Bourne SHell）并增加新特性而设计的。<code>sh</code> 是 Unix 早期的一个标准 Shell，由 Stephen Bourne 编写。<code>bash</code> 继承了 <code>sh</code> 的所有基本语法和功能，并且在此基础上添加了很多强大的特性。</p>
+</li>
+<li><p>为了保证兼容性，<code>bash</code> 可以模拟 <code>sh</code> 的行为。当 <code>bash</code> 被调用为 <code>sh</code> 时（例如通过 Shebang <code>#!/bin/sh</code> 或直接运行 <code>sh script.sh</code>），它会尝试尽可能地表现得像一个传统的 <code>sh</code>，通常会禁用或限制那些 <code>sh</code> 不支持的 <code>bash</code> 特性。</p>
+</li>
+<li><p>在现代的 Linux 发行版（如 Ubuntu, Debian, Fedora, CentOS 等）中，<code>bash</code> 通常是默认的交互式 Shell。因此，你登录系统时，大概率是在使用 <code>bash</code>。</p>
+</li>
+</ul>
+<p><img src="https://murphyimg.oss-cn-beijing.aliyuncs.com/img/202506061958480.png" srcset="https://murhyimgur.oss-cn-beijing.aliyuncs.com/website/loading.gif" lazyload alt="特殊字符用来处理参数"></p>
+<p><img src="https://murphyimg.oss-cn-beijing.aliyuncs.com/img/202506062002294.png" srcset="https://murhyimgur.oss-cn-beijing.aliyuncs.com/website/loading.gif" lazyload alt="operator"></p>
+<p><img src="https://murphyimg.oss-cn-beijing.aliyuncs.com/img/202506062007074.png" srcset="https://murhyimgur.oss-cn-beijing.aliyuncs.com/website/loading.gif" lazyload alt="image-20250606200655884"></p>
+<p><img src="https://murphyimg.oss-cn-beijing.aliyuncs.com/img/202506062012155.png" srcset="https://murhyimgur.oss-cn-beijing.aliyuncs.com/website/loading.gif" lazyload alt="image-20250606201207103"></p>
+
+                
+              </div>
+            
+            <hr/>
+            <div>
+              <div class="post-metas my-3">
+  
+    <div class="post-meta mr-3 d-flex align-items-center">
+      <i class="iconfont icon-category"></i>
+      
+
+<span class="category-chains">
+  
+  
+    
+      <span class="category-chain">
+        
+  <a href="/categories/%E7%9F%A5%E8%AF%86%E6%9C%AD%E8%AE%B0/" class="category-chain-item">知识札记</a>
+  
+  
+
+      </span>
+    
+  
+</span>
+
+    </div>
+  
+  
+    <div class="post-meta">
+      <i class="iconfont icon-tags"></i>
+      
+        <a href="/tags/Linux/" class="print-no-link">#Linux</a>
+      
+    </div>
+  
+</div>
+
+
+              
+  
+
+  <div class="license-box my-3">
+    <div class="license-title">
+      <div>Shell</div>
+      <div>https://blog.cosmicdusty.cc/post/Knowledge-Base/Shell-Learn/</div>
+    </div>
+    <div class="license-meta">
+      
+        <div class="license-meta-item">
+          <div>作者</div>
+          <div>Murphy</div>
+        </div>
+      
+      
+        <div class="license-meta-item license-meta-date">
+          <div>发布于</div>
+          <div>2021年9月6日</div>
+        </div>
+      
+      
+      
+        <div class="license-meta-item">
+          <div>许可协议</div>
+          <div>
+            
+              
+              
+                <a class="print-no-link" target="_blank" href="https://creativecommons.org/licenses/by/4.0/">
+                  <span class="hint--top hint--rounded" aria-label="BY - 署名">
+                    <i class="iconfont icon-cc-by"></i>
+                  </span>
+                </a>
+              
+            
+          </div>
+        </div>
+      
+    </div>
+    <div class="license-icon iconfont"></div>
+  </div>
+
+
+
+              
+                <div class="post-prevnext my-3">
+                  <article class="post-prev col-6">
+                    
+                    
+                      <a href="/post/Knowledge-Base/Git-Commands/" title="Git常用命令与使用">
+                        <i class="iconfont icon-arrowleft"></i>
+                        <span class="hidden-mobile">Git常用命令与使用</span>
+                        <span class="visible-mobile">上一篇</span>
+                      </a>
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/post/Knowledge-Base/Linux-Learn/" title="《鸟哥的Linux私房菜》">
+                        <span class="hidden-mobile">《鸟哥的Linux私房菜》</span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+  
+  
+    <article id="comments" lazyload>
+      
+  <div id="valine"></div>
+  <script type="text/javascript">
+    Fluid.utils.loadComments('#valine', function() {
+      Fluid.utils.createScript('https://lib.baomitu.com/valine/1.5.1/Valine.min.js', function() {
+        var options = Object.assign(
+          {"appId":"JijHNKemeVNog4wF7g9I5TR3-gzGzoHsz","appKey":"FvsKdxHOP2aG5rHrHby5aV0b","path":"window.location.pathname","placeholder":null,"avatar":"retro","meta":["nick","mail","link"],"requiredFields":[],"pageSize":10,"lang":"zh-CN","highlight":false,"recordIP":false,"serverURLs":"","emojiCDN":null,"emojiMaps":null,"enableQQ":false},
+          {
+            el: "#valine",
+            path: window.location.pathname
+          }
+        )
+        new Valine(options);
+        Fluid.utils.waitElementVisible('#valine .vcontent', () => {
+          var imgSelector = '#valine .vcontent img:not(.vemoji)';
+          Fluid.plugins.imageCaption(imgSelector);
+          Fluid.plugins.fancyBox(imgSelector);
+        })
+      });
+    });
+  </script>
+  <noscript>Please enable JavaScript to view the comments</noscript>
+
+
+    </article>
+  
+
+
+          </article>
+        </div>
+      </div>
+    </div>
+
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+  <aside class="sidebar" style="margin-left: -1rem">
+    <div id="toc">
+  <p class="toc-header">
+    <i class="iconfont icon-list"></i>
+    <span>目录</span>
+  </p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+
+
+  </aside>
+
+
+    </div>
+  </div>
+</div>
+
+
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+
+
+
+
+    
+
+    
+      <a id="scroll-top-button" aria-label="TOP" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v" for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+    
+
+    
+  </main>
+
+  <footer>
+    <div class="footer-inner">
+  
+    <div class="footer-content">
+       <a rel="nofollow noopener"><span>Powered by</span></a> <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span><b>Hexo</b></span></a> <i class="iconfont icon-love"></i> <a rel="nofollow noopener"><span>Themed by</span></a> <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"><span><b>Fluid</b></span></a> 
+    </div>
+  
+  
+    <div class="statistics">
+  
+  
+
+  
+    
+      <span id="busuanzi_container_site_pv" style="display: none">
+        总访问量
+        <span id="busuanzi_value_site_pv"></span>
+        次
+      </span>
+    
+    
+      <span id="busuanzi_container_site_uv" style="display: none">
+        总访客数
+        <span id="busuanzi_value_site_uv"></span>
+        人
+      </span>
+    
+    
+
+  
+
+</div>
+
+  
+  
+</div>
+
+  </footer>
+
+  <!-- Scripts -->
+  
+  <script  src="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://lib.baomitu.com/jquery/3.6.0/jquery.min.js" ></script>
+<script  src="https://lib.baomitu.com/twitter-bootstrap/4.6.1/js/bootstrap.min.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
+
+
+  <script  src="https://lib.baomitu.com/typed.js/2.0.12/typed.min.js" ></script>
+  <script>
+    (function (window, document) {
+      var typing = Fluid.plugins.typing;
+      var subtitle = document.getElementById('subtitle');
+      if (!subtitle || !typing) {
+        return;
+      }
+      var text = subtitle.getAttribute('data-typed-text');
+      
+        typing(text);
+      
+    })(window, document);
+  </script>
+
+
+
+
+  
+    <script  src="/js/img-lazyload.js" ></script>
+  
+
+
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/tocbot/4.18.2/tocbot.min.js', function() {
+    var toc = jQuery('#toc');
+    if (toc.length === 0 || !window.tocbot) { return; }
+    var boardCtn = jQuery('#board-ctn');
+    var boardTop = boardCtn.offset().top;
+
+    window.tocbot.init(Object.assign({
+      tocSelector     : '#toc-body',
+      contentSelector : '.markdown-body',
+      linkClass       : 'tocbot-link',
+      activeLinkClass : 'tocbot-active-link',
+      listClass       : 'tocbot-list',
+      isCollapsedClass: 'tocbot-is-collapsed',
+      collapsibleClass: 'tocbot-is-collapsible',
+      scrollSmooth    : true,
+      includeTitleTags: true,
+      headingsOffset  : -boardTop,
+    }, CONFIG.toc));
+    if (toc.find('.toc-list-item').length > 0) {
+      toc.css('visibility', 'visible');
+    }
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('tocbot' in window) {
+        tocbot.refresh();
+        var toc = jQuery('#toc');
+        if (toc.length === 0 || !tocbot) {
+          return;
+        }
+        if (toc.find('.toc-list-item').length > 0) {
+          toc.css('visibility', 'visible');
+        }
+      }
+    });
+  });
+</script>
+
+
+  <script src=https://lib.baomitu.com/clipboard.js/2.0.11/clipboard.min.js></script>
+
+  <script>Fluid.plugins.codeWidget();</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/anchor-js/4.3.1/anchor.min.js', function() {
+    window.anchors.options = {
+      placement: CONFIG.anchorjs.placement,
+      visible  : CONFIG.anchorjs.visible
+    };
+    if (CONFIG.anchorjs.icon) {
+      window.anchors.options.icon = CONFIG.anchorjs.icon;
+    }
+    var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+    var res = [];
+    for (var item of el) {
+      res.push('.markdown-body > ' + item.trim());
+    }
+    if (CONFIG.anchorjs.placement === 'left') {
+      window.anchors.options.class = 'anchorjs-link-left';
+    }
+    window.anchors.add(res.join(', '));
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('anchors' in window) {
+        anchors.removeAll();
+        var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+        var res = [];
+        for (var item of el) {
+          res.push('.markdown-body > ' + item.trim());
+        }
+        if (CONFIG.anchorjs.placement === 'left') {
+          anchors.options.class = 'anchorjs-link-left';
+        }
+        anchors.add(res.join(', '));
+      }
+    });
+  });
+</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.js', function() {
+    Fluid.plugins.fancyBox();
+  });
+</script>
+
+
+  <script>Fluid.plugins.imageCaption();</script>
+
+  <script defer src="/js/leancloud.js" ></script>
+
+  <script  src="/js/local-search.js" ></script>
+
+  <script defer src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js" ></script>
+
+
+
+
+
+<!-- 主题的启动项，将它保持在最底部 -->
+<!-- the boot of the theme, keep it at the bottom -->
+<script  src="/js/boot.js" ></script>
+
+
+  
+
+  <noscript>
+    <div class="noscript-warning">博客在允许 JavaScript 运行的环境下浏览效果更佳</div>
+  </noscript>
+</body>
+</html>

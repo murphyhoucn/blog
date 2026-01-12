@@ -1,0 +1,924 @@
+
+
+<!DOCTYPE html>
+<html lang="zh-CN" data-default-color-scheme=auto>
+
+
+
+<head>
+  <meta charset="UTF-8">
+
+  <link rel="apple-touch-icon" sizes="76x76" href="https://murphyimg.oss-cn-beijing.aliyuncs.com/img/202505301726222.png">
+  <link rel="icon" href="https://murphyimg.oss-cn-beijing.aliyuncs.com/img/202505301728148.png">
+  
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="author" content="Murphy">
+  <meta name="keywords" content="Murphy,CosmicDusty,murphy,cosmicdusty,cn">
+  
+    <meta name="description" content="使用 Ollama 在服务器上部署大模型，并开放 API 给其他应用。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Ollama">
+<meta property="og:url" content="https://blog.cosmicdusty.cc/post/Productivity-Tools/Ollama/index.html">
+<meta property="og:site_name" content="CosmicDusty-Blog">
+<meta property="og:description" content="使用 Ollama 在服务器上部署大模型，并开放 API 给其他应用。">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://murphyimg.oss-cn-beijing.aliyuncs.com/img/20260106221912763.png">
+<meta property="article:published_time" content="2025-10-03T15:03:40.000Z">
+<meta property="article:modified_time" content="2026-01-06T14:30:29.000Z">
+<meta property="article:author" content="Murphy">
+<meta property="article:tag" content="Code">
+<meta property="article:tag" content="LLM">
+<meta property="article:tag" content="AI">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="https://murphyimg.oss-cn-beijing.aliyuncs.com/img/20260106221912763.png">
+  
+  
+    <meta name="referrer" content="no-referrer-when-downgrade">
+  
+  
+  <title>Ollama - CosmicDusty-Blog</title>
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
+
+
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/github-markdown-css/4.0.0/github-markdown.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/hint.css/2.7.0/hint.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.css" />
+
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+<!-- Do not modify the link that theme dependent icons -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/c/font_1749284_5i9bdhy70f8.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_lbnruvf0jn.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+
+  <link id="highlight-css" rel="stylesheet" href="/css/highlight.css" />
+  
+    <link id="highlight-css-dark" rel="stylesheet" href="/css/highlight-dark.css" />
+  
+
+
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    Fluid.ctx = Object.assign({}, Fluid.ctx)
+    var CONFIG = {"hostname":"blog.cosmicdusty.cc","root":"/","version":"1.9.8","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false,"scope":[]},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"left","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"code_language":{"enable":true,"default":"TEXT"},"copy_btn":true,"image_caption":{"enable":true},"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"placement":"right","headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"https://murhyimgur.oss-cn-beijing.aliyuncs.com/website/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":true,"follow_dnt":true,"baidu":"16d93d5abbd7ea15ec53daed5459ebf7","google":null,"tencent":{"sid":null,"cid":null},"leancloud":{"app_id":"JijHNKemeVNog4wF7g9I5TR3","app_key":"FvsKdxHOP2aG5rHrHby5aV0b","server_url":null,"path":"window.location.pathname","ignore_local":false},"umami":{"src":null,"website_id":null,"domains":null,"start_time":"2024-01-01T00:00:00.000Z","token":null,"api_server":null},"gtag":null,"woyaola":null,"cnzz":null},"search_path":"/local-search.xml","include_content_in_search":true};
+
+    if (CONFIG.web_analytics.follow_dnt) {
+      var dntVal = navigator.doNotTrack || window.doNotTrack || navigator.msDoNotTrack;
+      Fluid.ctx.dnt = dntVal && (dntVal.startsWith('1') || dntVal.startsWith('yes') || dntVal.startsWith('on'));
+    }
+  </script>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+  
+
+  
+    <!-- Baidu Analytics -->
+    <script async>
+      if (!Fluid.ctx.dnt) {
+        var _hmt = _hmt || [];
+        (function() {
+          var hm = document.createElement("script");
+          hm.src = "https://hm.baidu.com/hm.js?16d93d5abbd7ea15ec53daed5459ebf7";
+          var s = document.getElementsByTagName("script")[0];
+          s.parentNode.insertBefore(hm, s);
+        })();
+      }
+    </script>
+  
+
+  
+
+  
+
+  
+
+  
+    
+  
+
+
+
+  
+<meta name="generator" content="Hexo 7.3.0"></head>
+
+
+<body>
+  
+
+  <header>
+    
+
+<div class="header-inner" style="height: 70vh;">
+  <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand" href="/">
+      <strong>CosmicDusty</strong>
+    </a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/" target="_self">
+                <i class="iconfont icon-home-fill"></i>
+                <span>首页</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/" target="_self">
+                <i class="iconfont icon-archive-fill"></i>
+                <span>归档</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/" target="_self">
+                <i class="iconfont icon-category-fill"></i>
+                <span>分类</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/" target="_self">
+                <i class="iconfont icon-tags-fill"></i>
+                <span>标签</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/" target="_self">
+                <i class="iconfont icon-user-fill"></i>
+                <span>关于</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/links/" target="_self">
+                <i class="iconfont icon-link-fill"></i>
+                <span>友链</span>
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" target="_self" href="javascript:;" data-toggle="modal" data-target="#modalSearch" aria-label="Search">
+              <i class="iconfont icon-search"></i>
+            </a>
+          </li>
+          
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" target="_self" href="javascript:;" aria-label="Color Toggle">
+              <i class="iconfont icon-dark" id="color-toggle-icon"></i>
+            </a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+  
+
+<div id="banner" class="banner" parallax=true
+     style="background: url('https://murphyimg.oss-cn-beijing.aliyuncs.com/img/20260106221912763.png') no-repeat center center; background-size: cover;">
+  <div class="full-bg-img">
+    <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+      <div class="banner-text text-center fade-in-up">
+        <div class="h2">
+          
+            <span id="subtitle" data-typed-text="Ollama"></span>
+          
+        </div>
+
+        
+          
+  <div class="mt-3">
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-author" aria-hidden="true"></i>
+        Murphy
+      </span>
+    
+    
+      <span class="post-meta">
+        <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+        <time datetime="2025-10-03 23:03" pubdate>
+          2025年10月3日 晚上
+        </time>
+      </span>
+    
+  </div>
+
+  <div class="mt-1">
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-chart"></i>
+        
+          2.1k 字
+        
+      </span>
+    
+
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-clock-fill"></i>
+        
+        
+        
+          18 分钟
+        
+      </span>
+    
+
+    
+    
+  </div>
+
+
+        
+      </div>
+
+      
+    </div>
+  </div>
+</div>
+
+</div>
+
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+
+    </div>
+
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div id="board">
+          <article class="post-content mx-auto">
+            <h1 id="seo-header">Ollama</h1>
+            
+            
+              <div class="markdown-body">
+                
+                <h1 id="Ollama-安装与配置"><a href="#Ollama-安装与配置" class="headerlink" title="Ollama 安装与配置"></a>Ollama 安装与配置</h1><h2 id="下载与安装"><a href="#下载与安装" class="headerlink" title="下载与安装"></a>下载与安装</h2><blockquote>
+<p><a target="_blank" rel="noopener" href="https://ollama.com/download/linux">https://ollama.com/download/linux</a></p>
+</blockquote>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs bash"><span class="hljs-comment"># Ollama 的默认安装脚本会尝试将二进制文件安装到 /usr/local/bin 目录下，这通常需要管理员（root）权限。</span><br>curl -fsSL https://ollama.com/install.sh | sh<br></code></pre></td></tr></table></figure>
+
+<figure class="highlight markdown"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><code class="hljs markdown"><span class="hljs-bullet">-</span> curl 是一个强大的命令行工具，用于通过 URL 与服务器进行数据传输。<br><br><span class="hljs-bullet">*</span> -f 或 --fail: 静默失败 (Fail silently)。<br><span class="hljs-bullet">*</span> -s 或 --silent: 静音模式 (Silent mode)。<br><span class="hljs-bullet">*</span> -S 或 --show-error: 显示错误 (Show error)。<br><span class="hljs-bullet">*</span> -L 或 --location: 跟随重定向 (Follow location/redirects)。<br><span class="hljs-bullet">-</span> 这部分命令的作用是：以安全、静默的方式从 https://ollama.com/install.sh 这个地址下载安装脚本。如果下载过程中出现网络错误，它不会输出错误页面的代码；如果 URL 发生了跳转，它也能正确地找到最终的脚本文件。<br><br><span class="hljs-bullet">-</span> | (管道符号)。 | 在命令行中被称为管道 (Pipe)。它的作用非常直接：将左边命令的输出，作为右边命令的输入。<br><span class="hljs-bullet">*</span> 在这个例子中，curl 命令成功下载了 install.sh 脚本的内容。这些内容本应该显示在终端屏幕上，但因为管道符 | 的存在，它们没有被显示，而是被直接传送给了管道符右边的 sh 命令。<br><br><span class="hljs-bullet">-</span> sh 是 Shell 的缩写，它是一个命令解释器。当你执行 sh 命令时，它会读取并执行你提供给它的脚本。<br><span class="hljs-bullet">*</span> 在这个命令中，sh 接收了从 curl 通过管道传过来的 install.sh 脚本的全部内容，并立即开始逐行解释和执行这些脚本命令。<br></code></pre></td></tr></table></figure>
+
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs bash">$ <span class="hljs-built_in">which</span> ollama &amp;&amp; ollama --version<br>/usr/local/bin/ollama<br>ollama version is 0.12.3<br></code></pre></td></tr></table></figure>
+
+<p>TODO: <div>
+            <input type="checkbox"  >我也尝试了一下把Ollama安装到个人目录下，但是没有成功。有机会再试一下！
+
+          </div></p>
+<p>基本使用，命令比较多，找个教程：<a target="_blank" rel="noopener" href="https://www.runoob.com/ollama/ollama-tutorial.html">Ollama 教程 | 菜鸟教程</a></p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><code class="hljs bash">ollama --<span class="hljs-built_in">help</span><br><br><span class="hljs-comment"># 1、使用方法</span><br>ollama [flags]：使用标志（flags）运行 ollama。<br>ollama [<span class="hljs-built_in">command</span>]：运行 ollama 的某个具体命令。<br><br><span class="hljs-comment"># 2、可用命令</span><br>serve：启动 ollama 服务。<br>create：根据一个 Modelfile 创建一个模型。<br>show：显示某个模型的详细信息。<br>run：运行一个模型。<br>stop：停止一个正在运行的模型。<br>pull：从一个模型仓库（registry）拉取一个模型。<br>push：将一个模型推送到一个模型仓库。<br>list：列出所有模型。<br>ps：列出所有正在运行的模型。<br><span class="hljs-built_in">cp</span>：复制一个模型。<br><span class="hljs-built_in">rm</span>：删除一个模型。<br><span class="hljs-built_in">help</span>：获取关于任何命令的帮助信息。<br><br><span class="hljs-comment"># 3、标志（Flags）</span><br>-h, --<span class="hljs-built_in">help</span>：显示 ollama 的帮助信息。<br>-v, --version：显示版本信息。<br></code></pre></td></tr></table></figure>
+
+<h2 id="下载模型"><a href="#下载模型" class="headerlink" title="下载模型"></a>下载模型</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs bash">ollama pull qwen3:8b   <span class="hljs-comment"># 对话模型</span><br>ollama pull all-minilm <span class="hljs-comment"># all-minilm 是一个嵌入模型（Embedding Model），不是对话模型。</span><br></code></pre></td></tr></table></figure>
+
+<p>这里其实是下载到了ollama的默认地址，我尝试了去把地址换到我的个人目录下，但是会有一个问题！</p>
+<p>ollama安装的同时会创建一个用户，而找个用户跟我们的个人用户不在同一个组中，所以没有权限访问我们的文件，所以不可行！</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs bash">$ <span class="hljs-built_in">cat</span> /etc/passwd<br>ollama:x:999:999::/usr/share/ollama:/bin/false<br></code></pre></td></tr></table></figure>
+
+<p>TODO: <div>
+            <input type="checkbox"  >怎么改默认的模型下载位置？
+
+          </div></p>
+<h2 id="配置"><a href="#配置" class="headerlink" title="配置"></a>配置</h2><p>如果 Ollama 以 systemd 服务的形式运行，则应使用 systemctl 设置环境变量。通过调用 systemctl edit ollama.service 编辑 systemd 服务。</p>
+<ul>
+<li><p>设置指定运行的GPU</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><code class="hljs bash">$ <span class="hljs-built_in">sudo</span> <span class="hljs-built_in">mkdir</span> -p /etc/systemd/system/ollama.service.d<br>$ <span class="hljs-built_in">cd</span> /etc/systemd/system/ollama.service.d<br><br>$ <span class="hljs-built_in">sudo</span> <span class="hljs-built_in">tee</span> /etc/systemd/system/ollama.service.d/override.conf &lt;&lt; <span class="hljs-string">&#x27;EOF&#x27;</span><br>[Service]<br>Environment=<span class="hljs-string">&quot;CUDA_VISIBLE_DEVICES=2&quot;</span><br>EOF<br></code></pre></td></tr></table></figure>
+</li>
+<li><p>设置Ollama的监听地址和端口</p>
+</li>
+</ul>
+<p>当前Ollama只监听在127.0.0.1:11434（本地回环地址:默认监听端口），这意味着只能从本机访问，无法从其他机器通过局域网访问。需要修改Ollama的配置，让它监听所有网络接口，而不仅仅是本地回环，所以需要设置OLLAMA_HOST环境变量。同时，为了安全把模型端口也改一下。</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs bash">$ <span class="hljs-built_in">sudo</span> <span class="hljs-built_in">cat</span> /etc/systemd/system/ollama.service.d/override.conf<br>[<span class="hljs-built_in">sudo</span>] password <span class="hljs-keyword">for</span> $(<span class="hljs-built_in">whoami</span>): <br>[Service]<br>Environment=<span class="hljs-string">&quot;CUDA_VISIBLE_DEVICES=2&quot;</span><br>Environment=<span class="hljs-string">&quot;OLLAMA_HOST=0.0.0.0:x&quot;</span> <span class="hljs-comment"># 这里的x就是自己设定的端口</span><br></code></pre></td></tr></table></figure>
+
+<p>重启ollama服务</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs bash">$ <span class="hljs-built_in">sudo</span> systemctl daemon-reload   <span class="hljs-comment"># 重新加载 systemd 管理器配置，当你手动创建、修改或删除了 /etc/systemd/system/ 目录下的 任何 单元配置文件（比如你在 ollama.service.d 中添加了一个新的 .conf 文件）之后，必须执行此命令。</span><br>$ <span class="hljs-built_in">sudo</span> systemctl restart ollama  <span class="hljs-comment"># 重启 Ollama 服务。 systemd 会先执行服务的 停止 (stop) 动作，然后再执行 启动 (start) 动作。</span><br>$ <span class="hljs-built_in">sudo</span> systemctl status ollama   <span class="hljs-comment"># 显示 Ollama 服务的 当前状态。</span><br></code></pre></td></tr></table></figure>
+
+<p>Check ollama, 测试一下API是否可以正常访问</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><code class="hljs bash">$ curl http://localhost:11434/api/tags<br><br>$ curl http://10.70.246.224:11434/api/tags<br><br>$ curl -X POST http://10.70.246.224:11434/api/chat -H <span class="hljs-string">&quot;Content-Type: application/json&quot;</span> -d <span class="hljs-string">&#x27;&#123;</span><br><span class="hljs-string">  &quot;model&quot;: &quot;qwen3:8b&quot;,</span><br><span class="hljs-string">  &quot;messages&quot;: [</span><br><span class="hljs-string">    &#123;</span><br><span class="hljs-string">      &quot;role&quot;: &quot;user&quot;,</span><br><span class="hljs-string">      &quot;content&quot;: &quot;你好&quot;</span><br><span class="hljs-string">    &#125;</span><br><span class="hljs-string">  ],</span><br><span class="hljs-string">  &quot;stream&quot;: false</span><br><span class="hljs-string">&#125;&#x27;</span><br></code></pre></td></tr></table></figure>
+
+<p>Check ollama, 测试一下使用命令是否可以正常访问</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs bash">$ ollama list<br>$ ollama run qwen3:8b <span class="hljs-string">&quot;你好&quot;</span><br></code></pre></td></tr></table></figure>
+
+<p>TODO: <div>
+            <input type="checkbox"  >systemd的外延知识
+
+          </div><br>systemd不是很了解，之前在配置服务器网络的时候用到过！有时间可以再学一下！</p>
+<figure class="highlight markdown"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs markdown"><span class="hljs-bullet">-</span> 这个目录的末尾是 .d，这在 systemd 中有一个特殊的含义：它是用来存放 配置文件片段 (drop-in snippets) 的目录。<br><span class="hljs-bullet">-</span> 目的： 用来覆盖 (override) 或增强 (extend) 原始的 ollama.service 单元文件，而不需要直接修改那个文件。<br><span class="hljs-bullet">-</span> 用途： 任何放在这个目录下的 .conf 文件都会在 ollama.service 主文件加载后被读取和应用。这是最佳实践，因为它能让你在系统更新时，原始的 ollama.service 文件被替换掉，你所做的自定义配置仍然会保留下来。<br></code></pre></td></tr></table></figure>
+
+<h2 id="ollama服务的启动与停止"><a href="#ollama服务的启动与停止" class="headerlink" title="ollama服务的启动与停止"></a>ollama服务的启动与停止</h2><h3 id="启动和停止服务"><a href="#启动和停止服务" class="headerlink" title="启动和停止服务"></a>启动和停止服务</h3><table>
+<thead>
+<tr>
+<th align="left">动作</th>
+<th align="left">命令</th>
+<th align="left">解释</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="left"><strong>启动 (Start)</strong></td>
+<td align="left"><code>sudo systemctl start ollama</code></td>
+<td align="left">启动服务。如果服务未运行，则开始运行。如果已在运行，则什么也不做。</td>
+</tr>
+<tr>
+<td align="left"><strong>停止 (Stop)</strong></td>
+<td align="left"><code>sudo systemctl stop ollama</code></td>
+<td align="left">优雅地停止服务。</td>
+</tr>
+<tr>
+<td align="left"><strong>重启 (Restart)</strong></td>
+<td align="left"><code>sudo systemctl restart ollama</code></td>
+<td align="left">先停止，后启动服务。</td>
+</tr>
+<tr>
+<td align="left"><strong>重新加载 (Reload)</strong></td>
+<td align="left"><code>sudo systemctl reload ollama</code></td>
+<td align="left"><strong>仅在服务支持时</strong>，重新加载其配置而不中断当前运行的任务。对于 Ollama 这种应用，通常使用 <code>restart</code> 更保险。</td>
+</tr>
+</tbody></table>
+<h3 id="开机自启设置-Enabling-and-Disabling"><a href="#开机自启设置-Enabling-and-Disabling" class="headerlink" title="开机自启设置 (Enabling and Disabling)"></a>开机自启设置 (Enabling and Disabling)</h3><table>
+<thead>
+<tr>
+<th align="left">动作</th>
+<th align="left">命令</th>
+<th align="left">解释</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="left"><strong>设置开机自启</strong></td>
+<td align="left"><code>sudo systemctl enable ollama</code></td>
+<td align="left">创建必要的符号链接，确保系统下次启动时 <strong>自动</strong> 启动 Ollama 服务。</td>
+</tr>
+<tr>
+<td align="left"><strong>取消开机自启</strong></td>
+<td align="left"><code>sudo systemctl disable ollama</code></td>
+<td align="left">移除符号链接，下次系统启动时 <strong>不会</strong> 启动 Ollama 服务。</td>
+</tr>
+<tr>
+<td align="left"><strong>检查是否自启</strong></td>
+<td align="left"><code>systemctl is-enabled ollama</code></td>
+<td align="left">检查服务是否已设置为开机自启。</td>
+</tr>
+</tbody></table>
+<h3 id="完整启动-停止-Ollama-的流程"><a href="#完整启动-停止-Ollama-的流程" class="headerlink" title="完整启动&#x2F;停止 Ollama 的流程"></a>完整启动&#x2F;停止 Ollama 的流程</h3><p><strong>启动 Ollama：</strong></p>
+<ol>
+<li>如果你修改了配置：<code>sudo systemctl daemon-reload</code></li>
+<li><code>sudo systemctl start ollama</code></li>
+<li><code>sudo systemctl status ollama</code> (检查是否启动成功)</li>
+</ol>
+<p><strong>停止 Ollama：</strong></p>
+<ol>
+<li><code>sudo systemctl stop ollama</code></li>
+<li><code>sudo systemctl status ollama</code> (检查是否已停止)</li>
+</ol>
+<h2 id="现象解释"><a href="#现象解释" class="headerlink" title="现象解释"></a>现象解释</h2><p>安装完Ollama之后我发现一个现象。</p>
+<ul>
+<li>在没有Ollama运行但没有对话的时候，GPU之后G-Mem被占用，G-Utl没有；</li>
+<li>对话的时候，G-Utl会占用很大；</li>
+<li>一段时间之后，Ollama会自动结束服务；</li>
+</ul>
+<p>这里我觉得要区分一下Ollama和模型(如qwen3:8b)：</p>
+<ul>
+<li>Ollama的服务在启动后，并没有加载模型，只占用了CPU和Mem；</li>
+<li>通过api(<code>api/chat</code>)或者命令(<code>ollama run qwen3:8b</code>)之后，ollama会加载<code>qwen3:8b</code>模型，这时候会有G-Mem的占用；</li>
+<li>在对话的时候，则G-Utl会占用。</li>
+</ul>
+<p>此外，Ollama的部署在资源管理上有很大的优势和特点：</p>
+<ul>
+<li>只有收到请求时才加载模型；加载时间通常几秒钟；</li>
+<li>默认5分钟无请求后自动卸载；释放GPU显存给其他程序使用；</li>
+<li>空闲时只有ollama服务进程，几乎不占用GPU；工作时模型占用显存；</li>
+<li>不会长期占用GPU资源；其他用户可以在模型空闲时使用GPU；</li>
+</ul>
+<p>这就是为什么这种部署方式适合服务器环境的原因——按需使用，自动释放！<br>同理，在Zotero中使用GPT插件时，也是同样的机制：提问 → 模型加载 → 生成回答 → 5分钟后自动卸载</p>
+<h2 id="Ollama部署模型还有很多的应用待探索"><a href="#Ollama部署模型还有很多的应用待探索" class="headerlink" title="Ollama部署模型还有很多的应用待探索"></a>Ollama部署模型还有很多的应用待探索</h2><ul>
+<li><div>
+            <input type="checkbox"  checked="checked">Zotero GPT
+
+          </div></li>
+<li><div>
+            <input type="checkbox"  >其他应用
+
+          </div></li>
+<li>……</li>
+</ul>
+<h1 id="Zotero-GPT"><a href="#Zotero-GPT" class="headerlink" title="Zotero GPT"></a>Zotero GPT</h1><blockquote>
+<ul>
+<li>GPT for Zotero</li>
+<li><a target="_blank" rel="noopener" href="https://github.com/MuiseDestiny/zotero-gpt">MuiseDestiny&#x2F;zotero-gpt: GPT Meet Zotero.</a></li>
+<li>【三步教你部署本地大模型 Llama3，运行在 Zotero GPT 上】 <a target="_blank" rel="noopener" href="https://www.bilibili.com/video/BV1Wt421A7SD/?share_source=copy_web&vd_source=cb8ca20bb2f448c45637301044049930">https://www.bilibili.com/video/BV1Wt421A7SD/?share_source=copy_web&amp;vd_source=cb8ca20bb2f448c45637301044049930</a></li>
+</ul>
+</blockquote>
+<p><img src="https://murphyimg.oss-cn-beijing.aliyuncs.com/img/20251004210419876.png" srcset="https://murhyimgur.oss-cn-beijing.aliyuncs.com/website/loading.gif" lazyload alt="配置"></p>
+<ul>
+<li><strong>Zotero GPT</strong>: 使用API URL <code>http:$SERVER_IP//:$OLLAMA_PORT</code></li>
+<li><strong>API Key</strong>: 设置为空格 <code>&quot; &quot;</code></li>
+<li><strong>模型</strong>: <code>qwen3:8b</code></li>
+</ul>
+<blockquote>
+<p>这里其实是不需要API Key的，但应该这个插件的问题，不设置Key会报错。这里直接键入一个“空格”就能解决。</p>
+</blockquote>
+
+                
+              </div>
+            
+            <hr/>
+            <div>
+              <div class="post-metas my-3">
+  
+    <div class="post-meta mr-3 d-flex align-items-center">
+      <i class="iconfont icon-category"></i>
+      
+
+<span class="category-chains">
+  
+  
+    
+      <span class="category-chain">
+        
+  <a href="/categories/%E9%AB%98%E6%95%88%E5%B7%A5%E5%85%B7/" class="category-chain-item">高效工具</a>
+  
+  
+
+      </span>
+    
+  
+</span>
+
+    </div>
+  
+  
+    <div class="post-meta">
+      <i class="iconfont icon-tags"></i>
+      
+        <a href="/tags/Code/" class="print-no-link">#Code</a>
+      
+        <a href="/tags/LLM/" class="print-no-link">#LLM</a>
+      
+        <a href="/tags/AI/" class="print-no-link">#AI</a>
+      
+    </div>
+  
+</div>
+
+
+              
+  
+
+  <div class="license-box my-3">
+    <div class="license-title">
+      <div>Ollama</div>
+      <div>https://blog.cosmicdusty.cc/post/Productivity-Tools/Ollama/</div>
+    </div>
+    <div class="license-meta">
+      
+        <div class="license-meta-item">
+          <div>作者</div>
+          <div>Murphy</div>
+        </div>
+      
+      
+        <div class="license-meta-item license-meta-date">
+          <div>发布于</div>
+          <div>2025年10月3日</div>
+        </div>
+      
+      
+      
+        <div class="license-meta-item">
+          <div>许可协议</div>
+          <div>
+            
+              
+              
+                <a class="print-no-link" target="_blank" href="https://creativecommons.org/licenses/by/4.0/">
+                  <span class="hint--top hint--rounded" aria-label="BY - 署名">
+                    <i class="iconfont icon-cc-by"></i>
+                  </span>
+                </a>
+              
+            
+          </div>
+        </div>
+      
+    </div>
+    <div class="license-icon iconfont"></div>
+  </div>
+
+
+
+              
+                <div class="post-prevnext my-3">
+                  <article class="post-prev col-6">
+                    
+                    
+                      <a href="/post/Productivity-Tools/OECT-CasaOS/" title="Lightweight NAS with OECT-CasaOS">
+                        <i class="iconfont icon-arrowleft"></i>
+                        <span class="hidden-mobile">Lightweight NAS with OECT-CasaOS</span>
+                        <span class="visible-mobile">上一篇</span>
+                      </a>
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/post/Productivity-Tools/Zotero7/" title="New Zotero 7">
+                        <span class="hidden-mobile">New Zotero 7</span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+  
+  
+    <article id="comments" lazyload>
+      
+  <div id="valine"></div>
+  <script type="text/javascript">
+    Fluid.utils.loadComments('#valine', function() {
+      Fluid.utils.createScript('https://lib.baomitu.com/valine/1.5.1/Valine.min.js', function() {
+        var options = Object.assign(
+          {"appId":"JijHNKemeVNog4wF7g9I5TR3-gzGzoHsz","appKey":"FvsKdxHOP2aG5rHrHby5aV0b","path":"window.location.pathname","placeholder":null,"avatar":"retro","meta":["nick","mail","link"],"requiredFields":[],"pageSize":10,"lang":"zh-CN","highlight":false,"recordIP":false,"serverURLs":"","emojiCDN":null,"emojiMaps":null,"enableQQ":false},
+          {
+            el: "#valine",
+            path: window.location.pathname
+          }
+        )
+        new Valine(options);
+        Fluid.utils.waitElementVisible('#valine .vcontent', () => {
+          var imgSelector = '#valine .vcontent img:not(.vemoji)';
+          Fluid.plugins.imageCaption(imgSelector);
+          Fluid.plugins.fancyBox(imgSelector);
+        })
+      });
+    });
+  </script>
+  <noscript>Please enable JavaScript to view the comments</noscript>
+
+
+    </article>
+  
+
+
+          </article>
+        </div>
+      </div>
+    </div>
+
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+  <aside class="sidebar" style="margin-left: -1rem">
+    <div id="toc">
+  <p class="toc-header">
+    <i class="iconfont icon-list"></i>
+    <span>目录</span>
+  </p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+
+
+  </aside>
+
+
+    </div>
+  </div>
+</div>
+
+
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+
+
+
+
+    
+
+    
+      <a id="scroll-top-button" aria-label="TOP" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v" for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+    
+
+    
+  </main>
+
+  <footer>
+    <div class="footer-inner">
+  
+    <div class="footer-content">
+       <a rel="nofollow noopener"><span>Powered by</span></a> <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span><b>Hexo</b></span></a> <i class="iconfont icon-love"></i> <a rel="nofollow noopener"><span>Themed by</span></a> <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"><span><b>Fluid</b></span></a> 
+    </div>
+  
+  
+    <div class="statistics">
+  
+  
+
+  
+    
+      <span id="busuanzi_container_site_pv" style="display: none">
+        总访问量
+        <span id="busuanzi_value_site_pv"></span>
+        次
+      </span>
+    
+    
+      <span id="busuanzi_container_site_uv" style="display: none">
+        总访客数
+        <span id="busuanzi_value_site_uv"></span>
+        人
+      </span>
+    
+    
+
+  
+
+</div>
+
+  
+  
+</div>
+
+  </footer>
+
+  <!-- Scripts -->
+  
+  <script  src="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://lib.baomitu.com/jquery/3.6.0/jquery.min.js" ></script>
+<script  src="https://lib.baomitu.com/twitter-bootstrap/4.6.1/js/bootstrap.min.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
+
+
+  <script  src="https://lib.baomitu.com/typed.js/2.0.12/typed.min.js" ></script>
+  <script>
+    (function (window, document) {
+      var typing = Fluid.plugins.typing;
+      var subtitle = document.getElementById('subtitle');
+      if (!subtitle || !typing) {
+        return;
+      }
+      var text = subtitle.getAttribute('data-typed-text');
+      
+        typing(text);
+      
+    })(window, document);
+  </script>
+
+
+
+
+  
+    <script  src="/js/img-lazyload.js" ></script>
+  
+
+
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/tocbot/4.18.2/tocbot.min.js', function() {
+    var toc = jQuery('#toc');
+    if (toc.length === 0 || !window.tocbot) { return; }
+    var boardCtn = jQuery('#board-ctn');
+    var boardTop = boardCtn.offset().top;
+
+    window.tocbot.init(Object.assign({
+      tocSelector     : '#toc-body',
+      contentSelector : '.markdown-body',
+      linkClass       : 'tocbot-link',
+      activeLinkClass : 'tocbot-active-link',
+      listClass       : 'tocbot-list',
+      isCollapsedClass: 'tocbot-is-collapsed',
+      collapsibleClass: 'tocbot-is-collapsible',
+      scrollSmooth    : true,
+      includeTitleTags: true,
+      headingsOffset  : -boardTop,
+    }, CONFIG.toc));
+    if (toc.find('.toc-list-item').length > 0) {
+      toc.css('visibility', 'visible');
+    }
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('tocbot' in window) {
+        tocbot.refresh();
+        var toc = jQuery('#toc');
+        if (toc.length === 0 || !tocbot) {
+          return;
+        }
+        if (toc.find('.toc-list-item').length > 0) {
+          toc.css('visibility', 'visible');
+        }
+      }
+    });
+  });
+</script>
+
+
+  <script src=https://lib.baomitu.com/clipboard.js/2.0.11/clipboard.min.js></script>
+
+  <script>Fluid.plugins.codeWidget();</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/anchor-js/4.3.1/anchor.min.js', function() {
+    window.anchors.options = {
+      placement: CONFIG.anchorjs.placement,
+      visible  : CONFIG.anchorjs.visible
+    };
+    if (CONFIG.anchorjs.icon) {
+      window.anchors.options.icon = CONFIG.anchorjs.icon;
+    }
+    var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+    var res = [];
+    for (var item of el) {
+      res.push('.markdown-body > ' + item.trim());
+    }
+    if (CONFIG.anchorjs.placement === 'left') {
+      window.anchors.options.class = 'anchorjs-link-left';
+    }
+    window.anchors.add(res.join(', '));
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('anchors' in window) {
+        anchors.removeAll();
+        var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+        var res = [];
+        for (var item of el) {
+          res.push('.markdown-body > ' + item.trim());
+        }
+        if (CONFIG.anchorjs.placement === 'left') {
+          anchors.options.class = 'anchorjs-link-left';
+        }
+        anchors.add(res.join(', '));
+      }
+    });
+  });
+</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.js', function() {
+    Fluid.plugins.fancyBox();
+  });
+</script>
+
+
+  <script>Fluid.plugins.imageCaption();</script>
+
+  <script defer src="/js/leancloud.js" ></script>
+
+  <script  src="/js/local-search.js" ></script>
+
+  <script defer src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js" ></script>
+
+
+
+
+
+<!-- 主题的启动项，将它保持在最底部 -->
+<!-- the boot of the theme, keep it at the bottom -->
+<script  src="/js/boot.js" ></script>
+
+
+  
+
+  <noscript>
+    <div class="noscript-warning">博客在允许 JavaScript 运行的环境下浏览效果更佳</div>
+  </noscript>
+</body>
+</html>
